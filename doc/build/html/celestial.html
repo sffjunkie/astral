@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; Celestial v0.1a documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1a',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Celestial v0.1a documentation" href="index.html" />
+    <link rel="next" title="Module Documentation" href="module.html" />
+    <link rel="prev" title="Welcome to Celestial" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="module.html" title="Module Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Celestial"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Celestial v0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Celestial is a python module for calculating the times of various aspects of
+the sun.</p>
+<p>It calculates the following</p>
+<dl class="docutils">
+<dt>Dawn</dt>
+<dd>The time in the morning when the sun is a specific number of degrees
+below the horizon.</dd>
+<dt>Sunrise</dt>
+<dd>The time in the morning when the top of the sun breaks the horizon
+(asuming a location with no obscuring features.)</dd>
+<dt>Solar Noon</dt>
+<dd>The time when the sun is at its highest point.</dd>
+<dt>Sunset</dt>
+<dd>The time in the evening when the sun is about to disappear below the horizon
+(asuming a location with no obscuring features.)</dd>
+<dt>Dusk</dt>
+<dd>The time in the evening when the sun is a specific number of degrees
+below the horizon.</dd>
+<dt><a class="reference external" href="http://en.wikipedia.org/wiki/Rahukaalam">Rahukaalam</a></dt>
+<dd>&#8220;Rahukaalam or the period of Rahu is a certain amount of time every day
+that is considered inauspicious for any new venture according to Indian
+astrology&#8221;.</dd>
+</dl>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The following example demonstrates the functionality available in the module</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">celestial</span> <span class="kn">import</span> <span class="n">Celestial</span>
+
+<span class="n">city_name</span> <span class="o">=</span> <span class="s">&#39;London&#39;</span>
+
+<span class="n">cel</span> <span class="o">=</span> <span class="n">Celestial</span><span class="p">()</span>
+<span class="n">cel</span><span class="o">.</span><span class="n">solar_depression</span> <span class="o">=</span> <span class="s">&#39;civil&#39;</span>
+
+<span class="n">city</span> <span class="o">=</span> <span class="n">cel</span><span class="p">[</span><span class="n">city_name</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Information for </span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">city_name</span><span class="p">,</span> <span class="n">city</span><span class="o">.</span><span class="n">country</span><span class="p">))</span>
+
+<span class="n">tz_name</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">tz_name</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Timezone: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">tz_name</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Latitude: </span><span class="si">%.02f</span><span class="s">; Longitude: </span><span class="si">%.02f</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> \
+    <span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">city</span><span class="o">.</span><span class="n">longitude</span><span class="p">))</span>
+
+<span class="n">sun</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">sun</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mf">2009</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">22</span><span class="p">),</span> <span class="n">local</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Dawn:    </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s">&#39;dawn&#39;</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Sunrise: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s">&#39;sunrise&#39;</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Noon:    </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s">&#39;noon&#39;</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Sunset:  </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s">&#39;sunset&#39;</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Dusk:    </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s">&#39;dusk&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>Produces the following output:</p>
+<div class="highlight-python"><pre>Information for London/England
+
+Timezone: Europe/London
+Latitude: 51.60; Longitude: 0.08
+
+Dawn:     2009-04-22 05:12:56+01:00
+Sunrise:  2009-04-22 05:49:36+01:00
+Noon:     2009-04-22 12:58:48+01:00
+Sunset:   2009-04-22 20:09:07+01:00
+Dusk:     2009-04-22 20:45:52+01:00</pre>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Celestial has one external dependency on &#8216;pytz&#8217; which can either be obtained
+from <a class="reference external" href="http://pytz.sourceforge.net/">Sourceforge</a> or via the <a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall">easy_install</a> method whichever you choose:</p>
+<div class="highlight-python"><pre>easy_install pytz</pre>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>When you&#8217;ve added the pytz package to install celestial unzip the archive to
+a handy location and execute the standard Python installation method:</p>
+<div class="highlight-python"><pre>python setup.py install</pre>
+</div>
+</div>
+<div class="section" id="cities">
+<h2>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">¶</a></h2>
+<p>The module includes location and time zone data for the following cities.
+The list includes all capital cities plus some from the UK.</p>
+<p>Aberdeen, Abu Dhabi, Abuja, Accra, Addis Ababa, Adelaide, Al Jubail, Algiers,
+Amman, Amsterdam, Andorra la Vella, Ankara, Antananarivo, Apia, Ashgabat,
+Asmara, Astana, Asuncion, Athens, Baghdad, Baku, Bamako, Bandar Seri Begawan,
+Bangkok, Bangui, Banjul, Basse-Terre, Basseterre, Beijing, Beirut, Belgrade,
+Belmopan, Berlin, Bern, Birmingham, Bishkek, Bissau, Bloemfontein, Bogota,
+Bolton, Bradford, Brasilia, Bratislava, Brazzaville, Bridgetown, Brisbane,
+Bristol, Brussels, Bucharest, Bucuresti, Budapest, Buenos Aires, Bujumbura,
+Cairo, Canberra, Cape Town, Caracas, Cardiff, Castries, Cayenne, Charlotte
+Amalie, Chisinau, Conakry, Copenhagen, Cotonou, Crawley, Dakar, Damascus, Dammam, Dhaka,
+Dili, Djibouti, Dodoma, Doha, Dublin, Dushanbe, Edinburgh, Fort-de-France,
+Freetown, Funafuti, Gaborone, George Town, Georgetown, Glasgow, Guatemala,
+Hanoi, Harare, Havana, Helsinki, Hobart, Honiara, Islamabad, Jakarta, Jerusalem, Jubail,
+Kabul, Kampala, Kathmandu, Khartoum, Kiev, Kigali, Kingston, Kingstown,
+Kinshasa, Koror, Kuala Lumpur, Kuwait, La Paz, Leeds, Leicester, Libreville,
+Lilongwe, Lima, Lisbon, Liverpool, Ljubljana, Lome, London, Luanda, Lusaka,
+Luxembourg, Macau, Madinah, Madrid, Makkah, Malabo, Male, Mamoudzou, Managua,
+Manama, Manchester, Manila, Maputo, Maseru, Masqat, Mbabane, Mecca, Medina,
+Mexico, Minsk, Mogadishu, Monrovia, Montevideo, Moroni, Moscow, Moskva,
+N&#8217;Djamena, Nairobi, Nassau, New Delhi, Newcastle, Newcastle Upon Time, Niamey,
+Nicosia, Norwich, Nouakchott, Noumea, Nuku&#8217;alofa, Nuuk, Oranjestad, Oslo,
+Ottawa, Ouagadougou, Oxford, P&#8217;yongyang, Pago Pago, Palikir, Panama, Papeete,
+Paramaribo, Paris, Perth, Phnom Penh, Plymouth, Port Moresby, Port-Vila,
+Port-au-Prince, Porto-Novo, Portsmouth, Prague, Praia, Pretoria, Quito, Reading,
+Reykjavik, Riga, Riyadh, Road Town, Rome, Roseau, Saint Pierre, Saipan, San
+Jose, San Juan, San Marino, San Salvador, Santiago, Santo Domingo, Sao Tome,
+Sarajevo, Seoul, Sheffield, Skopje, Sofia, Southampton, St. Peter Port, Stanley,
+Stockholm, Sucre, Suva, Swansea, Swindon, Sydney, T&#8217;bilisi, Tallinn, Tarawa,
+Tashkent, Tegucigalpa, Tehran, Thimphu, Tirane, Torshavn, Tripoli, Tunis, Vaduz,
+Valletta, Vienna, Vientiane, Vilnius, W. Indies, Warsaw, Washington DC,
+Wellington, Willemstad, Windhoek, Wolverhampton, Yamoussoukro, Yangon, Yaounde,
+Yerevan, Zagreb</p>
+</div>
+<div class="section" id="thanks">
+<h2>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h2>
+<p>The sun calculations in this module are adapted from the following spreadsheet</p>
+<blockquote>
+<a class="reference external" href="http://www.ecy.wa.gov/programs/eap/models/twilight.zip">http://www.ecy.wa.gov/programs/eap/models/twilight.zip</a></blockquote>
+</div>
+<div class="section" id="version-history">
+<h2>Version History<a class="headerlink" href="#version-history" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0.1beta</td>
+<td>First release</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3><a id="expander" href="#">&#171;</a>
+            <ul>
+<li><a class="reference external" href="">Introduction</a><ul>
+<li><a class="reference external" href="#example">Example</a></li>
+<li><a class="reference external" href="#dependencies">Dependencies</a></li>
+<li><a class="reference external" href="#installation">Installation</a></li>
+<li><a class="reference external" href="#cities">Cities</a></li>
+<li><a class="reference external" href="#thanks">Thanks</a></li>
+<li><a class="reference external" href="#version-history">Version History</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Welcome to Celestial</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="module.html"
+                                  title="next chapter">Module Documentation</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/celestial.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="module.html" title="Module Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Celestial"
+             >previous</a> |</li>
+        <li><a href="index.html">Celestial v0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Simon Kennedy.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.1.
+    </div>
+  </body>
+</html>

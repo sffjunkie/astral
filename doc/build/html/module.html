@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module Documentation &mdash; Celestial v0.1a documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1a',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Celestial v0.1a documentation" href="index.html" />
+    <link rel="prev" title="Introduction" href="celestial.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="celestial.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Celestial v0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-celestial">
+<h1>Module Documentation<a class="headerlink" href="#module-celestial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="celestial">
+<h2>celestial<a class="headerlink" href="#celestial" title="Permalink to this headline">¶</a></h2>
+<p>Provides the means to calculate dawn, sunrise, solar noon,
+sunset and dusk times for specific cities or for a particular
+latitude/longitude.</p>
+<p>There are 2 main classes <a title="celestial.Celestial" class="reference internal" href="#celestial.Celestial"><tt class="xref docutils literal"><span class="pre">Celestial</span></tt></a> and
+<a title="celestial.City" class="reference internal" href="#celestial.City"><tt class="xref docutils literal"><span class="pre">City</span></tt></a>.</p>
+<dl class="docutils">
+<dt><a title="celestial.Celestial" class="reference internal" href="#celestial.Celestial"><tt class="xref docutils literal"><span class="pre">Celestial</span></tt></a></dt>
+<dd>Contains the main calculation logic and the ability to retrieve the
+information required for a specific city.</dd>
+<dt><a title="celestial.City" class="reference internal" href="#celestial.City"><tt class="xref docutils literal"><span class="pre">City</span></tt></a></dt>
+<dd>Holds information about a city and provides functions to calculate
+the correct times for the city i.e. in the correct time zone.</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">celestial</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cel</span> <span class="o">=</span> <span class="n">Celestial</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">city</span> <span class="o">=</span> <span class="n">cel</span><span class="p">[</span><span class="s">&#39;London&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Information for </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">city</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="go">Information for London</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tz_name</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">tz_name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Timezone: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">tz_name</span><span class="p">)</span>
+<span class="go">Timezone: Europe/London</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Latitude: </span><span class="si">%.02f</span><span class="s">; Longitude: </span><span class="si">%.02f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">city</span><span class="o">.</span><span class="n">longitude</span><span class="p">))</span>
+<span class="go">Latitude: 51.60; Longitude: 0.08</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sun</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">sun</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dawn:    </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s">&#39;dawn&#39;</span><span class="p">]))</span>
+<span class="go">Dawn:    2009-04-22 05:12:56+01:00</span>
+</pre></div>
+</div>
+</div>
+<dl class="class">
+<dt id="celestial.Celestial">
+<em class="property">
+class </em><tt class="descclassname">celestial.</tt><tt class="descname">Celestial</tt><a class="headerlink" href="#celestial.Celestial" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="celestial.Celestial.cities">
+<tt class="descname">cities</tt><a class="headerlink" href="#celestial.Celestial.cities" title="Permalink to this definition">¶</a></dt>
+<dd>Returns a dictionary of cities indexed by city name.</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.Celestial.city_count">
+<tt class="descname">city_count</tt><a class="headerlink" href="#celestial.Celestial.city_count" title="Permalink to this definition">¶</a></dt>
+<dd>The number of cities data is included for</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.dawn_utc">
+<tt class="descname">dawn_utc</tt><big>(</big><em>date</em>, <em>latitude</em>, <em>longitude</em><big>)</big><a class="headerlink" href="#celestial.Celestial.dawn_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate dawn time for a specific date at a particular position.</p>
+<p>Returns date/time in UTC</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.dusk_utc">
+<tt class="descname">dusk_utc</tt><big>(</big><em>date</em>, <em>latitude</em>, <em>longitude</em><big>)</big><a class="headerlink" href="#celestial.Celestial.dusk_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate dusk time for a specific date at a particular position.</p>
+<p>Returns date/time in UTC</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.noon_utc">
+<tt class="descname">noon_utc</tt><big>(</big><em>date</em>, <em>longitude</em><big>)</big><a class="headerlink" href="#celestial.Celestial.noon_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate solar noon time for a specific date at a particular position.</p>
+<p>Returns date/time in UTC</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.rahukaalam">
+<tt class="descname">rahukaalam</tt><big>(</big><em>latitude</em>, <em>longitude</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#celestial.Celestial.rahukaalam" title="Permalink to this definition">¶</a></dt>
+<dd>Calculate ruhakaalam times at a particular location.</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.Celestial.solar_depression">
+<tt class="descname">solar_depression</tt><a class="headerlink" href="#celestial.Celestial.solar_depression" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of degrees the sun must be below the horizon for the dawn/dusk calc.</p>
+<p>Can either be set as a number of degrees below the horizon or as
+one of the following strings</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="65%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Depression</th>
+<th class="head">Degrees</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>civil</td>
+<td>6</td>
+</tr>
+<tr><td>nautical</td>
+<td>12</td>
+</tr>
+<tr><td>astronomical</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.solar_elevation">
+<tt class="descname">solar_elevation</tt><big>(</big><em>dateandtime</em>, <em>latitude</em>, <em>longitude</em><big>)</big><a class="headerlink" href="#celestial.Celestial.solar_elevation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the elevation of the sun as a specific date/time and location</p>
+<p>Result will be returned in the time zone of <cite>dateandtime</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.sun">
+<tt class="descname">sun</tt><big>(</big><em>latitude</em>, <em>longitude</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#celestial.Celestial.sun" title="Permalink to this definition">¶</a></dt>
+<dd>Returns dawn, sunrise, noon, sunset and dusk times as a dictionary</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.sunrise_utc">
+<tt class="descname">sunrise_utc</tt><big>(</big><em>date</em>, <em>latitude</em>, <em>longitude</em><big>)</big><a class="headerlink" href="#celestial.Celestial.sunrise_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate sunrise time for a specific date at a particular position.</p>
+<p>Returns date/time in UTC</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.Celestial.sunset_utc">
+<tt class="descname">sunset_utc</tt><big>(</big><em>date</em>, <em>latitude</em>, <em>longitude</em><big>)</big><a class="headerlink" href="#celestial.Celestial.sunset_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate sunset time for a specific date at a particular position.</p>
+<p>Returns date/time in UTC</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="celestial.City">
+<em class="property">
+class </em><tt class="descclassname">celestial.</tt><tt class="descname">City</tt><big>(</big><em>info=None</em><big>)</big><a class="headerlink" href="#celestial.City" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface to information about single city.</p>
+<dl class="method">
+<dt id="celestial.City.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>info=None</em><big>)</big><a class="headerlink" href="#celestial.City.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the object with a tuple of information.</p>
+<p>The tuple should contain the following items</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="70%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Field</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>name</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>country</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>latitude</td>
+<td>0</td>
+</tr>
+<tr><td>longitude</td>
+<td>0</td>
+</tr>
+<tr><td>time zone name</td>
+<td>UTC</td>
+</tr>
+</tbody>
+</table>
+<p>See <a title="celestial.City.tz_name" class="reference internal" href="#celestial.City.tz_name"><tt class="xref docutils literal"><span class="pre">tz_name</span></tt></a> property for a method of obtaining time zone names</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.City.country">
+<tt class="descname">country</tt><a class="headerlink" href="#celestial.City.country" title="Permalink to this definition">¶</a></dt>
+<dd>The country in which the city is located.</dd></dl>
+
+<dl class="method">
+<dt id="celestial.City.dawn">
+<tt class="descname">dawn</tt><big>(</big><em>date=None</em>, <em>local=True</em><big>)</big><a class="headerlink" href="#celestial.City.dawn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dawn time.</p>
+<p>Calculates the time in the morning when the sun is a certain number of
+degrees below the horizon. By default this is 6 degrees but can be changed
+by setting the <a title="celestial.Celestial.solar_depression" class="reference internal" href="#celestial.Celestial.solar_depression"><tt class="xref docutils literal"><span class="pre">Celestial.solar_depression</span></tt></a> property.</p>
+<p>Parameters:</p>
+<div class="highlight-python"><pre>date  - The date for which to calculate the sunrise time.
+
+local - True  = Time to be returned in cities time zone (Default);
+        False = UTC.</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.City.dusk">
+<tt class="descname">dusk</tt><big>(</big><em>date=None</em>, <em>local=True</em><big>)</big><a class="headerlink" href="#celestial.City.dusk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dusk time.</p>
+<p>Calculates the time in the evening when the sun is a certain number of
+degrees below the horizon. By default this is 6 degrees but can be changed
+by setting the <a title="celestial.Celestial.solar_depression" class="reference internal" href="#celestial.Celestial.solar_depression"><tt class="xref docutils literal"><span class="pre">Celestial.solar_depression</span></tt></a> property.</p>
+<p>Parameters:</p>
+<div class="highlight-python"><pre>date  - The date for which to calculate the dusk time.
+
+local - True  = Time to be returned in cities time zone (Default);
+        False = UTC.</pre>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.City.latitude">
+<tt class="descname">latitude</tt><a class="headerlink" href="#celestial.City.latitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>The city&#8217;s latitude</p>
+<p><a title="celestial.City.latitude" class="reference internal" href="#celestial.City.latitude"><tt class="xref docutils literal"><span class="pre">latitude</span></tt></a> can be set either as a string or as a number</p>
+<p>For strings they must be of the form:</p>
+<div class="highlight-python"><pre>degrees°minutes'[N|S] e.g. 51°31'N</pre>
+</div>
+<p>For numbers, negative numbers signify latitudes to the South.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.City.longitude">
+<tt class="descname">longitude</tt><a class="headerlink" href="#celestial.City.longitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>The city&#8217;s longitude.</p>
+<p>longitude can be set either as a string or as a number</p>
+<p>For strings they must be of the form:</p>
+<div class="highlight-python"><pre>degrees°minutes'[E|W] e.g. 51°31'W</pre>
+</div>
+<p>For numbers, negative numbers signify longitudes to the East.
+This is opposite to the normal convention of +ve being to the West
+but is required for the calculations.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.City.name">
+<tt class="descname">name</tt><a class="headerlink" href="#celestial.City.name" title="Permalink to this definition">¶</a></dt>
+<dd>The city name.</dd></dl>
+
+<dl class="method">
+<dt id="celestial.City.noon">
+<tt class="descname">noon</tt><big>(</big><em>date=None</em>, <em>local=True</em><big>)</big><a class="headerlink" href="#celestial.City.noon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return noon time.</p>
+<p>Calculates the time when the sun is at its heighest point.</p>
+<p>Parameters:</p>
+<div class="highlight-python"><pre>date  - The date for which to calculate the noon time.
+
+local - True  = Time to be returned in cities time zone (Default);
+        False = UTC.</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.City.rahukaalam">
+<tt class="descname">rahukaalam</tt><big>(</big><em>date=None</em>, <em>local=True</em><big>)</big><a class="headerlink" href="#celestial.City.rahukaalam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates rahukaalam times.</p>
+<p>Parameters:</p>
+<div class="highlight-python"><pre>date  - The date for which to calculate rahukaalam time.
+
+local - True  = Time to be returned in cities time zone (Default);
+        False = UTC.</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.City.sun">
+<tt class="descname">sun</tt><big>(</big><em>date=None</em>, <em>local=True</em><big>)</big><a class="headerlink" href="#celestial.City.sun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns dawn, sunrise, noon, sunset and dusk as a dictionary.</p>
+<p>Parameters:</p>
+<div class="highlight-python"><pre>date  - The date for which to calculate the times.
+
+local - True  = Time to be returned in cities time zone (Default);
+        False = UTC.</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.City.sunrise">
+<tt class="descname">sunrise</tt><big>(</big><em>date=None</em>, <em>local=True</em><big>)</big><a class="headerlink" href="#celestial.City.sunrise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sunrise time.</p>
+<p>Calculates the time in the morning when the sun is a 0.833 degrees
+below the horizon. This is to account for refraction.</p>
+<p>Parameters:</p>
+<div class="highlight-python"><pre>date  - The date for which to calculate the sunrise time.
+
+local - True  = Time to be returned in cities time zone (Default);
+        False = UTC.</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="celestial.City.sunset">
+<tt class="descname">sunset</tt><big>(</big><em>date=None</em>, <em>local=True</em><big>)</big><a class="headerlink" href="#celestial.City.sunset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sunset time.</p>
+<p>Calculates the time in the evening when the sun is a 0.833 degrees
+below the horizon. This is to account for refraction.</p>
+<p>Parameters:</p>
+<div class="highlight-python"><pre>date  - The date for which to calculate the sunset time.
+
+local - True  = Time to be returned in cities time zone (Default);
+        False = UTC.</pre>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.City.tz">
+<tt class="descname">tz</tt><a class="headerlink" href="#celestial.City.tz" title="Permalink to this definition">¶</a></dt>
+<dd>The timezone.</dd></dl>
+
+<dl class="attribute">
+<dt id="celestial.City.tz_name">
+<tt class="descname">tz_name</tt><a class="headerlink" href="#celestial.City.tz_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The time zone name in which the city is located.</p>
+<p>A list of time zone names can be obtained from pytz. For example.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytz</span> <span class="kn">import</span> <span class="n">all_timezones</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">tz</span> <span class="ow">in</span> <span class="n">all_timezones</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="n">tz</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Module Documentation</a><ul>
+<li><a class="reference external" href="#celestial">celestial</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="celestial.html"
+                                  title="previous chapter">Introduction</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/module.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="celestial.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">Celestial v0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Simon Kennedy.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.1.
+    </div>
+  </body>
+</html>

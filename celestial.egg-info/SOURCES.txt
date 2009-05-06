@@ -1,0 +1,8 @@
+README.txt
+celestial.py
+setup.py
+celestial.egg-info/PKG-INFO
+celestial.egg-info/SOURCES.txt
+celestial.egg-info/dependency_links.txt
+celestial.egg-info/requires.txt
+celestial.egg-info/top_level.txt
