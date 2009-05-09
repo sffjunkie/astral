@@ -1,3 +1,4 @@
 *.pyc
+backups/*
 build/*
 dist/*
