@@ -8,7 +8,7 @@
 
 """
 astral
----------
+------
 
 Provides the means to calculate dawn, sunrise, solar noon,
 sunset and dusk times for specific cities or for a particular
