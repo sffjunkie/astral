@@ -1,10 +1,10 @@
 Metadata-Version: 1.0
-Name: celestial
+Name: astral
 Version: 0.01
-Summary: Celestial calculations for dawn, sunrise, solar noon, sunset and dusk.
-Home-page: http://www.sffjunkie.co.uk/python-celestial.html
+Summary: Calculations for dawn, sunrise, solar noon, sunset and dusk.
+Home-page: http://www.sffjunkie.co.uk/python-astral.html
 Author: Simon Kennedy
-Author-email: celestial@sffjunkie.co.uk
+Author-email: astral@sffjunkie.co.uk
 License: MIT
 Description: UNKNOWN
 Platform: UNKNOWN
