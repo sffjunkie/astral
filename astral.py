@@ -1,23 +1,23 @@
 # set encoding=utf-8
 
-# Copyright 2009, Simon Kennedy, celestial@sffjunkie.co.uk
+# Copyright 2009, Simon Kennedy, astral@sffjunkie.co.uk
 # Distributed under the terms of the MIT License.
 
 # Sun calculations taken from the following spreadsheet.
 # http://www.ecy.wa.gov/programs/eap/models/twilight.zip
 
 """
-celestial
+astral
 ---------
 
 Provides the means to calculate dawn, sunrise, solar noon,
 sunset and dusk times for specific cities or for a particular
 latitude/longitude.
 
-There are 2 main classes :class:`Celestial` and
+There are 2 main classes :class:`Astral` and
 :class:`City`.
 
-:class:`Celestial`
+:class:`Astral`
     Contains the main calculation logic and the ability to retrieve the
     information required for a specific city.
     
@@ -27,9 +27,9 @@ There are 2 main classes :class:`Celestial` and
 
 For example
 
->>> from celestial import *
->>> cel = Celestial()
->>> city = cel['London']
+>>> from astral import *
+>>> a = Astral()
+>>> city = a['London']
 >>> print('Information for %s' % city.name)
 Information for London
 >>> tz_name = city.tz_name
@@ -49,10 +49,10 @@ from math import cos, sin, tan, acos, asin, atan, floor, radians, degrees
 
 import pytz
 
-__all__ = ['City', 'Celestial','CelestialException']
+__all__ = ['City', 'Astral','AstralException']
 
 __version__ = "0.1"
-__author__ = "Simon Kennedy <celestial@sffjunkie.co.uk>"
+__author__ = "Simon Kennedy <astral@sffjunkie.co.uk>"
 
 _CITY_INFO = """
 Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
@@ -302,7 +302,7 @@ Swindon,England,51°34'N,01°47'W,Europe/London
 Wolverhampton,England,52°35'N,2°08'W,Europe/London
 """
 
-class CelestialException(Exception):
+class AstralException(Exception):
     pass
 
 class City(object):
@@ -326,7 +326,7 @@ class City(object):
         See :attr:`tz_name` property for a method of obtaining time zone names
         """
         
-        self._celestial = None
+        self._astral = None
         if info is None:
             self._name = ''
             self._country = ''
@@ -467,7 +467,7 @@ class City(object):
         
         Calculates the time in the morning when the sun is a certain number of
         degrees below the horizon. By default this is 6 degrees but can be changed
-        by setting the :attr:`Celestial.solar_depression` property.
+        by setting the :attr:`Astral.solar_depression` property.
         
         Parameters::
         
@@ -477,13 +477,13 @@ class City(object):
                     False = UTC.
         """
 
-        if self._celestial is None:
-            self._celestial = Celestial()
+        if self._astral is None:
+            self._astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        dawn = self._celestial.dawn_utc(date, self.latitude, self.longitude)
+        dawn = self._astral.dawn_utc(date, self.latitude, self.longitude)
 
         if local:
             loc_tz = pytz.timezone(self.tz_name)
@@ -508,7 +508,7 @@ class City(object):
         if date is None:
             date = datetime.date.today()
 
-        sunrise = self._celestial.sunrise_utc(date, self.latitude, self.longitude)
+        sunrise = self._astral.sunrise_utc(date, self.latitude, self.longitude)
 
         if local:
             loc_tz = pytz.timezone(self.tz_name)
@@ -529,13 +529,13 @@ class City(object):
                     False = UTC.
         """
         
-        if self._celestial is None:
-            self._celestial = Celestial()
+        if self._astral is None:
+            self._astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        noon = self._celestial.noon_utc(date, self.longitude)
+        noon = self._astral.noon_utc(date, self.longitude)
 
         if local:
             loc_tz = pytz.timezone(self.tz_name)
@@ -557,13 +557,13 @@ class City(object):
                     False = UTC.
         """
         
-        if self._celestial is None:
-            self._celestial = Celestial()
+        if self._astral is None:
+            self._astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        sunset = self._celestial.sunset_utc(date, self.latitude, self.longitude)
+        sunset = self._astral.sunset_utc(date, self.latitude, self.longitude)
 
         if local:
             loc_tz = pytz.timezone(self.tz_name)
@@ -576,7 +576,7 @@ class City(object):
         
         Calculates the time in the evening when the sun is a certain number of
         degrees below the horizon. By default this is 6 degrees but can be changed
-        by setting the :attr:`Celestial.solar_depression` property.
+        by setting the :attr:`Astral.solar_depression` property.
         
         Parameters::
         
@@ -586,13 +586,13 @@ class City(object):
                     False = UTC.
         """
         
-        if self._celestial is None:
-            self._celestial = Celestial()
+        if self._astral is None:
+            self._astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        dusk = self._celestial.dusk_utc(date, self.latitude, self.longitude)
+        dusk = self._astral.dusk_utc(date, self.latitude, self.longitude)
 
         if local:
             loc_tz = pytz.timezone(self.tz_name)
@@ -611,17 +611,17 @@ class City(object):
                     False = UTC.
         """
         
-        if self._celestial is None:
-            self._celestial = Celestial()
+        if self._astral is None:
+            self._astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
         if local:
             loc_tz = pytz.timezone(self.tz_name)
-            return self._celestial.sun(self.latitude, self.longitude, date=date, tz=loc_tz)
+            return self._astral.sun(self.latitude, self.longitude, date=date, tz=loc_tz)
         else:
-            return self._celestial.sun(self.latitude, self.longitude, date=date)
+            return self._astral.sun(self.latitude, self.longitude, date=date)
 
     def rahukaalam(self, date=None, local=True):
         """Calculates rahukaalam times.
@@ -634,14 +634,14 @@ class City(object):
                     False = UTC.
         """
 
-        if self._celestial is None:
-            self._celestial = Celestial()
+        if self._astral is None:
+            self._astral = Astral()
 
         if local:
             loc_tz = pytz.timezone(self.tz_name)
-            return self._celestial.rahukaalam(self.latitude, self.longitude, date=date, tz=loc_tz)
+            return self._astral.rahukaalam(self.latitude, self.longitude, date=date, tz=loc_tz)
         else:
-            return self._celestial.rahukaalam(self.latitude, self.longitude, date=date)
+            return self._astral.rahukaalam(self.latitude, self.longitude, date=date)
 
     def moonrise(self, date=None, local=True):
         pass
@@ -655,16 +655,16 @@ class City(object):
     def moon(self, date=None, local=True):
         pass
         
-    def celestial():
+    def astral():
         def fget(self):
-            return self._celestial
+            return self._astral
             
-        def fset(self, celestial):
-            self._celestial = celestial
+        def fset(self, astral):
+            self._astral = astral
             
         return locals()
         
-    celestial = property(**celestial())
+    astral = property(**astral())
 
 def sind(angle):
     return sin(radians(angle))
@@ -685,12 +685,12 @@ def atand(value):
     return degrees(atan(value))
     
 
-class Celestial(object):
+class Astral(object):
     def __init__(self):
         self._cities = {}
         self._init_cities()
         
-        self._depression = 6
+        self._depression = 6  # Set default depression in degrees
 
     def __getitem__(self, city):
         """Returns a City object for the specified city."""
@@ -698,7 +698,7 @@ class Celestial(object):
         if city in self._cities:
             return self._cities[city]
         else:
-            raise CelestialException('Unrecognised city name (%s)' % city)
+            raise AstralException('Unrecognised city name (%s)' % city)
 
     def cities():
         doc = """Returns a dictionary of cities indexed by city name."""
@@ -742,7 +742,7 @@ class Celestial(object):
                 try:
                     self._depression = {'civil': 6, 'nautical': 12, 'astronomical': 18}[depression]
                 except:
-                    raise CelestialException("solar_depression must be either a number or one of 'civil', 'nautical' or 'astronomical'")
+                    raise AstralException("solar_depression must be either a number or one of 'civil', 'nautical' or 'astronomical'")
             else:
                 self._depression = depression
             
@@ -795,7 +795,7 @@ class Celestial(object):
         try:
             hourangle = self._hour_angle_sunrise(latitude, solarDec)
         except:
-            raise CelestialException('Sun remains below horizon on this day at this location.')
+            raise AstralException('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -833,7 +833,7 @@ class Celestial(object):
         try:
             hourangle = self._hour_angle_sunrise(latitude, solarDec)
         except:
-            raise CelestialException('Sun remains below horizon on this day at this location.')
+            raise AstralException('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -894,7 +894,7 @@ class Celestial(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise CelestialException('Sun remains below horizon on this day at this location.')
+            raise AstralException('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -938,7 +938,7 @@ class Celestial(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise CelestialException('Sun remains below horizon on this day at this location.')
+            raise AstralException('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -974,7 +974,7 @@ class Celestial(object):
             sunrise = self.sunrise_utc(date, latitude, longitude)
             sunset = self.sunset_utc(date, latitude, longitude)
         except:
-            raise CelestialException('Sun remains below horizon on this day at this location.')
+            raise AstralException('Sun remains below horizon on this day at this location.')
         
         octant_duration = (sunset - sunrise) / 8
 
@@ -1281,6 +1281,6 @@ class Celestial(object):
                 city_info = line.split(',')
                 if city_info[0] not in self._cities:
                     city = City(city_info)
-                    city.celestial = self
+                    city.astral = self
                     self._cities[city_info[0]] = city
 

@@ -2,7 +2,7 @@
 Introduction
 ============
 
-Celestial is a python module for calculating the times of various aspects of
+Astral is a python module for calculating the times of various aspects of
 the sun.
 
 It calculates the following
@@ -39,14 +39,14 @@ The following example demonstrates the functionality available in the module
 .. code-block:: python
 
     import datetime
-    from celestial import Celestial
+    from astral import Astral
     
     city_name = 'London'
     
-    cel = Celestial()
-    cel.solar_depression = 'civil'
+    a = Astral()
+    a.solar_depression = 'civil'
     
-    city = cel[city_name]
+    city = a[city_name]
     
     print('Information for %s/%s\n' % (city_name, city.country))
     
@@ -79,7 +79,7 @@ Produces the following output::
 Dependencies
 ============
 
-Celestial has one external dependency on 'pytz' which can either be obtained
+Astral has one external dependency on 'pytz' which can either be obtained
 from `Sourceforge`_ or via the `easy_install`_ method whichever you choose::
     
     easy_install pytz
@@ -87,7 +87,7 @@ from `Sourceforge`_ or via the `easy_install`_ method whichever you choose::
 Installation
 ============
 
-When you've added the pytz package to install celestial unzip the archive to
+When you've added the pytz package to install astral unzip the archive to
 a handy location and execute the standard Python installation method::
     
     python setup.py install
@@ -141,7 +141,7 @@ Version History
 ===============
 
     ======== ========================================
-    0.1beta  First release
+    0.1alpha First release
     ======== ========================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam

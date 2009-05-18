@@ -1,9 +1,9 @@
 Module Documentation
 ====================
 
-.. automodule:: celestial
+.. automodule:: astral
 
-.. autoclass:: Celestial
+.. autoclass:: Astral
    :members:
 
 .. autoclass:: City
