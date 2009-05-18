@@ -1,11 +1,11 @@
 import datetime
 import pytz
-from celestial import Celestial, City
+from astral import Astral, City
 
-def testCelestial():
+def testAstral():
     city_name = 'Jubail'
     
-    dd = Celestial()
+    dd = Astral()
     dd.solar_depression = 'civil'
     
     city = dd[city_name]
