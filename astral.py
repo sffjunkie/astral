@@ -7,7 +7,7 @@
 # http://www.ecy.wa.gov/programs/eap/models/twilight.zip
 
 """
-astral
+Astral
 ------
 
 Provides the means to calculate dawn, sunrise, solar noon,
@@ -49,7 +49,7 @@ from math import cos, sin, tan, acos, asin, atan, floor, radians, degrees
 
 import pytz
 
-__all__ = ['City', 'Astral','AstralException']
+__all__ = ['City', 'Astral','AstralError']
 
 __version__ = "0.1"
 __author__ = "Simon Kennedy <astral@sffjunkie.co.uk>"
@@ -302,7 +302,7 @@ Swindon,England,51°34'N,01°47'W,Europe/London
 Wolverhampton,England,52°35'N,2°08'W,Europe/London
 """
 
-class AstralException(Exception):
+class AstralError(Exception):
     pass
 
 class City(object):
@@ -698,7 +698,7 @@ class Astral(object):
         if city in self._cities:
             return self._cities[city]
         else:
-            raise AstralException('Unrecognised city name (%s)' % city)
+            raise AstralError('Unrecognised city name (%s)' % city)
 
     def cities():
         doc = """Returns a dictionary of cities indexed by city name."""
@@ -742,7 +742,7 @@ class Astral(object):
                 try:
                     self._depression = {'civil': 6, 'nautical': 12, 'astronomical': 18}[depression]
                 except:
-                    raise AstralException("solar_depression must be either a number or one of 'civil', 'nautical' or 'astronomical'")
+                    raise AstralError("solar_depression must be either a number or one of 'civil', 'nautical' or 'astronomical'")
             else:
                 self._depression = depression
             
@@ -795,7 +795,7 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunrise(latitude, solarDec)
         except:
-            raise AstralException('Sun remains below horizon on this day at this location.')
+            raise AstralError('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -833,7 +833,7 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunrise(latitude, solarDec)
         except:
-            raise AstralException('Sun remains below horizon on this day at this location.')
+            raise AstralError('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -894,7 +894,7 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise AstralException('Sun remains below horizon on this day at this location.')
+            raise AstralError('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -938,7 +938,7 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise AstralException('Sun remains below horizon on this day at this location.')
+            raise AstralError('Sun remains below horizon on this day at this location.')
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -974,7 +974,7 @@ class Astral(object):
             sunrise = self.sunrise_utc(date, latitude, longitude)
             sunset = self.sunset_utc(date, latitude, longitude)
         except:
-            raise AstralException('Sun remains below horizon on this day at this location.')
+            raise AstralError('Sun remains below horizon on this day at this location.')
         
         octant_duration = (sunset - sunrise) / 8
 
