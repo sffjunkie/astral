@@ -7,7 +7,7 @@ except ImportError:
 
 setup(name='astral',
     version='0.01',
-    description='Calculations for dawn, sunrise, solar noon, sunset and dusk.',
+    description='Calculations for dawn, sunrise, solar noon, sunset dusk, rahukaalam.',
     author='Simon Kennedy',
     author_email='astral@sffjunkie.co.uk',
     url="http://www.sffjunkie.co.uk/python-astral.html",
