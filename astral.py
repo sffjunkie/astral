@@ -10,12 +10,11 @@
 Astral
 ------
 
-Provides the means to calculate dawn, sunrise, solar noon,
+The Astral module provides the means to calculate dawn, sunrise, solar noon,
 sunset and dusk times for specific cities or for a particular
 latitude/longitude.
 
-There are 2 main classes :class:`Astral` and
-:class:`City`.
+There are 2 main classes :class:`Astral` and :class:`City`.
 
 :class:`Astral`
     Contains the main calculation logic and the ability to retrieve the
