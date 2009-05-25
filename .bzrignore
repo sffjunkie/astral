@@ -1,4 +1,4 @@
 *.pyc
-backups/*
-build/*
 dist/*
+**/backups/*
+**/build/*
