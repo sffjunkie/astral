@@ -1,3 +1,6 @@
+:mod:`astral` Module
+====================
+
 .. automodule:: astral
 
 .. autoclass:: Astral

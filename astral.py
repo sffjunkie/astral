@@ -7,14 +7,11 @@
 # http://www.ecy.wa.gov/programs/eap/models/twilight.zip
 
 """
-Astral
-------
-
-The Astral module provides the means to calculate dawn, sunrise, solar noon,
-sunset and dusk times for specific cities or for a particular
+The :mod:`astral` module provides the means to calculate dawn, sunrise,
+solar noon, sunset and dusk times for specific cities or for a particular
 latitude/longitude.
 
-There are 2 main classes :class:`Astral` and :class:`City`.
+It provides 2 main classes :class:`Astral` and :class:`City`.
 
 :class:`Astral`
     Contains the main calculation logic and the ability to retrieve the
