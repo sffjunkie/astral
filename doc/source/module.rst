@@ -1,6 +1,3 @@
-Module Documentation
-====================
-
 .. automodule:: astral
 
 .. autoclass:: Astral
