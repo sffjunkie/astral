@@ -691,6 +691,15 @@ class Astral(object):
     def __getitem__(self, value):
         """Returns a City object for the specified city."""
         city_name = str(value).lower().replace(' ', '_')
+
+        if city_name[0] == "'" and city_name[-1] == "'":
+            city_name = city_name.strip("'")
+
+        if city_name[0] == '"' and city_name[-1] == '"':
+            city_name = city_name.strip('"')
+            
+        city_name = city_name.strip()
+
         for (name, city) in self._cities.iteritems():
             if name.lower().replace(' ', '_') == city_name:
                 return city
