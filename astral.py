@@ -688,13 +688,14 @@ class Astral(object):
         
         self._depression = 6  # Set default depression in degrees
 
-    def __getitem__(self, city):
+    def __getitem__(self, value):
         """Returns a City object for the specified city."""
-        
-        if city in self._cities:
-            return self._cities[city]
-        else:
-            raise AstralError('Unrecognised city name (%s)' % city)
+        city_name = str(value).lower().replace(' ', '_')
+        for (name, city) in self._cities.iteritems():
+            if name.lower().replace(' ', '_') == city_name:
+                return self._cities[name]
+
+        raise AstralError('Unrecognised city name - %s' % value)
 
     def cities():
         doc = """Returns a dictionary of cities indexed by city name."""
