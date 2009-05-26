@@ -693,7 +693,7 @@ class Astral(object):
         city_name = str(value).lower().replace(' ', '_')
         for (name, city) in self._cities.iteritems():
             if name.lower().replace(' ', '_') == city_name:
-                return self._cities[name]
+                return city
 
         raise AstralError('Unrecognised city name - %s' % value)
 
