@@ -132,13 +132,15 @@ Yerevan, Zagreb
 Thanks
 ======
 
-The sun calculations in this module are adapted from the following spreadsheet
+The sun calculations in this module were adapted from the following spreadsheet
     
     http://www.ecy.wa.gov/programs/eap/models/twilight.zip
 
 Version History
 ===============
 
+    ======== ========================================
+    Version  Description
     ======== ========================================
     0.1alpha First release
     ======== ========================================
