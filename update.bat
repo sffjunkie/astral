@@ -1,2 +1,2 @@
-python setup.py sdist
-python setup.py install
+python setup.py bdist_egg
+easy_install -U dist\*.egg

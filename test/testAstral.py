@@ -35,3 +35,30 @@ def testAstral():
     
     assert sunrise == sun['sunrise']
 
+def testElevation():
+    city_name = 'Jubail'
+    
+    dd = Astral()
+    city=dd[city_name]
+
+    dt = datetime.datetime.now(tz=city.tz)
+    print('Date & time: %s' % dt)
+    print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
+    print('Elevation: %.02f' % dd.solar_elevation(dt, city.latitude, city.longitude))
+
+def testAzimuth():
+    city_name = 'Jubail'
+    
+    dd = Astral()
+    city=dd[city_name]
+    print('Latitude: %f, Longitude: %f' % (city.latitude, city.longitude))
+
+    dt = datetime.datetime.now(tz=city.tz)
+    print('Date & time: %s' % dt)
+    print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
+    print('Azimuth: %.02f' % dd.solar_azimuth(dt, city.latitude, city.longitude))
+    
+if __name__ == "__main__":
+    testElevation()
+    testAzimuth()
+    

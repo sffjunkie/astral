@@ -1,3 +1,6 @@
+.. Copyright 2009, Simon Kennedy, python@sffjunkie.co.uk
+   Distributed under the terms of the MIT License.
+
 Welcome to Astral
 =================
 
@@ -24,7 +27,13 @@ Sunset
 Dusk
     The time in the evening when the sun is a specific number of degrees
     below the horizon.
-     
+
+Solar Azimuth
+    The number of degrees clockwise from North at which the sun can be seen
+
+Solar Elevation
+    The number of degrees up from the horizon at which the sun can be seen
+
 `Rahukaalam`_
     "Rahukaalam or the period of Rahu is a certain amount of time every day
     that is considered inauspicious for any new venture according to Indian
@@ -75,13 +84,17 @@ Produces the following output::
     Sunset:   2009-04-22 20:09:07+01:00
     Dusk:     2009-04-22 20:45:52+01:00
 
+License
+=======
+
+This module is licensed under the MIT license.
+    
 Dependencies
 ============
 
 Astral has one external dependency on 'pytz' which can either be obtained
-from `Sourceforge`_ or via the `easy_install`_ method whichever you choose::
-    
-    easy_install pytz
+from `Sourceforge`_ page or via the `easy_install`_ method, whichever is your
+particular poison.
 
 Installation
 ============
@@ -132,17 +145,27 @@ Yerevan, Zagreb
 Thanks
 ======
 
-The sun calculations in this module were adapted from the following spreadsheet
+The sun calculations in this module were adapted, for Python, from the following
+spreadsheet.
     
     http://www.ecy.wa.gov/programs/eap/models/twilight.zip
+    
+Which takes its calculations from
 
+    http://www.srrb.noaa.gov/highlights/sunrise/azel.html
+
+Contact
+=======
+    
+Simon Kennedy <python@sffjunkie.co.uk>
+    
 Version History
 ===============
 
     ======== ========================================
     Version  Description
     ======== ========================================
-    0.1alpha First release
+    0.1      First release
     ======== ========================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
