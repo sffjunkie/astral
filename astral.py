@@ -6,8 +6,8 @@
 
 """
 The :mod:`astral` module provides the means to calculate dawn, sunrise,
-solar noon, sunset, dusk and rahukaalam times plus solar azimuth and elevation
-for specific cities or for a particular latitude/longitude.
+solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and elevation,
+for specific cities or at a specific latitude/longitude.
 
 It provides 2 main classes :class:`Astral` and :class:`City`.
 
