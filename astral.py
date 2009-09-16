@@ -526,7 +526,7 @@ class City(object):
     def solar_noon(self, date=None, local=True):
         """Return the solar noon time.
         
-        Calculates the time when the sun is at its heighest point.
+        Calculates the time when the sun is at its highest point.
         
         Parameters::
         
