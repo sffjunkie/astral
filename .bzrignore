@@ -2,3 +2,5 @@
 dist/*
 **/backups/*
 **/build/*
+.project
+.pydevproject
