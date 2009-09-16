@@ -158,7 +158,7 @@ html_use_modindex = False
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Celestialdoc'
+htmlhelp_basename = 'AstralDoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
