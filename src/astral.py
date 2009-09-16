@@ -753,17 +753,6 @@ class Astral(object):
         
     cities = property(**cities())
 
-    def city_count():
-        doc = """The number of cities data is included for.
-        """
-        
-        def fget(self):
-            return len(self.cities)
-            
-        return locals()
-        
-    city_count = property(**city_count())
-
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the dawn/dusk calc.
         
