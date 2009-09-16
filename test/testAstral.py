@@ -1,6 +1,48 @@
+from nose.tools import raises
+
 import datetime
 import pytz
 from astral import Astral, City
+
+def testCityName():
+    c = City()
+    assert c.name == 'Greenwich'
+    c.name = 'London'
+    assert c.name == 'London'
+
+def testCityCountry():
+    c = City()
+    assert c.country == 'England'
+    c.country = 'Australia'
+    assert c.country == 'Australia'
+
+def testCityTimezoneName():
+    c = City()
+    assert c.tz_name == 'Europe/London'
+    c.name = 'Asia/Riyadh'
+    assert c.name == 'Asia/Riyadh'
+
+def testCityTimezone():
+    c = City()
+    assert c.tz == pytz.timezone('Europe/London')
+    c.tz_name='Europe/Stockholm'
+    assert c.tz == pytz.timezone('Europe/Stockholm')
+    
+@raises(KeyError)
+def testAstralBadCityName():
+    dd = Astral()
+    c = dd['wally']    
+
+def testAstralCityName():
+    dd = Astral()
+    c = dd['London']
+    assert c.name == 'London'    
+
+@raises(TypeError)
+def testAstralAssign():
+    dd = Astral()
+    dd['London'] = 'wally'    
+
 
 def testAstral():
     city_name = 'Jubail'
