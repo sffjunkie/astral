@@ -11,7 +11,6 @@ setup(name='astral',
     author_email='python@sffjunkie.co.uk',
     url="http://www.sffjunkie.co.uk/python-astral.html",
     license='MIT',
-    py_modules=['astral'],
-    install_requires=['pytz']
+    py_modules=['astral']
 )
 
