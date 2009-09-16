@@ -2,6 +2,6 @@
 dist/*
 **/backups/*
 **/build/*
-.project
-.pydevproject
 testenv/*
+doc/*
+
