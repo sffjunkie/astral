@@ -44,7 +44,10 @@ import os.path
 import types
 from math import cos, sin, tan, acos, asin, atan, atan2, floor, radians, degrees
 
-import pytz
+try:
+    import pytz
+except ImportError:
+    raise ImportError('The astral module requires the pytz module to be available.')
 
 __all__ = ['City', 'Astral','AstralError']
 
@@ -520,8 +523,8 @@ class City(object):
         else:
             return sunrise
         
-    def noon(self, date=None, local=True):
-        """Return noon time.
+    def solar_noon(self, date=None, local=True):
+        """Return the solar noon time.
         
         Calculates the time when the sun is at its heighest point.
         
@@ -883,7 +886,7 @@ class Astral(object):
 
         return sunrise
 
-    def noon_utc(self, date, longitude):
+    def solar_noon_utc(self, date, longitude):
         """Calculate solar noon time for a specific date at a particular position.
         
         Returns date/time in UTC
