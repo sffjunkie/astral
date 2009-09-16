@@ -6,7 +6,7 @@ from distutils.core import setup
 setup(name='astral',
     version='0.01a',
     description='Calculations for the position of the sun.',
-    long_description='Sun calculations for dawn, sunrise, solar noon, sunset, dusk, solar_elevation, solar_azimuth and rahukaalam.',
+    long_description='Sun calculations for dawn, sunrise, solar noon, sunset, dusk, solar elevation, solar azimuth and rahukaalam.',
     author='Simon Kennedy',
     author_email='python@sffjunkie.co.uk',
     url="http://www.sffjunkie.co.uk/odds.html",
