@@ -281,6 +281,7 @@ Cardiff,Wales,51°29'N,03°13'W,Europe/London
 Crawley,England,51°8'N,00°10'W,Europe/London
 Edinburgh,Scotland,55°57'N,03°13'W,Europe/London
 Glasgow,Scotland,55°50'N,04°15'W,Europe/London
+Greenwich,England,51°28'N,00°00'W,Europe/London
 Leeds,England,53°48'N,01°35'W,Europe/London
 Leicester,England,52°38'N,01°08'W,Europe/London
 Liverpool,England,53°25'N,03°00'W,Europe/London
@@ -308,35 +309,38 @@ class City(object):
     def __init__(self, info=None):
         """Initializes the object with a tuple of information.
         
-        The tuple should contain the following items
+        The tuple should contain items in the following order
         
-        ================ =======
+        ================ =============
         Field            Default
-        ================ =======
-        name             
-        country          
-        latitude         0
+        ================ =============
+        name             Greenwich
+        country          England
+        latitude         51.168
         longitude        0
-        time zone name   UTC
-        ================ =======
+        time zone name   Europe/London
+        ================ =============
             
         See :attr:`tz_name` property for a method of obtaining time zone names
         """
         
         self._astral = None
         if info is None:
-            self._name = ''
-            self._country = ''
-            self._latitude = 0
+            self._name = 'Greenwich'
+            self._country = 'England'
+            self._latitude = 51.168
             self._longitude = 0
-            self.tz_name = 'UTC'
+            self.tz_name = 'Europe/London'
         else:
             self._name = str(info[0])
             self._country = str(info[1])
             self.latitude = info[2]
             self.longitude = info[3]
             self.tz_name = info[4]
-        
+
+    def __repr__(self):
+        return '%s/%s, tz=%s' % (self._name, self._country, self._tz_name)
+
     def name():
         doc = """The city name."""
         
