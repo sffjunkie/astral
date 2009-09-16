@@ -33,9 +33,9 @@ if "%1" == "clean" (
 )
 
 if "%1" == "html" (
-	%SPHINXBUILD% -b html %ALLSPHINXOPTS% ../build/html
+	%SPHINXBUILD% -b html %ALLSPHINXOPTS% ../build/doc
 	echo.
-	echo.Build finished. The HTML pages are in ../build/html.
+	echo.Build finished. The HTML pages are in ../build/doc.
 	goto end
 )
 
