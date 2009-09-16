@@ -1,5 +1,5 @@
-:mod:`astral` Module
-====================
+The :mod:`astral` Module
+========================
 
 .. automodule:: astral
 

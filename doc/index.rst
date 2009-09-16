@@ -87,7 +87,7 @@ Produces the following output::
 License
 =======
 
-This module is licensed under the MIT license.
+This module is licensed under the `MIT`_ license.
     
 Dependencies
 ============
@@ -171,6 +171,7 @@ Version History
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
 .. _Sourceforge: http://pytz.sourceforge.net/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
+.. _MIT: http://www.opensource.org/licenses/mit-license.html
 
     
 .. toctree::
@@ -178,5 +179,4 @@ Version History
    :hidden:
    
    module
-
 
