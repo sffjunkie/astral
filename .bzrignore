@@ -3,5 +3,5 @@ dist/*
 **/backups/*
 **/build/*
 testenv/*
-doc/*
+./doc
 
