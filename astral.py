@@ -332,11 +332,14 @@ class City(object):
             self._longitude = 0
             self.tz_name = 'Europe/London'
         else:
-            self._name = str(info[0])
-            self._country = str(info[1])
-            self.latitude = info[2]
-            self.longitude = info[3]
-            self.tz_name = info[4]
+            try:
+                self._name = str(info[0])
+                self._country = str(info[1])
+                self.latitude = info[2]
+                self.longitude = info[3]
+                self.tz_name = info[4]
+            except:
+                pass
 
     def __repr__(self):
         return '%s/%s, tz=%s' % (self._name, self._country, self._tz_name)
