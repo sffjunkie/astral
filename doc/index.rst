@@ -154,6 +154,9 @@ Which takes its calculations from
 
     http://www.srrb.noaa.gov/highlights/sunrise/azel.html
 
+Also to `Sphinx`_ for making doc generation an easy thing (not that the writing
+of the docs is any easier.)
+
 Contact
 =======
     
@@ -172,6 +175,7 @@ Version  Description
 .. _Sourceforge: http://pytz.sourceforge.net/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _MIT: http://www.opensource.org/licenses/mit-license.html
+.. _Sphinx: http://sphinx.pocoo.org/
 
     
 .. toctree::
