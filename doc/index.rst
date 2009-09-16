@@ -162,11 +162,11 @@ Simon Kennedy <python@sffjunkie.co.uk>
 Version History
 ===============
 
-    ======== ========================================
-    Version  Description
-    ======== ========================================
-    0.1      First release
-    ======== ========================================
+======== ========================================
+Version  Description
+======== ========================================
+0.1      First release
+======== ========================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
 .. _Sourceforge: http://pytz.sourceforge.net/
