@@ -29,8 +29,8 @@ For example
 >>> city = a['London']
 >>> print('Information for %s' % city.name)
 Information for London
->>> tz_name = city.tz_name
->>> print('Timezone: %s' % tz_name)
+>>> timezone = city.timezone
+>>> print('Timezone: %s' % timezone)
 Timezone: Europe/London
 >>> print('Latitude: %.02f; Longitude: %.02f' % (city.latitude, city.longitude))
 Latitude: 51.60; Longitude: 0.08
@@ -324,7 +324,7 @@ class City(object):
         time zone name   Europe/London
         ================ =============
             
-        See :attr:`tz_name` property for a method of obtaining time zone names
+        See :attr:`timezone` property for a method of obtaining time zone names
         """
         
         self._astral = None
@@ -333,19 +333,19 @@ class City(object):
             self._country = 'England'
             self._latitude = 51.168
             self._longitude = 0
-            self.tz_name = 'Europe/London'
+            self.timezone = 'Europe/London'
         else:
             try:
                 self._name = str(info[0])
                 self._country = str(info[1])
                 self.latitude = info[2]
                 self.longitude = info[3]
-                self.tz_name = info[4]
+                self.timezone = info[4]
             except:
                 pass
 
     def __repr__(self):
-        return '%s/%s, tz=%s' % (self._name, self._country, self._tz_name)
+        return '%s/%s, tz=%s' % (self._name, self._country, self._timezone)
 
     def name():
         doc = """The city name."""
@@ -439,7 +439,7 @@ class City(object):
         
     longitude = property(**longitude())
         
-    def tz_name():
+    def timezone():
         doc = """The time zone name in which the city is located.
         
         A list of time zone names can be obtained from pytz. For example.
@@ -450,20 +450,20 @@ class City(object):
         """
         
         def fget(self):
-            return self._tz_name
+            return self._timezone
         
         def fset(self, name):
-            self._tz_name = name
+            self._timezone = name
 
         return locals()
             
-    tz_name = property(**tz_name())
+    timezone = property(**timezone())
 
     def tz():
         doc = """The timezone."""
         
         def fget(self):
-            return pytz.timezone(self._tz_name)
+            return pytz.timezone(self._timezone)
             
         return locals()
             
@@ -512,6 +512,9 @@ class City(object):
             local - True  = Time to be returned in cities time zone (Default);
                     False = Time to be returned in UTC.
         """
+
+        if self._astral is None:
+            self._astral = Astral()
         
         if date is None:
             date = datetime.date.today()
@@ -543,7 +546,7 @@ class City(object):
         if date is None:
             date = datetime.date.today()
 
-        noon = self._astral.noon_utc(date, self.longitude)
+        noon = self._astral.solar_noon_utc(date, self.longitude)
 
         if local:
             return noon.astimezone(self.tz)            
@@ -798,7 +801,7 @@ class Astral(object):
         
         dawn = self.dawn_utc(date, latitude, longitude)
         sunrise = self.sunrise_utc(date, latitude, longitude)
-        noon = self.noon_utc(date, longitude)
+        noon = self.solar_noon_utc(date, longitude)
         sunset = self.sunset_utc(date, latitude, longitude)
         dusk = self.dusk_utc(date, latitude, longitude)
         

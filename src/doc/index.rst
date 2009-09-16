@@ -58,8 +58,8 @@ The following example demonstrates the functionality available in the module
     
     print('Information for %s/%s\n' % (city_name, city.country))
     
-    tz_name = city.tz_name
-    print('Timezone: %s' % tz_name)
+    timezone = city.timezone
+    print('Timezone: %s' % timezone)
     
     print('Latitude: %.02f; Longitude: %.02f\n' % \
         (city.latitude, city.longitude))

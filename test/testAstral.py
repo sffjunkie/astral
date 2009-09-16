@@ -3,30 +3,6 @@ from nose.tools import raises
 import datetime
 import pytz
 from astral import Astral, City
-
-def testCityName():
-    c = City()
-    assert c.name == 'Greenwich'
-    c.name = 'London'
-    assert c.name == 'London'
-
-def testCityCountry():
-    c = City()
-    assert c.country == 'England'
-    c.country = 'Australia'
-    assert c.country == 'Australia'
-
-def testCityTimezoneName():
-    c = City()
-    assert c.tz_name == 'Europe/London'
-    c.name = 'Asia/Riyadh'
-    assert c.name == 'Asia/Riyadh'
-
-def testCityTimezone():
-    c = City()
-    assert c.tz == pytz.timezone('Europe/London')
-    c.tz_name='Europe/Stockholm'
-    assert c.tz == pytz.timezone('Europe/Stockholm')
     
 @raises(KeyError)
 def testAstralBadCityName():
@@ -54,10 +30,10 @@ def testAstral():
     
     print('Information for %s/%s\n' % (city_name, city.country))
     
-    tz_name = city.tz_name
-    print('Timezone: %s' % tz_name)
+    timezone = city.timezone
+    print('Timezone: %s' % timezone)
     
-    loc_tz = pytz.timezone(tz_name)
+    loc_tz = pytz.timezone(timezone)
     print('Latitude: %.02f; Longitude: %.02f\n' % (city.latitude, city.longitude))
     
     sun = city.sun()
