@@ -6,3 +6,4 @@ testenv/*
 ./doc
 
 MANIFEST
+venv
