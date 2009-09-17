@@ -87,7 +87,7 @@ Produces the following output::
 License
 =======
 
-This module is licensed under the `MIT`_ license.
+This module is licensed under the terms of the `MIT`_ license.
     
 Dependencies
 ============
