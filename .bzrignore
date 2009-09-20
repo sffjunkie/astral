@@ -2,8 +2,6 @@
 dist/*
 **/backups/*
 **/build/*
-testenv/*
 ./doc
-
 MANIFEST
 venv
