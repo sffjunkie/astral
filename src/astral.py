@@ -1,4 +1,3 @@
-# set encoding=utf-8
 # -*- coding: utf-8 -*-
 
 # Copyright 2009, Simon Kennedy, python@sffjunkie.co.uk
@@ -41,7 +40,6 @@ Dawn:    2009-04-22 05:12:56+01:00
 
 import datetime
 import os.path
-import types
 from math import cos, sin, tan, acos, asin, atan, atan2, floor, radians, degrees
 
 try:
@@ -374,7 +372,7 @@ class City(object):
     country = property(**country())
         
     def latitude():
-        doc = u"""The city's latitude
+        doc = """The city's latitude
 
         ``latitude`` can be set either as a string or as a number
         
@@ -389,7 +387,7 @@ class City(object):
             return self._latitude
             
         def fset(self, latitude):
-            if type(latitude) == types.StringType:
+            if isinstance(latitude, basestring):
                 (deg, rest) = latitude.split("°", 1)
                 (minute, rest) = rest.split("'", 1)
 
@@ -398,14 +396,14 @@ class City(object):
                 if latitude.endswith("S"):
                     self._latitude = -self._latitude
             else:
-                self._latitude = latitude
+                self._latitude = float(latitude)
             
         return locals()
         
     latitude = property(**latitude())
         
     def longitude():
-        doc = u"""The city's longitude.
+        doc = """The city's longitude.
 
         ``longitude`` can be set either as a string or as a number
         
@@ -422,7 +420,7 @@ class City(object):
             return self._longitude
             
         def fset(self, longitude):
-            if type(longitude) == types.StringType:
+            if isinstance(longitude, basestring):
                 (deg, rest) = longitude.split("°", 1)
                 (minute, rest) = rest.split("'", 1)
 
@@ -433,7 +431,7 @@ class City(object):
                 if longitude.endswith("E"):
                     self._longitude = -self._longitude
             else:
-                self._longitude = longitude
+                self._longitude = float(longitude)
             
         return locals()
         
@@ -631,7 +629,7 @@ class City(object):
         sun = self._astral.sun_utc(date, self.latitude, self.longitude)
 
         if local:
-            for key, dt in sun.iteritems():
+            for key, dt in sun.items():
                 sun[key] = dt.astimezone(self.tz)
 
         return sun
@@ -657,7 +655,7 @@ class City(object):
         rahukaalam = self._astral.rahukaalam_utc(date, self.latitude, self.longitude)
 
         if local:
-            for key, dt in rahukaalam.iteritems():
+            for key, dt in rahukaalam.items():
                 rahukaalam[key] = dt.astimezone(self.tz)
             
         return rahukaalam
@@ -736,7 +734,7 @@ class Astral(object):
             
         city_name = city_name.strip()
 
-        for (name, city) in self._cities.iteritems():
+        for (name, city) in self._cities.items():
             if name.lower().replace(' ', '_') == city_name:
                 return city
 
@@ -772,7 +770,7 @@ class Astral(object):
             return self._depression
             
         def fset(self, depression):
-            if type(depression) == types.StringType:
+            if isinstance(depression, basestring):
                 try:
                     self._depression = {'civil': 6, 'nautical': 12, 'astronomical': 18}[depression]
                 except:
