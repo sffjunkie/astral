@@ -11,7 +11,7 @@ setup(name='astral',
     """,
     author='Simon Kennedy',
     author_email='python@sffjunkie.co.uk',
-    url="http://www.sffjunkie.co.uk/python.html",
+    url="http://www.sffjunkie.co.uk/python-astral.html",
     license='MIT',
     package_dir={'': 'src'},
     py_modules=['astral']
