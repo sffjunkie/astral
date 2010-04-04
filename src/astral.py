@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+#
 # Copyright 2009, Simon Kennedy, python@sffjunkie.co.uk
 # Distributed under the terms of the MIT License.
 
@@ -39,8 +39,7 @@ Dawn:    2009-04-22 05:12:56+01:00
 """
 
 import datetime
-import os.path
-from math import cos, sin, tan, acos, asin, atan, atan2, floor, radians, degrees
+from math import cos, sin, tan, acos, asin, atan2, floor, radians, degrees
 
 try:
     import pytz
@@ -49,8 +48,8 @@ except ImportError:
 
 __all__ = ['City', 'Astral','AstralError']
 
-__version__ = "0.1"
-__author__ = "Simon Kennedy <astral@sffjunkie.co.uk>"
+__version__ = "0.2"
+__author__ = "Simon Kennedy <python@sffjunkie.co.uk>"
 
 _CITY_INFO = """
 Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
@@ -834,6 +833,10 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
+        if hour > 23.0:
+            hour -= 24
+            date += datetime.timedelta(days=1)
+
         dawn = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
         return dawn
@@ -872,6 +875,10 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
+        if hour > 23:
+            hour -= 24
+            date += datetime.timedelta(days=1)
+
         sunrise = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
         return sunrise
@@ -894,6 +901,10 @@ class Astral(object):
         hour = int(timeUTC)
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
+
+        if hour > 23:
+            hour -= 24
+            date += datetime.timedelta(days=1)
 
         noon = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
@@ -932,6 +943,10 @@ class Astral(object):
         hour = int(timeUTC)
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
+
+        if hour > 23:
+            hour -= 24
+            date += datetime.timedelta(days=1)
 
         sunset = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
@@ -976,6 +991,10 @@ class Astral(object):
         hour = int(timeUTC)
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
+
+        if hour > 23:
+            hour -= 24
+            date += datetime.timedelta(days=1)
 
         dusk = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
@@ -1203,7 +1222,7 @@ class Astral(object):
         e0 = self._mean_obliquity_of_ecliptic(juliancentury)
 
         omega = 125.04 - 1934.136 * juliancentury
-        return e0 + 0.00256 * cosd(omega)
+        return e0 + 0.00256 * cos(radians(omega))
     
     def _geom_mean_long_sun(self, juliancentury):
         l0 = 280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury)
@@ -1234,10 +1253,6 @@ class Astral(object):
                 0.5 * y * y * sin4l0 - 1.25 * e * e * sin2m
 
         return degrees(Etime) * 4.0
-
-    def _geom_mean_long_sun(self, juliancentury):
-        l0 = 280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury)
-        return l0 % 360
 
     def _sun_eq_of_center(self, juliancentury):
         m = self._geom_mean_anomaly_sun(juliancentury)
@@ -1302,12 +1317,6 @@ class Astral(object):
         e = self._eccentricity_earth_orbit(juliancentury)
  
         return (1.000001018 * (1 - e * e)) / (1 + e * cos(radians(v)))
-
-    def _obliquity_correction(self, juliancentury):
-        e0 = self._mean_obliquity_of_ecliptic(juliancentury)
-
-        omega = 125.04 - 1934.136 * juliancentury
-        return e0 + 0.00256 * cos(radians(omega))
 
     def _sun_rt_ascension(self, juliancentury):
         e = self._obliquity_correction(juliancentury)

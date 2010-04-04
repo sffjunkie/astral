@@ -4,7 +4,7 @@
 from distutils.core import setup
 
 setup(name='astral',
-    version='0.1',
+    version='0.2',
     description='Calculations for the position of the sun.',
     long_description="""Sun calculations for dawn, sunrise, solar noon,
     sunset, dusk, solar elevation, solar azimuth and rahukaalam.
