@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2009, Simon Kennedy, python@sffjunkie.co.uk
+# Copyright 2009-2010, Simon Kennedy, python@sffjunkie.co.uk
 # Distributed under the terms of the MIT License.
 
 """

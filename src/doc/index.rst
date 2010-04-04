@@ -1,4 +1,4 @@
-.. Copyright 2009, Simon Kennedy, python@sffjunkie.co.uk
+.. Copyright 2009-2010, Simon Kennedy, python@sffjunkie.co.uk
    Distributed under the terms of the MIT License.
 
 Welcome to Astral
@@ -165,17 +165,20 @@ Simon Kennedy <python@sffjunkie.co.uk>
 Version History
 ===============
 
-======== ========================================
+======== ==========================================
 Version  Description
-======== ========================================
+======== ==========================================
 0.1      First release
-======== ========================================
+-------- ------------------------------------------
+0.2      Fix for bug `554041`_ submitted by Derek\_ 
+======== ==========================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
 .. _Sourceforge: http://pytz.sourceforge.net/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _MIT: http://www.opensource.org/licenses/mit-license.html
 .. _Sphinx: http://sphinx.pocoo.org/
+.. _554041: https://bugs.launchpad.net/astral/+bug/554041
 
     
 .. toctree::
