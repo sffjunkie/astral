@@ -6,6 +6,8 @@ The :mod:`astral` Module
 .. autoclass:: Astral
    :members:
 
+   .. automethod:: __getitem__
+
 .. autoclass:: City
    :members:
    

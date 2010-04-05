@@ -12,8 +12,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Welcome to Astral
-=================
+Welcome to Astral V0.3
+======================
 
 Astral is a python module for calculating the times of various aspects of
 the sun.
@@ -220,4 +220,3 @@ Version  Description
    :hidden:
    
    module
-
