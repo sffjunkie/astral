@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright 2009-2010, Simon Kennedy, python@sffjunkie.co.uk
-# Distributed under the terms of the MIT License.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 """
 The :mod:`astral` module provides the means to calculate dawn, sunrise,
@@ -48,7 +59,7 @@ except ImportError:
 
 __all__ = ['City', 'Astral','AstralError']
 
-__version__ = "0.2"
+__version__ = "0.3"
 __author__ = "Simon Kennedy <python@sffjunkie.co.uk>"
 
 _CITY_INFO = """
@@ -292,12 +303,107 @@ Norwich,England,52°38'N,01°18'E,Europe/London
 Oxford,England,51°45'N,01°15'W,Europe/London
 Plymouth,England,50°25'N,04°15'W,Europe/London
 Portsmouth,England,50°48'N,01°05'W,Europe/London
-Reading,England,	51°27'N,0°58'W,Europe/London
+Reading,England,51°27'N,0°58'W,Europe/London
 Sheffield,England,53°23'N,01°28'W,Europe/London
 Southampton,England,50°55'N,01°25'W,Europe/London
 Swansea,England,51°37'N,03°57'W,Europe/London
 Swindon,England,51°34'N,01°47'W,Europe/London
 Wolverhampton,England,52°35'N,2°08'W,Europe/London
+
+# US State Capitals
+Montgomery,USA,32°21'N,86°16'W,US/Central
+Juneau,USA,58°23'N,134°11'W,US/Alaska
+Phoenix,USA,33°26'N,112°04'W,US/Mountain
+Little Rock,USA,34°44'N,92°19'W,US/Central
+Sacramento,USA,38°33'N,121°28'W,US/Pacific
+Denver,USA,39°44'N,104°59'W,US/Mountain
+Hartford,USA,41°45'N,72°41'W,US/Eastern
+Dover,USA,39°09'N,75°31'W,US/Eastern
+Tallahassee,USA,30°27'N,84°16'W,US/Eastern
+Atlanta,USA,33°45'N,84°23'W,US/Eastern
+Honolulu,USA,21°18'N,157°49'W,US/Hawaii
+Boise,USA,43°36'N,116°12'W,US/Mountain
+Springfield,USA,39°47'N,89°39'W,US/Central
+Indianapolis,USA,39°46'N,86°9'W,US/Eastern
+Des Moines,USA,41°35'N,93°37'W,US/Central
+Topeka,USA,39°03'N,95°41'W,US/Central
+Frankfort,USA,38°11'N,84°51'W,US/Eastern
+Baton Rouge,USA,30°27'N,91°8'W,US/Central
+Augusta,USA,44°18'N,69°46'W,US/Eastern
+Annapolis,USA,38°58'N,76°30'W,US/Eastern
+Boston,USA,42°21'N,71°03'W,US/Eastern
+Lansing,USA,42°44'N,84°32'W,US/Eastern
+Saint Paul,USA,44°56'N,93°05'W,US/Central
+Jackson,USA,32°17'N,90°11'W,US/Central
+Jefferson City,USA,38°34'N,92°10'W,US/Central
+Helena,USA,46°35'N,112°1'W,US/Mountain
+Lincoln,USA,40°48'N,96°40'W,US/Central
+Carson City,USA,39°9'N,119°45'W,US/Pacific
+Concord,USA,43°12'N,71°32'W,US/Eastern
+Trenton,USA,40°13'N,74°45'W,US/Eastern
+Santa Fe,USA,35°40'N,105°57'W,US/Mountain
+Albany,USA,42°39'N,73°46'W,US/Eastern
+Raleigh,USA,35°49'N,78°38'W,US/Eastern
+Bismarck,USA,46°48'N,100°46'W,US/Central
+Columbus,USA,39°59'N,82°59'W,US/Eastern
+Oklahoma City,USA,35°28'N,97°32'W,US/Central
+Salem,USA,44°55'N,123°1'W,US/Pacific
+Harrisburg,USA,40°16'N,76°52'W,US/Eastern
+Providence,USA,41°49'N,71°25'W,US/Eastern
+Columbia,USA,34°00'N,81°02'W,US/Eastern
+Pierre,USA,44°22'N,100°20'W,US/Central
+Nashville,USA,36°10'N,86°47'W,US/Central
+Austin,USA,30°16'N,97°45'W,US/Central
+Salt Lake City,USA,40°45'N,111°53'W,US/Mountain
+Montpelier,USA,44°15'N,72°34'W,US/Eastern
+Richmond,USA,37°32'N,77°25'W,US/Eastern
+Olympia,USA,47°2'N,122°53'W,US/Pacific
+Charleston,USA,38°20'N,81°38'W,US/Eastern
+Madison,USA,43°4'N,89°24'W,US/Central
+Cheyenne,USA,41°8'N,104°48'W,US/Mountain
+
+# Major US Cities
+Birmingham,USA,33°39′N,86°48′W,US/Central
+Anchorage,USA,61°13′N,149°53′W,US/Alaska
+Los Angeles,USA,34°03′N,118°15′W,US/Pacific
+San Francisco,USA,37°46′N,122°25′W,US/Pacific
+Bridgeport,USA,41°11′N,73°11′W,US/Eastern
+Wilmington,USA,39°44′N,75°32′W,US/Eastern
+Jacksonville,USA,30°19′N,81°39′W,US/Eastern
+Miami,USA,26°8′N,80°12′W,US/Eastern
+Chicago,USA,41°50′N,87°41′W,US/Central
+Wichita,USA,37°41′N,97°20′W,US/Central
+Louisville,USA,38°15′N,85°45′W,US/Eastern
+New Orleans,USA,29°57′N,90°4′W,US/Central
+Portland,USA,43°39′N,70°16′W,US/Eastern
+Baltimore,USA,9°17′N,76°37′W,US/Eastern
+Detroit,USA,42°19′N,83°2′W,US/Eastern
+Minneapolis,USA,44°58′N,93°15′W,US/Central
+Kansas City,USA,39°06′N,94°35′W,US/Central
+Billings,USA,45°47′N,108°32′W,US/Mountain
+Omaha,USA,41°15′N,96°0′W,US/Central
+Las Vegas,USA,36°10′N,115°08′W,US/Pacific
+Manchester,USA,42°59′N,71°27′W,US/Eastern
+Newark,USA,40°44′N,74°11′W,US/Eastern
+Albuquerque,USA,35°06′N,106°36′W,US/Mountain
+New York,USA,40°43′N,74°0′W,US/Eastern
+Charlotte,USA,35°13′N,80°50′W,US/Eastern
+Fargo,USA,46°52′N,96°47′W,US/Central
+Cleveland,USA,41°28′N,81°40′W,US/Eastern
+Portland,USA,45°31′N,122°40′W,US/Pacific
+Philadelphia,USA,39°57′N,75°10′W,US/Eastern
+Sioux Falls,USA,43°32′N,96°43′W,US/Central
+Memphis,USA,35°07′N,89°58′W,US/Central
+Houston,USA,29°45′N,95°22′W,US/Central
+Dallas,USA,32°47'N,96°48'W,US/Central
+Burlington,USA,44°28′N,73°9′W,US/Eastern
+Virginia Beach,USA,36°50′N,76°05′W,US/Eastern
+Seattle,USA,47°36′N,122°19′W,US/Pacific
+Milwaukee,USA,43°03′N,87°57′W,US/Central
+San Diego,USA,32°42′N,117°09′W,US/Pacific
+Orlando,USA,28°32′N,81°22′W,US/Eastern
+Buffalo,USA,42°54′N,78°50′W,US/Eastern
+Toledo,USA,41°39′N,83°34′W,US/Eastern
 """
 
 class AstralError(Exception):
@@ -330,8 +436,14 @@ class City(object):
             self._country = 'England'
             self._latitude = 51.168
             self._longitude = 0
-            self.timezone = 'Europe/London'
+            self._timezone = 'Europe/London'
         else:
+            self._name = ''
+            self._country = ''
+            self._latitude = 0
+            self._longitude = 0
+            self._timezone = ''
+
             try:
                 self._name = str(info[0])
                 self._country = str(info[1])
@@ -723,19 +835,25 @@ class Astral(object):
         Handles city names with spaces and mixed case.
         """
 
-        city_name = str(value).lower().replace(' ', '_')
+        name = str(value).lower().replace(' ', '_')
 
-        if city_name[0] == "'" and city_name[-1] == "'":
-            city_name = city_name.strip("'")
+        try:
+            city_name, country_name = name.split(',')
+        except:
+            city_name = name
+            country_name = ''
 
-        if city_name[0] == '"' and city_name[-1] == '"':
-            city_name = city_name.strip('"')
-            
-        city_name = city_name.strip()
+        city_name = city_name.strip('"\'')
+        country_name = country_name.strip('"\'')
 
-        for (name, city) in self._cities.items():
+        for (name, cities) in self._cities.items():
             if name.lower().replace(' ', '_') == city_name:
-                return city
+                if len(cities) == 1:
+                    return cities[0]
+
+                for city in cities:
+                    if city.country.lower().replace(' ', '_') == country_name:
+                        return city
 
         raise KeyError('Unrecognised city name - %s' % value)
 
@@ -833,7 +951,7 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
-        if hour > 23.0:
+        if hour > 23:
             hour -= 24
             date += datetime.timedelta(days=1)
 
@@ -1336,8 +1454,11 @@ class Astral(object):
                     line = line[:-1]
                 
                 city_info = line.split(',')
-                if city_info[0] not in self._cities:
-                    city = City(city_info)
-                    city.astral = self
-                    self._cities[city_info[0]] = city
+                city_name = city_info[0]
+                city = City(city_info)
+                city.astral = self
 
+                if city_name not in self._cities:
+                    self._cities[city_name] = [city]
+                else:
+                    self._cities[city_name].append(city)

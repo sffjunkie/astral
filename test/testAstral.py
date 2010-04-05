@@ -64,8 +64,17 @@ def testAzimuth():
     print('Date & time: %s' % dt)
     print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
     print('Azimuth: %.02f' % dd.solar_azimuth(dt, city.latitude, city.longitude))
+
+def testCityCountry():
+    city_name = 'Birmingham,England'
+    
+    dd = Astral()
+    city=dd[city_name]
+    assert city.name == 'Birmingham'
+    assert city.country == 'England'
     
 if __name__ == "__main__":
+    testAstral()
     testElevation()
     testAzimuth()
-    
+    testCityCountry()

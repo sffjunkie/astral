@@ -282,6 +282,12 @@ table.footnote td, table.footnote th {
     border: 0 !important;
 }
 
+td ul {
+    margin-left: 0;
+    padding-left: 0.25em;
+    list-style-position: inside;
+}
+
 /* -- other body styles ----------------------------------------------------- */
 
 dl {

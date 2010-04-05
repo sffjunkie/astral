@@ -1,5 +1,16 @@
 .. Copyright 2009-2010, Simon Kennedy, python@sffjunkie.co.uk
-   Distributed under the terms of the MIT License.
+
+.. Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+..   http://www.apache.org/licenses/LICENSE-2.0
+
+.. Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 
 Welcome to Astral
 =================
@@ -87,7 +98,7 @@ Produces the following output::
 License
 =======
 
-This module is licensed under the terms of the `MIT`_ license.
+This module is licensed under the terms of the `Apache`_ V2.0 license.
     
 Dependencies
 ============
@@ -108,7 +119,8 @@ Cities
 ======
 
 The module includes location and time zone data for the following cities.
-The list includes all capital cities plus some from the UK.
+The list includes all capital cities plus some from the UK. The list also
+includes the US state capitals and some other US cities.
 
 Aberdeen, Abu Dhabi, Abuja, Accra, Addis Ababa, Adelaide, Al Jubail, Algiers,
 Amman, Amsterdam, Andorra la Vella, Ankara, Antananarivo, Apia, Ashgabat,
@@ -142,6 +154,23 @@ Valletta, Vienna, Vientiane, Vilnius, W. Indies, Warsaw, Washington DC,
 Wellington, Willemstad, Windhoek, Wolverhampton, Yamoussoukro, Yangon, Yaounde,
 Yerevan, Zagreb
 
+US Cities
+---------
+
+Albany, Albuquerque, Anchorage, Annapolis, Atlanta, Augusta, Austin, Baltimore,
+Baton Rouge, Billings, Birmingham, Bismarck, Boise, Boston, Bridgeport, Buffalo,
+Burlington, Carson City, Charleston, Charlotte, Cheyenne, Chicago, Cleveland,
+Columbia, Columbus, Concord, Dallas, Denver, Des Moines, Detroit, Dover, Fargo,
+Frankfort, Harrisburg, Hartford, Helena, Honolulu, Houston, Indianapolis,
+Jackson, Jacksonville, Jefferson City, Juneau, Kansas City, Lansing, Las Vegas,
+Lincoln, Little Rock, Los Angeles, Louisville, Madison, Manchester, Memphis,
+Miami, Milwaukee, Minneapolis, Montgomery, Montpelier, Nashville, New Orleans,
+New York, Newark, Oklahoma City, Olympia, Omaha, Orlando, Philadelphia, Phoenix,
+Pierre, Portland, Portland, Providence, Raleigh, Richmond, Sacramento, Saint
+Paul, Salem, Salt Lake City, San Diego, San Francisco, Santa Fe, Seattle, Sioux
+Falls, Springfield, Tallahassee, Toledo, Topeka, Trenton, Virginia Beach,
+Wichita, Wilmington
+
 Thanks
 ======
 
@@ -165,20 +194,25 @@ Simon Kennedy <python@sffjunkie.co.uk>
 Version History
 ===============
 
-======== ==========================================
+======== =========================================================
 Version  Description
-======== ==========================================
+======== =========================================================
 0.1      First release
--------- ------------------------------------------
-0.2      Fix for bug `554041`_ submitted by Derek\_ 
-======== ==========================================
+-------- ---------------------------------------------------------
+0.2      Fix for bug `554041`_ submitted by Derek\_ / John Dimatos 
+-------- ---------------------------------------------------------
+0.3      * Changed to `Apache`_ V2.0 license.
+         * Fix for bug `555508`_ submitted by me.
+         * US state capitals and other cities added.
+======== =========================================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
 .. _Sourceforge: http://pytz.sourceforge.net/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
-.. _MIT: http://www.opensource.org/licenses/mit-license.html
+.. _Apache: http://www.opensource.org/licenses/apache2.0.php
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _554041: https://bugs.launchpad.net/astral/+bug/554041
+.. _555508: https://bugs.launchpad.net/astral/+bug/555508
 
     
 .. toctree::
