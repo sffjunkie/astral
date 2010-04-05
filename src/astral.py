@@ -57,7 +57,7 @@ try:
 except ImportError:
     raise ImportError('The astral module requires the pytz module to be available.')
 
-__all__ = ['City', 'Astral','AstralError']
+__all__ = ['City','Astral','AstralError']
 
 __version__ = "0.3"
 __author__ = "Simon Kennedy <python@sffjunkie.co.uk>"
@@ -821,8 +821,7 @@ class City(object):
 
 class Astral(object):
     def __init__(self):
-        """Initialise the list of cities.
-        """
+        """Initialise the list of cities."""
         
         self._cities = {}
         self._init_cities()
@@ -831,6 +830,12 @@ class Astral(object):
 
     def __getitem__(self, value):
         """Returns a City object for the specified city.
+        
+        You can supply an optional country name by adding a comma
+        followed by the country name. Where multiple cities have the
+        same name you may need to supply the country name otherwise
+        the first result will be returned which may not be the one
+        you're looking for.
         
         Handles city names with spaces and mixed case.
         """
