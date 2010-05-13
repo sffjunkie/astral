@@ -363,47 +363,47 @@ Madison,USA,43°4'N,89°24'W,US/Central
 Cheyenne,USA,41°8'N,104°48'W,US/Mountain
 
 # Major US Cities
-Birmingham,USA,33°39′N,86°48′W,US/Central
-Anchorage,USA,61°13′N,149°53′W,US/Alaska
-Los Angeles,USA,34°03′N,118°15′W,US/Pacific
-San Francisco,USA,37°46′N,122°25′W,US/Pacific
-Bridgeport,USA,41°11′N,73°11′W,US/Eastern
-Wilmington,USA,39°44′N,75°32′W,US/Eastern
-Jacksonville,USA,30°19′N,81°39′W,US/Eastern
-Miami,USA,26°8′N,80°12′W,US/Eastern
-Chicago,USA,41°50′N,87°41′W,US/Central
-Wichita,USA,37°41′N,97°20′W,US/Central
-Louisville,USA,38°15′N,85°45′W,US/Eastern
-New Orleans,USA,29°57′N,90°4′W,US/Central
-Portland,USA,43°39′N,70°16′W,US/Eastern
-Baltimore,USA,9°17′N,76°37′W,US/Eastern
-Detroit,USA,42°19′N,83°2′W,US/Eastern
-Minneapolis,USA,44°58′N,93°15′W,US/Central
-Kansas City,USA,39°06′N,94°35′W,US/Central
-Billings,USA,45°47′N,108°32′W,US/Mountain
-Omaha,USA,41°15′N,96°0′W,US/Central
-Las Vegas,USA,36°10′N,115°08′W,US/Pacific
-Manchester,USA,42°59′N,71°27′W,US/Eastern
-Newark,USA,40°44′N,74°11′W,US/Eastern
-Albuquerque,USA,35°06′N,106°36′W,US/Mountain
-New York,USA,40°43′N,74°0′W,US/Eastern
-Charlotte,USA,35°13′N,80°50′W,US/Eastern
-Fargo,USA,46°52′N,96°47′W,US/Central
-Cleveland,USA,41°28′N,81°40′W,US/Eastern
-Portland,USA,45°31′N,122°40′W,US/Pacific
-Philadelphia,USA,39°57′N,75°10′W,US/Eastern
-Sioux Falls,USA,43°32′N,96°43′W,US/Central
-Memphis,USA,35°07′N,89°58′W,US/Central
-Houston,USA,29°45′N,95°22′W,US/Central
+Birmingham,USA,33°39'N,86°48'W,US/Central
+Anchorage,USA,61°13'N,149°53'W,US/Alaska
+Los Angeles,USA,34°03'N,118°15'W,US/Pacific
+San Francisco,USA,37°46'N,122°25'W,US/Pacific
+Bridgeport,USA,41°11'N,73°11'W,US/Eastern
+Wilmington,USA,39°44'N,75°32'W,US/Eastern
+Jacksonville,USA,30°19'N,81°39'W,US/Eastern
+Miami,USA,26°8'N,80°12'W,US/Eastern
+Chicago,USA,41°50'N,87°41'W,US/Central
+Wichita,USA,37°41'N,97°20'W,US/Central
+Louisville,USA,38°15'N,85°45'W,US/Eastern
+New Orleans,USA,29°57'N,90°4'W,US/Central
+Portland,USA,43°39'N,70°16'W,US/Eastern
+Baltimore,USA,9°17'N,76°37'W,US/Eastern
+Detroit,USA,42°19'N,83°2'W,US/Eastern
+Minneapolis,USA,44°58'N,93°15'W,US/Central
+Kansas City,USA,39°06'N,94°35'W,US/Central
+Billings,USA,45°47'N,108°32'W,US/Mountain
+Omaha,USA,41°15'N,96°0'W,US/Central
+Las Vegas,USA,36°10'N,115°08'W,US/Pacific
+Manchester,USA,42°59'N,71°27'W,US/Eastern
+Newark,USA,40°44'N,74°11'W,US/Eastern
+Albuquerque,USA,35°06'N,106°36'W,US/Mountain
+New York,USA,40°43'N,74°0'W,US/Eastern
+Charlotte,USA,35°13'N,80°50'W,US/Eastern
+Fargo,USA,46°52'N,96°47'W,US/Central
+Cleveland,USA,41°28'N,81°40'W,US/Eastern
+Portland,USA,45°31'N,122°40'W,US/Pacific
+Philadelphia,USA,39°57'N,75°10'W,US/Eastern
+Sioux Falls,USA,43°32'N,96°43'W,US/Central
+Memphis,USA,35°07'N,89°58'W,US/Central
+Houston,USA,29°45'N,95°22'W,US/Central
 Dallas,USA,32°47'N,96°48'W,US/Central
-Burlington,USA,44°28′N,73°9′W,US/Eastern
-Virginia Beach,USA,36°50′N,76°05′W,US/Eastern
-Seattle,USA,47°36′N,122°19′W,US/Pacific
-Milwaukee,USA,43°03′N,87°57′W,US/Central
-San Diego,USA,32°42′N,117°09′W,US/Pacific
-Orlando,USA,28°32′N,81°22′W,US/Eastern
-Buffalo,USA,42°54′N,78°50′W,US/Eastern
-Toledo,USA,41°39′N,83°34′W,US/Eastern
+Burlington,USA,44°28'N,73°9'W,US/Eastern
+Virginia Beach,USA,36°50'N,76°05'W,US/Eastern
+Seattle,USA,47°36'N,122°19'W,US/Pacific
+Milwaukee,USA,43°03'N,87°57'W,US/Central
+San Diego,USA,32°42'N,117°09'W,US/Pacific
+Orlando,USA,28°32'N,81°22'W,US/Eastern
+Buffalo,USA,42°54'N,78°50'W,US/Eastern
+Toledo,USA,41°39'N,83°34'W,US/Eastern
 """
 
 class AstralError(Exception):
