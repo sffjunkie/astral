@@ -22,7 +22,7 @@ for specific cities or at a specific latitude/longitude.
 It provides 2 main classes :class:`Astral` and :class:`City`.
 
 :class:`Astral`
-    Has 2 main capabilities
+    Has 2 main responsibilities
 
     * Calculates the events in the UTC timezone.
     * Holds a dictionary of City classes to provide information and
@@ -43,7 +43,7 @@ Information for London
 >>> print('Timezone: %s' % timezone)
 Timezone: Europe/London
 >>> print('Latitude: %.02f; Longitude: %.02f' % (city.latitude, city.longitude))
-Latitude: 51.60; Longitude: 0.08
+Latitude: 51.60; Longitude: 0.05
 >>> sun = city.sun(local=True)
 >>> print('Dawn:    %s' % str(sun['dawn']))
 Dawn:    2009-04-22 05:12:56+01:00
