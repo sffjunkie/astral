@@ -27,6 +27,7 @@ def testAstral():
     dd.solar_depression = 'civil'
     
     city = dd[city_name]
+    assert city.timezone == 'Asia/Riyadh'
     
     print('Information for %s/%s\n' % (city_name, city.country))
     
