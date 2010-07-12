@@ -23,7 +23,7 @@ setup(name='astral',
     author='Simon Kennedy',
     author_email='python@sffjunkie.co.uk',
     url="http://www.sffjunkie.co.uk/python-astral.html",
-    license='MIT',
+    license='Apache-2.0',
     package_dir={'': 'src'},
     py_modules=['astral']
 )
