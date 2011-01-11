@@ -562,6 +562,9 @@ class City(object):
             return self._timezone
         
         def fset(self, name):
+            if name not in pytz.all_timezones:
+                raise ValueError('Timezone \'%s\' not recognized' % name)
+                
             self._timezone = name
 
         return locals()
