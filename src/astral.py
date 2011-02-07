@@ -60,7 +60,7 @@ except ImportError:
 
 __all__ = ['City','Astral','AstralError']
 
-__version__ = "0.3"
+__version__ = "0.4"
 __author__ = "Simon Kennedy <python@sffjunkie.co.uk>"
 
 _CITY_INFO = """
@@ -199,7 +199,7 @@ Montevideo,Uruguay,34°50'S,56°11'W,America/Montevideo
 Moroni,Comoros,11°40'S,43°16'E,Indian/Comoro
 Moscow,Russian Federation,55°45'N,37°35'E,Europe/Moscow
 Moskva,Russian Federation,55°45'N,37°35'E,Europe/Moscow
-Mumbai,India,18°58′N 72°49'E,
+Mumbai,India,18°58'N,72°49'E,Asia/Kolkata
 N'Djamena,Chad,12°10'N,14°59'E,Africa/Ndjamena
 Nairobi,Kenya,01°17'S,36°48'E,Africa/Nairobi
 Nassau,Bahamas,25°05'N,77°20'W,America/Nassau
@@ -577,7 +577,11 @@ class City(object):
         doc = """The timezone."""
         
         def fget(self):
-            return pytz.timezone(self._timezone)
+            try:
+                tz =  pytz.timezone(self._timezone)
+                return tz
+            except pytz.UnknownTimeZoneError:
+                raise AstralError('Unknown timezone \'%s\'' % self._timezone)
             
         return locals()
             
