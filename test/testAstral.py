@@ -101,10 +101,10 @@ def testMoon():
     
     
 if __name__ == "__main__":
-    #testAstral()
-    #testElevation()
-    #testAzimuth()
-    #testCityCountry()
-    #testMultiCountry()
-    #testAdelaide()
+    testAstral()
+    testElevation()
+    testAzimuth()
+    testCityCountry()
+    testMultiCountry()
+    testAdelaide()
     testMoon()
