@@ -202,7 +202,7 @@ Mumbai,India,18°58′N 72°49'E,
 N'Djamena,Chad,12°10'N,14°59'E,Africa/Ndjamena
 Nairobi,Kenya,01°17'S,36°48'E,Africa/Nairobi
 Nassau,Bahamas,25°05'N,77°20'W,America/Nassau
-New Delhi,India,28°37'N,77°13'E,Asia/Kolcata
+New Delhi,India,28°37'N,77°13'E,Asia/Kolkata
 Niamey,Niger,13°27'N,02°06'E,Africa/Niamey
 Nicosia,Cyprus,35°10'N,33°25'E,Asia/Nicosia
 Nouakchott,Mauritania,20°10'S,57°30'E,Africa/Nouakchott
