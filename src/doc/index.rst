@@ -12,7 +12,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Welcome to Astral V0.3
+Welcome to Astral V0.4
 ======================
 
 Astral is a python module for calculating the times of various aspects of
@@ -49,6 +49,9 @@ Solar Elevation
     "Rahukaalam or the period of Rahu is a certain amount of time every day
     that is considered inauspicious for any new venture according to Indian
     astrology".
+    
+Moon Phase
+    Calculates the phase of the moon for a specified date.
 
 Example
 =======
@@ -182,6 +185,12 @@ spreadsheet.
 Which takes its calculations from
 
     http://www.srrb.noaa.gov/highlights/sunrise/azel.html
+    
+The moon phase calculation is based on some `javascript`_ code
+from Sky and Telescope magazine
+
+    | Moon-phase calculation
+    | Roger W. Sinnott, Sky & Telescope, June 16, 2006.
 
 Also to `Sphinx`_ for making doc generation an easy thing (not that the writing
 of the docs is any easier.)
@@ -204,6 +213,12 @@ Version  Description
 0.3      * Changed to `Apache`_ V2.0 license.
          * Fix for bug `555508`_ submitted by me.
          * US state capitals and other cities added.
+-------- ---------------------------------------------------------
+0.4      * Duplicate city names could not be accessed.
+         * Sun calculations for some cities failed with times
+           outside valid ranges.
+         * Fixes for city data.
+         * Added calculation for moon phase.
 ======== =========================================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
@@ -213,6 +228,7 @@ Version  Description
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _554041: https://bugs.launchpad.net/astral/+bug/554041
 .. _555508: https://bugs.launchpad.net/astral/+bug/555508
+.. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
 
     
 .. toctree::
