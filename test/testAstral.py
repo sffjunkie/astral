@@ -73,9 +73,38 @@ def testCityCountry():
     city=dd[city_name]
     assert city.name == 'Birmingham'
     assert city.country == 'England'
+
+def testMultiCountry():
+    dd = Astral()
+    city = dd['Abu Dhabi']
+    assert city.name == 'Abu Dhabi'
+
+def testMultiCountryWithCountry():
+    """Test for fix made due to bug report from Klaus Alexander Seistrup"""
+    
+    dd = Astral()
+    city = dd['Abu Dhabi,United Arab Emirates']
+    assert city.name == 'Abu Dhabi'
+
+    city = dd['Abu Dhabi,UAE']
+    assert city.name == 'Abu Dhabi'
+
+def testAdelaide():
+    """Test for fix made due to bug report from Klaus Alexander Seistrup"""
+    
+    dd = Astral()
+    city = dd['Adelaide']
+    
+def testMoon():
+    dd = Astral()
+    dd.moon(datetime.date(2011,02,24))
+    
     
 if __name__ == "__main__":
-    testAstral()
-    testElevation()
-    testAzimuth()
-    testCityCountry()
+    #testAstral()
+    #testElevation()
+    #testAzimuth()
+    #testCityCountry()
+    #testMultiCountry()
+    #testAdelaide()
+    testMoon()
