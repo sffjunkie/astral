@@ -1,9 +1,0 @@
-README
-astral.py
-setup.py
-astral.egg-info/PKG-INFO
-astral.egg-info/SOURCES.txt
-astral.egg-info/dependency_links.txt
-astral.egg-info/requires.txt
-astral.egg-info/top_level.txt
-test/testAstral.py
