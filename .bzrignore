@@ -5,3 +5,4 @@ dist/*
 ./doc
 MANIFEST
 venv
+.DS_Store
