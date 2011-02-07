@@ -15,10 +15,11 @@
 from distutils.core import setup
 
 setup(name='astral',
-    version='0.3',
+    version='0.4',
     description='Calculations for the position of the sun.',
     long_description="""Sun calculations for dawn, sunrise, solar noon,
     sunset, dusk, solar elevation, solar azimuth and rahukaalam.
+    Moon calculation for phase.
     """,
     author='Simon Kennedy',
     author_email='python@sffjunkie.co.uk',
