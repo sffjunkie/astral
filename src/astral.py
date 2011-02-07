@@ -50,7 +50,8 @@ Dawn:    2009-04-22 05:12:56+01:00
 """
 
 import datetime
-from math import cos, sin, tan, acos, asin, atan2, floor, radians, degrees
+from math import cos, sin, tan, acos, asin, atan2, floor
+from math import radians, degrees
 
 try:
     import pytz
@@ -960,10 +961,27 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
+        if second > 59:
+            second -= 60
+            minute += 1
+        elif second < 0:
+            second += 60
+            minute -= 1
+
+        if minute > 59:
+            minute -= 60
+            hour += 1
+        elif minute < 0:
+            minute += 60
+            hour -= 1
+
         if hour > 23:
             hour -= 24
             date += datetime.timedelta(days=1)
-
+        elif hour < 0:
+            hour += 24
+            date -= datetime.timedelta(days=1)
+        
         dawn = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
         return dawn
@@ -1002,9 +1020,26 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
+        if second > 59:
+            second -= 60
+            minute += 1
+        elif second < 0:
+            second += 60
+            minute -= 1
+
+        if minute > 59:
+            minute -= 60
+            hour += 1
+        elif minute < 0:
+            minute += 60
+            hour -= 1
+
         if hour > 23:
             hour -= 24
             date += datetime.timedelta(days=1)
+        elif hour < 0:
+            hour += 24
+            date -= datetime.timedelta(days=1)
 
         sunrise = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
@@ -1028,9 +1063,26 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
+        if second > 59:
+            second -= 60
+            minute += 1
+        elif second < 0:
+            second += 60
+            minute -= 1
+
+        if minute > 59:
+            minute -= 60
+            hour += 1
+        elif minute < 0:
+            minute += 60
+            hour -= 1
+
         if hour > 23:
             hour -= 24
             date += datetime.timedelta(days=1)
+        elif hour < 0:
+            hour += 24
+            date -= datetime.timedelta(days=1)
 
         noon = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
@@ -1070,9 +1122,26 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
+        if second > 59:
+            second -= 60
+            minute += 1
+        elif second < 0:
+            second += 60
+            minute -= 1
+
+        if minute > 59:
+            minute -= 60
+            hour += 1
+        elif minute < 0:
+            minute += 60
+            hour -= 1
+
         if hour > 23:
             hour -= 24
             date += datetime.timedelta(days=1)
+        elif hour < 0:
+            hour += 24
+            date -= datetime.timedelta(days=1)
 
         sunset = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
@@ -1118,9 +1187,26 @@ class Astral(object):
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
 
+        if second > 59:
+            second -= 60
+            minute += 1
+        elif second < 0:
+            second += 60
+            minute -= 1
+
+        if minute > 59:
+            minute -= 60
+            hour += 1
+        elif minute < 0:
+            minute += 60
+            hour -= 1
+
         if hour > 23:
             hour -= 24
             date += datetime.timedelta(days=1)
+        elif hour < 0:
+            hour += 24
+            date -= datetime.timedelta(days=1)
 
         dusk = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
 
@@ -1326,7 +1412,11 @@ class Astral(object):
         A = floor(year / 100.0)
         B = 2 - A + floor(A / 4.0)
 
-        return floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + day + B - 1524.5
+        jd = floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + day - 1524.5
+        if jd > 2299160.4999999:
+            jd += B
+            
+        return jd
         
     def _jday_to_jcentury(self, julianday):
         return (julianday - 2451545.0) / 36525.0
