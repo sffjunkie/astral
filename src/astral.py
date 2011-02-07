@@ -25,8 +25,7 @@ It provides 2 main classes :class:`Astral` and :class:`City`.
     Has 2 main responsibilities
 
     * Calculates the events in the UTC timezone.
-    * Holds a dictionary of City classes to provide information and
-      calculations for a specific city.
+    * Holds a dictionary of City classes
     
 :class:`City`
     Holds information about a city and provides functions to calculate
@@ -417,19 +416,21 @@ class City(object):
     def __init__(self, info=None):
         """Initializes the object with a tuple of information.
         
-        The tuple should contain items in the following order
+        :param info: A tuple of information to fill in the city info.
         
-        ================ =============
-        Field            Default
-        ================ =============
-        name             Greenwich
-        country          England
-        latitude         51.168
-        longitude        0
-        time zone name   Europe/London
-        ================ =============
+            The tuple should contain items in the following order
             
-        See :attr:`timezone` property for a method of obtaining time zone names
+            ================ =============
+            Field            Default
+            ================ =============
+            name             Greenwich
+            country          England
+            latitude         51.168
+            longitude        0
+            time zone name   Europe/London
+            ================ =============
+                
+            See :attr:`timezone` property for a method of obtaining time zone names
         """
         
         self._astral = None
@@ -588,19 +589,17 @@ class City(object):
     tz = property(**tz())
 
     def dawn(self, date=None, local=True):
-        """Return dawn time.
-        
-        Calculates the time in the morning when the sun is a certain number of
+        """Calculates the time in the morning when the sun is a certain number of
         degrees below the horizon. By default this is 6 degrees but can be changed
         by setting the :attr:`Astral.solar_depression` property.
         
-        Parameters::
-        
-            date  - The date for which to calculate the sunrise time.
-                    A value of None uses the current date.
+        :param date: The date for which to calculate the dawn time.
+                     A value of None uses the current date.
 
-            local - True  = Time to be returned in cities time zone (Default);
-                    False = Time to be returned in UTC.
+        :param local: True  = Time to be returned in cities time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: :class:`datetime.datetime` of dawn
         """
 
         if self._astral is None:
@@ -622,13 +621,13 @@ class City(object):
         Calculates the time in the morning when the sun is a 0.833 degrees
         below the horizon. This is to account for refraction.
         
-        Parameters::
+        :param date: The date for which to calculate the sunrise time.
+                     A value of None uses the current date.
 
-            date  - The date for which to calculate the sunrise time.
-                    A value of None uses the current date.
-
-            local - True  = Time to be returned in cities time zone (Default);
-                    False = Time to be returned in UTC.
+        :param local: True  = Time to be returned in cities time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: :class:`datetime.datetime` of sunrise
         """
 
         if self._astral is None:
@@ -645,17 +644,15 @@ class City(object):
             return sunrise
         
     def solar_noon(self, date=None, local=True):
-        """Return the solar noon time.
+        """Calculates the solar noon (the time when the sun is at its highest point.)
         
-        Calculates the time when the sun is at its highest point.
-        
-        Parameters::
-        
-            date  - The date for which to calculate the noon time.
-                    A value of None uses the current date.
-            
-            local - True  = Time to be returned in cities time zone (Default);
-                    False = Time to be returned in UTC.
+        :param date: The date for which to calculate the noon time.
+                     A value of None uses the current date.
+
+        :param local: True  = Time to be returned in cities time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: :class:`datetime.datetime` of noon
         """
         
         if self._astral is None:
@@ -672,18 +669,16 @@ class City(object):
             return noon
         
     def sunset(self, date=None, local=True):
-        """Return sunset time.
+        """Calculates sunset time (the time in the evening when the sun is a 0.833 degrees
+        below the horizon. This is to account for refraction.)
         
-        Calculates the time in the evening when the sun is a 0.833 degrees
-        below the horizon. This is to account for refraction.
-        
-        Parameters::
-        
-            date  - The date for which to calculate the sunset time.
-                    A value of None uses the current date.
-            
-            local - True  = Time to be returned in cities time zone (Default);
-                    False = Time to be returned in UTC.
+        :param date: The date for which to calculate the sunset time.
+                     A value of None uses the current date.
+
+        :param local: True  = Time to be returned in cities time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: :class:`datetime.datetime` of sunset
         """
         
         if self._astral is None:
@@ -700,19 +695,17 @@ class City(object):
             return sunset
         
     def dusk(self, date=None, local=True):
-        """Return dusk time.
-        
-        Calculates the time in the evening when the sun is a certain number of
+        """Calculates the dusk time (the time in the evening when the sun is a certain number of
         degrees below the horizon. By default this is 6 degrees but can be changed
-        by setting the :attr:`Astral.solar_depression` property.
+        by setting the :attr:`Astral.solar_depression` property.)
         
-        Parameters::
-        
-            date  - The date for which to calculate the dusk time.
-                    A value of None uses the current date.
-            
-            local - True  = Time to be returned in cities time zone (Default);
-                    False = Time to be returned in UTC.
+        :param date: The date for which to calculate the dusk time.
+                     A value of None uses the current date.
+
+        :param local: True  = Time to be returned in cities time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: :class:`datetime.datetime` of dusk
         """
         
         if self._astral is None:
@@ -731,13 +724,13 @@ class City(object):
     def sun(self, date=None, local=True):
         """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
         
-        Parameters::
-        
-            date  - The date for which to calculate the times.
-                    A value of None uses the current date.
-            
-            local - True  = Time to be returned in cities time zone (Default);
-                    False = Time to be returned in UTC.
+        :param date: The date for which to calculate the times.
+                     A value of None uses the current date.
+
+        :param local: True  = Time to be returned in cities time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: :class:`datetime.datetime` of dusk
         """
         
         if self._astral is None:
@@ -757,13 +750,13 @@ class City(object):
     def rahukaalam(self, date=None, local=True):
         """Calculates the period of rahukaalam.
         
-        Parameters::
-        
-            date  - The date for which to calculate rahukaalam period.
-                    A value of None uses the current date.
-            
-            local - True  = Time to be returned in cities time zone (Default);
-                    False = Time to be returned in UTC.
+        :param date: The date for which to calculate the rahukaalam period.
+                     A value of None uses the current date.
+
+        :param local: True  = Time to be returned in cities time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: :class:`datetime.datetime` of dusk
         """
 
         if self._astral is None:
@@ -781,13 +774,12 @@ class City(object):
         return rahukaalam
     
     def solar_azimuth(self, dateandtime=None):
-        """Calculates the solar azimuth angle for a specific time.
+        """Calculates the solar azimuth angle for a specific date/time.
         
-        The angle returned is in degrees clockwise from North.
-        
-        Parameters::
-        
-            dateandtime - The date and time for which to calculate the angle.
+        :param dateandtime: The date and time for which to calculate the angle.
+        :type dateandtime: :class:`datetime.datetime`
+                      
+        :rtype: The angle in degrees clockwise from North as a float.
         """
 
         if self._astral is None:
@@ -801,11 +793,11 @@ class City(object):
     def solar_elevation(self, dateandtime=None):
         """Calculates the solar elevation angle for a specific time.
         
-        The angle returned is in degrees from the horizon
         
-        Parameters::
-        
-            dateandtime - The date and time for which to calculate the angle.
+        :param dateandtime: The date and time for which to calculate the angle.
+        :type dateandtime: :class:`datetime.datetime`
+                      
+        :rtype: The angle in degrees from the horizon as a float.
         """
 
         if self._astral is None:
@@ -838,13 +830,17 @@ class Astral(object):
         self._depression = 6  # Set default depression in degrees
 
     def __getitem__(self, value):
-        """Returns a City object for the specified city.
+        """Returns a City object for the specified city. ::
+        
+            city = astral['London']
         
         You can supply an optional country name by adding a comma
         followed by the country name. Where multiple cities have the
         same name you may need to supply the country name otherwise
         the first result will be returned which may not be the one
-        you're looking for.
+        you're looking for. ::
+        
+            city = astral['Abu Dhabi,United Arab Emirates']
         
         Handles city names with spaces and mixed case.
         """
@@ -872,8 +868,7 @@ class Astral(object):
         raise KeyError('Unrecognised city name - %s' % value)
 
     def cities():
-        doc = """Returns a dictionary of cities indexed by city name.
-        """
+        doc = """:rtype: Dictionary of cities indexed by city name."""
 
         def fget(self):
             return self._cities
@@ -914,7 +909,18 @@ class Astral(object):
     solar_depression = property(**solar_depression())
 
     def sun_utc(self, date, latitude, longitude):
-        """Returns dawn, sunrise, noon, sunset and dusk times as a dictionary.
+        """Calculate all the info for the sun at once.
+
+        :param date:       Date to calculate for.
+        :type date:        :class:`datetime.date`
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype:
+            Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
+            ``sunset`` and ``dusk``
         """
         
         dawn = self.dawn_utc(date, latitude, longitude)
@@ -926,9 +932,16 @@ class Astral(object):
         return {'dawn': dawn, 'sunrise': sunrise, 'noon': noon, 'sunset': sunset, 'dusk': dusk}
 
     def dawn_utc(self, date, latitude, longitude):
-        """Calculate dawn time for a specific date at a particular position.
+        """Calculate dawn time in the UTC timezone.
         
-        Returns date/time in UTC
+        :param date:       Date to calculate for.
+        :type date:        datetime.date
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: date/time in UTC timezone
         """
         
         julianday = self._julianday(date.day, date.month, date.year)
@@ -991,9 +1004,16 @@ class Astral(object):
         return dawn
 
     def sunrise_utc(self, date, latitude, longitude):
-        """Calculate sunrise time for a specific date at a particular position.
+        """Calculate sunrise time in the UTC timezone.
         
-        Returns date/time in UTC
+        :param date:       Date to calculate for.
+        :type date:        datetime.date
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: date/time in UTC timezone
         """
         
         julianday = self._julianday(date.day, date.month, date.year)
@@ -1050,9 +1070,16 @@ class Astral(object):
         return sunrise
 
     def solar_noon_utc(self, date, longitude):
-        """Calculate solar noon time for a specific date at a particular position.
+        """Calculate solar noon time in the UTC timezone.
         
-        Returns date/time in UTC
+        :param date:       Date to calculate for.
+        :type date:        datetime.date
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: date/time in UTC timezone
         """
         
         julianday = self._julianday(date.day, date.month, date.year)
@@ -1093,9 +1120,16 @@ class Astral(object):
         return noon
 
     def sunset_utc(self, date, latitude, longitude):
-        """Calculate sunset time for a specific date at a particular position.
+        """Calculate sunset time in the UTC timezone.
         
-        Returns date/time in UTC
+        :param date:       Date to calculate for.
+        :type date:        datetime.date
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: date/time in UTC timezone
         """
         
         julianday = self._julianday(date.day, date.month, date.year)
@@ -1152,9 +1186,16 @@ class Astral(object):
         return sunset
 
     def dusk_utc(self, date, latitude, longitude):
-        """Calculate dusk time for a specific date at a particular position.
+        """Calculate dusk time in the UTC timezone.
         
-        Returns date/time in UTC
+        :param date:       Date to calculate for.
+        :type date:        datetime.date
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: date/time in UTC timezone
         """
         
         julianday = self._julianday(date.day, date.month, date.year)
@@ -1217,7 +1258,16 @@ class Astral(object):
         return dusk
 
     def rahukaalam_utc(self, date, latitude, longitude):
-        """Calculate ruhakaalam times at a particular location.
+        """Calculate ruhakaalam times in the UTC timezone.
+        
+        :param date:       Date to calculate for.
+        :type date:        datetime.date
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: Dictionary with keys ``start`` and ``end``
         """
         
         if date is None:
@@ -1243,7 +1293,16 @@ class Astral(object):
         return {'start': start, 'end': end}
 
     def solar_azimuth(self, dateandtime, latitude, longitude):
-        """Calculate the azimuth of the sun as a specific date/time and location.
+        """Calculate the azimuth of the sun in the UTC timezone.
+        
+        :param dateandtime:       Date/time to calculate for.
+        :type dateandtime:        datetime.datetime
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: Azimuth in degrees
         """
     
         if latitude > 89.8:
@@ -1315,7 +1374,16 @@ class Astral(object):
         return azimuth
 
     def solar_elevation(self, dateandtime, latitude, longitude):
-        """Calculate the elevation of the sun as a specific date/time and location.
+        """Calculate the elevation of the sun.
+        
+        :param dateandtime:       Date/time to calculate for.
+        :type dateandtime:        datetime.datetime
+        :param latitude:   Latitude - Southern latitudes should be negative
+        :type latitude:    float 
+        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :type longitude:   float 
+        
+        :rtype: Elevation in degrees
         """
     
         if latitude > 89.8:
@@ -1409,6 +1477,20 @@ class Astral(object):
         return solarelevation
 
     def moon(self, date):
+        """Calculates the phase of the moon on the specified date.
+        
+        :param date: The date to calculate the phase for.
+        :type date: datetime.date
+            
+        :rtype:
+            Integer designating phase
+        
+                | 0  = New moon
+                | 7  = First quarter
+                | 14 = Full moon
+                | 21 = Last quarter
+        """
+        
         jd = self._julianday(date.day, date.month, date.year)
         DT = pow((jd - 2382148), 2) / (41048480*86400)
         T = (jd + DT - 2451545.0) / 36525
