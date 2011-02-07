@@ -50,8 +50,8 @@ Dawn:    2009-04-22 05:12:56+01:00
 """
 
 import datetime
-from math import cos, sin, tan, acos, asin, atan2, floor
-from math import radians, degrees
+from math import cos, sin, tan, acos, asin, atan2, floor, ceil
+from math import radians, degrees, pow
 
 try:
     import pytz
@@ -1403,6 +1403,37 @@ class Astral(object):
         solarelevation = 90.0 - solarzen
     
         return solarelevation
+
+    def moon(self, date):
+        jd = self._julianday(date.day, date.month, date.year)
+        DT = pow((jd - 2382148), 2) / (41048480*86400)
+        T = (jd + DT - 2451545.0) / 36525
+        T2 = pow(T,2)
+        T3 = pow(T,3)
+        D = 297.85 + (445267.1115*T) - (0.0016300*T2) + (T3/545868)
+        D = radians(self._proper_angle(D))
+        M = 357.53 + (35999.0503*T)
+        M = radians(self._proper_angle(M))
+        M1 = 134.96 + (477198.8676*T) + (0.0089970*T2) + (T3/69699)
+        M1 = radians(self._proper_angle(M1))
+        elong = degrees(D) + 6.29*sin(M1)
+        elong -= 2.10*sin(M)
+        elong += 1.27*sin(2*D - M1)
+        elong += 0.66*sin(2*D)
+        elong = self._proper_angle(elong)
+        moon = int(floor(((elong + 6.43) / 360) * 28))
+        if moon == 28:
+            moon = 0
+        
+        return moon
+
+    def _proper_angle(self, value):
+        if value > 0.0:
+            value /= 360.0
+            return (value - floor(value)) * 360
+        else:
+            tmp = ceil(abs(value / 360.0))
+            return value + tmp * 360.0
 
     def _julianday(self, day, month, year):
         if month <= 2:
