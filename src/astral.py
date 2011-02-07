@@ -155,10 +155,10 @@ Kampala,Uganda,00°20'N,32°30'E,Africa/Kampala
 Kathmandu,Nepal,27°45'N,85°20'E,Asia/Kathmandu
 Khartoum,Sudan,15°31'N,32°35'E,Africa/Khartoum
 Kiev,Ukraine,50°30'N,30°28'E,Europe/Kiev
-Kigali,Rawanda,01°59'S,30°04'E,Africa/Kigali
+Kigali,Rwanda,01°59'S,30°04'E,Africa/Kigali
 Kingston,Jamaica,18°00'N,76°50'W,America/Jamaica
 Kingston,Norfolk Island,45°20'S,168°43'E,Pacific/Norfolk
-Kingstown,Saint vincent and the Grenadines,13°10'N,61°10'W,America/St_Vincent
+Kingstown,Saint Vincent and the Grenadines,13°10'N,61°10'W,America/St_Vincent
 Kinshasa,Democratic Republic of the Congo,04°20'S,15°15'E,Africa/Kinshasa
 Koror,Palau,07°20'N,134°28'E,Pacific/Palau
 Kuala Lumpur,Malaysia,03°09'N,101°41'E,Asia/Kuala_Lumpur
@@ -198,10 +198,11 @@ Montevideo,Uruguay,34°50'S,56°11'W,America/Montevideo
 Moroni,Comoros,11°40'S,43°16'E,Indian/Comoro
 Moscow,Russian Federation,55°45'N,37°35'E,Europe/Moscow
 Moskva,Russian Federation,55°45'N,37°35'E,Europe/Moscow
+Mumbai,India,18°58′N 72°49'E,
 N'Djamena,Chad,12°10'N,14°59'E,Africa/Ndjamena
 Nairobi,Kenya,01°17'S,36°48'E,Africa/Nairobi
 Nassau,Bahamas,25°05'N,77°20'W,America/Nassau
-New Delhi,India,28°37'N,77°13'E,Asia/Calcutta
+New Delhi,India,28°37'N,77°13'E,Asia/Kolcata
 Niamey,Niger,13°27'N,02°06'E,Africa/Niamey
 Nicosia,Cyprus,35°10'N,33°25'E,Asia/Nicosia
 Nouakchott,Mauritania,20°10'S,57°30'E,Africa/Nouakchott
@@ -272,7 +273,7 @@ Vientiane,Lao People's Democratic Republic,17°58'N,102°36'E,Asia/Vientiane
 Vilnius,Lithuania,54°38'N,25°19'E,Europe/Vilnius
 W. Indies,Antigua and Barbuda,17°20'N,61°48'W,America/Antigua
 Warsaw,Poland,52°13'N,21°00'E,Europe/Warsaw
-Washington DC,United States of America,39°91'N,77°02'W,US/Eastern
+Washington DC,USA,39°91'N,77°02'W,US/Eastern
 Wellington,New Zealand,41°19'S,174°46'E,Pacific/Auckland
 Willemstad,Netherlands Antilles,12°05'N,69°00'W,America/Curacao
 Windhoek,Namibia,22°35'S,17°04'E,Africa/Windhoek
@@ -856,7 +857,7 @@ class Astral(object):
 
         for (name, cities) in self._cities.items():
             if name.lower().replace(' ', '_') == city_name:
-                if len(cities) == 1:
+                if len(cities) == 1 or country_name == '':
                     return cities[0]
 
                 for city in cities:
@@ -1020,7 +1021,6 @@ class Astral(object):
         newt = self._jday_to_jcentury(julianday + 0.5 + longitude / 360.0)
 
         eqtime = self._eq_of_time(newt)
-        solarNoonDec = self._sun_declination(newt)
         timeUTC = 720.0 + (longitude * 4.0) - eqtime
 
         timeUTC = timeUTC/60.0
@@ -1168,14 +1168,11 @@ class Astral(object):
 
         JD = self._julianday(dateandtime.day, dateandtime.month, dateandtime.year)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
-        R = self._sun_rad_vector(t)
-        alpha = self._sun_rt_ascension(t)
         theta = self._sun_declination(t)
         Etime = self._eq_of_time(t)
     
         eqtime = Etime
         solarDec = theta   # in degrees
-        earthRadVec = R
     
         solarTimeFix = eqtime - (4.0 * longitude) + (60 * zone)
         trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + dateandtime.second / 60.0 + solarTimeFix
@@ -1243,14 +1240,11 @@ class Astral(object):
     
         JD = self._julianday(dateandtime.day, dateandtime.month, dateandtime.year)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
-        R = self._sun_rad_vector(t)
-        alpha = self._sun_rt_ascension(t)
         theta = self._sun_declination(t)
         Etime = self._eq_of_time(t)
     
         eqtime = Etime
         solarDec = theta   # in degrees
-        earthRadVec = R
     
         solarTimeFix = eqtime - (4.0 * longitude) + (60 * zone)
         trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + dateandtime.second / 60.0 + solarTimeFix
@@ -1295,7 +1289,7 @@ class Astral(object):
             if latitude > 0.0:
                 azimuth = 180.0
             else:
-                azimuth = 0#
+                azimuth = 0
     
         if azimuth < 0.0:
             azimuth = azimuth + 360.0
