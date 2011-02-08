@@ -176,6 +176,10 @@ div.body td {
     text-align: left;
 }
 
+table.docutils.field-list {
+    border: none;
+}
+
 .field-list ul {
     padding-left: 1em;
 }
@@ -424,3 +428,4 @@ span.eqno {
         display: none;
     }
 }
+
