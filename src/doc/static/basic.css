@@ -180,6 +180,11 @@ div.body td {
     padding-left: 1em;
 }
 
+.field-list ul.simple {
+    padding-left: 0;
+    list-style-type: none;
+}
+
 .first {
     margin-top: 0 !important;
 }
