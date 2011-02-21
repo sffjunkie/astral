@@ -440,17 +440,19 @@ class City(object):
             self._country = 'England'
             self._latitude = 51.168
             self._longitude = 0
-            self._timezone = 'Europe/London'
+            self._timezone_group = 'Europe'
+            self._timezone_location = 'London'
         else:
             self._name = ''
             self._country = ''
             self._latitude = 0
             self._longitude = 0
-            self._timezone = ''
+            self._timezone_group = ''
+            self._timezone_location = ''
 
             try:
-                self._name = str(info[0])
-                self._country = str(info[1])
+                self.name = str(info[0])
+                self.country = str(info[1])
                 self.latitude = info[2]
                 self.longitude = info[3]
                 self.timezone = info[4]
@@ -458,7 +460,7 @@ class City(object):
                 pass
 
     def __repr__(self):
-        return '%s/%s, tz=%s' % (self._name, self._country, self._timezone)
+        return '%s/%s, tz=%s' % (self.name, self.country, self.timezone)
 
     def name():
         doc = """The city name."""
@@ -563,13 +565,13 @@ class City(object):
         """
         
         def fget(self):
-            return self._timezone
+            return '%s/%s' % (self._timezone_group, self._timezone_location)
         
         def fset(self, name):
             if name not in pytz.all_timezones:
                 raise ValueError('Timezone \'%s\' not recognized' % name)
                 
-            self._timezone = name
+            self._timezone_group, self._timezone_location = name.split('/', 1)
 
         return locals()
             
@@ -580,10 +582,10 @@ class City(object):
         
         def fget(self):
             try:
-                tz =  pytz.timezone(self._timezone)
+                tz =  pytz.timezone(self.timezone)
                 return tz
             except pytz.UnknownTimeZoneError:
-                raise AstralError('Unknown timezone \'%s\'' % self._timezone)
+                raise AstralError('Unknown timezone \'%s\'' % self.timezone)
             
         return locals()
             
@@ -877,6 +879,15 @@ class Astral(object):
         return locals()
         
     cities = property(**cities())
+
+    def in_group(self, group):
+        cities  = {}
+        for city_list in self._cities.values():
+            for city in city_list:
+                if city._timezone_group == group:
+                    cities[city.name] = city
+                
+        return cities
 
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the dawn/dusk calc.
