@@ -98,7 +98,14 @@ def testAdelaide():
 def testMoon():
     dd = Astral()
     dd.moon(datetime.date(2011,02,24))
+
+def testAllCities():
+    dd = Astral()
+    cities = dd.cities.keys()
+    cities.sort()
     
+    for city_name in cities:
+        city = dd[city_name]
     
 if __name__ == "__main__":
     testAstral()
@@ -108,3 +115,4 @@ if __name__ == "__main__":
     testMultiCountry()
     testAdelaide()
     testMoon()
+    testAllCities()
