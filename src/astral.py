@@ -437,15 +437,13 @@ class City(object):
         
         self.astral = None
         if info is None:
-            self._name = 'Greenwich'
-            self._country = 'England'
+            self.name = 'Greenwich'
+            self.country = 'England'
             self._latitude = 51.168
             self._longitude = 0
             self._timezone_group = 'Europe'
             self._timezone_location = 'London'
         else:
-            self._name = ''
-            self._country = ''
             self._latitude = 0
             self._longitude = 0
             self._timezone_group = ''
@@ -462,32 +460,6 @@ class City(object):
 
     def __repr__(self):
         return '%s/%s, tz=%s' % (self.name, self.country, self.timezone)
-
-    def name():
-        doc = """The city name."""
-        
-        def fget(self):
-            return self._name
-            
-        def fset(self, name):
-            self._name = name    
-            
-        return locals()
-            
-    name = property(**name())
-        
-    def country():
-        doc = """The country in which the city is located."""
-        
-        def fget(self):
-            return self._country
-            
-        def fset(self, country):
-            self._country = country
-            
-        return locals()
-            
-    country = property(**country())
         
     def latitude():
         doc = """The city's latitude
