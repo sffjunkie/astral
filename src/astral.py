@@ -263,6 +263,7 @@ Tashkent,Uzbekistan,41°20'N,69°10'E,Asia/Tashkent
 Tegucigalpa,Honduras,14°05'N,87°14'W,America/Tegucigalpa
 Tehran,Iran,35°44'N,51°30'E,Asia/Tehran
 Thimphu,Bhutan,27°31'N,89°45'E,Asia/Thimphu
+Tirana,Albania,41°18'N,19°49'E,Europe/Tirane
 Tirane,Albania,41°18'N,19°49'E,Europe/Tirane
 Torshavn,Faroe Islands,62°05'N,06°56'W,Atlantic/Faroe
 Tripoli,Libyan Arab Jamahiriya,32°49'N,13°07'E,Africa/Tripoli
@@ -434,7 +435,7 @@ class City(object):
             See :attr:`timezone` property for a method of obtaining time zone names
         """
         
-        self._astral = None
+        self.astral = None
         if info is None:
             self._name = 'Greenwich'
             self._country = 'England'
@@ -565,13 +566,20 @@ class City(object):
         """
         
         def fget(self):
-            return '%s/%s' % (self._timezone_group, self._timezone_location)
+            if self._timezone_location != '':
+                return '%s/%s' % (self._timezone_group, self._timezone_location)
+            else:
+                return self._timezone_group
         
         def fset(self, name):
             if name not in pytz.all_timezones:
                 raise ValueError('Timezone \'%s\' not recognized' % name)
-                
-            self._timezone_group, self._timezone_location = name.split('/', 1)
+
+            try:                
+                self._timezone_group, self._timezone_location = name.split('/', 1)
+            except ValueError:
+                self._timezone_group = name
+                self._timezone_location = ''
 
         return locals()
             
@@ -605,13 +613,13 @@ class City(object):
         :rtype: :class:`datetime.datetime` of dawn
         """
 
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        dawn = self._astral.dawn_utc(date, self.latitude, self.longitude)
+        dawn = self.astral.dawn_utc(date, self.latitude, self.longitude)
 
         if local:
             return dawn.astimezone(self.tz)            
@@ -633,13 +641,13 @@ class City(object):
         :rtype: :class:`datetime.datetime` of sunrise
         """
 
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
         
         if date is None:
             date = datetime.date.today()
 
-        sunrise = self._astral.sunrise_utc(date, self.latitude, self.longitude)
+        sunrise = self.astral.sunrise_utc(date, self.latitude, self.longitude)
 
         if local:
             return sunrise.astimezone(self.tz)            
@@ -658,13 +666,13 @@ class City(object):
         :rtype: :class:`datetime.datetime` of noon
         """
         
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        noon = self._astral.solar_noon_utc(date, self.longitude)
+        noon = self.astral.solar_noon_utc(date, self.longitude)
 
         if local:
             return noon.astimezone(self.tz)            
@@ -684,13 +692,13 @@ class City(object):
         :rtype: :class:`datetime.datetime` of sunset
         """
         
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        sunset = self._astral.sunset_utc(date, self.latitude, self.longitude)
+        sunset = self.astral.sunset_utc(date, self.latitude, self.longitude)
 
         if local:
             return sunset.astimezone(self.tz)            
@@ -711,13 +719,13 @@ class City(object):
         :rtype: :class:`datetime.datetime` of dusk
         """
         
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        dusk = self._astral.dusk_utc(date, self.latitude, self.longitude)
+        dusk = self.astral.dusk_utc(date, self.latitude, self.longitude)
 
         if local:
             return dusk.astimezone(self.tz)            
@@ -736,13 +744,13 @@ class City(object):
         :rtype: :class:`datetime.datetime` of dusk
         """
         
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        sun = self._astral.sun_utc(date, self.latitude, self.longitude)
+        sun = self.astral.sun_utc(date, self.latitude, self.longitude)
 
         if local:
             for key, dt in sun.items():
@@ -762,13 +770,13 @@ class City(object):
         :rtype: :class:`datetime.datetime` of dusk
         """
 
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if date is None:
             date = datetime.date.today()
 
-        rahukaalam = self._astral.rahukaalam_utc(date, self.latitude, self.longitude)
+        rahukaalam = self.astral.rahukaalam_utc(date, self.latitude, self.longitude)
 
         if local:
             for key, dt in rahukaalam.items():
@@ -785,13 +793,13 @@ class City(object):
         :rtype: The angle in degrees clockwise from North as a float.
         """
 
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if dateandtime is None:
             dateandtime = datetime.datetime.now(tz=self.tz)
             
-        return self._astral.solar_azimuth(dateandtime, self.latitude, self.longitude)
+        return self.astral.solar_azimuth(dateandtime, self.latitude, self.longitude)
     
     def solar_elevation(self, dateandtime=None):
         """Calculates the solar elevation angle for a specific time.
@@ -803,39 +811,24 @@ class City(object):
         :rtype: The angle in degrees from the horizon as a float.
         """
 
-        if self._astral is None:
-            self._astral = Astral()
+        if self.astral is None:
+            self.astral = Astral()
 
         if dateandtime is None:
             dateandtime = datetime.datetime.now(tz=self.tz)
 
-        return self._astral.solar_elevation(dateandtime, self.latitude, self.longitude)
-        
-    def astral():
-        def fget(self):
-            return self._astral
-            
-        def fset(self, astral):
-            self._astral = astral
-            
-        return locals()
-        
-    astral = property(**astral())
-    
+        return self.astral.solar_elevation(dateandtime, self.latitude, self.longitude)
 
-class Astral(object):
+
+class CityGroup(object):
     def __init__(self):
-        """Initialise the list of cities."""
-        
         self._cities = {}
-        self._init_cities()
-        
-        self._depression = 6  # Set default depression in degrees
 
-    def __getitem__(self, value):
+    def __getitem__(self, key):
         """Returns a City object for the specified city. ::
         
-            city = astral['London']
+            group = astral.europe
+            city = group['London']
         
         You can supply an optional country name by adding a comma
         followed by the country name. Where multiple cities have the
@@ -848,10 +841,10 @@ class Astral(object):
         Handles city names with spaces and mixed case.
         """
 
-        name = str(value).lower().replace(' ', '_')
+        name = str(key).lower().replace(' ', '_')
 
         try:
-            city_name, country_name = name.split(',')
+            city_name, country_name = name.rsplit(',', 1)
         except:
             city_name = name
             country_name = ''
@@ -859,19 +852,129 @@ class Astral(object):
         city_name = city_name.strip('"\'')
         country_name = country_name.strip('"\'')
 
-        for (name, cities) in self._cities.items():
+        for (name, city_list) in self._cities.items():
             if name.lower().replace(' ', '_') == city_name:
-                if len(cities) == 1 or country_name == '':
-                    return cities[0]
+                if len(city_list) == 1 or country_name == '':
+                    city = city_list[0]
+                    return city
 
-                for city in cities:
+                for city in city_list:
                     if city.country.lower().replace(' ', '_') == country_name:
+                        
                         return city
 
-        raise KeyError('Unrecognised city name - %s' % value)
+        raise KeyError('Unrecognised city name - %s' % key)
+        
+    def __setitem__(self, key, value):
+        if key not in self._cities:
+            self._cities[key] = [value]
+        else:
+            self._cities[key].append(value)
+
+    def __contains__(self, key):
+        return key in self._cities
+    
+    def __iter__(self):
+        return self._cities.__iter__()
+    
+    def keys(self):
+        return self._cities.keys()
+    
+    def values(self):
+        return self._cities.values()
+    
+    def items(self):
+        return self._cities.items()
+        
+            
+class CityDB(object):
+    def __init__(self):
+        self._groups = {}
+        
+        cities = _CITY_INFO.split('\n')
+        for line in cities:
+            line = line.strip()
+            if line != '' and line[0] != '#':
+                if line[-1] == '\n':
+                    line = line[:-1]
+                
+                info = line.split(',')
+                name = info[0]
+
+                city = City(info)
+                
+                timezone_group = city._timezone_group
+                try:
+                    group = self.__getattr__(timezone_group)
+                except:
+                    group = CityGroup()
+                    self._groups[timezone_group] = group
+                    
+                group[name] = city
+        
+    def __getattr__(self, key):
+        """Access to each timezone group. For example London is in timezone group Europe.
+        
+        Attribute lookup is case insensitive"""
+        
+        for name, value in self._groups.items():
+            if key.lower() == name.lower():
+                return value
+        
+        raise AttributeError('Group \'%s\' not found' % key)
+    
+    def __getitem__(self, key):
+        """Lookup a city within all timezone groups.
+        
+        Item lookup is case insensitive."""
+        
+        for group in self._groups.values():
+            try:
+                return group[key]
+            except KeyError:
+                pass
+
+        raise KeyError('Unrecognised city name - %s' % key)
+
+    def __contains__(self, key):
+        for group in self._groups.values():
+            if key in group:
+                return True
+                
+        return False
+    
+    def keys(self):
+        k = []
+        for group in self._groups.values():
+            k.extend(group.keys())
+            
+        return k
+    
+    def groups():
+        def fget(self):
+            return self._groups
+        
+        return locals()
+        
+    groups = property(**groups())
+        
+
+class Astral(object):
+    def __init__(self):
+        """Initialise the list of cities."""
+        
+        self._cities = CityDB()
+        self._depression = 6  # Set default depression in degrees
+
+    def __getitem__(self, key):
+        """Returns the City instance specified by ``key``."""
+        
+        city = self._cities[key]
+        city.astral = self
+        return city
 
     def cities():
-        doc = """:rtype: Dictionary of cities indexed by city name."""
+        doc = """:rtype: The city database."""
 
         def fget(self):
             return self._cities
@@ -879,15 +982,6 @@ class Astral(object):
         return locals()
         
     cities = property(**cities())
-
-    def in_group(self, group):
-        cities  = {}
-        for city_list in self._cities.values():
-            for city in city_list:
-                if city._timezone_group == group:
-                    cities[city.name] = city
-                
-        return cities
 
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the dawn/dusk calc.
@@ -1665,21 +1759,3 @@ class Astral(object):
         tanadenom = (cos(radians(lambd)))
 
         return degrees(atan2(tananum, tanadenom))
-
-    def _init_cities(self):
-        cities = _CITY_INFO.split('\n')
-        for line in cities:
-            line = line.strip()
-            if line != '' and line[0] != '#':
-                if line[-1] == '\n':
-                    line = line[:-1]
-                
-                city_info = line.split(',')
-                city_name = city_info[0]
-                city = City(city_info)
-                city.astral = self
-
-                if city_name not in self._cities:
-                    self._cities[city_name] = [city]
-                else:
-                    self._cities[city_name].append(city)
