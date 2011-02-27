@@ -20,4 +20,5 @@ def testAllCities():
         city = db[city_name]
 
 if __name__ == "__main__":
+    testGroup()
     testAllCities()
