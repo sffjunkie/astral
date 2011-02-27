@@ -906,6 +906,9 @@ class CityDB(object):
 
         raise KeyError('Unrecognised city name - %s' % key)
 
+    def __iter__(self):
+        return self._groups.__iter__()
+
     def __contains__(self, key):
         for group in self._groups.values():
             if key in group:
