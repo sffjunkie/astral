@@ -16,7 +16,7 @@ Welcome to Astral V0.5
 ======================
 
 Astral is a python module for calculating the times of various aspects of
-the sun.
+the sun and moon.
 
 It calculates the following
 
@@ -56,9 +56,7 @@ Moon Phase
 Example
 =======
 
-The following example demonstrates the functionality available in the module
-
-.. code-block:: python
+The following example demonstrates the functionality available in the module::
 
     >>> import datetime
     >>> from astral import Astral
