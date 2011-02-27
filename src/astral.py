@@ -911,7 +911,7 @@ class CityDB(object):
 
     def __contains__(self, key):
         for name, group in self._groups.items():
-            if name == key:
+            if name.lower() == key.lower():
                 return True
             
             if key in group:
