@@ -913,12 +913,17 @@ class CityDB(object):
                 
         return False
     
-    def cities(self):
-        k = []
-        for group in self._groups.values():
-            k.extend(group.keys())
-            
-        return k
+    def cities():
+        def fget(self):
+            k = []
+            for group in self._groups.values():
+                k.extend(group.keys())
+                
+            return k
+        
+        return locals()
+    
+    cities = property(**cities())
     
     def groups():
         def fget(self):
