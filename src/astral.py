@@ -910,7 +910,10 @@ class CityDB(object):
         return self._groups.__iter__()
 
     def __contains__(self, key):
-        for group in self._groups.values():
+        for name, group in self._groups.items():
+            if name == key:
+                return True
+            
             if key in group:
                 return True
                 
