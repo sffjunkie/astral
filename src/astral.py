@@ -450,8 +450,8 @@ class City(object):
             self._timezone_location = ''
 
             try:
-                self.name = str(info[0])
-                self.country = str(info[1])
+                self.name = info[0].encode('utf-8')
+                self.country = info[1].encode('utf-8')
                 self.latitude = info[2]
                 self.longitude = info[3]
                 self.timezone = info[4]
@@ -813,10 +813,10 @@ class CityGroup(object):
         Handles city names with spaces and mixed case.
         """
 
-        name = str(key).lower().replace(' ', '_')
+        name = str(key).lower().replace(' ', '_').encode('utf-8')
 
         try:
-            city_name, country_name = name.rsplit(',', 1)
+            city_name, country_name = name.split(',', 1)
         except:
             city_name = name
             country_name = ''
@@ -825,25 +825,27 @@ class CityGroup(object):
         country_name = country_name.strip('"\'')
 
         for (name, city_list) in self._cities.items():
-            if name.lower().replace(' ', '_') == city_name:
+            if name.replace(' ', '_') == city_name:
                 if len(city_list) == 1 or country_name == '':
                     return city_list[0]
 
                 for city in city_list:
-                    if city.country.lower().replace(' ', '_') == country_name:
+                    if city.country.lower().replace(' ', '_').encode('utf-8') == country_name:
                         return city
 
         raise KeyError('Unrecognised city name - %s' % key)
         
     def __setitem__(self, key, value):
+        key = str(key).lower().encode('utf-8')
         if key not in self._cities:
             self._cities[key] = [value]
         else:
             self._cities[key].append(value)
 
     def __contains__(self, key):
+        key = str(key).lower().encode('utf-8')
         for name in self._cities.keys():
-            if name.lower() == key.lower():
+            if name == key:
                 return True
             
         return False
@@ -873,26 +875,26 @@ class CityDB(object):
                     line = line[:-1]
                 
                 info = line.split(',')
-                name = info[0]
 
                 city = City(info)
                 
-                timezone_group = city._timezone_group
+                timezone_group = city._timezone_group.lower().encode('utf-8')
                 try:
                     group = self.__getattr__(timezone_group)
                 except:
                     group = CityGroup()
                     self._groups[timezone_group] = group
                     
-                group[name] = city
+                group[info[0].lower().encode('utf-8')] = city
         
     def __getattr__(self, key):
         """Access to each timezone group. For example London is in timezone group Europe.
         
         Attribute lookup is case insensitive"""
         
+        key = str(key).lower().encode('utf-8')
         for name, value in self._groups.items():
-            if key.lower() == name.lower():
+            if name == key:
                 return value
         
         raise AttributeError('Group \'%s\' not found' % key)
@@ -902,6 +904,7 @@ class CityDB(object):
         
         Item lookup is case insensitive."""
         
+        key = str(key).lower().encode('utf-8')
         for group in self._groups.values():
             try:
                 return group[key]
@@ -914,8 +917,9 @@ class CityDB(object):
         return self._groups.__iter__()
 
     def __contains__(self, key):
+        key = str(key).lower().encode('utf-8')
         for name, group in self._groups.items():
-            if name.lower() == key.lower():
+            if name == key:
                 return True
             
             if key in group:
