@@ -1,4 +1,7 @@
-#Sun Feb 27 08:23:58 GMT 2011
+#Sun Feb 27 10:33:31 GMT 2011
 eclipse.preferences.version=1
 encoding//src/astral.py=utf-8
 encoding//src/doc/conf.py=utf-8
+encoding//test/testAstral.py=utf-8
+encoding//test/testCity.py=utf-8
+encoding//test/testCityDB.py=utf-8
