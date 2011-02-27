@@ -943,11 +943,11 @@ class Astral(object):
         city.astral = self
         return city
 
-    def cities():
+    def citydb():
         doc = """:rtype: The database of cities."""
 
         def fget(self):
-            return self._citydb.cities()
+            return self._citydb
             
         return locals()
         
