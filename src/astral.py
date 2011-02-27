@@ -808,7 +808,7 @@ class CityGroup(object):
         the first result will be returned which may not be the one
         you're looking for. ::
         
-            city = astral['Abu Dhabi,United Arab Emirates']
+            city = group['Abu Dhabi,United Arab Emirates']
         
         Handles city names with spaces and mixed case.
         """
@@ -827,12 +827,10 @@ class CityGroup(object):
         for (name, city_list) in self._cities.items():
             if name.lower().replace(' ', '_') == city_name:
                 if len(city_list) == 1 or country_name == '':
-                    city = city_list[0]
-                    return city
+                    return city_list[0]
 
                 for city in city_list:
                     if city.country.lower().replace(' ', '_') == country_name:
-                        
                         return city
 
         raise KeyError('Unrecognised city name - %s' % key)
@@ -915,7 +913,7 @@ class CityDB(object):
                 
         return False
     
-    def keys(self):
+    def cities(self):
         k = []
         for group in self._groups.values():
             k.extend(group.keys())
@@ -933,23 +931,23 @@ class CityDB(object):
 
 class Astral(object):
     def __init__(self):
-        """Initialise the list of cities."""
+        """Initialise the city database and set the default depression."""
         
-        self._cities = CityDB()
+        self._citydb = CityDB()
         self._depression = 6  # Set default depression in degrees
 
     def __getitem__(self, key):
         """Returns the City instance specified by ``key``."""
         
-        city = self._cities[key]
+        city = self._citydb[key]
         city.astral = self
         return city
 
     def cities():
-        doc = """:rtype: The city database."""
+        doc = """:rtype: The database of cities."""
 
         def fget(self):
-            return self._cities
+            return self._citydb.cities()
             
         return locals()
         
