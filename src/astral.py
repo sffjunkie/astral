@@ -842,7 +842,11 @@ class CityGroup(object):
             self._cities[key].append(value)
 
     def __contains__(self, key):
-        return key in self._cities
+        for name in self._cities.keys():
+            if name.lower() == key.lower():
+                return True
+            
+        return False
     
     def __iter__(self):
         return self._cities.__iter__()
