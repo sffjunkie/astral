@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from nose.tools import raises
 
 import datetime
@@ -9,6 +10,8 @@ def testName():
     assert c.name == 'Greenwich'
     c.name = 'London'
     assert c.name == 'London'
+    c.name = 'Köln'
+    assert c.name == 'Köln'
 
 def testCountry():
     c = City()
