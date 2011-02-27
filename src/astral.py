@@ -528,7 +528,7 @@ class City(object):
     longitude = property(**longitude())
         
     def timezone():
-        doc = """The time zone name in which the city is located.
+        doc = """The name of the time zone in which the city is located.
         
         A list of time zone names can be obtained from pytz. For example.
         
