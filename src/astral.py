@@ -956,7 +956,7 @@ class Astral(object):
             
         return locals()
         
-    cities = property(**cities())
+    citydb = property(**citydb())
 
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the dawn/dusk calc.
