@@ -18,7 +18,7 @@
 The :mod:`astral` module provides the means to calculate dawn, sunrise,
 solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and elevation,
 for specific cities or at a specific latitude/longitude. It can also calculate
-moon phase for a specific date. 
+the moon phase for a specific date. 
 
 The module provides 2 main classes :class:`Astral` and :class:`City`.
 
@@ -60,7 +60,7 @@ except ImportError:
 
 __all__ = ['City','Astral','AstralError']
 
-__version__ = "0.4"
+__version__ = "0.5"
 __author__ = "Simon Kennedy <python@sffjunkie.co.uk>"
 
 _CITY_INFO = """
@@ -793,7 +793,8 @@ class City(object):
 
 
 class CityGroup(object):
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self._cities = {}
 
     def __getitem__(self, key):
@@ -861,6 +862,19 @@ class CityGroup(object):
     
     def items(self):
         return self._cities.items()
+    
+    def cities():
+        def fget(self):
+            k = []
+            for city_list in self._cities.values():
+                for city in city_list:
+                    k.append(city.name)
+                
+            return k
+        
+        return locals()
+    
+    cities = property(**cities())
         
             
 class CityDB(object):
@@ -882,7 +896,7 @@ class CityDB(object):
                 try:
                     group = self.__getattr__(timezone_group)
                 except:
-                    group = CityGroup()
+                    group = CityGroup(city._timezone_group)
                     self._groups[timezone_group] = group
                     
                 group[info[0].lower().encode('utf-8')] = city
@@ -931,7 +945,7 @@ class CityDB(object):
         def fget(self):
             k = []
             for group in self._groups.values():
-                k.extend(group.keys())
+                k.extend(group.cities)
                 
             return k
         
@@ -1571,7 +1585,7 @@ class Astral(object):
     
         return solarelevation
 
-    def moon(self, date):
+    def moon_phase(self, date):
         """Calculates the phase of the moon on the specified date.
         
         :param date: The date to calculate the phase for.
