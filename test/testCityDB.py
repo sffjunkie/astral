@@ -11,6 +11,14 @@ def testUnknownGroup():
     db = CityDB()
     e = db.wallyland
 
+def testCityContainment():
+    db = CityDB()
+    assert 'london' in db
+
+def testGroupContainment():
+    db = CityDB()
+    assert 'africa' in db
+
 def testAllCities():
     db = CityDB()
     cities = db.cities
@@ -21,4 +29,6 @@ def testAllCities():
 
 if __name__ == "__main__":
     testGroup()
+    testCityContainment()
+    testGroupContainment()
     testAllCities()
