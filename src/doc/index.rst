@@ -12,7 +12,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Welcome to Astral V0.4
+Welcome to Astral V0.5
 ======================
 
 Astral is a python module for calculating the times of various aspects of
@@ -60,44 +60,55 @@ The following example demonstrates the functionality available in the module
 
 .. code-block:: python
 
-    import datetime
-    from astral import Astral
+    >>> import datetime
+    >>> from astral import Astral
     
-    city_name = 'London'
+    >>> city_name = 'London'
     
-    a = Astral()
-    a.solar_depression = 'civil'
+    >>> a = Astral()
+    >>> a.solar_depression = 'civil'
     
-    city = a[city_name]
+    >>> city = a[city_name]
     
-    print('Information for %s/%s\n' % (city_name, city.country))
-    
-    timezone = city.timezone
-    print('Timezone: %s' % timezone)
-    
-    print('Latitude: %.02f; Longitude: %.02f\n' % \
-        (city.latitude, city.longitude))
-    
-    sun = city.sun(date=datetime.date(2009, 4, 22), local=True)
-    print('Dawn:    %s' % str(sun['dawn']))
-    print('Sunrise: %s' % str(sun['sunrise']))
-    print('Noon:    %s' % str(sun['noon']))
-    print('Sunset:  %s' % str(sun['sunset']))
-    print('Dusk:    %s' % str(sun['dusk']))
-
-Produces the following output::
-
+    >>> print('Information for %s/%s\n' % (city_name, city.country))
     Information for London/England
     
+    >>> timezone = city.timezone
+    >>> print('Timezone: %s' % timezone)
     Timezone: Europe/London
+    
+    >>> print('Latitude: %.02f; Longitude: %.02f\n' % \
+    >>>     (city.latitude, city.longitude))
     Latitude: 51.60; Longitude: 0.08
     
+    >>> sun = city.sun(date=datetime.date(2009, 4, 22), local=True)
+    >>> print('Dawn:    %s' % str(sun['dawn']))
+    >>> print('Sunrise: %s' % str(sun['sunrise']))
+    >>> print('Noon:    %s' % str(sun['noon']))
+    >>> print('Sunset:  %s' % str(sun['sunset']))
+    >>> print('Dusk:    %s' % str(sun['dusk']))
     Dawn:     2009-04-22 05:12:56+01:00
     Sunrise:  2009-04-22 05:49:36+01:00
     Noon:     2009-04-22 12:58:48+01:00
     Sunset:   2009-04-22 20:09:07+01:00
     Dusk:     2009-04-22 20:45:52+01:00
 
+Access to the database of cities can be made through the Astral class::
+    
+    >>> a = Astral()
+    >>> db = a.citydb
+    >>> london = db['London']
+    
+Timezone groups such as Europe can be accessed via attributes on the database::
+    
+    >>> a = Astral()
+    >>> db = a.citydb
+    >>> europe = db.europe.cities
+    >>> europe.sort()
+    >>> europe
+    ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...
+    
+    
 License
 =======
 
@@ -206,19 +217,23 @@ Version History
 ======== =========================================================
 Version  Description
 ======== =========================================================
-0.1      First release
--------- ---------------------------------------------------------
-0.2      Fix for bug `554041`_ submitted by Derek\_ / John Dimatos 
--------- ---------------------------------------------------------
-0.3      * Changed to `Apache`_ V2.0 license.
-         * Fix for bug `555508`_ submitted by me.
-         * US state capitals and other cities added.
+0.5      * Changed ``City`` to accept unicode name and country.
+         * Moved city information into a database class ``CityDB``
+         * Added attribute access to database for timezone groups
 -------- ---------------------------------------------------------
 0.4      * Duplicate city names could not be accessed.
          * Sun calculations for some cities failed with times
            outside valid ranges.
          * Fixes for city data.
          * Added calculation for moon phase.
+-------- ---------------------------------------------------------
+0.3      * Changed to `Apache`_ V2.0 license.
+         * Fix for bug `555508`_ submitted by me.
+         * US state capitals and other cities added.
+-------- ---------------------------------------------------------
+0.2      Fix for bug `554041`_ submitted by Derek\_ / John Dimatos 
+-------- ---------------------------------------------------------
+0.1      First release
 ======== =========================================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
