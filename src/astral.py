@@ -852,7 +852,9 @@ class CityGroup(object):
         return False
     
     def __iter__(self):
-        return self._cities.__iter__()
+        for city_list in self._cities.values():
+            for city in city_list:
+                yield city
     
     def keys(self):
         return self._cities.keys()
