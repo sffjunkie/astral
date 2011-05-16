@@ -56,7 +56,8 @@ from math import radians, degrees, pow
 try:
     import pytz
 except ImportError:
-    raise ImportError('The astral module requires the pytz module to be available.')
+    raise ImportError(('The astral module requires '
+        'the pytz module to be available.'))
 
 __all__ = ['City','Astral','AstralError']
 
@@ -432,7 +433,8 @@ class City(object):
             time zone name   Europe/London
             ================ =============
                 
-            See :attr:`timezone` property for a method of obtaining time zone names
+            See :attr:`timezone` property for a method of obtaining time
+            zone names
         """
         
         self.astral = None
@@ -548,7 +550,8 @@ class City(object):
                 raise ValueError('Timezone \'%s\' not recognized' % name)
 
             try:                
-                self._timezone_group, self._timezone_location = name.split('/', 1)
+                self._timezone_group, self._timezone_location = \
+                    name.split('/', 1)
             except ValueError:
                 self._timezone_group = name
                 self._timezone_location = ''
@@ -572,9 +575,9 @@ class City(object):
     tz = property(**tz())
 
     def dawn(self, date=None, local=True):
-        """Calculates the time in the morning when the sun is a certain number of
-        degrees below the horizon. By default this is 6 degrees but can be changed
-        by setting the :attr:`Astral.solar_depression` property.
+        """Calculates the time in the morning when the sun is a certain number
+        of degrees below the horizon. By default this is 6 degrees but can be
+        changed by setting the :attr:`Astral.solar_depression` property.
         
         :param date: The date for which to calculate the dawn time.
                      A value of None uses the current date.
@@ -627,7 +630,8 @@ class City(object):
             return sunrise
         
     def solar_noon(self, date=None, local=True):
-        """Calculates the solar noon (the time when the sun is at its highest point.)
+        """Calculates the solar noon (the time when the sun is at its highest
+        point.)
         
         :param date: The date for which to calculate the noon time.
                      A value of None uses the current date.
@@ -652,8 +656,8 @@ class City(object):
             return noon
         
     def sunset(self, date=None, local=True):
-        """Calculates sunset time (the time in the evening when the sun is a 0.833 degrees
-        below the horizon. This is to account for refraction.)
+        """Calculates sunset time (the time in the evening when the sun is a
+        0.833 degrees below the horizon. This is to account for refraction.)
         
         :param date: The date for which to calculate the sunset time.
                      A value of None uses the current date.
@@ -678,9 +682,10 @@ class City(object):
             return sunset
         
     def dusk(self, date=None, local=True):
-        """Calculates the dusk time (the time in the evening when the sun is a certain number of
-        degrees below the horizon. By default this is 6 degrees but can be changed
-        by setting the :attr:`Astral.solar_depression` property.)
+        """Calculates the dusk time (the time in the evening when the sun is a
+        certain number of degrees below the horizon. By default this is 6
+        degrees but can be changed by setting the
+        :attr:`Astral.solar_depression` property.)
         
         :param date: The date for which to calculate the dusk time.
                      A value of None uses the current date.
@@ -748,7 +753,8 @@ class City(object):
         if date is None:
             date = datetime.date.today()
 
-        rahukaalam = self.astral.rahukaalam_utc(date, self.latitude, self.longitude)
+        rahukaalam = self.astral.rahukaalam_utc(date, self.latitude,
+            self.longitude)
 
         if local:
             for key, dt in rahukaalam.items():
@@ -771,7 +777,8 @@ class City(object):
         if dateandtime is None:
             dateandtime = datetime.datetime.now(tz=self.tz)
             
-        return self.astral.solar_azimuth(dateandtime, self.latitude, self.longitude)
+        return self.astral.solar_azimuth(dateandtime, self.latitude,
+            self.longitude)
     
     def solar_elevation(self, dateandtime=None):
         """Calculates the solar elevation angle for a specific time.
@@ -789,7 +796,8 @@ class City(object):
         if dateandtime is None:
             dateandtime = datetime.datetime.now(tz=self.tz)
 
-        return self.astral.solar_elevation(dateandtime, self.latitude, self.longitude)
+        return self.astral.solar_elevation(dateandtime, self.latitude, 
+            self.longitude)
 
 
 class CityGroup(object):
@@ -904,7 +912,8 @@ class CityDB(object):
                 group[info[0].lower().encode('utf-8')] = city
         
     def __getattr__(self, key):
-        """Access to each timezone group. For example London is in timezone group Europe.
+        """Access to each timezone group. For example London is in timezone
+        group Europe.
         
         Attribute lookup is case insensitive"""
         
@@ -989,7 +998,8 @@ class Astral(object):
     citydb = property(**citydb())
 
     def solar_depression():
-        doc = """The number of degrees the sun must be below the horizon for the dawn/dusk calc.
+        doc = """The number of degrees the sun must be below the horizon for
+        the dawn/dusk calc.
         
         Can either be set as a number of degrees below the horizon or as
         one of the following strings
@@ -1009,9 +1019,13 @@ class Astral(object):
         def fset(self, depression):
             if isinstance(depression, basestring):
                 try:
-                    self._depression = {'civil': 6, 'nautical': 12, 'astronomical': 18}[depression]
+                    self._depression = {
+                        'civil': 6,
+                        'nautical': 12,
+                        'astronomical': 18}[depression]
                 except:
-                    raise KeyError("solar_depression must be either a number or one of 'civil', 'nautical' or 'astronomical'")
+                    raise KeyError(("solar_depression must be either a number "
+                    "or one of 'civil', 'nautical' or 'astronomical'"))
             else:
                 self._depression = float(depression)
             
@@ -1026,7 +1040,8 @@ class Astral(object):
         :type date:        :class:`datetime.date`
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype:
@@ -1040,7 +1055,8 @@ class Astral(object):
         sunset = self.sunset_utc(date, latitude, longitude)
         dusk = self.dusk_utc(date, latitude, longitude)
         
-        return {'dawn': dawn, 'sunrise': sunrise, 'noon': noon, 'sunset': sunset, 'dusk': dusk}
+        return {'dawn': dawn, 'sunrise': sunrise, \
+            'noon': noon, 'sunset': sunset, 'dusk': dusk}
 
     def dawn_utc(self, date, latitude, longitude):
         """Calculate dawn time in the UTC timezone.
@@ -1049,7 +1065,8 @@ class Astral(object):
         :type date:        datetime.date
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1070,13 +1087,15 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunrise(latitude, solarDec)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_dawn(latitude, solarDec, self._depression)
@@ -1110,7 +1129,8 @@ class Astral(object):
             hour += 24
             date -= datetime.timedelta(days=1)
         
-        dawn = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
+        dawn = datetime.datetime(date.year, date.month, date.day, \
+            hour, minute, second, tzinfo=pytz.utc)
 
         return dawn
 
@@ -1121,7 +1141,8 @@ class Astral(object):
         :type date:        datetime.date
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1136,13 +1157,15 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunrise(latitude, solarDec)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_sunrise(latitude, solarDec)
@@ -1176,7 +1199,8 @@ class Astral(object):
             hour += 24
             date -= datetime.timedelta(days=1)
 
-        sunrise = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
+        sunrise = datetime.datetime(date.year, date.month, date.day, \
+            hour, minute, second, tzinfo=pytz.utc)
 
         return sunrise
 
@@ -1187,7 +1211,8 @@ class Astral(object):
         :type date:        datetime.date
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1226,7 +1251,8 @@ class Astral(object):
             hour += 24
             date -= datetime.timedelta(days=1)
 
-        noon = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
+        noon = datetime.datetime(date.year, date.month, date.day, \
+            hour, minute, second, tzinfo=pytz.utc)
 
         return noon
 
@@ -1237,7 +1263,8 @@ class Astral(object):
         :type date:        datetime.date
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1252,13 +1279,15 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_sunset(latitude, solarDec)
@@ -1292,7 +1321,8 @@ class Astral(object):
             hour += 24
             date -= datetime.timedelta(days=1)
 
-        sunset = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
+        sunset = datetime.datetime(date.year, date.month, date.day, \
+            hour, minute, second, tzinfo=pytz.utc)
 
         return sunset
 
@@ -1303,7 +1333,8 @@ class Astral(object):
         :type date:        datetime.date
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1324,13 +1355,15 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_dusk(latitude, solarDec, self._depression)
@@ -1364,7 +1397,8 @@ class Astral(object):
             hour += 24
             date -= datetime.timedelta(days=1)
 
-        dusk = datetime.datetime(date.year, date.month, date.day, hour, minute, second, tzinfo=pytz.utc)
+        dusk = datetime.datetime(date.year, date.month, date.day,
+            hour, minute, second, tzinfo=pytz.utc)
 
         return dusk
 
@@ -1375,7 +1409,8 @@ class Astral(object):
         :type date:        datetime.date
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: Dictionary with keys ``start`` and ``end``
@@ -1388,7 +1423,8 @@ class Astral(object):
             sunrise = self.sunrise_utc(date, latitude, longitude)
             sunset = self.sunset_utc(date, latitude, longitude)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
         
         octant_duration = (sunset - sunrise) / 8
 
@@ -1410,7 +1446,8 @@ class Astral(object):
         :type dateandtime:        datetime.datetime
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: Azimuth in degrees
@@ -1424,9 +1461,11 @@ class Astral(object):
     
         zone = -dateandtime.utcoffset().seconds / 3600.0
         utc_datetime = dateandtime.astimezone(pytz.utc)
-        timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + (utc_datetime.second / 3600)
+        timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + \
+            (utc_datetime.second / 3600)
 
-        JD = self._julianday(dateandtime.day, dateandtime.month, dateandtime.year)
+        JD = self._julianday(dateandtime.day, dateandtime.month,
+            dateandtime.year)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
         theta = self._sun_declination(t)
         Etime = self._eq_of_time(t)
@@ -1435,7 +1474,8 @@ class Astral(object):
         solarDec = theta   # in degrees
     
         solarTimeFix = eqtime - (4.0 * longitude) + (60 * zone)
-        trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + dateandtime.second / 60.0 + solarTimeFix
+        trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + \
+            dateandtime.second / 60.0 + solarTimeFix
         #    in minutes
     
         while trueSolarTime > 1440:
@@ -1461,7 +1501,9 @@ class Astral(object):
         azDenom = (cos(radians(latitude)) * sin(radians(zenith)))
         
         if (abs(azDenom) > 0.001):
-            azRad = ((sin(radians(latitude)) *  cos(radians(zenith))) - sin(radians(solarDec))) / azDenom
+            azRad = ((sin(radians(latitude)) * \
+                cos(radians(zenith))) - \
+                sin(radians(solarDec))) / azDenom
             
             if abs(azRad) > 1.0:
                 if azRad < 0:
@@ -1491,7 +1533,8 @@ class Astral(object):
         :type dateandtime:        datetime.datetime
         :param latitude:   Latitude - Southern latitudes should be negative
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern latitudes should be negative
+        :param longitude:  Longitude as a floating point number. Eastern
+                           latitudes should be negative
         :type longitude:   float 
         
         :rtype: Elevation in degrees
@@ -1505,9 +1548,11 @@ class Astral(object):
 
         zone = -dateandtime.utcoffset().seconds / 3600.0
         utc_datetime = dateandtime.astimezone(pytz.utc)
-        timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + (utc_datetime.second / 3600)
+        timenow = utc_datetime.hour + \
+            (utc_datetime.minute / 60.0) + (utc_datetime.second / 3600)
     
-        JD = self._julianday(dateandtime.day, dateandtime.month, dateandtime.year)
+        JD = self._julianday(dateandtime.day, 
+            dateandtime.month, dateandtime.year)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
         theta = self._sun_declination(t)
         Etime = self._eq_of_time(t)
@@ -1516,7 +1561,8 @@ class Astral(object):
         solarDec = theta   # in degrees
     
         solarTimeFix = eqtime - (4.0 * longitude) + (60 * zone)
-        trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + dateandtime.second / 60.0 + solarTimeFix
+        trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + \
+            dateandtime.second / 60.0 + solarTimeFix
         #    in minutes
     
         while trueSolarTime > 1440:
@@ -1542,7 +1588,9 @@ class Astral(object):
         azDenom = (cos(radians(latitude)) * sin(radians(zenith)))
         
         if (abs(azDenom) > 0.001):
-            azRad = ((sin(radians(latitude)) *  cos(radians(zenith))) - sin(radians(solarDec))) / azDenom
+            azRad = ((sin(radians(latitude)) * \
+                cos(radians(zenith))) - \
+                sin(radians(solarDec))) / azDenom
             
             if abs(azRad) > 1.0:
                 if azRad < 0:
@@ -1570,7 +1618,8 @@ class Astral(object):
         else:
             te = tan(radians(exoatmElevation))
             if exoatmElevation > 5.0:
-                refractionCorrection = 58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
+                refractionCorrection = 58.1 / te - 0.07 / (te * te * te) \
+                    + 0.000086 / (te * te * te * te * te)
             elif exoatmElevation > -0.575:
                 step1 = (-12.79 + exoatmElevation * 0.711)
                 step2 = (103.4 + exoatmElevation * (step1))
@@ -1640,7 +1689,8 @@ class Astral(object):
         A = floor(year / 100.0)
         B = 2 - A + floor(A / 4.0)
 
-        jd = floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + day - 1524.5
+        jd = floor(365.25 * (year + 4716)) + \
+            floor(30.6001 * (month + 1)) + day - 1524.5
         if jd > 2299160.4999999:
             jd += B
             
@@ -1653,7 +1703,8 @@ class Astral(object):
         return (juliancentury * 36525.0) + 2451545.0
 
     def _mean_obliquity_of_ecliptic(self, juliancentury):
-        seconds = 21.448 - juliancentury * (46.815 + juliancentury * (0.00059 - juliancentury * (0.001813)))
+        seconds = 21.448 - juliancentury * \
+            (46.815 + juliancentury * (0.00059 - juliancentury * (0.001813)))
         return 23.0 + (26.0 + (seconds / 60.0)) / 60.0
 
     def _obliquity_correction(self, juliancentury):
@@ -1663,14 +1714,17 @@ class Astral(object):
         return e0 + 0.00256 * cos(radians(omega))
     
     def _geom_mean_long_sun(self, juliancentury):
-        l0 = 280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury)
+        l0 = 280.46646 + \
+            juliancentury * (36000.76983 + 0.0003032 * juliancentury)
         return l0 % 360.0
         
     def _eccentricity_earth_orbit(self, juliancentury):
-        return 0.016708634 - juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
+        return 0.016708634 - \
+            juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
         
     def _geom_mean_anomaly_sun(self, juliancentury):
-        return 357.52911 + juliancentury * (35999.05029 - 0.0001537 * juliancentury)
+        return 357.52911 + \
+            juliancentury * (35999.05029 - 0.0001537 * juliancentury)
 
     def _eq_of_time(self, juliancentury):
         epsilon = self._obliquity_correction(juliancentury)
@@ -1700,7 +1754,8 @@ class Astral(object):
         sin2m = sin(mrad + mrad)
         sin3m = sin(mrad + mrad + mrad)
 
-        c = sinm * (1.914602 - juliancentury * (0.004817 + 0.000014 * juliancentury)) + \
+        c = sinm * (1.914602 - juliancentury * \
+            (0.004817 + 0.000014 * juliancentury)) + \
             sin2m * (0.019993 - 0.000101 * juliancentury) + sin3m * 0.000289
             
         return c
@@ -1728,7 +1783,8 @@ class Astral(object):
         latRad = radians(latitude)
         sdRad = radians(solar_dec)
 
-        HA = (acos(cos(radians(90 + solar_depression)) / (cos(latRad) * cos(sdRad)) - tan(latRad) * tan(sdRad)))
+        HA = (acos(cos(radians(90 + solar_depression)) / (cos(latRad) * \
+            cos(sdRad)) - tan(latRad) * tan(sdRad)))
         
         return HA
 
