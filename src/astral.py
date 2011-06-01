@@ -56,7 +56,8 @@ from math import radians, degrees, pow
 try:
     import pytz
 except ImportError:
-    raise ImportError('The astral module requires the pytz module to be available.')
+    raise ImportError(('The astral module requires the '
+        'pytz module to be available.'))
 
 __all__ = ['City','Astral','AstralError']
 
@@ -432,7 +433,8 @@ class City(object):
             time zone name   Europe/London
             ================ =============
                 
-            See :attr:`timezone` property for a method of obtaining time zone names
+            See :attr:`timezone` property for a method of obtaining time zone
+            names
         """
         
         self.astral = None
@@ -837,7 +839,8 @@ class CityGroup(object):
                     return city_list[0]
 
                 for city in city_list:
-                    if city.country.lower().replace(' ', '_').encode('utf-8') == country_name:
+                    if city.country.lower().replace(' ', '_').encode('utf-8') \
+                    == country_name:
                         return city
 
         raise KeyError('Unrecognised city name - %s' % key)
@@ -1017,9 +1020,13 @@ class Astral(object):
         def fset(self, depression):
             if isinstance(depression, basestring):
                 try:
-                    self._depression = {'civil': 6, 'nautical': 12, 'astronomical': 18}[depression]
+                    self._depression = {
+                        'civil': 6,
+                        'nautical': 12,
+                        'astronomical': 18}[depression]
                 except:
-                    raise KeyError("solar_depression must be either a number or one of 'civil', 'nautical' or 'astronomical'")
+                    raise KeyError(("solar_depression must be either a number "
+                        "or one of 'civil', 'nautical' or 'astronomical'"))
             else:
                 self._depression = float(depression)
             
@@ -1049,7 +1056,13 @@ class Astral(object):
         sunset = self.sunset_utc(date, latitude, longitude)
         dusk = self.dusk_utc(date, latitude, longitude)
         
-        return {'dawn': dawn, 'sunrise': sunrise, 'noon': noon, 'sunset': sunset, 'dusk': dusk}
+        return {
+            'dawn': dawn,
+            'sunrise': sunrise,
+            'noon': noon,
+            'sunset': sunset,
+            'dusk': dusk
+        }
 
     def dawn_utc(self, date, latitude, longitude):
         """Calculate dawn time in the UTC timezone.
@@ -1087,7 +1100,8 @@ class Astral(object):
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_dawn(latitude, solarDec, self._depression)
@@ -1149,13 +1163,15 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunrise(latitude, solarDec)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_sunrise(latitude, solarDec)
@@ -1269,13 +1285,15 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_sunset(latitude, solarDec)
@@ -1343,13 +1361,15 @@ class Astral(object):
         try:
             hourangle = self._hour_angle_sunset(latitude, solarDec)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
         delta = longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_dusk(latitude, solarDec, self._depression)
@@ -1409,7 +1429,8 @@ class Astral(object):
             sunrise = self.sunrise_utc(date, latitude, longitude)
             sunset = self.sunset_utc(date, latitude, longitude)
         except:
-            raise AstralError('Sun remains below horizon on this day, at this location.')
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
         
         octant_duration = (sunset - sunrise) / 8
 
