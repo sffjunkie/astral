@@ -479,7 +479,7 @@ class City(object):
             return self._latitude
             
         def fset(self, latitude):
-            if isinstance(latitude, basestring):
+            if isinstance(latitude, str):
                 (deg, rest) = latitude.split("°", 1)
                 (minute, rest) = rest.split("'", 1)
 
@@ -512,7 +512,7 @@ class City(object):
             return self._longitude
             
         def fset(self, longitude):
-            if isinstance(longitude, basestring):
+            if isinstance(longitude, str):
                 (deg, rest) = longitude.split("°", 1)
                 (minute, rest) = rest.split("'", 1)
 
@@ -1018,7 +1018,7 @@ class Astral(object):
             return self._depression
             
         def fset(self, depression):
-            if isinstance(depression, basestring):
+            if isinstance(depression, str):
                 try:
                     self._depression = {
                         'civil': 6,
