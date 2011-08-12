@@ -25,6 +25,6 @@ setup(name='astral',
     author_email='python@sffjunkie.co.uk',
     url="http://www.sffjunkie.co.uk/python-astral.html",
     license='Apache-2.0',
-    package_dir={'': 'src'},
+    package_dir={'': 'astral'},
     py_modules=['astral']
 )
