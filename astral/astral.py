@@ -582,7 +582,7 @@ class City(object):
         :param date: The date for which to calculate the dawn time.
                      A value of None uses the current date.
 
-        :param local: True  = Time to be returned in cities time zone (Default);
+        :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`datetime.datetime` of dawn
@@ -610,7 +610,7 @@ class City(object):
         :param date: The date for which to calculate the sunrise time.
                      A value of None uses the current date.
 
-        :param local: True  = Time to be returned in cities time zone (Default);
+        :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`datetime.datetime` of sunrise
@@ -636,7 +636,7 @@ class City(object):
         :param date: The date for which to calculate the noon time.
                      A value of None uses the current date.
 
-        :param local: True  = Time to be returned in cities time zone (Default);
+        :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`datetime.datetime` of noon
@@ -662,7 +662,7 @@ class City(object):
         :param date: The date for which to calculate the sunset time.
                      A value of None uses the current date.
 
-        :param local: True  = Time to be returned in cities time zone (Default);
+        :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`datetime.datetime` of sunset
@@ -690,7 +690,7 @@ class City(object):
         :param date: The date for which to calculate the dusk time.
                      A value of None uses the current date.
 
-        :param local: True  = Time to be returned in cities time zone (Default);
+        :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`datetime.datetime` of dusk
@@ -715,7 +715,7 @@ class City(object):
         :param date: The date for which to calculate the times.
                      A value of None uses the current date.
 
-        :param local: True  = Time to be returned in cities time zone (Default);
+        :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`datetime.datetime` of dusk
@@ -741,7 +741,7 @@ class City(object):
         :param date: The date for which to calculate the rahukaalam period.
                      A value of None uses the current date.
 
-        :param local: True  = Time to be returned in cities time zone (Default);
+        :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`datetime.datetime` of dusk
