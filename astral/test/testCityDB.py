@@ -5,12 +5,12 @@ from astral import CityDB
 
 def testGroup():
     db = CityDB()
-    e = db.europe
+    _e = db.europe
     
 @raises(AttributeError)    
 def testUnknownGroup():
     db = CityDB()
-    e = db.wallyland
+    _e = db.wallyland
 
 def testCityContainment():
     db = CityDB()
@@ -47,7 +47,7 @@ def testAdelaide():
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
     
     db = CityDB()
-    city = db['Adelaide']
+    _city = db['Adelaide']
 
 def testAllCities():
     db = CityDB()
@@ -55,7 +55,7 @@ def testAllCities():
     cities.sort()
     
     for city_name in cities:
-        city = db[city_name]
+        _city = db[city_name]
 
 if __name__ == "__main__":
     testCityCountry()

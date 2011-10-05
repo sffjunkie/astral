@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from nose.tools import raises
 
-import datetime
 import pytz
 from astral import City
 
