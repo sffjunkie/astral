@@ -23,3 +23,6 @@ temp/*
 doc
 doc/*
 
+.metadata
+.project
+.pydevproject
