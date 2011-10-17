@@ -26,3 +26,4 @@ doc/*
 .metadata
 .project
 .pydevproject
+__pycache__
