@@ -3,24 +3,24 @@ from nose.tools import raises
 
 from astral import CityDB
 
-def testGroup():
+def test_Group():
     db = CityDB()
     _e = db.europe
     
 @raises(AttributeError)    
-def testUnknownGroup():
+def test_UnknownGroup():
     db = CityDB()
     _e = db.wallyland
 
-def testCityContainment():
+def test_CityContainment():
     db = CityDB()
     assert 'london' in db
 
-def testGroupContainment():
+def test_GroupContainment():
     db = CityDB()
     assert 'africa' in db
 
-def testCityCountry():
+def test_CityCountry():
     city_name = 'Birmingham,England'
     
     db = CityDB()
@@ -28,12 +28,12 @@ def testCityCountry():
     assert city.name == 'Birmingham'
     assert city.country == 'England'
 
-def testMultiCountry():
+def test_MultiCountry():
     db = CityDB()
     city = db['Abu Dhabi']
     assert city.name == 'Abu Dhabi'
 
-def testMultiCountryWithCountry():
+def test_MultiCountryWithCountry():
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
     
     db = CityDB()
@@ -43,13 +43,13 @@ def testMultiCountryWithCountry():
     city = db['Abu Dhabi,UAE']
     assert city.name == 'Abu Dhabi'
 
-def testAdelaide():
+def test_Adelaide():
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
     
     db = CityDB()
     _city = db['Adelaide']
 
-def testAllCities():
+def test_AllCities():
     db = CityDB()
     cities = db.cities
     cities.sort()
@@ -58,10 +58,10 @@ def testAllCities():
         _city = db[city_name]
 
 if __name__ == "__main__":
-    testCityCountry()
-    testMultiCountry()
-    testAdelaide()
-    testGroup()
-    testCityContainment()
-    testGroupContainment()
-    testAllCities()
+    test_CityCountry()
+    test_MultiCountry()
+    test_Adelaide()
+    test_Group()
+    test_CityContainment()
+    test_GroupContainment()
+    test_AllCities()

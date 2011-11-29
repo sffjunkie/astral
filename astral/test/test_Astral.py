@@ -6,22 +6,22 @@ import pytz
 from astral import Astral, City
     
 @raises(KeyError)
-def testAstralBadCityName():
+def test_AstralBadCityName():
     dd = Astral()
     c = dd['wally']    
 
-def testAstralCityName():
+def test_AstralCityName():
     dd = Astral()
     c = dd['London']
     assert c.name == 'London'    
 
 @raises(TypeError)
-def testAstralAssign():
+def test_AstralAssign():
     dd = Astral()
     dd['London'] = 'wally'    
 
 
-def testAstral():
+def test_Astral():
     city_name = 'Jubail'
     
     dd = Astral()
@@ -44,7 +44,7 @@ def testAstral():
 
     rahukaalam = city.rahukaalam()
 
-def testElevation():
+def test_Elevation():
     city_name = 'Jubail'
     
     dd = Astral()
@@ -55,7 +55,7 @@ def testElevation():
     print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
     print('Elevation: %.02f' % dd.solar_elevation(dt, city.latitude, city.longitude))
 
-def testAzimuth():
+def test_Azimuth():
     city_name = 'Jubail'
     
     dd = Astral()
@@ -67,12 +67,12 @@ def testAzimuth():
     print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
     print('Azimuth: %.02f' % dd.solar_azimuth(dt, city.latitude, city.longitude))
     
-def testMoon():
+def test_Moon():
     dd = Astral()
     dd.moon_phase(datetime.date(2011,02,24))
     
 if __name__ == "__main__":
-    testAstral()
-    testElevation()
-    testAzimuth()
-    testMoon()
+    test_Astral()
+    test_Elevation()
+    test_Azimuth()
+    test_Moon()
