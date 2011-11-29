@@ -64,8 +64,7 @@ __all__ = ['City','Astral','AstralError']
 __version__ = "0.5"
 __author__ = "Simon Kennedy <python@sffjunkie.co.uk>"
 
-_CITY_INFO = """
-Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
+_CITY_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
 Abu Dhabi,United Arab Emirates,24°28'N,54°22'E,Asia/Dubai
 Abuja,Nigeria,09°05'N,07°32'E,Africa/Lagos
 Accra,Ghana,05°35'N,00°06'W,Africa/Accra
@@ -452,8 +451,8 @@ class City(object):
             self._timezone_location = ''
 
             try:
-                self.name = info[0].encode('utf-8')
-                self.country = info[1].encode('utf-8')
+                self.name = info[0]
+                self.country = info[1]
                 self.latitude = info[2]
                 self.longitude = info[3]
                 self.timezone = info[4]
@@ -822,7 +821,7 @@ class CityGroup(object):
         Handles city names with spaces and mixed case.
         """
 
-        name = str(key).lower().replace(' ', '_').encode('utf-8')
+        name = str(key).lower().replace(' ', '_')
 
         try:
             city_name, country_name = name.split(',', 1)
@@ -839,21 +838,21 @@ class CityGroup(object):
                     return city_list[0]
 
                 for city in city_list:
-                    if city.country.lower().replace(' ', '_').encode('utf-8') \
+                    if city.country.lower().replace(' ', '_') \
                     == country_name:
                         return city
 
         raise KeyError('Unrecognised city name - %s' % key)
         
     def __setitem__(self, key, value):
-        key = str(key).lower().encode('utf-8')
+        key = str(key).lower()
         if key not in self._cities:
             self._cities[key] = [value]
         else:
             self._cities[key].append(value)
 
     def __contains__(self, key):
-        key = str(key).lower().encode('utf-8')
+        key = str(key).lower()
         for name in self._cities.keys():
             if name == key:
                 return True
@@ -903,14 +902,14 @@ class CityDB(object):
 
                 city = City(info)
                 
-                timezone_group = city._timezone_group.lower().encode('utf-8')
+                timezone_group = city._timezone_group.lower()
                 try:
                     group = self.__getattr__(timezone_group)
                 except:
                     group = CityGroup(city._timezone_group)
                     self._groups[timezone_group] = group
                     
-                group[info[0].lower().encode('utf-8')] = city
+                group[info[0].lower()] = city
         
     def __getattr__(self, key):
         """Access to each timezone group. For example London is in timezone
@@ -918,7 +917,7 @@ class CityDB(object):
         
         Attribute lookup is case insensitive"""
         
-        key = str(key).lower().encode('utf-8')
+        key = str(key).lower()
         for name, value in self._groups.items():
             if name == key:
                 return value
@@ -930,7 +929,7 @@ class CityDB(object):
         
         Item lookup is case insensitive."""
         
-        key = str(key).lower().encode('utf-8')
+        key = str(key).lower()
         for group in self._groups.values():
             try:
                 return group[key]
@@ -943,7 +942,7 @@ class CityDB(object):
         return self._groups.__iter__()
 
     def __contains__(self, key):
-        key = str(key).lower().encode('utf-8')
+        key = str(key).lower()
         for name, group in self._groups.items():
             if name == key:
                 return True
