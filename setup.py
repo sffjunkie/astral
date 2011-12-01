@@ -1,4 +1,4 @@
-# Copyright 2009-2011, Simon Kennedy, python@sffjunkie.co.uk
+# Copyright 2009-2011, Simon Kennedy, code@sffjunkie.co.uk
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ setup(name='astral',
     Moon calculation for phase.
     """,
     author='Simon Kennedy',
-    author_email='python@sffjunkie.co.uk',
+    author_email='code@sffjunkie.co.uk',
     url="http://www.sffjunkie.co.uk/python-astral.html",
     license='Apache-2.0',
     package_dir={'': 'astral'},

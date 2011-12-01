@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2009-2011, Simon Kennedy, python@sffjunkie.co.uk
+# Copyright 2009-2011, Simon Kennedy, code@sffjunkie.co.uk
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ except ImportError:
 __all__ = ['City','Astral','AstralError']
 
 __version__ = "0.5"
-__author__ = "Simon Kennedy <python@sffjunkie.co.uk>"
+__author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
 _CITY_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
 Abu Dhabi,United Arab Emirates,24°28'N,54°22'E,Asia/Dubai
