@@ -504,9 +504,7 @@ class City(object):
         
             degrees°minutes'[E|W] e.g. 51°31'W
             
-        For numbers, negative numbers signify longitudes to the East.
-        This is opposite to the normal convention of +ve being to the West
-        but is required for the calculations.
+        For numbers, positive numbers signify longitudes to the West.
         """
         
         def fget(self):
@@ -521,7 +519,7 @@ class City(object):
 
                 # Conventionally locations to the west of 0° are negative
                 # but the calculation is based on the opposite
-                if longitude.endswith("E"):
+                if longitude.endswith("W"):
                     self._longitude = -self._longitude
             else:
                 self._longitude = float(longitude)
@@ -852,6 +850,7 @@ class City(object):
 
         return self.astral.moon_phase(date, self.tz)
 
+
 class CityGroup(object):
     def __init__(self, name):
         self.name = name
@@ -1148,7 +1147,7 @@ class Astral(object):
             raise AstralError(('Sun remains below horizon '
                 'on this day, at this location.'))
 
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
@@ -1157,7 +1156,7 @@ class Astral(object):
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_dawn(latitude, solarDec, self._depression)
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4 * delta
         timeUTC = 720 + timeDiff - eqtime
         
@@ -1218,7 +1217,7 @@ class Astral(object):
             raise AstralError(('Sun remains below horizon on this day, '
                 'at this location.'))
 
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
@@ -1227,7 +1226,7 @@ class Astral(object):
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_sunrise(latitude, solarDec)
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4 * delta
         timeUTC = 720 + timeDiff - eqtime
         
@@ -1278,10 +1277,10 @@ class Astral(object):
         
         julianday = self._julianday(date)
 
-        newt = self._jday_to_jcentury(julianday + 0.5 + longitude / 360.0)
+        newt = self._jday_to_jcentury(julianday + 0.5 + -longitude / 360.0)
 
         eqtime = self._eq_of_time(newt)
-        timeUTC = 720.0 + (longitude * 4.0) - eqtime
+        timeUTC = 720.0 + (-longitude * 4.0) - eqtime
 
         timeUTC = timeUTC/60.0
         hour = int(timeUTC)
@@ -1340,7 +1339,7 @@ class Astral(object):
             raise AstralError(('Sun remains below horizon on this day, '
                 'at this location.'))
 
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
@@ -1349,7 +1348,7 @@ class Astral(object):
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_sunset(latitude, solarDec)
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4 * delta
         timeUTC = 720 + timeDiff - eqtime
         
@@ -1416,7 +1415,7 @@ class Astral(object):
             raise AstralError(('Sun remains below horizon on this day, '
                 'at this location.'))
 
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
@@ -1425,7 +1424,7 @@ class Astral(object):
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         hourangle = self._hour_angle_dusk(latitude, solarDec, self._depression)
-        delta = longitude - degrees(hourangle)
+        delta = -longitude - degrees(hourangle)
         timeDiff = 4 * delta
         timeUTC = 720 + timeDiff - eqtime
         
@@ -1530,7 +1529,7 @@ class Astral(object):
         eqtime = Etime
         solarDec = theta   # in degrees
     
-        solarTimeFix = eqtime - (4.0 * longitude) + (60 * zone)
+        solarTimeFix = eqtime - (4.0 * -longitude) + (60 * zone)
         trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + \
             dateandtime.second / 60.0 + solarTimeFix
         #    in minutes
@@ -1615,7 +1614,7 @@ class Astral(object):
         eqtime = Etime
         solarDec = theta   # in degrees
     
-        solarTimeFix = eqtime - (4.0 * longitude) + (60 * zone)
+        solarTimeFix = eqtime - (4.0 * -longitude) + (60 * zone)
         trueSolarTime = dateandtime.hour * 60.0 + dateandtime.minute + \
             dateandtime.second / 60.0 + solarTimeFix
         #    in minutes
