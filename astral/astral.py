@@ -171,7 +171,7 @@ Lima,Peru,12°00'S,77°00'W,America/Lima
 Lisbon,Portugal,38°42'N,09°10'W,Europe/Lisbon
 Ljubljana,Slovenia,46°04'N,14°33'E,Europe/Ljubljana
 Lome,Togo,06°09'N,01°20'E,Africa/Lome
-London,England,51°36'N,00°05'W,Europe/London
+London,England,51°30'N,00°07'W,Europe/London
 Luanda,Angola,08°50'S,13°15'E,Africa/Luanda
 Lusaka,Zambia,15°28'S,28°16'E,Africa/Lusaka
 Luxembourg,Luxembourg,49°37'N,06°09'E,Europe/Luxembourg
@@ -252,7 +252,7 @@ Skopje,The Former Yugoslav Republic of Macedonia,42°01'N,21°26'E,Europe/Skopje
 Sofia,Bulgaria,42°45'N,23°20'E,Europe/Sofia
 St. Peter Port,Guernsey,49°26'N,02°33'W,Europe/Guernsey
 Stanley,Falkland Islands,51°40'S,59°51'W,Atlantic/Stanley
-Stockholm,Sweden,59°20'N,18°03'E,Europe/Stockholm
+Stockholm,Sweden,59°20'N,18°05'E,Europe/Stockholm
 Sucre,Bolivia,16°20'S,68°10'W,America/La_Paz
 Suva,Fiji,18°06'S,178°30'E,Pacific/Fiji
 Sydney,Australia,33°53'S,151°13'E,Australia/Sydney
@@ -266,6 +266,7 @@ Thimphu,Bhutan,27°31'N,89°45'E,Asia/Thimphu
 Tirana,Albania,41°18'N,19°49'E,Europe/Tirane
 Tirane,Albania,41°18'N,19°49'E,Europe/Tirane
 Torshavn,Faroe Islands,62°05'N,06°56'W,Atlantic/Faroe
+Tokyo,Japan,35°41'N,139°41'E,Asia/Tokyo
 Tripoli,Libyan Arab Jamahiriya,32°49'N,13°07'E,Africa/Tripoli
 Tunis,Tunisia,36°50'N,10°11'E,Africa/Tunis
 Vaduz,Liechtenstein,47°08'N,09°31'E,Europe/Vaduz
