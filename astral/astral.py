@@ -575,6 +575,35 @@ class City(object):
             
     tz = property(**tz())
 
+    def solar_depression():
+        doc = """The number of degrees the sun must be below the horizon for the
+        dawn/dusk calc.
+        
+        Can either be set as a number of degrees below the horizon or as
+        one of the following strings
+        
+        ============= =======
+        String        Degrees
+        ============= =======
+        civil            6.0
+        nautical        12.0
+        astronomical    18.0
+        ============= =======
+        """
+        
+        def fget(self):
+            return self.astral.solar_depression
+            
+        def fset(self, depression):
+            if self.astral is None:
+                self.astral = Astral()
+
+            self.astral.solar_depression = depression 
+            
+        return locals()
+        
+    solar_depression = property(**solar_depression())
+
     def dawn(self, date=None, local=True):
         """Calculates the time in the morning when the sun is a certain number
         of degrees below the horizon. By default this is 6 degrees but can be
