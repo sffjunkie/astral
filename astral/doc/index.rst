@@ -12,7 +12,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Welcome to Astral V0.5
+Welcome to Astral V0.6
 ======================
 
 Astral is a python module for calculating the times of various aspects of
@@ -215,6 +215,8 @@ Version History
 ======== =========================================================
 Version  Description
 ======== =========================================================
+0.6      Fix for bug `884716`_ submitted by Martin Heemskerk 
+-------- ---------------------------------------------------------
 0.5      * Changed ``City`` to accept unicode name and country.
          * Moved city information into a database class ``CityDB``
          * Added attribute access to database for timezone groups
@@ -241,6 +243,7 @@ Version  Description
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _554041: https://bugs.launchpad.net/astral/+bug/554041
 .. _555508: https://bugs.launchpad.net/astral/+bug/555508
+.. _884716: https://bugs.launchpad.net/astral/+bug/884716
 .. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
 
     
