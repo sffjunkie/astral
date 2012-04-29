@@ -61,7 +61,7 @@ except ImportError:
 
 __all__ = ['City','Astral','AstralError']
 
-__version__ = "0.5"
+__version__ = "0.6"
 __author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
 _CITY_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
