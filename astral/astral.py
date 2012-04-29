@@ -460,7 +460,9 @@ class City(object):
                 pass
 
     def __repr__(self):
-        return '%s/%s, tz=%s' % (self.name, self.country, self.timezone)
+        return '%s/%s, tz=%s, long=%f, lat=%f' % (self.name, self.country,
+                                                  self.timezone,
+                                                  self.longitude, self.latitude)
         
     def latitude():
         doc = """The city's latitude
