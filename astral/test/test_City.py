@@ -57,9 +57,27 @@ def test_Elevation():
 def test_Azimuth():
     c = City()
     c.solar_azimuth()
+    
+def test_Moon():
+    c=City()
+    c.moon_phase()
 
 @raises(AttributeError)
 def test_TzError():
     c = City()
     c.tz = 1
 
+if __name__ == "__main__":
+    test_Name()
+    test_Country()
+    test_TimezoneName()
+    test_Timezone()
+    test_Dawn()
+    test_Sunrise()
+    test_SolarNoon()
+    test_Dusk()
+    test_Sunset()
+    test_Elevation()
+    test_Azimuth()
+    test_Moon()
+    
