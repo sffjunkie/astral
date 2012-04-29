@@ -1742,14 +1742,14 @@ class Astral(object):
         month = date.month
         year = date.year
         
-        if month <= 2:
-            year = year - 1
-            month = month + 12
-        
         if timezone is not None:
             offset = timezone.localize(datetime.datetime(year, month, day)).utcoffset()
             offset = offset.total_seconds() / 1440.0
             day += offset + 0.5
+        
+        if month <= 2:
+            year = year - 1
+            month = month + 12
         
         A = floor(year / 100.0)
         B = 2 - A + floor(A / 4.0)
