@@ -58,6 +58,14 @@ def test_Azimuth():
     c = City()
     c.solar_azimuth()
     
+def test_SolarDepression():
+    c = City(("Heidelberg", "Germany", 49.412, -8.71, "Europe/Berlin"))
+    c.solar_depression = 'nautical'
+    assert c.solar_depression == 12
+    
+    c.solar_depression = 18
+    assert c.solar_depression == 18
+    
 def test_Moon():
     c=City()
     c.moon_phase()
@@ -79,5 +87,6 @@ if __name__ == "__main__":
     test_Sunset()
     test_Elevation()
     test_Azimuth()
+    test_SolarDepression()
     test_Moon()
     
