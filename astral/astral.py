@@ -782,7 +782,6 @@ class City(object):
     def solar_elevation(self, dateandtime=None):
         """Calculates the solar elevation angle for a specific time.
         
-        
         :param dateandtime: The date and time for which to calculate the angle.
         :type dateandtime: :class:`datetime.datetime`
                       
@@ -798,6 +797,29 @@ class City(object):
         return self.astral.solar_elevation(dateandtime, 
             self.latitude, self.longitude)
 
+    def moon_phase(self, date=None):
+        """Calculates the moon phase for a specific date.
+        
+        :param date: The date to calculate the phase for.
+                     If ommitted the current date is used.
+        :type date: datetime.date
+            
+        :rtype:
+            Integer designating phase
+        
+                | 0  = New moon
+                | 7  = First quarter
+                | 14 = Full moon
+                | 21 = Last quarter
+        """
+        
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        return self.astral.moon_phase(date, self.tz)
 
 class CityGroup(object):
     def __init__(self, name):
@@ -1077,7 +1099,7 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date.day, date.month, date.year)
+        julianday = self._julianday(date)
 
         if latitude > 89.8:
             latitude = 89.8
@@ -1153,7 +1175,7 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date.day, date.month, date.year)
+        julianday = self._julianday(date)
 
         t = self._jday_to_jcentury(julianday)
         eqtime = self._eq_of_time(t)
@@ -1223,7 +1245,7 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date.day, date.month, date.year)
+        julianday = self._julianday(date)
 
         newt = self._jday_to_jcentury(julianday + 0.5 + longitude / 360.0)
 
@@ -1275,7 +1297,7 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date.day, date.month, date.year)
+        julianday = self._julianday(date)
 
         t = self._jday_to_jcentury(julianday)
         eqtime = self._eq_of_time(t)
@@ -1345,7 +1367,7 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date.day, date.month, date.year)
+        julianday = self._julianday(date)
 
         if latitude > 89.8:
             latitude = 89.8
@@ -1469,9 +1491,7 @@ class Astral(object):
         timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + \
             (utc_datetime.second / 3600)
 
-        JD = self._julianday(dateandtime.day,
-            dateandtime.month,
-            dateandtime.year)
+        JD = self._julianday(dateandtime)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
         theta = self._sun_declination(t)
         Etime = self._eq_of_time(t)
@@ -1556,9 +1576,7 @@ class Astral(object):
         timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + \
             (utc_datetime.second / 3600)
     
-        JD = self._julianday(dateandtime.day,
-            dateandtime.month,
-            dateandtime.year)
+        JD = self._julianday(dateandtime)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
         theta = self._sun_declination(t)
         Etime = self._eq_of_time(t)
@@ -1641,11 +1659,13 @@ class Astral(object):
     
         return solarelevation
 
-    def moon_phase(self, date):
+    def moon_phase(self, date, tz=None):
         """Calculates the phase of the moon on the specified date.
         
         :param date: The date to calculate the phase for.
         :type date: datetime.date
+        :param tz: The timezone to calculate the phase for.
+        :type tz: pytz.tz
             
         :rtype:
             Integer designating phase
@@ -1656,7 +1676,7 @@ class Astral(object):
                 | 21 = Last quarter
         """
         
-        jd = self._julianday(date.day, date.month, date.year)
+        jd = self._julianday(date, tz)
         DT = pow((jd - 2382148), 2) / (41048480*86400)
         T = (jd + DT - 2451545.0) / 36525
         T2 = pow(T,2)
@@ -1686,10 +1706,19 @@ class Astral(object):
             tmp = ceil(abs(value / 360.0))
             return value + tmp * 360.0
 
-    def _julianday(self, day, month, year):
+    def _julianday(self, date, timezone=None):
+        day = date.day
+        month = date.month
+        year = date.year
+        
         if month <= 2:
             year = year - 1
             month = month + 12
+        
+        if timezone is not None:
+            offset = timezone.localize(datetime.datetime(year, month, day)).utcoffset()
+            offset = offset.total_seconds() / 1440.0
+            day += offset + 0.5
         
         A = floor(year / 100.0)
         B = 2 - A + floor(A / 4.0)
