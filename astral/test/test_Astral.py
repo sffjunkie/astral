@@ -69,7 +69,8 @@ def test_Azimuth():
     
 def test_Moon():
     dd = Astral()
-    dd.moon_phase(datetime.date(2011,2,24))
+    tz = pytz.timezone('Europe/London')
+    dd.moon_phase(datetime.date(2011,2,24), tz)
     
 if __name__ == "__main__":
     test_Astral()
