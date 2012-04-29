@@ -1659,7 +1659,7 @@ class Astral(object):
     
         return solarelevation
 
-    def moon_phase(self, date, tz=None):
+    def moon_phase(self, date, tz):
         """Calculates the phase of the moon on the specified date.
         
         :param date: The date to calculate the phase for.
