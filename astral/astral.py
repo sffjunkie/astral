@@ -505,7 +505,7 @@ class City(object):
         
             degrees°minutes'[E|W] e.g. 51°31'W
             
-        For numbers, positive numbers signify longitudes to the West.
+        For numbers, positive numbers signify longitudes to the East.
         """
         
         def fget(self):
