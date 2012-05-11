@@ -61,7 +61,7 @@ except ImportError:
 
 __all__ = ['City','Astral','AstralError']
 
-__version__ = "0.6"
+__version__ = "0.6.1"
 __author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
 _CITY_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
@@ -474,7 +474,7 @@ class City(object):
         
             degrees°minutes'[N|S] e.g. 51°31'N
             
-        For numbers, negative numbers signify latitudes to the South.
+        For numbers, positive numbers signify latitudes to the North.
         """
         
         def fget(self):
@@ -505,7 +505,7 @@ class City(object):
         
             degrees°minutes'[E|W] e.g. 51°31'W
             
-        For numbers, positive numbers signify longitudes to the East.
+        For numbers, positive numbers signify longitudes to the West.
         """
         
         def fget(self):
@@ -1091,10 +1091,9 @@ class Astral(object):
 
         :param date:       Date to calculate for.
         :type date:        :class:`datetime.date`
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype:
@@ -1121,10 +1120,9 @@ class Astral(object):
         
         :param date:       Date to calculate for.
         :type date:        datetime.date
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1197,10 +1195,9 @@ class Astral(object):
         
         :param date:       Date to calculate for.
         :type date:        datetime.date
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1267,10 +1264,9 @@ class Astral(object):
         
         :param date:       Date to calculate for.
         :type date:        datetime.date
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1319,10 +1315,9 @@ class Astral(object):
         
         :param date:       Date to calculate for.
         :type date:        datetime.date
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1389,10 +1384,9 @@ class Astral(object):
         
         :param date:       Date to calculate for.
         :type date:        datetime.date
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: date/time in UTC timezone
@@ -1465,10 +1459,9 @@ class Astral(object):
         
         :param date:       Date to calculate for.
         :type date:        datetime.date
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: Dictionary with keys ``start`` and ``end``
@@ -1502,10 +1495,9 @@ class Astral(object):
         
         :param dateandtime:       Date/time to calculate for.
         :type dateandtime:        datetime.datetime
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: Azimuth in degrees
@@ -1587,10 +1579,9 @@ class Astral(object):
         
         :param dateandtime:       Date/time to calculate for.
         :type dateandtime:        datetime.datetime
-        :param latitude:   Latitude - Southern latitudes should be negative
+        :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float 
-        :param longitude:  Longitude as a floating point number. Eastern
-                           latitudes should be negative
+        :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float 
         
         :rtype: Elevation in degrees
