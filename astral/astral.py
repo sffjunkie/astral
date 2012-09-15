@@ -32,21 +32,21 @@ The module provides 2 main classes :class:`Astral` and :class:`City`.
     Holds information about a city and provides functions to calculate
     the event times for the city in the correct time zone.
 
-For example
+For example ::
 
->>> from astral import *
->>> a = Astral()
->>> city = a['London']
->>> print('Information for %s' % city.name)
-Information for London
->>> timezone = city.timezone
->>> print('Timezone: %s' % timezone)
-Timezone: Europe/London
->>> print('Latitude: %.02f; Longitude: %.02f' % (city.latitude, city.longitude))
-Latitude: 51.60; Longitude: 0.05
->>> sun = city.sun(local=True)
->>> print('Dawn:    %s' % str(sun['dawn']))
-Dawn:    2009-04-22 05:12:56+01:00
+    >>> from astral import *
+    >>> a = Astral()
+    >>> city = a['London']
+    >>> print('Information for %s' % city.name)
+    Information for London
+    >>> timezone = city.timezone
+    >>> print('Timezone: %s' % timezone)
+    Timezone: Europe/London
+    >>> print('Latitude: %.02f; Longitude: %.02f' % (city.latitude, city.longitude))
+    Latitude: 51.60; Longitude: 0.05
+    >>> sun = city.sun(local=True)
+    >>> print('Dawn:    %s' % str(sun['dawn']))
+    Dawn:    2009-04-22 05:12:56+01:00
 """
 
 import datetime
@@ -61,7 +61,7 @@ except ImportError:
 
 __all__ = ['City','Astral','AstralError']
 
-__version__ = "0.6.1"
+__version__ = "0.6.2"
 __author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
 _CITY_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai
@@ -83,6 +83,7 @@ Asmara,Eritrea,15°19'N,38°55'E,Africa/Asmara
 Astana,Kazakhstan,51°10'N,71°30'E,Asia/Qyzylorda
 Asuncion,Paraguay,25°10'S,57°30'W,America/Asuncion
 Athens,Greece,37°58'N,23°46'E,Europe/Athens
+Avarua,Cook Islands,21°12'N,159°46'W,Etc/GMT-10
 Baghdad,Iraq,33°20'N,44°30'E,Asia/Baghdad
 Baku,Azerbaijan,40°29'N,49°56'E,Asia/Baku
 Bamako,Mali,12°34'N,07°55'W,Africa/Bamako
@@ -94,6 +95,7 @@ Basse-Terre,Guadeloupe,16°00'N,61°44'W,America/Guadeloupe
 Basseterre,Saint Kitts and Nevis,17°17'N,62°43'W,America/St_Kitts
 Beijing,China,39°55'N,116°20'E,Asia/Harbin
 Beirut,Lebanon,33°53'N,35°31'E,Asia/Beirut
+Belfast,Northern Ireland,54°36'N,5°56'W,Europe/Belfast
 Belgrade,Yugoslavia,44°50'N,20°37'E,Europe/Belgrade
 Belmopan,Belize,17°18'N,88°30'W,America/Belize
 Berlin,Germany,52°30'N,13°25'E,Europe/Berlin
@@ -132,24 +134,29 @@ Dili,East Timor,08°29'S,125°34'E,Asia/Dili
 Djibouti,Djibouti,11°08'N,42°20'E,Africa/Djibouti
 Dodoma,United Republic of Tanzania,06°08'S,35°45'E,Africa/Dar_es_Salaam
 Doha,Qatar,25°15'N,51°35'E,Asia/Qatar
+Douglas,Isle Of Man,54°9'N,4°29'W,Europe/London
 Dublin,Ireland,53°21'N,06°15'W,Europe/Dublin
 Dushanbe,Tajikistan,38°33'N,68°48'E,Asia/Dushanbe
+El Aaiun,Morocco,27°9'N,13°12'W,UTC
 Fort-de-France,Martinique,14°36'N,61°02'W,America/Martinique
 Freetown,Sierra Leone,08°30'N,13°17'W,Africa/Freetown
 Funafuti,Tuvalu,08°31'S,179°13'E,Pacific/Funafuti
 Gaborone,Botswana,24°45'S,25°57'E,Africa/Gaborone
 George Town,Cayman Islands,19°20'N,81°24'W,America/Cayman
 Georgetown,Guyana,06°50'N,58°12'W,America/Guyana
+Gibraltar,Gibraltar,36°9'N,5°21'W,Europe/Gibraltar
 Guatemala,Guatemala,14°40'N,90°22'W,America/Guatemala
 Hanoi,Viet Nam,21°05'N,105°55'E,Asia/Saigon
 Harare,Zimbabwe,17°43'S,31°02'E,Africa/Harare
 Havana,Cuba,23°08'N,82°22'W,America/Havana
 Helsinki,Finland,60°15'N,25°03'E,Europe/Helsinki
 Hobart,Tasmania,42°53'S,147°19'E,Australia/Hobart
+Hong Kong,China,22°16'N,114°09'E,Asia/Hong_Kong
 Honiara,Solomon Islands,09°27'S,159°57'E,Pacific/Guadalcanal
 Islamabad,Pakistan,33°40'N,73°10'E,Asia/Karachi
 Jakarta,Indonesia,06°09'S,106°49'E,Asia/Jakarta
 Jerusalem,Israel,31°47'N,35°12'E,Asia/Jerusalem
+Juba,South Sudan,4°51'N,31°36'E,Africa/Juba
 Jubail,Saudi Arabia,27°02'N,49°39'E,Asia/Riyadh
 Kabul,Afghanistan,34°28'N,69°11'E,Asia/Kabul
 Kampala,Uganda,00°20'N,32°30'E,Africa/Kampala
@@ -178,6 +185,7 @@ Luxembourg,Luxembourg,49°37'N,06°09'E,Europe/Luxembourg
 Macau,Macao,22°12'N,113°33'E,Asia/Macau
 Madinah,Saudi Arabia,24°28'N,39°36'E,Asia/Riyadh
 Madrid,Spain,40°25'N,03°45'W,Europe/Madrid
+Majuro,Marshall Islands,7°4'N,171°16'E,Pacific/Majuro
 Makkah,Saudi Arabia,21°26'N,39°49'E,Asia/Riyadh
 Malabo,Equatorial Guinea,03°45'N,08°50'E,Africa/Malabo
 Male,Maldives,04°00'N,73°28'E,Indian/Maldives
@@ -194,16 +202,20 @@ Medina,Saudi Arabia,24°28'N,39°36'E,Asia/Riyadh
 Mexico,Mexico,19°20'N,99°10'W,America/Mexico_City
 Minsk,Belarus,53°52'N,27°30'E,Europe/Minsk
 Mogadishu,Somalia,02°02'N,45°25'E,Africa/Mogadishu
+Monaco,Priciplality Of Monaco,43°43'N,7°25'E,Europe/Monaco
 Monrovia,Liberia,06°18'N,10°47'W,Africa/Monrovia
 Montevideo,Uruguay,34°50'S,56°11'W,America/Montevideo
 Moroni,Comoros,11°40'S,43°16'E,Indian/Comoro
 Moscow,Russian Federation,55°45'N,37°35'E,Europe/Moscow
 Moskva,Russian Federation,55°45'N,37°35'E,Europe/Moscow
 Mumbai,India,18°58'N,72°49'E,Asia/Kolkata
+Muscat,Oman,23°37'N,58°32'E,Asia/Muscat
 N'Djamena,Chad,12°10'N,14°59'E,Africa/Ndjamena
 Nairobi,Kenya,01°17'S,36°48'E,Africa/Nairobi
 Nassau,Bahamas,25°05'N,77°20'W,America/Nassau
+Naypyidaw,Myanmar,19°45'N,96°6'E,Asia/Rangoon
 New Delhi,India,28°37'N,77°13'E,Asia/Kolkata
+Ngerulmud,Palau,7°30'N,134°37'E,Pacific/Palau
 Niamey,Niger,13°27'N,02°06'E,Africa/Niamey
 Nicosia,Cyprus,35°10'N,33°25'E,Asia/Nicosia
 Nouakchott,Mauritania,20°10'S,57°30'E,Africa/Nouakchott
@@ -223,22 +235,29 @@ Paramaribo,Suriname,05°50'N,55°10'W,America/Paramaribo
 Paris,France,48°50'N,02°20'E,Europe/Paris
 Perth,Australia,31°56'S,115°50'E,Australia/Perth
 Phnom Penh,Cambodia,11°33'N,104°55'E,Asia/Phnom_Penh
+Podgorica,Montenegro,42°28'N,19°16'E,Europe/Podgorica
+Port Louis,Mauritius,20°9'S,57°30'E,Indian/Mauritius
 Port Moresby,Papua New Guinea,09°24'S,147°08'E,Pacific/Port_Moresby
 Port-Vila,Vanuatu,17°45'S,168°18'E,Pacific/Efate
 Port-au-Prince,Haiti,18°40'N,72°20'W,America/Port-au-Prince
+Port of Spain,Trinidad and Tobago,10°40'N,61°31'W,America/Port_of_Spain
 Porto-Novo,Benin,06°23'N,02°42'E,Africa/Porto-Novo
 Prague,Czech Republic,50°05'N,14°22'E,Europe/Prague
 Praia,Cape Verde,15°02'N,23°34'W,Atlantic/Cape_Verde
 Pretoria,South Africa,25°44'S,28°12'E,Africa/Johannesburg
+Pristina,Albania,42°40'N,21°10'E,Europe/Tirane
 Quito,Ecuador,00°15'S,78°35'W,America/Guayaquil
+Rabat,Morocco,34°1'N,6°50'W,Africa/Casablanca
 Reykjavik,Iceland,64°10'N,21°57'W,Atlantic/Reykjavik
 Riga,Latvia,56°53'N,24°08'E,Europe/Riga
 Riyadh,Saudi Arabia,24°41'N,46°42'E,Asia/Riyadh
 Road Town,British Virgin Islands,18°27'N,64°37'W,America/Virgin
 Rome,Italy,41°54'N,12°29'E,Europe/Rome
 Roseau,Dominica,15°20'N,61°24'W,America/Dominica
+Saint Helier,Jersey,49°11'N,2°6'W,Etc/GMT
 Saint Pierre,Saint Pierre and Miquelon,46°46'N,56°12'W,America/Miquelon
 Saipan,Northern Mariana Islands,15°12'N,145°45'E,Pacific/Saipan
+Sana'a,Yemen,15°20'N,44°12'W,Asia/Aden
 San Jose,Costa Rica,09°55'N,84°02'W,America/Costa_Rica
 San Juan,Puerto Rico,18°28'N,66°07'W,America/Puerto_Rico
 San Marino,San Marino,43°55'N,12°30'E,Europe/San_Marino
@@ -248,15 +267,21 @@ Santo Domingo,Dominica Republic,18°30'N,69°59'W,America/Santo_Domingo
 Sao Tome,Sao Tome and Principe,00°10'N,06°39'E,Africa/Sao_Tome
 Sarajevo,Bosnia and Herzegovina,43°52'N,18°26'E,Europe/Sarajevo
 Seoul,Republic of Korea,37°31'N,126°58'E,Asia/Seoul
+Singapore,Republic of Singapore,1°18'N,103°48'E,Asia/Singapore
 Skopje,The Former Yugoslav Republic of Macedonia,42°01'N,21°26'E,Europe/Skopje
 Sofia,Bulgaria,42°45'N,23°20'E,Europe/Sofia
+Sri Jayawardenapura Kotte,Sri Lanka,6°54'N,79°53'E,Asia/Colombo
+St. George's,Grenada,32°22'N,64°40'W,America/Grenada
+St. John's,Antigua and Barbuda,17°7'N,61°51'W,America/Antigua
 St. Peter Port,Guernsey,49°26'N,02°33'W,Europe/Guernsey
 Stanley,Falkland Islands,51°40'S,59°51'W,Atlantic/Stanley
 Stockholm,Sweden,59°20'N,18°05'E,Europe/Stockholm
 Sucre,Bolivia,16°20'S,68°10'W,America/La_Paz
 Suva,Fiji,18°06'S,178°30'E,Pacific/Fiji
 Sydney,Australia,33°53'S,151°13'E,Australia/Sydney
+Taipei,Republic of China (Taiwan),25°02'N,121°38'E,Asia/Taipei
 T'bilisi,Georgia,41°43'N,44°50'E,Asia/Tbilisi
+Tbilisi,Georgia,41°43'N,44°50'E,Asia/Tbilisi
 Tallinn,Estonia,59°22'N,24°48'E,Europe/Tallinn
 Tarawa,Kiribati,01°30'N,173°00'E,Pacific/Tarawa
 Tashkent,Uzbekistan,41°20'N,69°10'E,Asia/Tashkent
@@ -269,6 +294,8 @@ Torshavn,Faroe Islands,62°05'N,06°56'W,Atlantic/Faroe
 Tokyo,Japan,35°41'N,139°41'E,Asia/Tokyo
 Tripoli,Libyan Arab Jamahiriya,32°49'N,13°07'E,Africa/Tripoli
 Tunis,Tunisia,36°50'N,10°11'E,Africa/Tunis
+Ulan Bator,Mongolia,47°55'N,106°55'E,Asia/Ulaanbaatar
+Ulaanbataar,Mongolia,47°55'N,106°55'E,Asia/Ulaanbaatar
 Vaduz,Liechtenstein,47°08'N,09°31'E,Europe/Vaduz
 Valletta,Malta,35°54'N,14°31'E,Europe/Malta
 Vienna,Austria,48°12'N,16°22'E,Europe/Vienna
@@ -283,6 +310,7 @@ Windhoek,Namibia,22°35'S,17°04'E,Africa/Windhoek
 Yamoussoukro,Cote d'Ivoire,06°49'N,05°17'W,Africa/Abidjan
 Yangon,Myanmar,16°45'N,96°20'E,Asia/Rangoon
 Yaounde,Cameroon,03°50'N,11°35'E,Africa/Douala
+Yaren,Nauru,0°32'S,166°55'E,Pacific/Nauru
 Yerevan,Armenia,40°10'N,44°31'E,Asia/Yerevan
 Zagreb,Croatia,45°50'N,15°58'E,Europe/Zagreb
 
@@ -313,6 +341,7 @@ Southampton,England,50°55'N,01°25'W,Europe/London
 Swansea,England,51°37'N,03°57'W,Europe/London
 Swindon,England,51°34'N,01°47'W,Europe/London
 Wolverhampton,England,52°35'N,2°08'W,Europe/London
+Barrow-In-Furness,England,54°06'N,3°13'W,Europe/London
 
 # US State Capitals
 Montgomery,USA,32°21'N,86°16'W,US/Central
@@ -470,7 +499,7 @@ class City(object):
 
         ``latitude`` can be set either as a string or as a number
         
-        For strings they must be of the form::
+        For strings they must be of the form
         
             degrees°minutes'[N|S] e.g. 51°31'N
             
@@ -501,11 +530,11 @@ class City(object):
 
         ``longitude`` can be set either as a string or as a number
         
-        For strings they must be of the form::
+        For strings they must be of the form
         
             degrees°minutes'[E|W] e.g. 51°31'W
             
-        For numbers, positive numbers signify longitudes to the West.
+        For numbers, positive numbers signify longitudes to the East.
         """
         
         def fget(self):
@@ -609,12 +638,12 @@ class City(object):
         changed by setting the :attr:`Astral.solar_depression` property.
         
         :param date: The date for which to calculate the dawn time.
-                     A value of None uses the current date.
+                     A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
-        :rtype: :class:`datetime.datetime` of dawn
+        :rtype: :class:`~datetime.datetime` of dawn
         """
 
         if self.astral is None:
@@ -637,12 +666,12 @@ class City(object):
         below the horizon. This is to account for refraction.
         
         :param date: The date for which to calculate the sunrise time.
-                     A value of None uses the current date.
+                     A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
-        :rtype: :class:`datetime.datetime` of sunrise
+        :rtype: :class:`~datetime.datetime` of sunrise
         """
 
         if self.astral is None:
@@ -663,12 +692,12 @@ class City(object):
         point.)
         
         :param date: The date for which to calculate the noon time.
-                     A value of None uses the current date.
+                     A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
-        :rtype: :class:`datetime.datetime` of noon
+        :rtype: :class:`~datetime.datetime` of noon
         """
         
         if self.astral is None:
@@ -689,12 +718,12 @@ class City(object):
         0.833 degrees below the horizon. This is to account for refraction.)
         
         :param date: The date for which to calculate the sunset time.
-                     A value of None uses the current date.
+                     A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
-        :rtype: :class:`datetime.datetime` of sunset
+        :rtype: :class:`~datetime.datetime` of sunset
         """
         
         if self.astral is None:
@@ -717,12 +746,12 @@ class City(object):
         :attr:`Astral.solar_depression` property.)
         
         :param date: The date for which to calculate the dusk time.
-                     A value of None uses the current date.
+                     A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
-        :rtype: :class:`datetime.datetime` of dusk
+        :rtype: :class:`~datetime.datetime` of dusk
         """
         
         if self.astral is None:
@@ -742,13 +771,14 @@ class City(object):
         """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
         
         :param date: The date for which to calculate the times.
-                     A value of None uses the current date.
+                     A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
-        :rtype: :class:`datetime.datetime` of dusk
-        """
+        :rtype: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
+            ``sunset`` and ``dusk``
+         """
         
         if self.astral is None:
             self.astral = Astral()
@@ -768,12 +798,12 @@ class City(object):
         """Calculates the period of rahukaalam.
         
         :param date: The date for which to calculate the rahukaalam period.
-                     A value of None uses the current date.
+                     A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in city's time zone (Default);
                       False = Time to be returned in UTC.
                       
-        :rtype: :class:`datetime.datetime` of dusk
+        :rtype: :class:`~datetime.datetime` of dusk
         """
 
         if self.astral is None:
@@ -795,7 +825,7 @@ class City(object):
         """Calculates the solar azimuth angle for a specific date/time.
         
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`datetime.datetime`
+        :type dateandtime: :class:`~datetime.datetime`
                       
         :rtype: The angle in degrees clockwise from North as a float.
         """
@@ -813,7 +843,7 @@ class City(object):
         """Calculates the solar elevation angle for a specific time.
         
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`datetime.datetime`
+        :type dateandtime: :class:`~datetime.datetime`
                       
         :rtype: The angle in degrees from the horizon as a float.
         """
@@ -858,7 +888,7 @@ class CityGroup(object):
         self._cities = {}
 
     def __getitem__(self, key):
-        """Returns a City object for the specified city. ::
+        """Returns a City object for the specified city.
         
             group = astral.europe
             city = group['London']
@@ -867,7 +897,7 @@ class CityGroup(object):
         followed by the country name. Where multiple cities have the
         same name you may need to supply the country name otherwise
         the first result will be returned which may not be the one
-        you're looking for. ::
+        you're looking for.
         
             city = group['Abu Dhabi,United Arab Emirates']
         
