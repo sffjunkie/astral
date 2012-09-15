@@ -257,6 +257,7 @@ Roseau,Dominica,15°20'N,61°24'W,America/Dominica
 Saint Helier,Jersey,49°11'N,2°6'W,Etc/GMT
 Saint Pierre,Saint Pierre and Miquelon,46°46'N,56°12'W,America/Miquelon
 Saipan,Northern Mariana Islands,15°12'N,145°45'E,Pacific/Saipan
+Sana,Yemen,15°20'N,44°12'W,Asia/Aden
 Sana'a,Yemen,15°20'N,44°12'W,Asia/Aden
 San Jose,Costa Rica,09°55'N,84°02'W,America/Costa_Rica
 San Juan,Puerto Rico,18°28'N,66°07'W,America/Puerto_Rico
