@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2009-2011, Simon Kennedy, code@sffjunkie.co.uk
+# Copyright 2009-2012, Simon Kennedy, code@sffjunkie.co.uk
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1159,67 +1159,8 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date)
-
-        if latitude > 89.8:
-            latitude = 89.8
-            
-        if latitude < -89.8:
-            latitude = -89.8
-        
-        t = self._jday_to_jcentury(julianday)
-        eqtime = self._eq_of_time(t)
-        solarDec = self._sun_declination(t)
-        
-        try:
-            hourangle = self._hour_angle_sunrise(latitude, solarDec)
-        except:
-            raise AstralError(('Sun remains below horizon '
-                'on this day, at this location.'))
-
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4.0 * delta
-        timeUTC = 720.0 + timeDiff - eqtime
-
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
-            timeUTC / 1440.0)
-        eqtime = self._eq_of_time(newt)
-        solarDec = self._sun_declination(newt)
-        hourangle = self._hour_angle_dawn(latitude, solarDec, self._depression)
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4 * delta
-        timeUTC = 720 + timeDiff - eqtime
-        
-        timeUTC = timeUTC/60.0
-        hour = int(timeUTC)
-        minute = int((timeUTC - hour) * 60)
-        second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-        if second > 59:
-            second -= 60
-            minute += 1
-        elif second < 0:
-            second += 60
-            minute -= 1
-
-        if minute > 59:
-            minute -= 60
-            hour += 1
-        elif minute < 0:
-            minute += 60
-            hour -= 1
-
-        if hour > 23:
-            hour -= 24
-            date += datetime.timedelta(days=1)
-        elif hour < 0:
-            hour += 24
-            date -= datetime.timedelta(days=1)
-        
-        dawn = datetime.datetime(date.year, date.month, date.day, hour, minute,
-            second, tzinfo=pytz.utc)
-
-        return dawn
+        return self._calc_time(date, latitude, longitude,
+                               self._hour_angle_dawn)
 
     def sunrise_utc(self, date, latitude, longitude):
         """Calculate sunrise time in the UTC timezone.
@@ -1234,61 +1175,8 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date)
-
-        t = self._jday_to_jcentury(julianday)
-        eqtime = self._eq_of_time(t)
-        solarDec = self._sun_declination(t)
-
-        try:
-            hourangle = self._hour_angle_sunrise(latitude, solarDec)
-        except:
-            raise AstralError(('Sun remains below horizon on this day, '
-                'at this location.'))
-
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4.0 * delta
-        timeUTC = 720.0 + timeDiff - eqtime
-
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
-            timeUTC / 1440.0)
-        eqtime = self._eq_of_time(newt)
-        solarDec = self._sun_declination(newt)
-        hourangle = self._hour_angle_sunrise(latitude, solarDec)
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4 * delta
-        timeUTC = 720 + timeDiff - eqtime
-        
-        timeUTC = timeUTC/60.0
-        hour = int(timeUTC)
-        minute = int((timeUTC - hour) * 60)
-        second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-        if second > 59:
-            second -= 60
-            minute += 1
-        elif second < 0:
-            second += 60
-            minute -= 1
-
-        if minute > 59:
-            minute -= 60
-            hour += 1
-        elif minute < 0:
-            minute += 60
-            hour -= 1
-
-        if hour > 23:
-            hour -= 24
-            date += datetime.timedelta(days=1)
-        elif hour < 0:
-            hour += 24
-            date -= datetime.timedelta(days=1)
-
-        sunrise = datetime.datetime(date.year, date.month, date.day,
-            hour, minute, second, tzinfo=pytz.utc)
-
-        return sunrise
+        return self._calc_time(date, latitude, longitude,
+                               self._hour_angle_sunrise)
 
     def solar_noon_utc(self, date, longitude):
         """Calculate solar noon time in the UTC timezone.
@@ -1354,61 +1242,8 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        julianday = self._julianday(date)
-
-        t = self._jday_to_jcentury(julianday)
-        eqtime = self._eq_of_time(t)
-        solarDec = self._sun_declination(t)
-
-        try:
-            hourangle = self._hour_angle_sunset(latitude, solarDec)
-        except:
-            raise AstralError(('Sun remains below horizon on this day, '
-                'at this location.'))
-
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4.0 * delta
-        timeUTC = 720.0 + timeDiff - eqtime
-
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
-            timeUTC / 1440.0)
-        eqtime = self._eq_of_time(newt)
-        solarDec = self._sun_declination(newt)
-        hourangle = self._hour_angle_sunset(latitude, solarDec)
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4 * delta
-        timeUTC = 720 + timeDiff - eqtime
-        
-        timeUTC = timeUTC/60.0
-        hour = int(timeUTC)
-        minute = int((timeUTC - hour) * 60)
-        second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-        if second > 59:
-            second -= 60
-            minute += 1
-        elif second < 0:
-            second += 60
-            minute -= 1
-
-        if minute > 59:
-            minute -= 60
-            hour += 1
-        elif minute < 0:
-            minute += 60
-            hour -= 1
-
-        if hour > 23:
-            hour -= 24
-            date += datetime.timedelta(days=1)
-        elif hour < 0:
-            hour += 24
-            date -= datetime.timedelta(days=1)
-
-        sunset = datetime.datetime(date.year, date.month, date.day,
-            hour, minute, second, tzinfo=pytz.utc)
-
-        return sunset
+        return self._calc_time(date, latitude, longitude,
+                               self._hour_angle_sunset)
 
     def dusk_utc(self, date, latitude, longitude):
         """Calculate dusk time in the UTC timezone.
@@ -1422,68 +1257,9 @@ class Astral(object):
         
         :rtype: date/time in UTC timezone
         """
-        
-        julianday = self._julianday(date)
 
-        if latitude > 89.8:
-            latitude = 89.8
-            
-        if latitude < -89.8:
-            latitude = -89.8
-        
-        t = self._jday_to_jcentury(julianday)
-        eqtime = self._eq_of_time(t)
-        solarDec = self._sun_declination(t)
-
-        try:
-            hourangle = self._hour_angle_sunset(latitude, solarDec)
-        except:
-            raise AstralError(('Sun remains below horizon on this day, '
-                'at this location.'))
-
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4.0 * delta
-        timeUTC = 720.0 + timeDiff - eqtime
-
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
-            timeUTC / 1440.0)
-        eqtime = self._eq_of_time(newt)
-        solarDec = self._sun_declination(newt)
-        hourangle = self._hour_angle_dusk(latitude, solarDec, self._depression)
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4 * delta
-        timeUTC = 720 + timeDiff - eqtime
-        
-        timeUTC = timeUTC/60.0
-        hour = int(timeUTC)
-        minute = int((timeUTC - hour) * 60)
-        second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-        if second > 59:
-            second -= 60
-            minute += 1
-        elif second < 0:
-            second += 60
-            minute -= 1
-
-        if minute > 59:
-            minute -= 60
-            hour += 1
-        elif minute < 0:
-            minute += 60
-            hour -= 1
-
-        if hour > 23:
-            hour -= 24
-            date += datetime.timedelta(days=1)
-        elif hour < 0:
-            hour += 24
-            date -= datetime.timedelta(days=1)
-
-        dusk = datetime.datetime(date.year, date.month, date.day,
-            hour, minute, second, tzinfo=pytz.utc)
-
-        return dusk
+        return self._calc_time(date, latitude, longitude,
+                               self._hour_angle_dusk)
 
     def rahukaalam_utc(self, date, latitude, longitude):
         """Calculate ruhakaalam times in the UTC timezone.
@@ -1751,6 +1527,71 @@ class Astral(object):
         
         return moon
 
+    def _calc_time(self, date, latitude, longitude, hour_angle_func):
+        julianday = self._julianday(date)
+
+        if latitude > 89.8:
+            latitude = 89.8
+            
+        if latitude < -89.8:
+            latitude = -89.8
+        
+        t = self._jday_to_jcentury(julianday)
+        eqtime = self._eq_of_time(t)
+        solarDec = self._sun_declination(t)
+
+        try:
+            hourangle = self._hour_angle_sunset(latitude, solarDec)
+        except:
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
+
+        delta = -longitude - degrees(hourangle)
+        timeDiff = 4.0 * delta
+        timeUTC = 720.0 + timeDiff - eqtime
+
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
+            timeUTC / 1440.0)
+        eqtime = self._eq_of_time(newt)
+        solarDec = self._sun_declination(newt)
+        
+        hourangle = hour_angle_func(latitude, solarDec)
+        
+        delta = -longitude - degrees(hourangle)
+        timeDiff = 4 * delta
+        timeUTC = 720 + timeDiff - eqtime
+        
+        timeUTC = timeUTC/60.0
+        hour = int(timeUTC)
+        minute = int((timeUTC - hour) * 60)
+        second = int((((timeUTC - hour) * 60) - minute) * 60)
+
+        if second > 59:
+            second -= 60
+            minute += 1
+        elif second < 0:
+            second += 60
+            minute -= 1
+
+        if minute > 59:
+            minute -= 60
+            hour += 1
+        elif minute < 0:
+            minute += 60
+            hour -= 1
+
+        if hour > 23:
+            hour -= 24
+            date += datetime.timedelta(days=1)
+        elif hour < 0:
+            hour += 24
+            date -= datetime.timedelta(days=1)
+
+        dt = datetime.datetime(date.year, date.month, date.day,
+            hour, minute, second, tzinfo=pytz.utc)
+        
+        return dt
+
     def _proper_angle(self, value):
         if value > 0.0:
             value /= 360.0
@@ -1881,11 +1722,11 @@ class Astral(object):
     def _hour_angle_sunset(self, latitude, solar_dec):
         return -self._hour_angle(latitude, solar_dec, 0.833)
 
-    def _hour_angle_dawn(self, latitude, solar_dec, solar_depression):
-        return self._hour_angle(latitude, solar_dec, solar_depression)
+    def _hour_angle_dawn(self, latitude, solar_dec):
+        return self._hour_angle(latitude, solar_dec, self._depression)
 
-    def _hour_angle_dusk(self, latitude, solar_dec, solar_depression):
-        return -self._hour_angle(latitude, solar_dec, solar_depression)
+    def _hour_angle_dusk(self, latitude, solar_dec):
+        return -self._hour_angle(latitude, solar_dec, self._depression)
 
     def _sun_true_anomoly(self, juliancentury):
         m = self._geom_mean_anomaly_sun(juliancentury)
