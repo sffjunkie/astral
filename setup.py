@@ -1,4 +1,4 @@
-# Copyright 2009-2011, Simon Kennedy, code@sffjunkie.co.uk
+# Copyright 2009-2012, Simon Kennedy, code@sffjunkie.co.uk
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
