@@ -1159,8 +1159,12 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        return self._calc_time(date, latitude, longitude,
-                               self._hour_angle_dawn)
+        try:
+            return self._calc_time(date, latitude, longitude,
+                                   self._hour_angle_dawn)
+        except:
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
     def sunrise_utc(self, date, latitude, longitude):
         """Calculate sunrise time in the UTC timezone.
@@ -1175,8 +1179,12 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        return self._calc_time(date, latitude, longitude,
-                               self._hour_angle_sunrise)
+        try:
+            return self._calc_time(date, latitude, longitude,
+                                   self._hour_angle_sunrise)
+        except:
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
     def solar_noon_utc(self, date, longitude):
         """Calculate solar noon time in the UTC timezone.
@@ -1242,8 +1250,12 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
         
-        return self._calc_time(date, latitude, longitude,
-                               self._hour_angle_sunset)
+        try:
+            return self._calc_time(date, latitude, longitude,
+                                   self._hour_angle_sunset)
+        except:
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
     def dusk_utc(self, date, latitude, longitude):
         """Calculate dusk time in the UTC timezone.
@@ -1258,8 +1270,12 @@ class Astral(object):
         :rtype: date/time in UTC timezone
         """
 
-        return self._calc_time(date, latitude, longitude,
-                               self._hour_angle_dusk)
+        try:
+            return self._calc_time(date, latitude, longitude,
+                                   self._hour_angle_dusk)
+        except:
+            raise AstralError(('Sun remains below horizon on this day, '
+                'at this location.'))
 
     def rahukaalam_utc(self, date, latitude, longitude):
         """Calculate ruhakaalam times in the UTC timezone.
@@ -1540,11 +1556,7 @@ class Astral(object):
         eqtime = self._eq_of_time(t)
         solarDec = self._sun_declination(t)
 
-        try:
-            hourangle = self._hour_angle_sunset(latitude, solarDec)
-        except:
-            raise AstralError(('Sun remains below horizon on this day, '
-                'at this location.'))
+        hourangle = self._hour_angle_sunset(latitude, solarDec)
 
         delta = -longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
