@@ -475,7 +475,7 @@ class City(object):
             self._longitude = 0
             self._timezone_group = 'Europe'
             self._timezone_location = 'London'
-            self.elevation = 24
+            self._elevation = 24
         else:
             self.name = ''
             self.country = ''
@@ -483,7 +483,7 @@ class City(object):
             self._longitude = 0
             self._timezone_group = ''
             self._timezone_location = ''
-            self.elevation = 0
+            self._elevation = 0
 
             try:
                 self.name = info[0]
@@ -563,6 +563,19 @@ class City(object):
         return locals()
         
     longitude = property(**longitude())
+        
+    def elevation():
+        doc = """The city's elevation in metres above sea level."""
+        
+        def fget(self):
+            return self._elevation
+            
+        def fset(self, elevation):
+            self._elevation = int(elevation)
+            
+        return locals()
+        
+    elevation = property(**elevation())
         
     def timezone():
         doc = """The name of the time zone in which the city is located.
