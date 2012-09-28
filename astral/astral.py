@@ -61,7 +61,7 @@ except ImportError:
 
 __all__ = ['City','Astral','AstralError']
 
-__version__ = "0.6.2"
+__version__ = "0.7"
 __author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
 _CITY_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai,5
@@ -565,7 +565,7 @@ class City(object):
     longitude = property(**longitude())
         
     def elevation():
-        doc = """The city's elevation in metres above sea level."""
+        doc = """The elevation in metres above sea level."""
         
         def fget(self):
             return self._elevation
