@@ -44,7 +44,7 @@ def test_Astral():
 
     rahukaalam = city.rahukaalam()
 
-def test_Elevation():
+def test_SolarElevation():
     city_name = 'Jubail'
     
     dd = Astral()
@@ -55,7 +55,7 @@ def test_Elevation():
     print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
     print('Elevation: %.02f' % dd.solar_elevation(dt, city.latitude, city.longitude))
 
-def test_Azimuth():
+def test_SolarAzimuth():
     city_name = 'Jubail'
     
     dd = Astral()
@@ -72,8 +72,15 @@ def test_Moon():
     tz = pytz.timezone('Europe/London')
     dd.moon_phase(datetime.date(2011,2,24), tz)
     
+def test_Elevation():
+    dd = Astral()
+    c=dd['London']
+    
+    assert c.elevation == 24
+    
 if __name__ == "__main__":
     test_Astral()
-    test_Elevation()
-    test_Azimuth()
+    test_SolarElevation()
+    test_SolarAzimuth()
     test_Moon()
+    test_Elevation()

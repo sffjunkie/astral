@@ -50,11 +50,11 @@ def test_Sunset():
     c = City()
     c.sunset()
     
-def test_Elevation():
+def test_SolarElevation():
     c = City()
     c.solar_elevation()
     
-def test_Azimuth():
+def test_SolarAzimuth():
     c = City()
     c.solar_azimuth()
     
@@ -85,8 +85,8 @@ if __name__ == "__main__":
     test_SolarNoon()
     test_Dusk()
     test_Sunset()
-    test_Elevation()
-    test_Azimuth()
+    test_SolarElevation()
+    test_SolarAzimuth()
     test_SolarDepression()
     test_Moon()
     
