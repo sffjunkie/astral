@@ -1178,8 +1178,7 @@ class Astral(object):
         """
         
         try:
-            return self._calc_time(date, latitude, longitude,
-                                   self._hour_angle_dawn)
+            return self._calc_time(date, latitude, longitude, self._depression)
         except:
             raise AstralError(('Sun remains below horizon on this day, '
                 'at this location.'))
@@ -1198,8 +1197,7 @@ class Astral(object):
         """
         
         try:
-            return self._calc_time(date, latitude, longitude,
-                                   self._hour_angle_sunrise)
+            return self._calc_time(date, latitude, longitude, 0.833)
         except:
             raise AstralError(('Sun remains below horizon on this day, '
                 'at this location.'))
@@ -1269,8 +1267,7 @@ class Astral(object):
         """
         
         try:
-            return self._calc_time(date, latitude, longitude,
-                                   self._hour_angle_sunset)
+            return self._calc_time(date, latitude, longitude, -0.833)
         except:
             raise AstralError(('Sun remains below horizon on this day, '
                 'at this location.'))
@@ -1289,8 +1286,7 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(date, latitude, longitude,
-                                   self._hour_angle_dusk)
+            return self._calc_time(date, latitude, longitude, -self._depression)
         except:
             raise AstralError(('Sun remains below horizon on this day, '
                 'at this location.'))
@@ -1706,19 +1702,7 @@ class Astral(object):
         
         return HA
 
-    def _hour_angle_sunrise(self, latitude, solar_dec):
-        return self._hour_angle(latitude, solar_dec, 0.833)
-        
-    def _hour_angle_sunset(self, latitude, solar_dec):
-        return -self._hour_angle(latitude, solar_dec, 0.833)
-
-    def _hour_angle_dawn(self, latitude, solar_dec):
-        return self._hour_angle(latitude, solar_dec, self._depression)
-
-    def _hour_angle_dusk(self, latitude, solar_dec):
-        return -self._hour_angle(latitude, solar_dec, self._depression)
-
-    def _calc_time(self, date, latitude, longitude, hour_angle_func):
+    def _calc_time(self, date, latitude, longitude, depression):
         julianday = self._julianday(date)
 
         if latitude > 89.8:
@@ -1731,7 +1715,7 @@ class Astral(object):
         eqtime = self._eq_of_time(t)
         solarDec = self._sun_declination(t)
 
-        hourangle = self._hour_angle_sunset(latitude, solarDec)
+        hourangle = -self._hour_angle(latitude, solarDec, 0.833)
 
         delta = -longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -1742,7 +1726,11 @@ class Astral(object):
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
         
-        hourangle = hour_angle_func(latitude, solarDec)
+        if depression < 0:
+            depression = abs(depression)
+            hourangle = -self._hour_angle(latitude, solarDec, depression)
+        else:
+            hourangle = self._hour_angle(latitude, solarDec, depression)
         
         delta = -longitude - degrees(hourangle)
         timeDiff = 4 * delta
