@@ -1690,6 +1690,12 @@ class Astral(object):
         tanadenom = (cos(radians(lambd)))
 
         return degrees(atan2(tananum, tanadenom))
+
+    def _sun_true_anomoly(self, juliancentury):
+        m = self._geom_mean_anomaly_sun(juliancentury)
+        c = self._sun_eq_of_center(juliancentury)
+
+        return m + c
         
     def _hour_angle(self, latitude, solar_dec, solar_depression):
         latRad = radians(latitude)
@@ -1711,12 +1717,6 @@ class Astral(object):
 
     def _hour_angle_dusk(self, latitude, solar_dec):
         return -self._hour_angle(latitude, solar_dec, self._depression)
-
-    def _sun_true_anomoly(self, juliancentury):
-        m = self._geom_mean_anomaly_sun(juliancentury)
-        c = self._sun_eq_of_center(juliancentury)
-
-        return m + c
 
     def _calc_time(self, date, latitude, longitude, hour_angle_func):
         julianday = self._julianday(date)
