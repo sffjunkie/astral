@@ -650,6 +650,33 @@ class City(object):
         return locals()
         
     solar_depression = property(**solar_depression())
+    
+    def sun(self, date=None, local=True):
+        """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
+        
+        :param date: The date for which to calculate the times.
+                     A value of ``None`` uses the current date.
+
+        :param local: True  = Time to be returned in city's time zone (Default);
+                      False = Time to be returned in UTC.
+                      
+        :rtype: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
+            ``sunset`` and ``dusk``
+         """
+        
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        sun = self.astral.sun_utc(date, self.latitude, self.longitude)
+
+        if local:
+            for key, dt in sun.items():
+                sun[key] = dt.astimezone(self.tz)
+
+        return sun
 
     def dawn(self, date=None, local=True):
         """Calculates the time in the morning when the sun is a certain number
@@ -785,33 +812,6 @@ class City(object):
             return dusk.astimezone(self.tz)            
         else:
             return dusk
-    
-    def sun(self, date=None, local=True):
-        """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
-        
-        :param date: The date for which to calculate the times.
-                     A value of ``None`` uses the current date.
-
-        :param local: True  = Time to be returned in city's time zone (Default);
-                      False = Time to be returned in UTC.
-                      
-        :rtype: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
-            ``sunset`` and ``dusk``
-         """
-        
-        if self.astral is None:
-            self.astral = Astral()
-
-        if date is None:
-            date = datetime.date.today()
-
-        sun = self.astral.sun_utc(date, self.latitude, self.longitude)
-
-        if local:
-            for key, dt in sun.items():
-                sun[key] = dt.astimezone(self.tz)
-
-        return sun
 
     def rahukaalam(self, date=None, local=True):
         """Calculates the period of rahukaalam.
