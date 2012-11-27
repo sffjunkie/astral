@@ -553,8 +553,6 @@ class City(object):
 
                 self._longitude = float(deg) + (float(minute)/60)
 
-                # Conventionally locations to the west of 0° are negative
-                # but the calculation is based on the opposite
                 if longitude.endswith("W"):
                     self._longitude = -self._longitude
             else:
