@@ -3,10 +3,12 @@ various positions of the sun.
 
 For documentation see the HTML documentation in the 'doc' directory. 
 
-GoogleLocator
--------------
+GoogleGeocoder
+--------------
 
-Access to the `GoogleLocator` requires you to agree to be bound by
+`GoogleGeocoder` uses the mapping services provided by Google
+
+Access to the `GoogleGeocoder` requires you to agree to be bound by
 Google Maps/Google Earth APIs Terms of Service found at
 https://developers.google.com/maps/terms which includes but is not limited to
 having a Google Account.
