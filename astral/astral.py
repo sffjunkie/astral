@@ -84,9 +84,9 @@ except ImportError:
     from urllib.request import urlopen, URLError
 
 try:
-    import json
-except ImportError:
     import simplejson as json
+except ImportError:
+    import json
 
 try:
     import pytz
