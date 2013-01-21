@@ -14,44 +14,79 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-The :mod:`astral` module provides the means to calculate dawn, sunrise,
+"""The :mod:`astral` module provides the means to calculate dawn, sunrise,
 solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and elevation,
-for specific cities or at a specific latitude/longitude. It can also calculate
-the moon phase for a specific date. 
+for specific locations or at a specific latitude/longitude. It can also
+calculate the moon phase for a specific date. 
 
-The module provides 2 main classes :class:`Astral` and :class:`City`.
+The module provides 2 main classes :class:`Astral` and :class:`Location`.
 
 :class:`Astral`
     Has 2 main responsibilities
 
     * Calculates the events in the UTC timezone.
-    * Holds a dictionary of City classes
+    * Provides access to location data
     
-:class:`City`
-    Holds information about a city and provides functions to calculate
-    the event times for the city in the correct time zone.
+:class:`Location`
+    Holds information about a location and provides functions to calculate
+    the event times for the location in the correct time zone.
 
 For example ::
 
     >>> from astral import *
     >>> a = Astral()
-    >>> city = a['London']
-    >>> print('Information for %s' % city.name)
+    >>> location = a['London']
+    >>> print('Information for %s' % location.name)
     Information for London
-    >>> timezone = city.timezone
+    >>> timezone = location.timezone
     >>> print('Timezone: %s' % timezone)
     Timezone: Europe/London
-    >>> print('Latitude: %.02f; Longitude: %.02f' % (city.latitude, city.longitude))
+    >>> print('Latitude: %.02f; Longitude: %.02f' % (location.latitude, location.longitude))
     Latitude: 51.60; Longitude: 0.05
-    >>> sun = city.sun(local=True)
+    >>> from datetime import date
+    >>> d = date(2009,4,22)
+    >>> sun = location.sun(local=True, date=d)
     >>> print('Dawn:    %s' % str(sun['dawn']))
     Dawn:    2009-04-22 05:12:56+01:00
+
+The module currently provides 2 methods of obtaining location information;
+:class:`AstralGeocoder` (the default, which uses information from within the
+module) and :class:`GoogleGeocoder` (which obtains information from Google's
+Map Service.)
+
+To use the :class:`GoogleGeocoder` pass the class as the `geocoder` parameter to
+:meth:`Astral.__init__` or by setting the `geocoder` property to an instance of
+:class:`GoogleGeocoder`::
+
+    >>> from astral import GoogleGeocoder
+    >>> a = Astral(GoogleGeocoder)
+    
+or ::
+
+    >>> from astral import GoogleGeocoder
+    >>> a = Astral()
+    >>> a.geocoder = GoogleGeocoder()
 """
 
 import datetime
+from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
 from math import radians, degrees, pow
+
+try:
+    from urllib import quote_plus
+except ImportError:
+    from urllib.parse import quote_plus
+
+try:
+    from urllib2 import urlopen, URLError
+except ImportError:
+    from urllib.request import urlopen, URLError
+
+try:
+    import json
+except ImportError:
+    import simplejson as json
 
 try:
     import pytz
@@ -59,12 +94,13 @@ except ImportError:
     raise ImportError(('The astral module requires the '
         'pytz module to be available.'))
 
-__all__ = ['City','Astral','AstralError']
+__all__ = ['Location','AstralGeocoder','GoogleGeocoder','Astral','AstralError']
 
 __version__ = "0.7"
 __author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
-_CITY_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai,5
+# name,region,longitude,latitude,timezone,elevation
+_LOCATION_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai,5
 Abu Dhabi,United Arab Emirates,24°28'N,54°22'E,Asia/Dubai,5
 Abuja,Nigeria,09°05'N,07°32'E,Africa/Lagos,342
 Accra,Ghana,05°35'N,00°06'W,Africa/Accra,61
@@ -199,7 +235,7 @@ Masqat,Oman,23°37'N,58°36'E,Asia/Muscat,8
 Mbabane,Swaziland,26°18'S,31°06'E,Africa/Mbabane,1243
 Mecca,Saudi Arabia,21°26'N,39°49'E,Asia/Riyadh,240
 Medina,Saudi Arabia,24°28'N,39°36'E,Asia/Riyadh,631
-Mexico,Mexico,19°20'N,99°10'W,America/Mexico_City,2254
+Mexico,Mexico,19°20'N,99°10'W,America/Mexico_location,2254
 Minsk,Belarus,53°52'N,27°30'E,Europe/Minsk,231
 Mogadishu,Somalia,02°02'N,45°25'E,Africa/Mogadishu,9
 Monaco,Priciplality Of Monaco,43°43'N,7°25'E,Europe/Monaco,206
@@ -442,13 +478,13 @@ Toledo,USA,41°39'N,83°34'W,US/Eastern,180
 class AstralError(Exception):
     pass
 
-class City(object):
-    """Provides access to information for single city."""
+class Location(object):
+    """Provides access to information for single location."""
     
     def __init__(self, info=None):
         """Initializes the object with a tuple of information.
         
-        :param info: A tuple of information to fill in the city info.
+        :param info: A tuple of information to fill in the location info.
         
             The tuple should contain items in the following order
             
@@ -456,7 +492,7 @@ class City(object):
             Field            Default
             ================ =============
             name             Greenwich
-            country          England
+            region           England
             latitude         51.168
             longitude        0
             elevation        24
@@ -470,7 +506,7 @@ class City(object):
         self.astral = None
         if info is None:
             self.name = 'Greenwich'
-            self.country = 'England'
+            self.region = 'England'
             self._latitude = 51.168
             self._longitude = 0
             self._timezone_group = 'Europe'
@@ -478,7 +514,7 @@ class City(object):
             self._elevation = 24
         else:
             self.name = ''
-            self.country = ''
+            self.region = ''
             self._latitude = 0
             self._longitude = 0
             self._timezone_group = ''
@@ -487,21 +523,23 @@ class City(object):
 
             try:
                 self.name = info[0]
-                self.country = info[1]
+                self.region = info[1]
                 self.latitude = info[2]
                 self.longitude = info[3]
                 self.timezone = info[4]
                 self.elevation = info[5]
             except:
                 pass
+            
+        self.url = ''
 
     def __repr__(self):
-        return '%s/%s, tz=%s, lat=%0.02f, lon=%0.02f' % (self.name, self.country,
+        return '%s/%s, tz=%s, lat=%0.02f, lon=%0.02f' % (self.name, self.region,
                                                   self.timezone,
                                                   self.latitude, self.longitude)
         
     def latitude():
-        doc = """The city's latitude
+        doc = """The location's latitude
 
         ``latitude`` can be set either as a string or as a number
         
@@ -532,7 +570,7 @@ class City(object):
     latitude = property(**latitude())
         
     def longitude():
-        doc = """The city's longitude.
+        doc = """The location's longitude.
 
         ``longitude`` can be set either as a string or as a number
         
@@ -576,7 +614,7 @@ class City(object):
     elevation = property(**elevation())
         
     def timezone():
-        doc = """The name of the time zone in which the city is located.
+        doc = """The name of the time zone for the location.
         
         A list of time zone names can be obtained from pytz. For example.
         
@@ -655,7 +693,7 @@ class City(object):
         :param date: The date for which to calculate the times.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in city's time zone (Default);
+        :param local: True  = Time to be returned in location's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
@@ -684,7 +722,7 @@ class City(object):
         :param date: The date for which to calculate the dawn time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in city's time zone (Default);
+        :param local: True  = Time to be returned in location's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`~datetime.datetime` of dawn
@@ -712,7 +750,7 @@ class City(object):
         :param date: The date for which to calculate the sunrise time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in city's time zone (Default);
+        :param local: True  = Time to be returned in location's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`~datetime.datetime` of sunrise
@@ -738,7 +776,7 @@ class City(object):
         :param date: The date for which to calculate the noon time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in city's time zone (Default);
+        :param local: True  = Time to be returned in location's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`~datetime.datetime` of noon
@@ -764,7 +802,7 @@ class City(object):
         :param date: The date for which to calculate the sunset time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in city's time zone (Default);
+        :param local: True  = Time to be returned in location's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`~datetime.datetime` of sunset
@@ -792,7 +830,7 @@ class City(object):
         :param date: The date for which to calculate the dusk time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in city's time zone (Default);
+        :param local: True  = Time to be returned in location's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`~datetime.datetime` of dusk
@@ -817,7 +855,7 @@ class City(object):
         :param date: The date for which to calculate the rahukaalam period.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in city's time zone (Default);
+        :param local: True  = Time to be returned in location's time zone (Default);
                       False = Time to be returned in UTC.
                       
         :rtype: :class:`~datetime.datetime` of dusk
@@ -899,100 +937,102 @@ class City(object):
         return self.astral.moon_phase(date, self.tz)
 
 
-class CityGroup(object):
+class LocationGroup(object):
     def __init__(self, name):
         self.name = name
-        self._cities = {}
+        self._locations = {}
 
     def __getitem__(self, key):
-        """Returns a City object for the specified city.
+        """Returns a Location object for the specified `key`.
         
             group = astral.europe
-            city = group['London']
+            location = group['London']
         
-        You can supply an optional country name by adding a comma
-        followed by the country name. Where multiple cities have the
-        same name you may need to supply the country name otherwise
+        You can supply an optional region name by adding a comma
+        followed by the region name. Where multiple locations have the
+        same name you may need to supply the region name otherwise
         the first result will be returned which may not be the one
         you're looking for.
         
-            city = group['Abu Dhabi,United Arab Emirates']
+            location = group['Abu Dhabi,United Arab Emirates']
         
-        Handles city names with spaces and mixed case.
+        Handles location names with spaces and mixed case.
         """
 
-        name = str(key).lower().replace(' ', '_')
+        key = self._sanitize_key(key)
 
         try:
-            city_name, country_name = name.split(',', 1)
+            lookup_name, lookup_region = key.split(',', 1)
         except:
-            city_name = name
-            country_name = ''
+            lookup_name = key
+            lookup_region = ''
 
-        city_name = city_name.strip('"\'')
-        country_name = country_name.strip('"\'')
+        lookup_name = lookup_name.strip('"\'')
+        lookup_region = lookup_region.strip('"\'')
 
-        for (name, city_list) in self._cities.items():
-            if name.replace(' ', '_') == city_name:
-                if len(city_list) == 1 or country_name == '':
-                    return city_list[0]
+        for (location_name, location_list) in self._locations.items():
+            if location_name == lookup_name:
+                if len(location_list) == 1 or lookup_region == '':
+                    return location_list[0]
 
-                for city in city_list:
-                    if city.country.lower().replace(' ', '_') \
-                    == country_name:
-                        return city
+                for location in location_list:
+                    if self._sanitize_key(location.region) == lookup_region:
+                        return location
 
-        raise KeyError('Unrecognised city name - %s' % key)
+        raise KeyError('Unrecognised location name - %s' % key)
         
     def __setitem__(self, key, value):
-        key = str(key).lower()
-        if key not in self._cities:
-            self._cities[key] = [value]
+        key = self._sanitize_key(key)
+        if key not in self._locations:
+            self._locations[key] = [value]
         else:
-            self._cities[key].append(value)
+            self._locations[key].append(value)
 
     def __contains__(self, key):
-        key = str(key).lower()
-        for name in self._cities.keys():
+        key = self._sanitize_key(key)
+        for name in self._locations.keys():
             if name == key:
                 return True
             
         return False
     
     def __iter__(self):
-        for city_list in self._cities.values():
-            for city in city_list:
-                yield city
+        for location_list in self._locations.values():
+            for location in location_list:
+                yield location
     
     def keys(self):
-        return self._cities.keys()
+        return self._locations.keys()
     
     def values(self):
-        return self._cities.values()
+        return self._locations.values()
     
     def items(self):
-        return self._cities.items()
+        return self._locations.items()
     
-    def cities():
+    def locations():
         def fget(self):
             k = []
-            for city_list in self._cities.values():
-                for city in city_list:
-                    k.append(city.name)
+            for location_list in self._locations.values():
+                for location in location_list:
+                    k.append(location.name)
                 
             return k
         
         return locals()
     
-    cities = property(**cities())
-        
+    locations = property(**locations())
+    
+    def _sanitize_key(self, key):
+        return str(key).lower().replace(' ', '_')
+
             
-class CityDB(object):
+class AstralGeocoder(object):
     def __init__(self):
         self._groups = {}
         
-        cities = _CITY_INFO.split('\n')
-        for line in cities:
+        locations = _LOCATION_INFO.split('\n')
+        for line in locations:
             line = line.strip()
             if line != '' and line[0] != '#':
                 if line[-1] == '\n':
@@ -1000,16 +1040,16 @@ class CityDB(object):
                 
                 info = line.split(',')
 
-                city = City(info)
+                l = Location(info)
                 
-                timezone_group = city._timezone_group.lower()
+                timezone_group = l._timezone_group.lower()
                 try:
                     group = self.__getattr__(timezone_group)
                 except:
-                    group = CityGroup(city._timezone_group)
+                    group = LocationGroup(l._timezone_group)
                     self._groups[timezone_group] = group
                     
-                group[info[0].lower()] = city
+                group[info[0].lower()] = l
         
     def __getattr__(self, key):
         """Access to each timezone group. For example London is in timezone
@@ -1025,7 +1065,7 @@ class CityDB(object):
         raise AttributeError('Group \'%s\' not found' % key)
     
     def __getitem__(self, key):
-        """Lookup a city within all timezone groups.
+        """Lookup a location within all timezone groups.
         
         Item lookup is case insensitive."""
         
@@ -1036,7 +1076,7 @@ class CityDB(object):
             except KeyError:
                 pass
 
-        raise KeyError('Unrecognised city name - %s' % key)
+        raise KeyError('Unrecognised location name - %s' % key)
 
     def __iter__(self):
         return self._groups.__iter__()
@@ -1052,17 +1092,17 @@ class CityDB(object):
                 
         return False
     
-    def cities():
+    def locations():
         def fget(self):
             k = []
             for group in self._groups.values():
-                k.extend(group.cities)
+                k.extend(group.locations)
                 
             return k
         
         return locals()
     
-    cities = property(**cities())
+    locations = property(**locations())
     
     def groups():
         def fget(self):
@@ -1071,31 +1111,113 @@ class CityDB(object):
         return locals()
         
     groups = property(**groups())
+
+
+class GoogleGeocoder(object):
+    """Use Google Maps API Web Service to lookup GPS co-ordinates, timezone and
+    elevation.
+    
+    See the following for more info.
+    https://developers.google.com/maps/documentation/
+    """
+    
+    def __init__(self, cache=False):
+        self.cache = cache
+        self.geocache = {}
+        self._location_query_base = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
+        self._timezone_query_base = 'https://maps.googleapis.com/maps/api/timezone/json?location=%f,%f&timestamp=%d&sensor=false'
+        self._elevation_query_base = 'http://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=false'
+    
+    def __getitem__(self, key):
+        if self.cache and key in self.geocache:
+            return self.geocache[key]
         
+        location = Location()
+        try:
+            self._get_geocoding(key, location)
+            self._get_timezone(location)
+            self._get_elevation(location)
+        except URLError:
+            raise AstralError('GoogleGeocoder: Unable to contact Google maps API')
+        
+        location.url = 'http://maps.google.com/maps?q=loc:%f,%f' % (location.latitude,
+            location.longitude)
+        
+        if self.cache:
+            self.geocache[key] = location
+        
+    def _get_geocoding(self, key, location):
+        """Lookup the Google geocoding API information for `key`"""
+        
+        url = self._location_query_base % quote_plus(key)
+        ds = urlopen(url)
+        data = ds.read()
+        ds.close()
+        response = json.loads(data)
+        if response['status'] == 'OK':
+            formatted_address = response['results'][0]['formatted_address']
+            pos = formatted_address.find(',')
+            if pos == -1:
+                location.name = formatted_address
+                location.region = ''
+            else:
+                location.name = formatted_address[:pos]
+                location.region = formatted_address[pos+1:]
+            
+            l = response['results'][0]['geometry']['location']
+            location.latitude = float(l['lat'])
+            location.longitude = float(l['lng'])
+        else:
+            raise AstralError('GoogleGeocoder: Unable to locate %s' % key)
+        
+    def _get_timezone(self, location):
+        """Query the timezone information with the latitude and longitude of
+        the specified `location`.
+        
+        This function assumes the timezone of the location has always been
+        the same as it is now by using time() in the query string.
+        """
+        
+        url = self._timezone_query_base % (location.latitude, location.longitude,
+            int(time()))
+        ds = urlopen(url)
+        data = ds.read()
+        ds.close()
+        response = json.loads(data)
+        if response['status'] == 'OK':
+            location.timezone = response['timeZoneId']
+        else:
+            location.timezone = 'UTC'
+        
+    def _get_elevation(self, location):
+        """Query the elevation information with the latitude and longitude of
+        the specified `location`.
+        """
+        
+        url = self._elevation_query_base % (location.latitude, location.longitude)
+        ds = urlopen(url)
+        data = ds.read()
+        ds.close()
+        response = json.loads(data)
+        if response['status'] == 'OK':
+            location.elevation = int(float(response['results'][0]['elevation']))
+        else:
+            location.elevation = 0
+
 
 class Astral(object):
-    def __init__(self):
-        """Initialise the city database and set the default depression."""
+    def __init__(self, geocoder=AstralGeocoder):
+        """Initialise the geocoder and set the default depression."""
         
-        self._citydb = CityDB()
+        self.geocoder = geocoder()
         self._depression = 6  # Set default depression in degrees
 
     def __getitem__(self, key):
-        """Returns the City instance specified by ``key``."""
+        """Returns the Location instance specified by ``key``."""
         
-        city = self._citydb[key]
-        city.astral = self
-        return city
-
-    def citydb():
-        doc = """:rtype: The database of cities."""
-
-        def fget(self):
-            return self._citydb
-            
-        return locals()
-        
-    citydb = property(**citydb())
+        location = self.geocoder[key]
+        location.astral = self
+        return location
 
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the
@@ -1609,7 +1731,7 @@ class Astral(object):
             juliancentury * (36000.76983 + 0.0003032 * juliancentury)
         return l0 % 360.0
         
-    def _eccentricity_earth_orbit(self, juliancentury):
+    def _eccentrilocation_earth_orbit(self, juliancentury):
         return 0.016708634 - \
             juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
         
@@ -1620,7 +1742,7 @@ class Astral(object):
     def _eq_of_time(self, juliancentury):
         epsilon = self._obliquity_correction(juliancentury)
         l0 = self._geom_mean_long_sun(juliancentury)
-        e = self._eccentricity_earth_orbit(juliancentury)
+        e = self._eccentrilocation_earth_orbit(juliancentury)
         m = self._geom_mean_anomaly_sun(juliancentury)
 
         y = tan(radians(epsilon) / 2.0)
@@ -1672,7 +1794,7 @@ class Astral(object):
 
     def _sun_rad_vector(self, juliancentury):
         v = self._sun_true_anomoly(juliancentury)
-        e = self._eccentricity_earth_orbit(juliancentury)
+        e = self._eccentrilocation_earth_orbit(juliancentury)
  
         return (1.000001018 * (1 - e * e)) / (1 + e * cos(radians(v)))
 

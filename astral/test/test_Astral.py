@@ -3,14 +3,14 @@ from nose.tools import raises
 
 import datetime
 import pytz
-from astral import Astral, City
+from astral import Astral, Location
     
 @raises(KeyError)
-def test_AstralBadCityName():
+def test_AstralBadLocationName():
     dd = Astral()
     c = dd['wally']    
 
-def test_AstralCityName():
+def test_AstralLocationName():
     dd = Astral()
     c = dd['London']
     assert c.name == 'London'    
@@ -22,50 +22,50 @@ def test_AstralAssign():
 
 
 def test_Astral():
-    city_name = 'Jubail'
+    location_name = 'Jubail'
     
     dd = Astral()
     dd.solar_depression = 'civil'
     
-    city = dd[city_name]
-    assert city.timezone == 'Asia/Riyadh'
+    location = dd[location_name]
+    assert location.timezone == 'Asia/Riyadh'
     
-    print('Information for %s/%s\n' % (city_name, city.country))
+    print('Information for %s/%s\n' % (location_name, location.region))
     
-    timezone = city.timezone
+    timezone = location.timezone
     print('Timezone: %s' % timezone)
     
     loc_tz = pytz.timezone(timezone)
-    print('Latitude: %.02f; Longitude: %.02f\n' % (city.latitude, city.longitude))
+    print('Latitude: %.02f; Longitude: %.02f\n' % (location.latitude, location.longitude))
     
-    sun = city.sun()
-    sunrise = city.sunrise(local=True)
+    sun = location.sun()
+    sunrise = location.sunrise(local=True)
     assert sunrise == sun['sunrise']
 
-    rahukaalam = city.rahukaalam()
+    rahukaalam = location.rahukaalam()
 
 def test_SolarElevation():
-    city_name = 'Jubail'
+    location_name = 'Jubail'
     
     dd = Astral()
-    city=dd[city_name]
+    location=dd[location_name]
 
-    dt = datetime.datetime.now(tz=city.tz)
+    dt = datetime.datetime.now(tz=location.tz)
     print('Date & time: %s' % dt)
     print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
-    print('Elevation: %.02f' % dd.solar_elevation(dt, city.latitude, city.longitude))
+    print('Elevation: %.02f' % dd.solar_elevation(dt, location.latitude, location.longitude))
 
 def test_SolarAzimuth():
-    city_name = 'Jubail'
+    location_name = 'Jubail'
     
     dd = Astral()
-    city=dd[city_name]
-    print('Latitude: %f, Longitude: %f' % (city.latitude, city.longitude))
+    location=dd[location_name]
+    print('Latitude: %f, Longitude: %f' % (location.latitude, location.longitude))
 
-    dt = datetime.datetime.now(tz=city.tz)
+    dt = datetime.datetime.now(tz=location.tz)
     print('Date & time: %s' % dt)
     print('Date & time (UTC): %s' % dt.astimezone(pytz.utc))
-    print('Azimuth: %.02f' % dd.solar_azimuth(dt, city.latitude, city.longitude))
+    print('Azimuth: %.02f' % dd.solar_azimuth(dt, location.latitude, location.longitude))
     
 def test_Moon():
     dd = Astral()
