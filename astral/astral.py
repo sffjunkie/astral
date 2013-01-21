@@ -1150,9 +1150,7 @@ class GoogleGeocoder(object):
         """Lookup the Google geocoding API information for `key`"""
         
         url = self._location_query_base % quote_plus(key)
-        ds = urlopen(url)
-        data = ds.read()
-        ds.close()
+        data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
             formatted_address = response['results'][0]['formatted_address']
@@ -1180,9 +1178,7 @@ class GoogleGeocoder(object):
         
         url = self._timezone_query_base % (location.latitude, location.longitude,
             int(time()))
-        ds = urlopen(url)
-        data = ds.read()
-        ds.close()
+        data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
             location.timezone = response['timeZoneId']
@@ -1195,15 +1191,26 @@ class GoogleGeocoder(object):
         """
         
         url = self._elevation_query_base % (location.latitude, location.longitude)
-        ds = urlopen(url)
-        data = ds.read()
-        ds.close()
+        data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
             location.elevation = int(float(response['results'][0]['elevation']))
         else:
             location.elevation = 0
 
+    def _read_from_url(self, url):
+        ds = urlopen(url)
+        content_types = ds.headers.get('Content-Type').split(';')
+        
+        charset = 'UTF-8'
+        for ct in content_types:
+            if ct.strip().startswith('charset'):
+                charset = ct.split('=')[1]
+                
+        data = ds.read().decode(charset)
+        ds.close()
+        
+        return data
 
 class Astral(object):
     def __init__(self, geocoder=AstralGeocoder):
