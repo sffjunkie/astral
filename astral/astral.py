@@ -1042,12 +1042,12 @@ class AstralGeocoder(object):
 
                 l = Location(info)
                 
-                timezone_group = l._timezone_group.lower()
+                key = l._timezone_group.lower()
                 try:
-                    group = self.__getattr__(timezone_group)
+                    group = self.__getattr__(key)
                 except:
                     group = LocationGroup(l._timezone_group)
-                    self._groups[timezone_group] = group
+                    self._groups[key] = group
                     
                 group[info[0].lower()] = l
         
