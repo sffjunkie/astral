@@ -1028,6 +1028,10 @@ class LocationGroup(object):
 
             
 class AstralGeocoder(object):
+    """Looks up geographic information from the locations stored within the
+    module
+    """
+    
     def __init__(self):
         self._groups = {}
         
