@@ -1212,6 +1212,7 @@ class GoogleGeocoder(object):
         
         return data
 
+
 class Astral(object):
     def __init__(self, geocoder=AstralGeocoder):
         """Initialise the geocoder and set the default depression."""
