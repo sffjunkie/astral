@@ -235,7 +235,7 @@ Masqat,Oman,23°37'N,58°36'E,Asia/Muscat,8
 Mbabane,Swaziland,26°18'S,31°06'E,Africa/Mbabane,1243
 Mecca,Saudi Arabia,21°26'N,39°49'E,Asia/Riyadh,240
 Medina,Saudi Arabia,24°28'N,39°36'E,Asia/Riyadh,631
-Mexico,Mexico,19°20'N,99°10'W,America/Mexico_location,2254
+Mexico,Mexico,19°20'N,99°10'W,America/Mexico_City,2254
 Minsk,Belarus,53°52'N,27°30'E,Europe/Minsk,231
 Mogadishu,Somalia,02°02'N,45°25'E,Africa/Mogadishu,9
 Monaco,Priciplality Of Monaco,43°43'N,7°25'E,Europe/Monaco,206
