@@ -29,7 +29,22 @@ Astral
 City
 ----
    
-.. autoclass:: City
+.. autoclass:: Location
+   :members:
+   :member-order: bysource 
+   
+   .. automethod:: __init__
+
+Geocoders
+---------
+   
+.. autoclass:: AstralGeocoder
+   :members:
+   :member-order: bysource 
+   
+   .. automethod:: __init__
+   
+.. autoclass:: GoogleGeocoder
    :members:
    :member-order: bysource 
    
