@@ -42,12 +42,8 @@ Geocoders
    :members:
    :member-order: bysource 
    
-   .. automethod:: __init__
-   
 .. autoclass:: GoogleGeocoder
    :members:
    :member-order: bysource 
-   
-   .. automethod:: __init__
    
 
