@@ -18,7 +18,7 @@ doc_root = os.path.abspath(os.path.dirname(__file__))
 
 theme_root = os.path.abspath(os.path.join(doc_root,
     '..', '..', '..', '..', 
-    'sphinx', 'trunk'))
+    'sphinx-theme', 'sffjunkie', 'trunk'))
 #print('theme root: %s' % theme_root)
 
 # If extensions (or modules to document with autodoc) are in another directory,
