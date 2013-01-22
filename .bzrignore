@@ -20,8 +20,6 @@ venv/*
 MANIFEST
 temp
 temp/*
-doc
-doc/*
 
 .metadata
 .project
