@@ -26,8 +26,8 @@ Astral
 
    .. automethod:: __getitem__
 
-City
-----
+Location
+--------
    
 .. autoclass:: Location
    :members:
