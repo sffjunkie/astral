@@ -1,42 +1,42 @@
 # -*- coding: utf-8 -*-
 from nose.tools import raises
 
-from astral import CityDB
+from astral import AstralGeocoder
 
 def test_Group():
-    db = CityDB()
+    db = AstralGeocoder()
     _e = db.europe
     
 @raises(AttributeError)    
 def test_UnknownGroup():
-    db = CityDB()
+    db = AstralGeocoder()
     _e = db.wallyland
 
 def test_CityContainment():
-    db = CityDB()
+    db = AstralGeocoder()
     assert 'london' in db
 
 def test_GroupContainment():
-    db = CityDB()
+    db = AstralGeocoder()
     assert 'africa' in db
 
 def test_CityCountry():
     city_name = 'Birmingham,England'
     
-    db = CityDB()
+    db = AstralGeocoder()
     city = db[city_name]
     assert city.name == 'Birmingham'
-    assert city.country == 'England'
+    assert city.region == 'England'
 
 def test_MultiCountry():
-    db = CityDB()
+    db = AstralGeocoder()
     city = db['Abu Dhabi']
     assert city.name == 'Abu Dhabi'
 
 def test_MultiCountryWithCountry():
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
     
-    db = CityDB()
+    db = AstralGeocoder()
     city = db['Abu Dhabi,United Arab Emirates']
     assert city.name == 'Abu Dhabi'
 
@@ -46,15 +46,15 @@ def test_MultiCountryWithCountry():
 def test_Adelaide():
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
     
-    db = CityDB()
+    db = AstralGeocoder()
     _city = db['Adelaide']
 
 def test_AllCities():
-    db = CityDB()
-    cities = db.cities
-    cities.sort()
+    db = AstralGeocoder()
+    locations = db.locations
+    locations.sort()
     
-    for city_name in cities:
+    for city_name in locations:
         _city = db[city_name]
 
 if __name__ == "__main__":

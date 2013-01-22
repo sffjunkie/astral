@@ -2,10 +2,10 @@
 from nose.tools import raises
 
 import pytz
-from astral import City
+from astral import Location
 
 def test_Name():
-    c = City()
+    c = Location()
     assert c.name == 'Greenwich'
     c.name = 'London'
     assert c.name == 'London'
@@ -13,53 +13,53 @@ def test_Name():
     assert c.name == 'Köln'
 
 def test_Country():
-    c = City()
-    assert c.country == 'England'
-    c.country = 'Australia'
-    assert c.country == 'Australia'
+    c = Location()
+    assert c.region == 'England'
+    c.region = 'Australia'
+    assert c.region == 'Australia'
 
 def test_TimezoneName():
-    c = City()
+    c = Location()
     assert c.timezone == 'Europe/London'
     c.name = 'Asia/Riyadh'
     assert c.name == 'Asia/Riyadh'
 
 def test_Timezone():
-    c = City()
+    c = Location()
     assert c.tz == pytz.timezone('Europe/London')
     c.timezone='Europe/Stockholm'
     assert c.tz == pytz.timezone('Europe/Stockholm')
 
 def test_Dawn():
-    c = City()
+    c = Location()
     c.dawn()
 
 def test_Sunrise():
-    c = City()
+    c = Location()
     c.sunrise()
 
 def test_SolarNoon():
-    c = City()
+    c = Location()
     c.solar_noon()
 
 def test_Dusk():
-    c = City()
+    c = Location()
     c.dusk()
 
 def test_Sunset():
-    c = City()
+    c = Location()
     c.sunset()
     
 def test_SolarElevation():
-    c = City()
+    c = Location()
     c.solar_elevation()
     
 def test_SolarAzimuth():
-    c = City()
+    c = Location()
     c.solar_azimuth()
     
 def test_SolarDepression():
-    c = City(("Heidelberg", "Germany", 49.412, -8.71, "Europe/Berlin"))
+    c = Location(("Heidelberg", "Germany", 49.412, -8.71, "Europe/Berlin"))
     c.solar_depression = 'nautical'
     assert c.solar_depression == 12
     
@@ -67,12 +67,12 @@ def test_SolarDepression():
     assert c.solar_depression == 18
     
 def test_Moon():
-    c=City()
+    c=Location()
     c.moon_phase()
 
 @raises(AttributeError)
 def test_TzError():
-    c = City()
+    c = Location()
     c.tz = 1
 
 if __name__ == "__main__":
