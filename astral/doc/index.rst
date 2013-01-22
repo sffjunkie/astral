@@ -232,11 +232,12 @@ Version History
 ======== =========================================================
 Version  Description
 ======== =========================================================
-0.7      * Renamed :class:`City` class to :class:`Location` 
+0.7      * Added ability to lookup location information from
+           Google's mapping APIs (see :class:`GoogleGeocoder`) 
+         * Renamed :class:`City` class to :class:`Location`
+         * Renamed :class:`CityDB` to :class:`AstralGeocoder`
          * Added elevations of cities to database and property to
            obtain elevation from :class:`Location` class
-         * Added ability to lookup location information from
-           Google's mapping APIs 
 -------- ---------------------------------------------------------
 0.6.2    Added various cities to database as per https://bugs.launchpad.net/astral/+bug/1040936
 -------- ---------------------------------------------------------
