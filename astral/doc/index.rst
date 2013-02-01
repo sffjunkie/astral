@@ -12,8 +12,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Astral V0.7
-===========
+Astral V0.7.1
+=============
 
 Astral is a python module for calculating the times of various aspects of
 the sun and moon.
@@ -232,7 +232,7 @@ Version History
 ======== =========================================================
 Version  Description
 ======== =========================================================
-0.7      Bug fix. Missed a vital return statement in the
+0.7.1    Bug fix. Missed a vital return statement in the
          :class:`~astral.GoogleGeocoder`
 -------- ---------------------------------------------------------
 0.7      * Added ability to lookup location information from
