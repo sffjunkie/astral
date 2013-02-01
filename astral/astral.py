@@ -1149,6 +1149,8 @@ class GoogleGeocoder(object):
         
         if self.cache:
             self.geocache[key] = location
+            
+        return location
         
     def _get_geocoding(self, key, location):
         """Lookup the Google geocoding API information for `key`"""
