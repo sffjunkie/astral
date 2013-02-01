@@ -1165,8 +1165,8 @@ class GoogleGeocoder(object):
                 location.name = formatted_address
                 location.region = ''
             else:
-                location.name = formatted_address[:pos]
-                location.region = formatted_address[pos+1:]
+                location.name = formatted_address[:pos].strip()
+                location.region = formatted_address[pos+1:].strip()
             
             l = response['results'][0]['geometry']['location']
             location.latitude = float(l['lat'])
