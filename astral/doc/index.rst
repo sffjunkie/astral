@@ -229,24 +229,24 @@ Simon Kennedy <code@sffjunkie.co.uk>
 Version History
 ===============
 
-======== =========================================================
+======== =======================================================================
 Version  Description
-======== =========================================================
+======== =======================================================================
 0.7.1    Bug fix. Missed a vital return statement in the
          :class:`~astral.GoogleGeocoder`
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.7      * Added ability to lookup location information from
            Google's mapping APIs (see :class:`~astral.GoogleGeocoder`) 
          * Renamed :class:`City` class to :class:`~astral.Location`
          * Renamed :class:`CityDB` to :class:`~astral.AstralGeocoder`
          * Added elevations of cities to database and property to
            obtain elevation from :class:`~astral.Location` class
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.6.2    Added various cities to database as per https://bugs.launchpad.net/astral/+bug/1040936
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.6.1    * Docstrings were not updated to match changes to code.
          * Other minor docstring changes made
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.6      * Fix for bug `884716`_ submitted by Martin Heemskerk
            regarding moon phase calculations
            
@@ -255,25 +255,25 @@ Version  Description
            - Changed co-ordinate system so that eastern longitudes
              are now positive
            - Added solar_depression property to City class
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.5      * Changed :class:`City` to accept unicode name and country.
          * Moved city information into a database class :class:`CityDB`
          * Added attribute access to database for timezone groups
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.4      * Duplicate city names could not be accessed.
          * Sun calculations for some cities failed with times
            outside valid ranges.
          * Fixes for city data.
          * Added calculation for moon phase.
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.3      * Changed to `Apache`_ V2.0 license.
          * Fix for bug `555508`_ submitted by me.
          * US state capitals and other cities added.
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.2      Fix for bug `554041`_ submitted by Derek\_ / John Dimatos 
--------- ---------------------------------------------------------
+-------- -----------------------------------------------------------------------
 0.1      First release
-======== =========================================================
+======== =======================================================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
 .. _Sourceforge: http://pytz.sourceforge.net/
