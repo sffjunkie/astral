@@ -91,17 +91,17 @@ The following example demonstrates the functionality available in the module::
     Sunset:   2009-04-22 20:09:07+01:00
     Dusk:     2009-04-22 20:45:52+01:00
 
-Access to the database of cities can be made through the Astral class::
+Access to the current geocoder can be made through the Astral class::
     
     >>> a = Astral()
-    >>> db = a.citydb
-    >>> london = db['London']
+    >>> geo = a.geocoder
+    >>> london = geo['London']
     
-Timezone groups such as Europe can be accessed via attributes on the database::
+Timezone groups such as Europe can be accessed via attributes on the
+:class:`~astral.AstralGeocoder`::
     
-    >>> a = Astral()
-    >>> db = a.citydb
-    >>> europe = db.europe.locations
+    >>> geo = AstralGeocoder()
+    >>> europe = geo.europe.locations
     >>> europe.sort()
     >>> europe
     ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...
