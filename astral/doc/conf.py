@@ -13,6 +13,8 @@
 
 import sys, os
 
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
 doc_root = os.path.abspath(os.path.dirname(__file__))
 #print('doc root: %s' % doc_root)
 
@@ -99,7 +101,10 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  Major themes that come with
 # Sphinx are currently 'default' and 'sphinxdoc'.
-html_theme = 'sffjunkie'
+if on_rtd:
+    html_theme = 'default'
+else:
+    html_theme = 'sffjunkie'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
