@@ -12,7 +12,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Astral V0.7.2
+Astral V0.7.3
 =============
 
 Astral is a python module for calculating the times of various aspects of
@@ -232,6 +232,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+0.7.3    Fix for bug `1239387`_ submitted by Torbjörn Lönnemark
+-------- -----------------------------------------------------------------------
 0.7.2    Minor bug fix in :class:`~astral.GoogleGeocoder`. location name and
          region are now stripped of whitespace
 -------- -----------------------------------------------------------------------
@@ -287,6 +289,7 @@ Version  Description
 .. _555508: https://bugs.launchpad.net/astral/+bug/555508
 .. _884716: https://bugs.launchpad.net/astral/+bug/884716
 .. _944754: https://bugs.launchpad.net/astral/+bug/944754
+.. _1239387: https://bugs.launchpad.net/astral/+bug/1239387
 .. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
 
     
