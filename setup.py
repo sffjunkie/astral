@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(name='astral',
-    version='0.7.2',
+    version='0.7.3',
     description='Calculations for the position of the sun and moon.',
     long_description="""Sun calculations for dawn, sunrise, solar noon,
     sunset, dusk, solar elevation, solar azimuth and rahukaalam.

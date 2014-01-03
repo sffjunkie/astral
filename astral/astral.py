@@ -96,7 +96,7 @@ except ImportError:
 
 __all__ = ['Location','AstralGeocoder','GoogleGeocoder','Astral','AstralError']
 
-__version__ = "0.7.2"
+__version__ = "0.7.3"
 __author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
 # name,region,longitude,latitude,timezone,elevation
