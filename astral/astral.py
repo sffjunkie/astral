@@ -495,8 +495,8 @@ class Location(object):
             region           England
             latitude         51.168
             longitude        0
-            elevation        24
             time zone name   Europe/London
+            elevation        24
             ================ =============
                 
             See :attr:`timezone` property for a method of obtaining time zone
