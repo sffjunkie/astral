@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from nose.tools import raises
+from pytest import raises
 
 from astral import AstralGeocoder
 
@@ -7,10 +7,10 @@ def test_Group():
     db = AstralGeocoder()
     _e = db.europe
     
-@raises(AttributeError)    
 def test_UnknownGroup():
-    db = AstralGeocoder()
-    _e = db.wallyland
+    with raises(AttributeError):
+        db = AstralGeocoder()
+        _e = db.wallyland
 
 def test_CityContainment():
     db = AstralGeocoder()
@@ -56,13 +56,3 @@ def test_AllCities():
     
     for city_name in locations:
         _city = db[city_name]
-
-if __name__ == "__main__":
-    test_CityCountry()
-    test_MultiCountry()
-    test_Adelaide()
-    test_Group()
-    test_CityContainment()
-    test_GroupContainment()
-    test_AllCities()
-

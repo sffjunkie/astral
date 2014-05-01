@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from nose.tools import raises
+from pytest import raises
 
 import pytz
 from astral import Location
@@ -70,23 +70,7 @@ def test_Moon():
     c=Location()
     c.moon_phase()
 
-@raises(AttributeError)
 def test_TzError():
-    c = Location()
-    c.tz = 1
-
-if __name__ == "__main__":
-    test_Name()
-    test_Country()
-    test_TimezoneName()
-    test_Timezone()
-    test_Dawn()
-    test_Sunrise()
-    test_SolarNoon()
-    test_Dusk()
-    test_Sunset()
-    test_SolarElevation()
-    test_SolarAzimuth()
-    test_SolarDepression()
-    test_Moon()
-    
+    with raises(AttributeError):
+        c = Location()
+        c.tz = 1

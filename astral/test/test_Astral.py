@@ -1,24 +1,24 @@
 # -*- coding: utf-8 -*-
-from nose.tools import raises
+from pytest import raises
 
 import datetime
 import pytz
 from astral import Astral, Location
     
-@raises(KeyError)
 def test_AstralBadLocationName():
-    dd = Astral()
-    c = dd['wally']    
+    with raises(KeyError):
+        dd = Astral()
+        c = dd['wally']    
 
 def test_AstralLocationName():
     dd = Astral()
     c = dd['London']
     assert c.name == 'London'    
 
-@raises(TypeError)
 def test_AstralAssign():
-    dd = Astral()
-    dd['London'] = 'wally'    
+    with raises(TypeError):
+        dd = Astral()
+        dd['London'] = 'wally'    
 
 
 def test_Astral():
@@ -77,10 +77,3 @@ def test_Elevation():
     c=dd['London']
     
     assert c.elevation == 24
-    
-if __name__ == "__main__":
-    test_Astral()
-    test_SolarElevation()
-    test_SolarAzimuth()
-    test_Moon()
-    test_Elevation()
