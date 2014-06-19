@@ -12,7 +12,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Astral V0.7.3
+Astral V0.7.4
 =============
 
 Astral is a python module for calculating the times of various aspects of
@@ -232,6 +232,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+0.7.4    Added Canadian cities from Yip Shing Ho
+-------- -----------------------------------------------------------------------
 0.7.3    Fix for bug `1239387`_ submitted by Torbjörn Lönnemark
 -------- -----------------------------------------------------------------------
 0.7.2    Minor bug fix in :class:`~astral.GoogleGeocoder`. location name and
