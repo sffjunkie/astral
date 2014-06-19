@@ -49,6 +49,12 @@ def test_Adelaide():
     db = AstralGeocoder()
     _city = db['Adelaide']
 
+def test_CandianCities():
+    db = AstralGeocoder()
+    
+    city = db['Fredericton']
+    assert city.elevation == 8
+
 def test_AllCities():
     db = AstralGeocoder()
     locations = db.locations

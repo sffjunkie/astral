@@ -96,7 +96,7 @@ except ImportError:
 
 __all__ = ['Location','AstralGeocoder','GoogleGeocoder','Astral','AstralError']
 
-__version__ = "0.7.3"
+__version__ = "0.7.4"
 __author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
 
 # name,region,longitude,latitude,timezone,elevation
@@ -473,6 +473,24 @@ San Diego,USA,32°42'N,117°09'W,US/Pacific,16
 Orlando,USA,28°32'N,81°22'W,US/Eastern,35
 Buffalo,USA,42°54'N,78°50'W,US/Eastern,188
 Toledo,USA,41°39'N,83°34'W,US/Eastern,180
+
+# Canadian cities
+Vancouver,Canada,49°15'N,123°6'W,America/Vancouver,55
+Calgary,Canada,51°2'N,114°3'W,America/Edmonton,1040
+Edmonton,Canada,53°32'N,113°29'W,America/Edmonton,664
+Saskatoon,Canada,52°8'N,106°40'W,America/Regina,480
+Regina,Canada,50°27'N,104°36'W,America/Regina,577
+Winnipeg,Canada,49°53'N,97°8'W,America/Winnipeg,229
+Toronto,Canada,43°39'N,79°22'W,America/Toronto,77
+Montreal,Canada,45°30'N,73°33'W,America/Montreal,23
+Quebec,Canada,46°48'N,71°14'W,America/Toronto,87
+Fredericton,Canada,45°57'N,66°38'W,America/Halifax,8
+Halifax,Canada,44°38'N,63°34'W,America/Halifax,36
+Charlottetown,Canada,46°14'N,63°7'W,America/Halifax,2
+St. John's,Canada,47°33'N,52°42'W,America/Halifax,116
+Whitehorse,Canada,60°43'N,135°3'W,America/Whitehorse,696
+Yellowknife,Canada,62°27'N,114°22'W,America/Yellowknife,191
+Iqaluit,Canada,63°44'N,68°31'W,America/Iqaluit,3
 """
 
 class AstralError(Exception):
