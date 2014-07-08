@@ -92,7 +92,7 @@ try:
     import pytz
 except ImportError:
     raise ImportError(('The astral module requires the '
-        'pytz module to be available.'))
+                      'pytz module to be available.'))
 
 __all__ = ['Location','AstralGeocoder','GoogleGeocoder','Astral','AstralError']
 
