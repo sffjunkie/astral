@@ -41,7 +41,7 @@ doc_root = os.path.abspath(os.path.dirname(__file__))
 #print('doc root: %s' % doc_root)
 
 theme_root = os.path.abspath(os.path.join(doc_root,
-    '..', '..', '..', '..', 
+    '..', '..', '..', 
     'sphinx-theme', 'sffjunkie', 'trunk'))
 #print('theme root: %s' % theme_root)
 
@@ -49,7 +49,7 @@ theme_root = os.path.abspath(os.path.join(doc_root,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.append(os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath(os.path.join('..', 'astral')))
 
 # -- General configuration -----------------------------------------------------
 
