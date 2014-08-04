@@ -22,7 +22,7 @@ setup(name='astral',
     Moon calculation for phase.
     """,
     author='Simon Kennedy',
-    author_email='code@sffjunkie.co.uk',
+    author_email='sffjunkie+code@gmail.com',
     url="http://www.sffjunkie.co.uk/python-astral.html",
     license='Apache-2.0',
     package_dir={'': 'astral'},
