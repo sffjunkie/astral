@@ -27,5 +27,5 @@ setup(name='astral',
     license='Apache-2.0',
     package_dir={'': 'astral'},
     py_modules=['astral'],
-    requires=['pytz'],
+    install_requires=['pytz'],
 )
