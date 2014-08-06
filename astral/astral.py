@@ -990,9 +990,9 @@ class LocationGroup(object):
 
         for (location_name, location_list) in self._locations.items():
             if location_name == lookup_name:
-                if len(location_list) == 1 or lookup_region == '':
+                if lookup_region == '':
                     return location_list[0]
-
+                
                 for location in location_list:
                     if self._sanitize_key(location.region) == lookup_region:
                         return location
