@@ -1,5 +1,8 @@
+import pytest
+
 from astral import GoogleGeocoder
 
+@pytest.mark.webtest
 def test_GoogleLocator():
     locator = GoogleGeocoder()
     l = locator['Eiffel Tower']
