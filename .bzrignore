@@ -25,3 +25,4 @@ temp/*
 .project
 .pydevproject
 __pycache__
+.tox
