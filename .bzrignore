@@ -26,3 +26,4 @@ temp/*
 .pydevproject
 __pycache__
 .tox
+.cache
