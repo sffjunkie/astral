@@ -57,6 +57,12 @@ or ::
     >>> a.geocoder = GoogleGeocoder()
 """
 
+try:
+    import pytz
+except ImportError:
+    raise ImportError(('The astral module requires the '
+                      'pytz module to be available.'))
+
 import datetime
 from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
@@ -76,12 +82,6 @@ try:
     import simplejson as json
 except ImportError:
     import json
-
-try:
-    import pytz
-except ImportError:
-    raise ImportError(('The astral module requires the '
-                      'pytz module to be available.'))
 
 __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
