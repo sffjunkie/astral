@@ -704,7 +704,8 @@ class Location(object):
                      A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in location's time zone
-                              (Default);
+                      (Default);
+                              
                       False = Time to be returned in UTC.
 
         :rtype: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
@@ -734,7 +735,7 @@ class Location(object):
                      A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in location's time zone
-                              (Default);
+                      (Default);
                       False = Time to be returned in UTC.
 
         :rtype: :class:`~datetime.datetime` of dawn
@@ -763,7 +764,7 @@ class Location(object):
                      A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in location's time zone
-                              (Default);
+                      (Default);
                       False = Time to be returned in UTC.
 
         :rtype: :class:`~datetime.datetime` of sunrise
@@ -790,7 +791,7 @@ class Location(object):
                      A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in location's time zone
-                              (Default);
+                      (Default);
                       False = Time to be returned in UTC.
 
         :rtype: :class:`~datetime.datetime` of noon
@@ -817,7 +818,7 @@ class Location(object):
                      A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in location's time zone
-                              (Default);
+                      (Default);
                       False = Time to be returned in UTC.
 
         :rtype: :class:`~datetime.datetime` of sunset
@@ -846,7 +847,7 @@ class Location(object):
                      A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in location's time zone
-                              (Default);
+                      (Default);
                       False = Time to be returned in UTC.
 
         :rtype: :class:`~datetime.datetime` of dusk
@@ -872,7 +873,7 @@ class Location(object):
                      A value of ``None`` uses the current date.
 
         :param local: True  = Time to be returned in location's time zone
-                              (Default);
+                      (Default);
                       False = Time to be returned in UTC.
 
         :rtype: :class:`~datetime.datetime` of dusk
