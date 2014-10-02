@@ -114,6 +114,10 @@ When you've added the pytz package to install astral unzip the archive to
 a handy location and execute the standard Python installation method::
     
     python setup.py install
+    
+Or you can use :command:`pip`::
+
+    pip install astral
 
 Cities
 ======
@@ -212,7 +216,7 @@ of the docs is any easier.)
 Contact
 =======
     
-Simon Kennedy <code@sffjunkie.co.uk>
+Simon Kennedy <sffjunkie+code@gmail.com>
     
 Version History
 ===============
@@ -281,8 +285,8 @@ Version  Description
 .. _944754: https://bugs.launchpad.net/astral/+bug/944754
 .. _1239387: https://bugs.launchpad.net/astral/+bug/1239387
 .. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
-
     
+
 .. toctree::
    :maxdepth: 2
    :hidden:
