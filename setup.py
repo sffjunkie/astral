@@ -16,14 +16,17 @@ class Tox(TestCommand):
         errcode = tox.cmdline(self.test_args)
         sys.exit(errcode)
 
+def read(*names, **kwargs):
+    return io.open(
+        join(dirname(__file__), *names),
+        encoding=kwargs.get("encoding", "utf8")
+    ).read()
+
         
 setup(name='astral',
       version='0.7.4',
       description='Calculations for the position of the sun and moon.',
-      long_description="""Sun calculations for dawn, sunrise, solar noon,
-      sunset, dusk, solar elevation, solar azimuth and rahukaalam.
-      Moon calculation for phase.
-      """,
+      long_description=read('README.txt'),
       author='Simon Kennedy',
       author_email='sffjunkie+code@gmail.com',
       url="https://launchpad.net/astral",

@@ -1,7 +1,10 @@
-This is 'astral' a Python module for calculating times of the day for
-various positions of the sun.
+This is 'astral' a Python module which calculates
 
-For documentation see the HTML documentation in the 'doc' directory. 
+    * Times for various positions of the sun: dawn, sunrise, solar noon,
+      sunset, dusk, solar elevation, solar azimuth and rahukaalam.
+    * Moon calculation for phase.
+
+For documentation see the http://pythonhosted.org/astral/
 
 GoogleGeocoder
 --------------
