@@ -36,8 +36,11 @@ setup(name='astral',
       package_dir={'': 'src'},
       py_modules=['astral'],
       install_requires=['pytz'],
-      classifiers="""Programming Language :: Python :: 2.7
-      Programming Language :: Python :: 3""",
+      classifiers=[
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+      ]
     
       tests_require=['tox'],
       cmdclass = {'test': Tox},
