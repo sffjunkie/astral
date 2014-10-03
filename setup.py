@@ -1,6 +1,8 @@
 # Copyright 2009-2014, Simon Kennedy, sffjunkie+code@gmail.com
 
+import io
 import sys
+import os.path
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
@@ -18,7 +20,7 @@ class Tox(TestCommand):
 
 def read(*names, **kwargs):
     return io.open(
-        join(dirname(__file__), *names),
+        os.path.join(os.path.dirname(__file__), *names),
         encoding=kwargs.get("encoding", "utf8")
     ).read()
 
@@ -26,7 +28,7 @@ def read(*names, **kwargs):
 setup(name='astral',
       version='0.7.4',
       description='Calculations for the position of the sun and moon.',
-      long_description=read('README.txt'),
+      long_description=read('README'),
       author='Simon Kennedy',
       author_email='sffjunkie+code@gmail.com',
       url="https://launchpad.net/astral",
