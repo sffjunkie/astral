@@ -41,7 +41,7 @@ setup(name='astral',
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-      ]
+      ],
     
       tests_require=['tox'],
       cmdclass = {'test': Tox},
