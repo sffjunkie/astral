@@ -705,7 +705,7 @@ class Location(object):
 
         :param local: True  = Time to be returned in location's time zone
                       (Default);
-                              
+
                       False = Time to be returned in UTC.
 
         :rtype: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
@@ -1855,8 +1855,8 @@ class Astral(object):
         latRad = radians(latitude)
         sdRad = radians(solar_dec)
 
-        HA = (acos(cos(radians(90 + solar_depression)) / \
-            (cos(latRad) * cos(sdRad)) - tan(latRad) * tan(sdRad)))
+        HA = (acos(cos(radians(90 + solar_depression)) /
+                   (cos(latRad) * cos(sdRad)) - tan(latRad) * tan(sdRad)))
 
         return HA
 
@@ -1879,8 +1879,8 @@ class Astral(object):
         timeDiff = 4.0 * delta
         timeUTC = 720.0 + timeDiff - eqtime
 
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) + \
-            timeUTC / 1440.0)
+        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) +
+                                      timeUTC / 1440.0)
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
 
