@@ -543,9 +543,10 @@ class Location(object):
         self.url = ''
 
     def __repr__(self):
-        return '%s/%s, tz=%s, lat=%0.02f, lon=%0.02f' % (self.name, self.region,
-                                                  self.timezone,
-                                                  self.latitude, self.longitude)
+        repr_format = '%s/%s, tz=%s, lat=%0.02f, lon=%0.02f'
+        return repr_format % (self.name, self.region,
+                              self.timezone,
+                              self.latitude, self.longitude)
 
     def latitude():
         doc = """The location's latitude
