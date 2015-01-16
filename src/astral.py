@@ -87,8 +87,8 @@ __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
 
-__version__ = "0.7.4"
-__author__ = "Simon Kennedy <code@sffjunkie.co.uk>"
+__version__ = "0.7.5"
+__author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 # name,region,longitude,latitude,timezone,elevation
 _LOCATION_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai,5
