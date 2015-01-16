@@ -25,7 +25,7 @@ project = 'Astral'
 author = 'Simon Kennedy'
 copyright = '2009-2014, %s' % author
 version = '0.7'
-release = '0.7.4'
+release = '0.7.5'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
