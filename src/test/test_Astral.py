@@ -74,7 +74,7 @@ def test_SolarAzimuth():
 def test_Moon():
     dd = Astral()
     tz = pytz.timezone('Europe/London')
-    dd.moon_phase(datetime.date(2011,2,24), tz)
+    dd.moon_phase(datetime.date(2011,2,24))
     
 def test_Elevation():
     dd = Astral()
