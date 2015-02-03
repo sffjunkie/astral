@@ -953,7 +953,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        return self.astral.moon_phase(date, self.tz)
+        return self.astral.moon_phase(date)
 
 
 class LocationGroup(object):
@@ -1677,13 +1677,11 @@ class Astral(object):
 
         return solarelevation
 
-    def moon_phase(self, date, tz):
+    def moon_phase(self, date):
         """Calculates the phase of the moon on the specified date.
 
         :param date: The date to calculate the phase for.
         :type date: datetime.date
-        :param tz: The timezone to calculate the phase for.
-        :type tz: pytz.tz
 
         :rtype:
             Integer designating phase
