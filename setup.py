@@ -26,7 +26,7 @@ def read(*names, **kwargs):
 
         
 setup(name='astral',
-      version='0.8',
+      version='0.8.1',
       description='Calculations for the position of the sun and moon.',
       long_description=read('README'),
       author='Simon Kennedy',
