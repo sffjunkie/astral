@@ -224,6 +224,10 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+0.8.1    Fix for bug `1417641`_\: :meth:`solar_elevation` and
+         :meth:`solar_azimuth` fail when a naive :class:`datetime` object is
+         used. 
+-------- -----------------------------------------------------------------------
 0.8      Fix for bug `1407773`_\: Moon phase calculation changed to remove
          time zone parameter (tz) as it is not required for the calculation. 
 -------- -----------------------------------------------------------------------
@@ -291,6 +295,7 @@ Version  Description
 .. _1239387: https://bugs.launchpad.net/astral/+bug/1239387
 .. _1402103: https://bugs.launchpad.net/astral/+bug/1402103
 .. _1407773: https://bugs.launchpad.net/astral/+bug/1407773
+.. _1417641: https://bugs.launchpad.net/astral/+bug/1417641
 .. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
     
 
