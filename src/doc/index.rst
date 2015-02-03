@@ -1,4 +1,4 @@
-.. Copyright 2009-2014, Simon Kennedy, sffjunkie+code@gmail.com
+.. Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
 
 Astral v\ |release|
 ===================
