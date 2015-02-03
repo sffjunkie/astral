@@ -224,6 +224,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+0.7.5    Fix for bug `1402103`_\: Buenos Aires incorrect timezone
+-------- -----------------------------------------------------------------------
 0.7.4    Added Canadian cities from Yip Shing Ho
 -------- -----------------------------------------------------------------------
 0.7.3    Fix for bug `1239387`_ submitted by Torbjörn Lönnemark
@@ -284,6 +286,7 @@ Version  Description
 .. _884716: https://bugs.launchpad.net/astral/+bug/884716
 .. _944754: https://bugs.launchpad.net/astral/+bug/944754
 .. _1239387: https://bugs.launchpad.net/astral/+bug/1239387
+.. _1402103: https://bugs.launchpad.net/astral/+bug/1402103
 .. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
     
 
