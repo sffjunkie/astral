@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2009-2014, Simon Kennedy, sffjunkie+code@gmail.com
+# Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
 
 """The :mod:`astral` module provides the means to calculate dawn, sunrise,
 solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and
@@ -87,7 +87,7 @@ __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
 
-__version__ = "0.7.5"
+__version__ = "0.8"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 # name,region,longitude,latitude,timezone,elevation
