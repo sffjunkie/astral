@@ -1505,10 +1505,14 @@ class Astral(object):
         if latitude < -89.8:
             latitude = -89.8
 
-        zone = -dateandtime.utcoffset().seconds / 3600.0
-        utc_datetime = dateandtime.astimezone(pytz.utc)
+        if dateandtime.tzinfo is None:
+            zone = 0
+            utc_datetime = dateandtime
+        else:
+            zone = -dateandtime.utcoffset().seconds / 3600.0
+            utc_datetime = dateandtime.astimezone(pytz.utc)
         timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + \
-            (utc_datetime.second / 3600)
+            (utc_datetime.second / 3600.0)
 
         JD = self._julianday(dateandtime)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
@@ -1589,8 +1593,12 @@ class Astral(object):
         if latitude < -89.8:
             latitude = -89.8
 
-        zone = -dateandtime.utcoffset().seconds / 3600.0
-        utc_datetime = dateandtime.astimezone(pytz.utc)
+        if dateandtime.tzinfo is None:
+            zone = 0
+            utc_datetime = dateandtime
+        else:
+            zone = -dateandtime.utcoffset().seconds / 3600.0
+            utc_datetime = dateandtime.astimezone(pytz.utc)
         timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + \
             (utc_datetime.second / 3600)
 
