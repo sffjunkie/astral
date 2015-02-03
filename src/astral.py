@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2009-2014, Simon Kennedy, sffjunkie+code@gmail.com
+# Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
 
 """The :mod:`astral` module provides the means to calculate dawn, sunrise,
 solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and
@@ -87,7 +87,7 @@ __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
 
-__version__ = "0.7.5"
+__version__ = "0.8"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 # name,region,longitude,latitude,timezone,elevation
@@ -953,7 +953,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        return self.astral.moon_phase(date, self.tz)
+        return self.astral.moon_phase(date)
 
 
 class LocationGroup(object):
@@ -1677,13 +1677,11 @@ class Astral(object):
 
         return solarelevation
 
-    def moon_phase(self, date, tz):
+    def moon_phase(self, date):
         """Calculates the phase of the moon on the specified date.
 
         :param date: The date to calculate the phase for.
         :type date: datetime.date
-        :param tz: The timezone to calculate the phase for.
-        :type tz: pytz.tz
 
         :rtype:
             Integer designating phase
@@ -1694,7 +1692,7 @@ class Astral(object):
                 | 21 = Last quarter
         """
 
-        jd = self._julianday(date, tz)
+        jd = self._julianday(date)
         DT = pow((jd - 2382148), 2) / (41048480 * 86400)
         T = (jd + DT - 2451545.0) / 36525
         T2 = pow(T, 2)

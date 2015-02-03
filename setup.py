@@ -1,4 +1,4 @@
-# Copyright 2009-2014, Simon Kennedy, sffjunkie+code@gmail.com
+# Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
 
 import io
 import sys
@@ -26,7 +26,7 @@ def read(*names, **kwargs):
 
         
 setup(name='astral',
-      version='0.7.5',
+      version='0.8',
       description='Calculations for the position of the sun and moon.',
       long_description=read('README'),
       author='Simon Kennedy',

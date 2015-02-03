@@ -1,4 +1,4 @@
-.. Copyright 2009-2014, Simon Kennedy, sffjunkie+code@gmail.com
+.. Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
 
 Astral v\ |release|
 ===================
@@ -224,6 +224,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+0.8      Fix for bug `1407773`_\: Moon phase calculation changed to remove
+         time zone parameter (tz) as it is not required for the calculation. 
+-------- -----------------------------------------------------------------------
 0.7.5    Fix for bug `1402103`_\: Buenos Aires incorrect timezone
 -------- -----------------------------------------------------------------------
 0.7.4    Added Canadian cities from Yip Shing Ho
@@ -287,6 +290,7 @@ Version  Description
 .. _944754: https://bugs.launchpad.net/astral/+bug/944754
 .. _1239387: https://bugs.launchpad.net/astral/+bug/1239387
 .. _1402103: https://bugs.launchpad.net/astral/+bug/1402103
+.. _1407773: https://bugs.launchpad.net/astral/+bug/1407773
 .. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
     
 
