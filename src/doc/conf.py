@@ -23,9 +23,9 @@ if MOCK_MODULES and on_rtd:
 
 project = 'Astral'
 author = 'Simon Kennedy'
-copyright = '2009-2014, %s' % author
+copyright = '2009-2015, %s' % author
 version = '0.8'
-release = '0.8'
+release = '0.8.1'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
