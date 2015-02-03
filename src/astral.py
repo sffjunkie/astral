@@ -87,7 +87,7 @@ __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
 
-__version__ = "0.8"
+__version__ = "0.8.1"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 # name,region,longitude,latitude,timezone,elevation
