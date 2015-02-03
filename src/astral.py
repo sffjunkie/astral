@@ -1694,7 +1694,7 @@ class Astral(object):
                 | 21 = Last quarter
         """
 
-        jd = self._julianday(date, tz)
+        jd = self._julianday(date)
         DT = pow((jd - 2382148), 2) / (41048480 * 86400)
         T = (jd + DT - 2451545.0) / 36525
         T2 = pow(T, 2)
