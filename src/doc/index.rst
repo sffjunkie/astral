@@ -290,6 +290,7 @@ Version  Description
 .. _944754: https://bugs.launchpad.net/astral/+bug/944754
 .. _1239387: https://bugs.launchpad.net/astral/+bug/1239387
 .. _1402103: https://bugs.launchpad.net/astral/+bug/1402103
+.. _1407773: https://bugs.launchpad.net/astral/+bug/1407773
 .. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
     
 
