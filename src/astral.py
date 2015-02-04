@@ -1505,7 +1505,7 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime:        datetime.datetime
+        :type dateandtime:  :class:`~datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
@@ -1513,7 +1513,7 @@ class Astral(object):
 
         :rtype: Azimuth in degrees
 
-        If dateandtime is a naive Python datetime then it is assumed to be
+        If `dateandtime` is a naive Python datetime then it is assumed to be
         in the UTC timezone.
         """
 
@@ -1596,15 +1596,15 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime:  datetime.datetime
+        :type dateandtime:  :class:`~datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: Elevation in degrees
+        :rtype: The angle in degrees from the horizon as a float.
 
-        If dateandtime is a naive Python datetime then it is assumed to be
+        If `dateandtime` is a naive Python datetime then it is assumed to be
         in the UTC timezone.
         """
 
@@ -1711,10 +1711,14 @@ class Astral(object):
         :param dateandtime: The date and time for which to calculate
                             the angle.
         :type dateandtime: :class:`~datetime.datetime`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
 
         :rtype: The angle in degrees from the horizon as a float.
 
-        If dateandtime is a naive Python datetime then it is assumed to be
+        If `dateandtime` is a naive Python datetime then it is assumed to be
         in the UTC timezone.
         """
 
