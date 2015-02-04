@@ -668,6 +668,7 @@ class Location(object):
         return locals()
 
     tz = property(**tz())
+    tzinfo = tz
 
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the
