@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import sys, os
+import os
+import sys
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
@@ -11,15 +12,15 @@ if MOCK_MODULES and on_rtd:
         from unittest.mock import MagicMock
     else:
         from mock import Mock as MagicMock
-        
+
     class Mock(MagicMock):
         @classmethod
         def __getattr__(cls, name):
             return Mock()
 
     sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-    
-# -- General configuration -----------------------------------------------------
+
+# -- General configuration ----------------------------------------------------
 
 project = 'Astral'
 author = 'Simon Kennedy'
@@ -29,7 +30,8 @@ release = '0.8.1'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
+intersphinx_mapping = {'python': ('http://docs.python.org/', None)}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -101,7 +103,7 @@ if not on_rtd:
         html_theme_path = [theme_root]
     else:
         raise OSError('Unable to find theme root: Please set the PROJECT_HOME environment variable')
-        
+
     html_theme = 'sffjunkie'
     html_theme_options = {'logo_shadow': True, 'fixed_header': False}
 else:
