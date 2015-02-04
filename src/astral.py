@@ -656,7 +656,7 @@ class Location(object):
     timezone = property(**timezone())
 
     def tz():
-        doc = """The timezone."""
+        doc = """Time zone information."""
 
         def fget(self):
             try:
@@ -705,13 +705,13 @@ class Location(object):
         :param date: The date for which to calculate the times.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in location's time zone
-                      (Default);
-
+        :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :rtype: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
-            ``sunset`` and ``dusk``
+        :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
+            ``sunset`` and ``dusk`` whose values are the results of the
+            corresponding methods.
+        :rtype: dict
          """
 
         if self.astral is None:
@@ -736,11 +736,11 @@ class Location(object):
         :param date: The date for which to calculate the dawn time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in location's time zone
-                      (Default);
+        :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :rtype: :class:`~datetime.datetime` of dawn
+        :returns: The date and time at which dawn occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         if self.astral is None:
@@ -765,11 +765,11 @@ class Location(object):
         :param date: The date for which to calculate the sunrise time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in location's time zone
-                      (Default);
+        :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :rtype: :class:`~datetime.datetime` of sunrise
+        :returns: The date and time at which sunrise occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         if self.astral is None:
@@ -792,11 +792,11 @@ class Location(object):
         :param date: The date for which to calculate the noon time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in location's time zone
-                      (Default);
+        :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :rtype: :class:`~datetime.datetime` of noon
+        :returns: The date and time at which noon occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         if self.astral is None:
@@ -819,11 +819,11 @@ class Location(object):
         :param date: The date for which to calculate the sunset time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in location's time zone
-                      (Default);
+        :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :rtype: :class:`~datetime.datetime` of sunset
+        :returns: The date and time at which sunset occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         if self.astral is None:
@@ -848,11 +848,11 @@ class Location(object):
         :param date: The date for which to calculate the dusk time.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in location's time zone
-                      (Default);
+        :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :rtype: :class:`~datetime.datetime` of dusk
+        :returns: The date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         if self.astral is None:
@@ -874,11 +874,12 @@ class Location(object):
         :param date: The date for which to calculate the rahukaalam period.
                      A value of ``None`` uses the current date.
 
-        :param local: True  = Time to be returned in location's time zone
-                      (Default);
+        :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :rtype: :class:`~datetime.datetime` of dusk
+        :return: Dictionary with keys ``start`` and ``end`` whose values are
+                 the start and end times for Rahukaalam.
+        :rtype: dict
         """
 
         if self.astral is None:
@@ -900,9 +901,10 @@ class Location(object):
         """Calculates the solar azimuth angle for a specific date/time.
 
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`~datetime.datetime`
+        :type dateandtime: :class:`datetime.datetime`
 
-        :rtype: The angle in degrees clockwise from North as a float.
+        :returns: The azimuth angle in degrees clockwise from North.
+        :rtype: float
         """
 
         if self.astral is None:
@@ -919,9 +921,10 @@ class Location(object):
         """Calculates the solar elevation angle for a specific time.
 
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`~datetime.datetime`
+        :type dateandtime: :class:`datetime.datetime`
 
-        :rtype: The angle in degrees from the horizon as a float.
+        :returns: The elevation angle in degrees above the horizon.
+        :rtype: float
         """
 
         if self.astral is None:
@@ -938,9 +941,10 @@ class Location(object):
         """Calculates the solar zenith angle for a specific time.
 
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`~datetime.datetime`
+        :type dateandtime: :class:`datetime.datetime`
 
-        :rtype: The angle in degrees from the horizon as a float.
+        :returns: The zenith angle in degrees above the horizon.
+        :rtype: float
         """
 
         return self.solar_elevation(dateandtime)
@@ -950,15 +954,16 @@ class Location(object):
 
         :param date: The date to calculate the phase for.
                      If ommitted the current date is used.
-        :type date: datetime.date
+        :type date: :class:`datetime.date`
 
-        :rtype:
-            Integer designating phase
+        :returns:
+            A number designating the phase
 
                 | 0  = New moon
                 | 7  = First quarter
                 | 14 = Full moon
                 | 21 = Last quarter
+        :rtype: int
         """
 
         if self.astral is None:
@@ -1316,9 +1321,10 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype:
-            Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
-            ``sunset`` and ``dusk``
+        :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
+            ``sunset`` and ``dusk`` whose values are the results of the
+            corresponding methods.
+        :rtype: dict
         """
 
         dawn = self.dawn_utc(date, latitude, longitude)
@@ -1339,13 +1345,14 @@ class Astral(object):
         """Calculate dawn time in the UTC timezone.
 
         :param date:       Date to calculate for.
-        :type date:        datetime.date
+        :type date:        :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: date/time in UTC timezone
+        :return: The UTC date and time at which dawn occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         try:
@@ -1358,13 +1365,14 @@ class Astral(object):
         """Calculate sunrise time in the UTC timezone.
 
         :param date:       Date to calculate for.
-        :type date:        datetime.date
+        :type date:        :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: date/time in UTC timezone
+        :return: The UTC date and time at which sunrise occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         try:
@@ -1377,13 +1385,14 @@ class Astral(object):
         """Calculate solar noon time in the UTC timezone.
 
         :param date:       Date to calculate for.
-        :type date:        datetime.date
+        :type date:        :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: date/time in UTC timezone
+        :return: The UTC date and time at which noon occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         julianday = self._julianday(date)
@@ -1428,13 +1437,14 @@ class Astral(object):
         """Calculate sunset time in the UTC timezone.
 
         :param date:       Date to calculate for.
-        :type date:        datetime.date
+        :type date:        :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: date/time in UTC timezone
+        :return: The UTC date and time at which sunset occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         try:
@@ -1447,13 +1457,14 @@ class Astral(object):
         """Calculate dusk time in the UTC timezone.
 
         :param date:       Date to calculate for.
-        :type date:        datetime.date
+        :type date:        :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: date/time in UTC timezone
+        :return: The UTC date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
         """
 
         try:
@@ -1468,13 +1479,15 @@ class Astral(object):
         """Calculate ruhakaalam times in the UTC timezone.
 
         :param date:       Date to calculate for.
-        :type date:        datetime.date
+        :type date:        :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: Dictionary with keys ``start`` and ``end``
+        :return: Dictionary with keys ``start`` and ``end`` whose values are
+                 the start and end times for Rahukaalam.
+        :rtype: dict
         """
 
         if date is None:
@@ -1505,13 +1518,14 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime:  :class:`~datetime.datetime`
+        :type dateandtime:  :class:`datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: Azimuth in degrees
+        :return: The azimuth angle in degrees clockwise from North.
+        :rtype: float
 
         If `dateandtime` is a naive Python datetime then it is assumed to be
         in the UTC timezone.
@@ -1596,13 +1610,14 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime:  :class:`~datetime.datetime`
+        :type dateandtime:  :class:`datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: The angle in degrees from the horizon as a float.
+        :return: The elevation angle in degrees above the horizon.
+        :rtype: float
 
         If `dateandtime` is a naive Python datetime then it is assumed to be
         in the UTC timezone.
@@ -1710,13 +1725,14 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime: :class:`~datetime.datetime`
+        :type dateandtime: :class:`datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :rtype: The angle in degrees from the horizon as a float.
+        :return: The zenith angle in degrees above the horizon.
+        :rtype: float
 
         If `dateandtime` is a naive Python datetime then it is assumed to be
         in the UTC timezone.
@@ -1728,15 +1744,16 @@ class Astral(object):
         """Calculates the phase of the moon on the specified date.
 
         :param date: The date to calculate the phase for.
-        :type date: datetime.date
+        :type date: :class:`datetime.date`
 
-        :rtype:
-            Integer designating phase
+        :return:
+            A number designating the phase
 
                 | 0  = New moon
                 | 7  = First quarter
                 | 14 = Full moon
                 | 21 = Last quarter
+        :rtype: int
         """
 
         jd = self._julianday(date)
