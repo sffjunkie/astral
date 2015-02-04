@@ -908,7 +908,8 @@ class Location(object):
             self.astral = Astral()
 
         if dateandtime is None:
-            dateandtime = datetime.datetime.now(tz=self.tz)
+            dateandtime = datetime.datetime.now()
+        dateandtime = dateandtime.replace(tzinfo=self.tz)
 
         return self.astral.solar_azimuth(dateandtime,
                                          self.latitude, self.longitude)
@@ -926,10 +927,22 @@ class Location(object):
             self.astral = Astral()
 
         if dateandtime is None:
-            dateandtime = datetime.datetime.now(tz=self.tz)
+            dateandtime = datetime.datetime.now()
+        dateandtime = dateandtime.replace(tzinfo=self.tz)
 
         return self.astral.solar_elevation(dateandtime,
                                            self.latitude, self.longitude)
+
+    def solar_zenith(self, dateandtime=None):
+        """Calculates the solar zenith angle for a specific time.
+
+        :param dateandtime: The date and time for which to calculate the angle.
+        :type dateandtime: :class:`~datetime.datetime`
+
+        :rtype: The angle in degrees from the horizon as a float.
+        """
+
+        return self.solar_elevation(dateandtime)
 
     def moon_phase(self, date=None):
         """Calculates the moon phase for a specific date.
@@ -1487,9 +1500,10 @@ class Astral(object):
         return {'start': start, 'end': end}
 
     def solar_azimuth(self, dateandtime, latitude, longitude):
-        """Calculate the azimuth of the sun in the UTC timezone.
+        """Calculate the azimuth angle of the sun.
 
-        :param dateandtime:       Date/time to calculate for.
+        :param dateandtime: The date and time for which to calculate
+                            the angle.
         :type dateandtime:        datetime.datetime
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
@@ -1497,6 +1511,9 @@ class Astral(object):
         :type longitude:   float
 
         :rtype: Azimuth in degrees
+
+        If dateandtime is a naive Python datetime then it is assumed to be
+        in the UTC timezone.
         """
 
         if latitude > 89.8:
@@ -1509,17 +1526,16 @@ class Astral(object):
             zone = 0
             utc_datetime = dateandtime
         else:
-            zone = -dateandtime.utcoffset().seconds / 3600.0
+            zone = -dateandtime.utcoffset().total_seconds() / 3600.0
             utc_datetime = dateandtime.astimezone(pytz.utc)
+
         timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + \
             (utc_datetime.second / 3600.0)
 
         JD = self._julianday(dateandtime)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
         theta = self._sun_declination(t)
-        Etime = self._eq_of_time(t)
-
-        eqtime = Etime
+        eqtime = self._eq_of_time(t)
         solarDec = theta   # in degrees
 
         solarTimeFix = eqtime - (4.0 * -longitude) + (60 * zone)
@@ -1575,16 +1591,20 @@ class Astral(object):
         return azimuth
 
     def solar_elevation(self, dateandtime, latitude, longitude):
-        """Calculate the elevation of the sun.
+        """Calculate the elevation angle of the sun.
 
-        :param dateandtime:       Date/time to calculate for.
-        :type dateandtime:        datetime.datetime
+        :param dateandtime: The date and time for which to calculate
+                            the angle.
+        :type dateandtime:  datetime.datetime
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
         :rtype: Elevation in degrees
+
+        If dateandtime is a naive Python datetime then it is assumed to be
+        in the UTC timezone.
         """
 
         if latitude > 89.8:
@@ -1597,17 +1617,16 @@ class Astral(object):
             zone = 0
             utc_datetime = dateandtime
         else:
-            zone = -dateandtime.utcoffset().seconds / 3600.0
+            zone = -dateandtime.utcoffset().total_seconds() / 3600.0
             utc_datetime = dateandtime.astimezone(pytz.utc)
+
         timenow = utc_datetime.hour + (utc_datetime.minute / 60.0) + \
             (utc_datetime.second / 3600)
 
         JD = self._julianday(dateandtime)
         t = self._jday_to_jcentury(JD + timenow / 24.0)
         theta = self._sun_declination(t)
-        Etime = self._eq_of_time(t)
-
-        eqtime = Etime
+        eqtime = self._eq_of_time(t)
         solarDec = theta   # in degrees
 
         solarTimeFix = eqtime - (4.0 * -longitude) + (60 * zone)
@@ -1684,6 +1703,21 @@ class Astral(object):
         solarelevation = 90.0 - solarzen
 
         return solarelevation
+
+    def solar_zenith(self, dateandtime, latitude, longitude):
+        """Calculates the solar zenith angle.
+
+        :param dateandtime: The date and time for which to calculate
+                            the angle.
+        :type dateandtime: :class:`~datetime.datetime`
+
+        :rtype: The angle in degrees from the horizon as a float.
+
+        If dateandtime is a naive Python datetime then it is assumed to be
+        in the UTC timezone.
+        """
+
+        return self.solar_elevation(dateandtime)
 
     def moon_phase(self, date):
         """Calculates the phase of the moon on the specified date.
