@@ -226,7 +226,7 @@ Version  Description
 ======== =======================================================================
 0.8.1    Fix for bug `1417641`_\: :meth:`solar_elevation` and
          :meth:`solar_azimuth` fail when a naive :class:`datetime` object is
-         used. 
+         used.
 -------- -----------------------------------------------------------------------
 0.8      Fix for bug `1407773`_\: Moon phase calculation changed to remove
          time zone parameter (tz) as it is not required for the calculation. 
