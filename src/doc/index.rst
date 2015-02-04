@@ -250,7 +250,8 @@ Version  Description
          * Added elevations of cities to database and property to
            obtain elevation from :class:`~astral.Location` class
 -------- -----------------------------------------------------------------------
-0.6.2    Added various cities to database as per https://bugs.launchpad.net/astral/+bug/1040936
+0.6.2    Added various cities to database as per
+         https://bugs.launchpad.net/astral/+bug/1040936
 -------- -----------------------------------------------------------------------
 0.6.1    * Docstrings were not updated to match changes to code.
          * Other minor docstring changes made
