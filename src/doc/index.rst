@@ -224,9 +224,13 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
-0.8.1    Fix for bug `1417641`_\: :meth:`solar_elevation` and
-         :meth:`solar_azimuth` fail when a naive :class:`datetime` object is
-         used.
+0.8.1    * Fix for bug `1417641`_\: :meth:`~astral.Astral.solar_elevation` and
+           :meth:`~astral.Astral.solar_azimuth` fail when a naive
+           :class:`~datetime.datetime` object is used.
+         * Added :meth:`solar_zenith` methods to :class:`~astral.Astral`
+           and :class:`~astral.Location` as an
+           alias for :meth:`solar_elevation`
+         * Added `tzinfo` as an alias for `tz`
 -------- -----------------------------------------------------------------------
 0.8      Fix for bug `1407773`_\: Moon phase calculation changed to remove
          time zone parameter (tz) as it is not required for the calculation. 
