@@ -94,6 +94,16 @@ Timezone groups such as Europe can be accessed via attributes on the
     >>> europe
     ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...]
 
+Note on Localized Timezones
+===========================
+
+When creating a datetime object in a specific timezone do not use the
+`tzinfo` parameter to the datetime constructor. Instead please use the 
+:meth:`~datetime.datetime.localize` method on the correct pytz timezone::
+
+   dt = datetime.datetime(2015, 1, 1, 9, 0, 0)
+   dt = pytz.timezone('Europe/London').localize(dt)
+
 
 License
 =======
@@ -103,19 +113,12 @@ This module is licensed under the terms of the `Apache`_ V2.0 license.
 Dependencies
 ============
 
-Astral has one external dependency on 'pytz' which can either be obtained
-from `Sourceforge`_ page or via the `easy_install`_ method, whichever is your
-particular poison.
+Astral has one external Python dependency on 'pytz'.
 
 Installation
 ============
 
-When you've added the pytz package to install astral unzip the archive to
-a handy location and execute the standard Python installation method::
-    
-    python setup.py install
-    
-Or you can use :command:`pip`::
+To install Astral you should use the :command:`pip` tool::
 
     pip install astral
 
@@ -224,6 +227,10 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+0.8.2    * Fix for moon phase calcualtions which were off by 1.
+         * Use pytz.timezone().localize method instead of passing tzinfo
+           parameter to datetime.datetime
+-------- -----------------------------------------------------------------------
 0.8.1    * Fix for bug `1417641`_\: :meth:`~astral.Astral.solar_elevation` and
            :meth:`~astral.Astral.solar_azimuth` fail when a naive
            :class:`~datetime.datetime` object is used.
@@ -301,7 +308,7 @@ Version  Description
 .. _1402103: https://bugs.launchpad.net/astral/+bug/1402103
 .. _1407773: https://bugs.launchpad.net/astral/+bug/1407773
 .. _1417641: https://bugs.launchpad.net/astral/+bug/1417641
-.. _javascript: http://www.skyandtelescope.com/observing/objects/javascript/moon_phases
+.. _javascript: http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
     
 
 .. toctree::

@@ -87,7 +87,7 @@ __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
 
-__version__ = "0.8.1"
+__version__ = "0.8.2"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 # name,region,longitude,latitude,timezone,elevation
@@ -672,7 +672,7 @@ class Location(object):
 
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the
-        dawn/dusk calc.
+        dawn/dusk calculation.
 
         Can either be set as a number of degrees below the horizon or as
         one of the following strings
@@ -703,10 +703,11 @@ class Location(object):
         """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
 
         :param date: The date for which to calculate the times.
-                     A value of ``None`` uses the current date.
+                     If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
 
         :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
             ``sunset`` and ``dusk`` whose values are the results of the
@@ -734,10 +735,11 @@ class Location(object):
         changed by setting the :attr:`Astral.solar_depression` property.
 
         :param date: The date for which to calculate the dawn time.
-                     A value of ``None`` uses the current date.
+                     If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
 
         :returns: The date and time at which dawn occurs.
         :rtype: :class:`datetime.datetime`
@@ -763,10 +765,11 @@ class Location(object):
         below the horizon. This is to account for refraction.
 
         :param date: The date for which to calculate the sunrise time.
-                     A value of ``None`` uses the current date.
+                     If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
 
         :returns: The date and time at which sunrise occurs.
         :rtype: :class:`datetime.datetime`
@@ -790,10 +793,11 @@ class Location(object):
         point.)
 
         :param date: The date for which to calculate the noon time.
-                     A value of ``None`` uses the current date.
+                     If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
 
         :returns: The date and time at which noon occurs.
         :rtype: :class:`datetime.datetime`
@@ -817,10 +821,11 @@ class Location(object):
         0.833 degrees below the horizon. This is to account for refraction.)
 
         :param date: The date for which to calculate the sunset time.
-                     A value of ``None`` uses the current date.
+                     If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
 
         :returns: The date and time at which sunset occurs.
         :rtype: :class:`datetime.datetime`
@@ -846,10 +851,11 @@ class Location(object):
         :attr:`Astral.solar_depression` property.)
 
         :param date: The date for which to calculate the dusk time.
-                     A value of ``None`` uses the current date.
+                     If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
 
         :returns: The date and time at which dusk occurs.
         :rtype: :class:`datetime.datetime`
@@ -911,8 +917,11 @@ class Location(object):
             self.astral = Astral()
 
         if dateandtime is None:
-            dateandtime = datetime.datetime.now()
-        dateandtime = dateandtime.replace(tzinfo=self.tz)
+            dateandtime = datetime.datetime.now(self.tz)
+        elif not dateandtime.tzinfo:
+            dateandtime = self.tz.localize(dateandtime)
+            
+        dateandtime = dateandtime.astimezone(pytz.UTC)
 
         return self.astral.solar_azimuth(dateandtime,
                                          self.latitude, self.longitude)
@@ -931,8 +940,11 @@ class Location(object):
             self.astral = Astral()
 
         if dateandtime is None:
-            dateandtime = datetime.datetime.now()
-        dateandtime = dateandtime.replace(tzinfo=self.tz)
+            dateandtime = datetime.datetime.now(self.tz)
+        elif not dateandtime.tzinfo:
+            dateandtime = self.tz.localize(dateandtime)
+            
+        dateandtime = dateandtime.astimezone(pytz.UTC)
 
         return self.astral.solar_elevation(dateandtime,
                                            self.latitude, self.longitude)
@@ -1276,7 +1288,7 @@ class Astral(object):
 
     def solar_depression():
         doc = """The number of degrees the sun must be below the horizon for the
-        dawn/dusk calc.
+        dawn/dusk calculation.
 
         Can either be set as a number of degrees below the horizon or as
         one of the following strings
@@ -1313,6 +1325,7 @@ class Astral(object):
 
     def sun_utc(self, date, latitude, longitude):
         """Calculate all the info for the sun at once.
+        All times are returned in the UTC timezone.
 
         :param date:       Date to calculate for.
         :type date:        :class:`datetime.date`
@@ -1323,7 +1336,7 @@ class Astral(object):
 
         :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
             ``sunset`` and ``dusk`` whose values are the results of the
-            corresponding methods.
+            corresponding `_utc` methods.
         :rtype: dict
         """
 
@@ -1429,7 +1442,8 @@ class Astral(object):
             date -= datetime.timedelta(days=1)
 
         noon = datetime.datetime(date.year, date.month, date.day,
-                                 hour, minute, second, tzinfo=pytz.utc)
+                                 hour, minute, second)
+        noon = pytz.UTC.localize(noon)
 
         return noon
 
@@ -1755,7 +1769,7 @@ class Astral(object):
                 | 21 = Last quarter
         :rtype: int
         """
-
+        
         jd = self._julianday(date)
         DT = pow((jd - 2382148), 2) / (41048480 * 86400)
         T = (jd + DT - 2451545.0) / 36525
@@ -1772,7 +1786,9 @@ class Astral(object):
         elong += 1.27 * sin(2 * D - M1)
         elong += 0.66 * sin(2 * D)
         elong = self._proper_angle(elong)
-        moon = int(floor(((elong + 6.43) / 360) * 28))
+        elong = round(elong)
+        moon = ((elong + 6.43) / 360) * 28
+        moon = floor(moon)
         if moon == 28:
             moon = 0
 
@@ -1781,7 +1797,7 @@ class Astral(object):
     def _proper_angle(self, value):
         if value > 0.0:
             value /= 360.0
-            return (value - floor(value)) * 360
+            return (value - floor(value)) * 360.0
         else:
             tmp = ceil(abs(value / 360.0))
             return value + tmp * 360.0
@@ -1791,7 +1807,7 @@ class Astral(object):
         month = date.month
         year = date.year
 
-        if timezone is not None:
+        if timezone:
             offset = timezone.localize(datetime.datetime(year, month, day)).utcoffset()
             offset = offset.total_seconds() / 1440.0
             day += offset + 0.5
@@ -1984,6 +2000,7 @@ class Astral(object):
             date -= datetime.timedelta(days=1)
 
         dt = datetime.datetime(date.year, date.month, date.day,
-                               hour, minute, second, tzinfo=pytz.utc)
+                               hour, minute, second)
+        dt = pytz.UTC.localize(dt)
 
         return dt

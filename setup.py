@@ -1,22 +1,27 @@
 # Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
 
 import io
+import os
 import sys
-import os.path
 from setuptools import setup
-from setuptools.command.test import test as TestCommand
 
+cmd_class = {}
+tests_require = []
+try:
+    dev_home = os.environ['DEV_HOME']
+    common = os.path.join(dev_home, 'projects', 'build-common')
+    sys.path.insert(0, common)
 
-class Tox(TestCommand):
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-        
-    def run_tests(self):
-        import tox
-        errcode = tox.cmdline(self.test_args)
-        sys.exit(errcode)
+    from tox import ToxCommand
+    cmd_class['test'] = ToxCommand
+    tests_require.append['tox']
+    print(tox)
+
+    #from clean import CleanCommand
+    #cmd_class['clean'] = CleanCommand
+except:
+    pass
+
 
 def read(*names, **kwargs):
     return io.open(
@@ -26,7 +31,7 @@ def read(*names, **kwargs):
 
         
 setup(name='astral',
-      version='0.8.1',
+      version='0.8.2',
       description='Calculations for the position of the sun and moon.',
       long_description=read('README'),
       author='Simon Kennedy',
@@ -43,6 +48,6 @@ setup(name='astral',
         "Programming Language :: Python :: 3",
       ],
     
-      tests_require=['tox'],
-      cmdclass = {'test': Tox},
+      cmdclass = cmd_class,
+      tests_require=tests_require,
 )

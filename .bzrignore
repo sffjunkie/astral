@@ -17,3 +17,4 @@ venv
 .tox
 .cache
 **/*.egg-info
+.idea

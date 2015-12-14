@@ -6,6 +6,7 @@ sys.path.insert(0,
 
 from pytest import raises
 
+import pytz
 import datetime
 from astral import Astral
 
@@ -42,23 +43,22 @@ def test_Astral():
     assert sunrise == sun['sunrise']
 
 
-def test_AstralSolarElevation():
+def test_Astral_SolarElevation():
     dd = Astral()
-    dt = datetime.datetime(2015, 2, 3, 9, 0, 0)
+    dt = datetime.datetime(2015, 2, 3, 9, 0, 0, tzinfo=pytz.UTC)
 
     elevation = dd.solar_elevation(dt, 51.5, -0.12)
     assert abs(elevation - 9.97) < 0.1
 
-
-def test_AstralSolarAzimuth():
+def test_Astral_SolarAzimuth():
     dd = Astral()
-    dt = datetime.datetime(2015, 2, 3, 9, 0, 0)
+    dt = datetime.datetime(2015, 2, 3, 9, 0, 0, tzinfo=pytz.UTC)
 
     azimuth = dd.solar_azimuth(dt, 51.5, -0.12)
     assert abs(azimuth - 133.162) < 0.1
 
 
-def test_AstralSolarElevationWithTimezone():
+def test_Astral_SolarElevationWithTimezone():
     dd = Astral()
     location = dd['Jubail']
 
@@ -67,7 +67,7 @@ def test_AstralSolarElevationWithTimezone():
     assert abs(elevation - 28.118) < 0.1
 
 
-def test_AstralSolarAzimuthWithTimezone():
+def test_Astral_SolarAzimuthWithTimezone():
     dd = Astral()
     location = dd['Jubail']
 
@@ -76,30 +76,29 @@ def test_AstralSolarAzimuthWithTimezone():
     assert abs(azimuth - 129.02) < 0.1
 
 
-def test_LocationSolarElevation():
-    dd = Astral()
-    location = dd['Jubail']
-    dt = datetime.datetime(2015, 2, 4, 9, 0, 0)
-    elevation = location.solar_elevation(dt)
-    assert abs(elevation - 28.118) < 0.1
-
-
-def test_LocationSolarAzimuth():
-    dd = Astral()
-    location = dd['Jubail']
-    dt = datetime.datetime(2015, 2, 4, 9, 0, 0)
-    azimuth = location.solar_azimuth(dt)
-    assert abs(azimuth - 129.02) < 0.1
-
-
-def test_Moon():
-    dd = Astral()
-    phase = dd.moon_phase(datetime.date(2011, 2, 25))
-    assert phase == 21
-
-
 def test_Elevation():
     dd = Astral()
     c = dd['London']
 
     assert c.elevation == 24
+
+
+def test_Astral_JulianDay():
+    a = Astral()
+    
+    dt = datetime.date(2015, 1, 1)
+    jd = a._julianday(dt)
+    assert  abs(jd - 2457023.5) < 0.1
+    
+    dt = datetime.date(2015, 2, 9)
+    jd = a._julianday(dt)
+    assert  abs(jd - 2457062.5) < 0.1
+    
+    dt = datetime.date(2000, 8, 12)
+    jd = a._julianday(dt)
+    assert  abs(jd - 2451768.5) < 0.1
+    
+    dt = datetime.date(1632, 8, 12)
+    jd = a._julianday(dt)
+    assert  abs(jd - 2317359.5) < 0.1
+    
