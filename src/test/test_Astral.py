@@ -50,6 +50,7 @@ def test_Astral_SolarElevation():
     elevation = dd.solar_elevation(dt, 51.5, -0.12)
     assert abs(elevation - 9.97) < 0.1
 
+
 def test_Astral_SolarAzimuth():
     dd = Astral()
     dt = datetime.datetime(2015, 2, 3, 9, 0, 0, tzinfo=pytz.UTC)
