@@ -632,8 +632,8 @@ class Location(object):
         A list of time zone names can be obtained from pytz. For example.
 
         >>> from pytz import all_timezones
-        >>> for tz in all_timezones:
-        ...     print tz
+        >>> for timezone in all_timezones:
+        ...     print(timezone)
         """
 
         def fget(self):
@@ -878,12 +878,13 @@ class Location(object):
             return dusk
 
     def time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True):
-        """Calculates the dusk time (the time in the evening when the sun is a
-        certain number of degrees below the horizon. By default this is 6
-        degrees but can be changed by setting the
-        :attr:`Astral.solar_depression` property.)
+        """Calculate the time when the sun is at the specified elevation.
         
-        Note: This method uses positive elevations for those above the horizon.
+        Note:
+            This method uses positive elevations for those above the horizon.
+            
+            Elevations greater than 90 degrees are converted to a setting sun
+            i.e. an elevation of 110 will calculate a setting sun at 70 degrees.
 
         :param elevation:  Elevation in degrees above the horizon to calculate for.
         :type elevation:   float
@@ -906,6 +907,11 @@ class Location(object):
 
         if date is None:
             date = datetime.date.today()
+        
+        elevation = elevation % 180.0
+        if elevation > 90.0:
+            elevation = 180.0 - elevation
+            direction = SUN_SETTING
 
         time_ = self.astral.time_at_elevation_utc(elevation, direction, date, self.latitude, self.longitude)
 
