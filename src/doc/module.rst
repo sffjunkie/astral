@@ -30,10 +30,26 @@ Location
 --------
    
 .. autoclass:: Location
-   :members:
-   :member-order: bysource 
-   
+
    .. automethod:: __init__
+   .. autoattribute:: latitude
+   .. autoattribute:: longitude
+   .. autoattribute:: elevation
+   .. autoattribute:: timezone
+   .. autoattribute:: tz
+   .. autoattribute:: tzinfo
+   .. autoattribute:: solar_depression
+   .. automethod:: sun
+   .. automethod:: dawn
+   .. automethod:: sunrise
+   .. automethod:: solar_noon
+   .. automethod:: sunset
+   .. automethod:: dusk  
+   .. automethod:: time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True)
+   .. automethod:: solar_azimuth   
+   .. automethod:: solar_elevation   
+   .. automethod:: solar_zenith   
+   .. automethod:: moon_phase   
 
 Geocoders
 ---------
