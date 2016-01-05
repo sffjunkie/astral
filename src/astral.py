@@ -877,6 +877,61 @@ class Location(object):
         else:
             return dusk
 
+    def daytime(self, date=None, local=True):
+        """Calculates the daytime time (the time between sunrise and sunset)
+
+        :param date: The date for which to calculate daytime.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Time to be returned in location's time zone;
+                      False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: A tuple containing the start and end times
+        :rtype: tuple(:class:`datetime.datetime`, :class:`datetime.datetime`)
+        """
+
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        start, end = self.astral.daytime_utc(date, self.latitude, self.longitude)
+
+        if local:
+            return start.astimezone(self.tz), end.astimezone(self.tz)
+        else:
+            return start, end
+
+    def nighttime(self, date=None, local=True):
+        """Calculates the nighttime time (the time between astronomical dusk and
+        astronomical dawn of the next day)
+
+        :param date: The date for which to calculate nighttime.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Time to be returned in location's time zone;
+                      False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: A tuple containing the start and end times
+        :rtype: tuple(:class:`datetime.datetime`, :class:`datetime.datetime`)
+        """
+
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        start, end = self.astral.nighttime_utc(date, self.latitude, self.longitude)
+
+        if local:
+            return start.astimezone(self.tz), end.astimezone(self.tz)
+        else:
+            return start, end
+
     def time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True):
         """Calculate the time when the sun is at the specified elevation.
         
@@ -1400,7 +1455,7 @@ class Astral(object):
             'dusk': dusk
         }
 
-    def dawn_utc(self, date, latitude, longitude):
+    def dawn_utc(self, date, latitude, longitude, depression=0):
         """Calculate dawn time in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -1409,13 +1464,19 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param depression: Override the depression used
+        :type depression:  float
 
         :return: The UTC date and time at which dawn occurs.
         :rtype: :class:`datetime.datetime`
         """
 
+        if depression == 0:
+            depression = self._depression
+        depression += 90
+
         try:
-            return self._calc_time(date, SUN_RISING, self._depression, latitude, longitude)
+            return self._calc_time(depression, SUN_RISING, date, latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
@@ -1435,7 +1496,7 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(date, SUN_RISING, 0.833, latitude, longitude)
+            return self._calc_time(90 + 0.833, SUN_RISING, date, latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
@@ -1508,12 +1569,12 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(date, SUN_SETTING, 0.833, latitude, longitude)
+            return self._calc_time(90 + 0.833, SUN_SETTING, date, latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
 
-    def dusk_utc(self, date, latitude, longitude):
+    def dusk_utc(self, date, latitude, longitude, depression=0):
         """Calculate dusk time in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -1522,17 +1583,61 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param depression: Override the depression used
+        :type depression:   float
 
         :return: The UTC date and time at which dusk occurs.
         :rtype: :class:`datetime.datetime`
         """
 
+        if depression == 0:
+            depression = self._depression
+        depression += 90
+
         try:
-            return self._calc_time(date, SUN_SETTING, self._depression,
-                                   latitude, longitude)
+            return self._calc_time(depression, SUN_SETTING, date, latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
+
+    def daytime_utc(self, date, latitude, longitude):
+        """Calculate daytime start and end times in the UTC timezone.
+
+        :param date:       Date to calculate for.
+        :type date:        :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+
+        :return: A tuple of the UTC date and time at which daytime starts and ends.
+        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        """
+
+        start = self.astral.sunrise_utc(date, latitude, longitude)
+        end = self.astral.sunset_utc(date, latitude, longitude)
+
+        return start, end
+
+    def nighttime_utc(self, date, latitude, longitude):
+        """Calculate nighttime start and end times in the UTC timezone.
+
+        :param date:       Date to calculate for.
+        :type date:        :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+
+        :return: A tuple of the UTC date and time at which nighttime starts and ends.
+        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        """
+
+        start = self.astral.dusk_utc(date, self.latitude, self.longitude, 18)
+        tomorrow = date + datetime.timedelta(days=1)
+        end = self.astral.dawn_utc(tomorrow, self.latitude, self.longitude, 18)
+
+        return start, end
 
     def time_at_elevation_utc(self, elevation, direction, date, latitude, longitude):
         """Calculate the time in the UTC timezone when the sun is at
@@ -1556,9 +1661,9 @@ class Astral(object):
                  elevation.
         :rtype: :class:`datetime.datetime`
         """
-
+        depression = 90 - elevation
         try:
-            return self._calc_time(date, direction, -elevation, latitude, longitude)
+            return self._calc_time(depression, direction, date, latitude, longitude)
         except Exception:
             raise AstralError(('The sun does not reach the elevation specified '
                                'on this day and '
@@ -2019,7 +2124,7 @@ class Astral(object):
         HA = acos(h)
         return HA
 
-    def _calc_time(self, date, direction, angle, latitude, longitude):
+    def _calc_time(self, depression, direction, date, latitude, longitude):
         julianday = self._julianday(date)
 
         if latitude > 89.8:
@@ -2043,7 +2148,7 @@ class Astral(object):
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
 
-        hourangle = self._hour_angle(latitude, solarDec, 90 + angle)
+        hourangle = self._hour_angle(latitude, solarDec, depression)
         if direction == SUN_SETTING:
             hourangle = -hourangle
 
