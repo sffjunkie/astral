@@ -201,7 +201,7 @@ def test_Astral_SolarAzimuth():
         assert float_almost_equal(angle1, angle2)
 
 
-def test_Astral_TimeAtElevation():
+def test_Astral_TimeAtElevation_SunRising():
     a = Astral()
     l = a['London']
 
@@ -211,10 +211,22 @@ def test_Astral_TimeAtElevation():
     # Use error of 10 minutes as website has a rather coarse accuracy
     assert datetime_almost_equal(dt, cdt, 600)
 
+
+def test_Astral_TimeAtElevation_SunSetting():
+    a = Astral()
+    l = a['London']
+
+    d = datetime.date(2016, 1, 4)
     dt = a.time_at_elevation_utc(14, SUN_SETTING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.UTC)
     assert datetime_almost_equal(dt, cdt, 600)
 
+
+def test_Astral_TimeAtElevation_SunRisingBelowHorizon():
+    a = Astral()
+    l = a['London']
+
+    d = datetime.date(2016, 1, 4)
     dt = a.time_at_elevation_utc(-18, SUN_RISING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 6, 0, 0, tzinfo=pytz.UTC)
     assert datetime_almost_equal(dt, cdt, 600)
