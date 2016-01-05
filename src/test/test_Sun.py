@@ -13,13 +13,13 @@ from astral import Astral, AstralError, SUN_RISING, SUN_SETTING
 
 
 def float_almost_equal(value1, value2, diff=0.5):
-    assert abs(value1 - value2) <= diff
+    return abs(value1 - value2) <= diff
 
 
 def datetime_almost_equal(datetime1, datetime2, seconds=60):
     dd = datetime1 - datetime2
     sd = (dd.days * 24 * 60 * 60) + dd.seconds
-    assert abs(sd) <= seconds
+    return abs(sd) <= seconds
 
 
 def test_Astral_Dawn_Civil():
@@ -37,7 +37,7 @@ def test_Astral_Dawn_Civil():
     for day, dawn in test_data.items():    
         dawn = pytz.UTC.localize(dawn)
         dawn_utc = a.dawn_utc(day, l.latitude, l.longitude)
-        datetime_almost_equal(dawn, dawn_utc)
+        assert datetime_almost_equal(dawn, dawn_utc)
 
 
 def test_Astral_Dawn_Nautical():
@@ -56,7 +56,7 @@ def test_Astral_Dawn_Nautical():
     for day, dawn in test_data.items():    
         dawn = pytz.UTC.localize(dawn)
         dawn_utc = a.dawn_utc(day, l.latitude, l.longitude)
-        datetime_almost_equal(dawn, dawn_utc)
+        assert datetime_almost_equal(dawn, dawn_utc)
 
 
 def test_Astral_Sunrise():
@@ -75,7 +75,7 @@ def test_Astral_Sunrise():
     for day, sunrise in test_data.items():    
         sunrise = pytz.UTC.localize(sunrise)
         sunrise_utc = a.sunrise_utc(day, l.latitude, l.longitude)
-        datetime_almost_equal(sunrise, sunrise_utc)
+        assert datetime_almost_equal(sunrise, sunrise_utc)
 
 
 def test_Astral_Sunset():
@@ -94,7 +94,7 @@ def test_Astral_Sunset():
     for day, sunset in test_data.items():    
         sunset = pytz.UTC.localize(sunset)
         sunset_utc = a.sunset_utc(day, l.latitude, l.longitude)
-        datetime_almost_equal(sunset, sunset_utc)
+        assert datetime_almost_equal(sunset, sunset_utc)
 
 
 def test_Astral_Dusk_Civil():
@@ -112,7 +112,7 @@ def test_Astral_Dusk_Civil():
     for day, dusk in test_data.items():    
         dusk = pytz.UTC.localize(dusk)
         dusk_utc = a.dusk_utc(day, l.latitude, l.longitude)
-        datetime_almost_equal(dusk, dusk_utc)
+        assert datetime_almost_equal(dusk, dusk_utc)
 
 
 def test_Astral_Dusk_Nautical():
@@ -131,7 +131,7 @@ def test_Astral_Dusk_Nautical():
     for day, dusk in test_data.items():    
         dusk = pytz.UTC.localize(dusk)
         dusk_utc = a.dusk_utc(day, l.latitude, l.longitude)
-        datetime_almost_equal(dusk, dusk_utc)
+        assert datetime_almost_equal(dusk, dusk_utc)
 
 
 def test_Astral_SolarNoon():
@@ -149,7 +149,7 @@ def test_Astral_SolarNoon():
     for day, solar_noon in test_data.items():    
         solar_noon = pytz.UTC.localize(solar_noon)
         solar_noon_utc = a.solar_noon_utc(day, l.longitude)
-        datetime_almost_equal(solar_noon, solar_noon_utc)
+        assert datetime_almost_equal(solar_noon, solar_noon_utc)
 
 
 # Test data from http://www.astroloka.com/rahukaal.aspx?City=Delhi
@@ -169,8 +169,8 @@ def test_Astral_Rahukaalam():
         info = a.rahukaalam_utc(day, l.latitude, l.longitude)
         start_utc = info['start']
         end_utc = info['end']
-        datetime_almost_equal(start, start_utc)
-        datetime_almost_equal(end, end_utc)
+        assert datetime_almost_equal(start, start_utc)
+        assert datetime_almost_equal(end, end_utc)
 
 
 def test_Astral_SolarElevation():
@@ -184,7 +184,7 @@ def test_Astral_SolarElevation():
     
     for dt, angle1 in test_data.items():
         angle2 = a.solar_elevation(dt, l.latitude, l.longitude)
-        float_almost_equal(angle1, angle2)
+        assert float_almost_equal(angle1, angle2)
 
 
 def test_Astral_SolarAzimuth():
@@ -198,7 +198,7 @@ def test_Astral_SolarAzimuth():
     
     for dt, angle1 in test_data.items():
         angle2 = a.solar_azimuth(dt, l.latitude, l.longitude)
-        float_almost_equal(angle1, angle2)
+        assert float_almost_equal(angle1, angle2)
 
 
 def test_Astral_TimeAtElevation():
@@ -209,15 +209,15 @@ def test_Astral_TimeAtElevation():
     dt = a.time_at_elevation_utc(6, SUN_RISING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=pytz.UTC)
     # Use error of 10 minutes as website has a rather coarse accuracy
-    datetime_almost_equal(dt, cdt, 600)
+    assert datetime_almost_equal(dt, cdt, 600)
 
     dt = a.time_at_elevation_utc(14, SUN_SETTING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.UTC)
-    datetime_almost_equal(dt, cdt, 600)
+    assert datetime_almost_equal(dt, cdt, 600)
 
     dt = a.time_at_elevation_utc(-18, SUN_RISING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 6, 0, 0, tzinfo=pytz.UTC)
-    datetime_almost_equal(dt, cdt, 600)
+    assert datetime_almost_equal(dt, cdt, 600)
 
 
 def test_Astral_TimeAtElevation_BadElevation():
