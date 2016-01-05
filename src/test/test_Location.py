@@ -9,6 +9,13 @@ from astral import Astral, Location
 import datetime
 import pytz
 
+
+def datetime_almost_equal(datetime1, datetime2, seconds=60):
+    dd = datetime1 - datetime2
+    sd = (dd.days * 24 * 60 * 60) + dd.seconds
+    return abs(sd) <= seconds
+
+
 def test_Location_Name():
     c = Location()
     assert c.name == 'Greenwich'
@@ -81,7 +88,21 @@ def test_Location_SolarAzimuth():
     azimuth = location.solar_azimuth(dt)
     assert abs(azimuth - 126) < 0.5
 
+
+def test_Location_TimeAtElevation():
+    dd = Astral()
+    location = dd['New Delhi']
+
+    test_data = {
+        datetime.date(2016, 1, 5): datetime.datetime(2016, 1, 5, 10, 0),
+    }
     
+    for day, cdt in test_data.items():
+        cdt = location.tz.localize(cdt)
+        dt = location.time_at_elevation(28, date=day)
+        assert datetime_almost_equal(dt, cdt, seconds=600)
+
+   
 def test_Location_SolarDepression():
     c = Location(("Heidelberg", "Germany", 49.412, -8.71, "Europe/Berlin"))
     c.solar_depression = 'nautical'

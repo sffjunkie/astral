@@ -87,8 +87,11 @@ __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
 
-__version__ = "0.8.2"
+__version__ = "0.9"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
+
+SUN_RISING = 1
+SUN_SETTING = -1
 
 # name,region,longitude,latitude,timezone,elevation
 _LOCATION_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai,5
@@ -874,6 +877,43 @@ class Location(object):
         else:
             return dusk
 
+    def time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True):
+        """Calculates the dusk time (the time in the evening when the sun is a
+        certain number of degrees below the horizon. By default this is 6
+        degrees but can be changed by setting the
+        :attr:`Astral.solar_depression` property.)
+        
+        Note: This method uses positive elevations for those above the horizon.
+
+        :param elevation:  Elevation in degrees above the horizon to calculate for.
+        :type elevation:   float
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
+        :param date: The date for which to calculate the elevation time.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Time to be returned in location's time zone;
+                      False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: The date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
+        """
+
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        time_ = self.astral.time_at_elevation_utc(elevation, direction, date, self.latitude, self.longitude)
+
+        if local:
+            return time_.astimezone(self.tz)
+        else:
+            return time_
+
     def rahukaalam(self, date=None, local=True):
         """Calculates the period of rahukaalam.
 
@@ -1369,7 +1409,7 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(date, latitude, longitude, self._depression)
+            return self._calc_time(date, SUN_RISING, self._depression, latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
@@ -1389,7 +1429,7 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(date, latitude, longitude, 0.833)
+            return self._calc_time(date, SUN_RISING, 0.833, latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
@@ -1462,7 +1502,7 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(date, latitude, longitude, -0.833)
+            return self._calc_time(date, SUN_SETTING, 0.833, latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
@@ -1482,11 +1522,40 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(date,
-                                   latitude, longitude,
-                                   - self._depression)
+            return self._calc_time(date, SUN_SETTING, self._depression,
+                                   latitude, longitude)
         except:
             raise AstralError(('Sun remains below the horizon on this day, '
+                               'at this location.'))
+
+    def time_at_elevation_utc(self, elevation, direction, date, latitude, longitude):
+        """Calculate the time in the UTC timezone when the sun is at
+        the specified elevation on the specified date.
+        
+        Note: This method uses positive elevations for those above the horizon.
+
+        :param elevation:  Elevation in degrees above the horizon to calculate for.
+        :type elevation:   float
+        :param direction:  Determines whether the calculated time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
+        :param date:       Date to calculate for.
+        :type date:        :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+
+        :return: The UTC date and time at which the sun is at the required
+                 elevation.
+        :rtype: :class:`datetime.datetime`
+        """
+
+        try:
+            return self._calc_time(date, direction, -elevation, latitude, longitude)
+        except Exception:
+            raise AstralError(('The sun does not reach the elevation specified '
+                               'on this day and '
                                'at this location.'))
 
     def rahukaalam_utc(self, date, latitude, longitude):
@@ -1930,16 +1999,21 @@ class Astral(object):
 
         return m + c
 
-    def _hour_angle(self, latitude, solar_dec, solar_depression):
-        latRad = radians(latitude)
-        sdRad = radians(solar_dec)
+    def _hour_angle(self, latitude, declination, depression):
+        latitude_rad = radians(latitude)
+        declination_rad = radians(declination)
+        depression_rad = radians(depression)
 
-        HA = (acos(cos(radians(90 + solar_depression)) /
-                   (cos(latRad) * cos(sdRad)) - tan(latRad) * tan(sdRad)))
-
+        n = cos(depression_rad)
+        d = cos(latitude_rad) * cos(declination_rad)
+        
+        t = tan(latitude_rad) * tan(declination_rad)
+        h = (n / d) - t
+        
+        HA = acos(h)
         return HA
 
-    def _calc_time(self, date, latitude, longitude, depression):
+    def _calc_time(self, date, direction, angle, latitude, longitude):
         julianday = self._julianday(date)
 
         if latitude > 89.8:
@@ -1952,7 +2026,7 @@ class Astral(object):
         eqtime = self._eq_of_time(t)
         solarDec = self._sun_declination(t)
 
-        hourangle = -self._hour_angle(latitude, solarDec, 0.833)
+        hourangle = -self._hour_angle(latitude, solarDec, 90 + 0.833)
 
         delta = -longitude - degrees(hourangle)
         timeDiff = 4.0 * delta
@@ -1963,11 +2037,9 @@ class Astral(object):
         eqtime = self._eq_of_time(newt)
         solarDec = self._sun_declination(newt)
 
-        if depression < 0:
-            depression = abs(depression)
-            hourangle = -self._hour_angle(latitude, solarDec, depression)
-        else:
-            hourangle = self._hour_angle(latitude, solarDec, depression)
+        hourangle = self._hour_angle(latitude, solarDec, 90 + angle)
+        if direction == SUN_SETTING:
+            hourangle = -hourangle
 
         delta = -longitude - degrees(hourangle)
         timeDiff = 4 * delta
