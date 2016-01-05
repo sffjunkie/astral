@@ -27,6 +27,10 @@ Dusk
     The time in the evening when the sun is a specific number of degrees
     below the horizon.
 
+Time At Elevation
+   the time when the sun is at a specific elevation for either a rising or a
+   setting sun.
+
 Solar Azimuth
     The number of degrees clockwise from North at which the sun can be seen
 
@@ -36,7 +40,7 @@ Solar Elevation
 `Rahukaalam`_
     "Rahukaalam or the period of Rahu is a certain amount of time every day
     that is considered inauspicious for any new venture according to Indian
-    astrology".
+    Vedic astrology".
     
 Moon Phase
     Calculates the phase of the moon for a specified date.
@@ -227,6 +231,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+0.9      Added a method to calculate the date and time when the sun is at a
+         specific elevation for either a rising or a seting sun.
+-------- -----------------------------------------------------------------------
 0.8.2    * Fix for moon phase calcualtions which were off by 1.
          * Use pytz.timezone().localize method instead of passing tzinfo
            parameter to datetime.datetime
