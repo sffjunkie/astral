@@ -6,9 +6,10 @@ import sys
 sys.path.insert(0,
                 os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+import pytest
 import pytz
 import datetime
-from astral import Astral
+from astral import Astral, AstralError, SUN_RISING, SUN_SETTING
 
 
 def float_almost_equal(value1, value2, diff=0.5):
@@ -198,4 +199,31 @@ def test_Astral_SolarAzimuth():
     for dt, angle1 in test_data.items():
         angle2 = a.solar_azimuth(dt, l.latitude, l.longitude)
         float_almost_equal(angle1, angle2)
-        
+
+
+def test_Astral_TimeAtElevation():
+    a = Astral()
+    l = a['London']
+
+    d = datetime.date(2016, 1, 4)
+    dt = a.time_at_elevation_utc(6, SUN_RISING, d, l.latitude, l.longitude)
+    cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=pytz.UTC)
+    # Use error of 10 minutes as website has a rather coarse accuracy
+    datetime_almost_equal(dt, cdt, 600)
+
+    dt = a.time_at_elevation_utc(14, SUN_SETTING, d, l.latitude, l.longitude)
+    cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.UTC)
+    datetime_almost_equal(dt, cdt, 600)
+
+    dt = a.time_at_elevation_utc(-18, SUN_RISING, d, l.latitude, l.longitude)
+    cdt = datetime.datetime(2016, 1, 4, 6, 0, 0, tzinfo=pytz.UTC)
+    datetime_almost_equal(dt, cdt, 600)
+
+
+def test_Astral_TimeAtElevation_BadElevation():
+    a = Astral()
+    l = a['London']
+
+    d = datetime.date(2016, 1, 4)
+    with pytest.raises(AstralError):
+        dt = a.time_at_elevation_utc(20, SUN_RISING, d, l.latitude, l.longitude)
