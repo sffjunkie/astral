@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from pytest import raises
 
-from astral import Astral, Location
+from astral import Astral, AstralError, Location
 import datetime
 import pytz
 
@@ -46,9 +46,27 @@ def test_Location_Timezone():
     assert c.tz == pytz.timezone('Europe/Stockholm')
 
 
+def test_Location_BadTimezoneName():
+    c = Location()
+    c._timezone_group = 'bad'
+    c._timezone_location = 'timezone'
+    with raises(AstralError):
+        c.tz
+
+
+def test_Location_Sun():
+    c = Location()
+    c.sun()
+
+
 def test_Location_Dawn():
     c = Location()
     c.dawn()
+
+
+def test_Location_DawnUTC():
+    c = Location()
+    c.dawn(local=False)
 
 
 def test_Location_Sunrise():
@@ -56,9 +74,19 @@ def test_Location_Sunrise():
     c.sunrise()
 
 
+def test_Location_SunriseUTC():
+    c = Location()
+    c.sunrise(local=False)
+
+
 def test_Location_SolarNoon():
     c = Location()
     c.solar_noon()
+
+
+def test_Location_SolarNoonUTC():
+    c = Location()
+    c.solar_noon(local=False)
 
 
 def test_Location_Dusk():
@@ -66,9 +94,19 @@ def test_Location_Dusk():
     c.dusk()
 
 
+def test_Location_DuskUTC():
+    c = Location()
+    c.dusk(local=False)
+
+
 def test_Location_Sunset():
     c = Location()
     c.sunset()
+
+
+def test_Location_SunsetUTC():
+    c = Location()
+    c.sunset(local=False)
 
 
 def test_Location_SolarElevation():
