@@ -1,1 +1,2 @@
 include notes.txt
+include src/test/*
