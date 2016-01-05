@@ -208,8 +208,8 @@ def test_Astral_TimeAtElevation_SunRising():
     d = datetime.date(2016, 1, 4)
     dt = a.time_at_elevation_utc(6, SUN_RISING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=pytz.UTC)
-    # Use error of 10 minutes as website has a rather coarse accuracy
-    assert datetime_almost_equal(dt, cdt, 600)
+    # Use error of 5 minutes as website has a rather coarse accuracy
+    assert datetime_almost_equal(dt, cdt, 300)
 
 
 def test_Astral_TimeAtElevation_SunSetting():
@@ -219,7 +219,7 @@ def test_Astral_TimeAtElevation_SunSetting():
     d = datetime.date(2016, 1, 4)
     dt = a.time_at_elevation_utc(14, SUN_SETTING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.UTC)
-    assert datetime_almost_equal(dt, cdt, 600)
+    assert datetime_almost_equal(dt, cdt, 300)
 
 
 def test_Astral_TimeAtElevation_SunRisingBelowHorizon():
@@ -229,7 +229,7 @@ def test_Astral_TimeAtElevation_SunRisingBelowHorizon():
     d = datetime.date(2016, 1, 4)
     dt = a.time_at_elevation_utc(-18, SUN_RISING, d, l.latitude, l.longitude)
     cdt = datetime.datetime(2016, 1, 4, 6, 0, 0, tzinfo=pytz.UTC)
-    assert datetime_almost_equal(dt, cdt, 600)
+    assert datetime_almost_equal(dt, cdt, 300)
 
 
 def test_Astral_TimeAtElevation_BadElevation():
