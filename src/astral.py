@@ -963,7 +963,6 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
         
-        elevation = elevation % 180.0
         if elevation > 90.0:
             elevation = 180.0 - elevation
             direction = SUN_SETTING
@@ -1661,6 +1660,11 @@ class Astral(object):
                  elevation.
         :rtype: :class:`datetime.datetime`
         """
+        
+        if elevation > 90.0:
+            elevation = 180.0 - elevation
+            direction = SUN_SETTING
+
         depression = 90 - elevation
         try:
             return self._calc_time(depression, direction, date, latitude, longitude)
