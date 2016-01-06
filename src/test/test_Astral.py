@@ -81,13 +81,6 @@ def test_Astral_SolarAzimuthWithTimezone():
     assert float_almost_equal(azimuth, 129.02, 0.1)
 
 
-def test_Elevation():
-    dd = Astral()
-    c = dd['London']
-
-    assert c.elevation == 24
-
-
 def test_Astral_JulianDay():
     a = Astral()
     

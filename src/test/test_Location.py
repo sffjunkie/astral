@@ -32,6 +32,13 @@ def test_Location_Country():
     assert c.region == 'Australia'
 
 
+def test_Location_Elevation():
+    dd = Astral()
+    c = dd['London']
+
+    assert c.elevation == 24
+
+
 def test_Location_TimezoneName():
     c = Location()
     assert c.timezone == 'Europe/London'
