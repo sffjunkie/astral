@@ -1672,43 +1672,6 @@ class Astral(object):
                                'on this day and '
                                'at this location.'))
 
-    def rahukaalam_utc(self, date, latitude, longitude):
-        """Calculate ruhakaalam times in the UTC timezone.
-
-        :param date:       Date to calculate for.
-        :type date:        :class:`datetime.date`
-        :param latitude:   Latitude - Northern latitudes should be positive
-        :type latitude:    float
-        :param longitude:  Longitude - Eastern longitudes should be positive
-        :type longitude:   float
-
-        :return: Tuple containing the start and end times for Rahukaalam.
-        :rtype: tuple
-        """
-
-        if date is None:
-            date = datetime.date.today()
-
-        try:
-            sunrise = self.sunrise_utc(date, latitude, longitude)
-            sunset = self.sunset_utc(date, latitude, longitude)
-        except:
-            raise AstralError(('Sun remains below the horizon on this day, '
-                               'at this location.'))
-
-        octant_duration = (sunset - sunrise) / 8
-
-        # Mo,Sa,Fr,We,Th,Tu,Su
-        octant_index = [1, 6, 4, 5, 3, 2, 7]
-
-        weekday = date.weekday()
-        octant = octant_index[weekday]
-
-        start = sunrise + (octant_duration * octant)
-        end = start + octant_duration
-
-        return start, end
-
     def solar_azimuth(self, dateandtime, latitude, longitude):
         """Calculate the azimuth angle of the sun.
 
@@ -1975,6 +1938,43 @@ class Astral(object):
             moon = 0
 
         return moon
+
+    def rahukaalam_utc(self, date, latitude, longitude):
+        """Calculate ruhakaalam times in the UTC timezone.
+
+        :param date:       Date to calculate for.
+        :type date:        :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+
+        :return: Tuple containing the start and end times for Rahukaalam.
+        :rtype: tuple
+        """
+
+        if date is None:
+            date = datetime.date.today()
+
+        try:
+            sunrise = self.sunrise_utc(date, latitude, longitude)
+            sunset = self.sunset_utc(date, latitude, longitude)
+        except:
+            raise AstralError(('Sun remains below the horizon on this day, '
+                               'at this location.'))
+
+        octant_duration = (sunset - sunrise) / 8
+
+        # Mo,Sa,Fr,We,Th,Tu,Su
+        octant_index = [1, 6, 4, 5, 3, 2, 7]
+
+        weekday = date.weekday()
+        octant = octant_index[weekday]
+
+        start = sunrise + (octant_duration * octant)
+        end = start + octant_duration
+
+        return start, end
 
     def _proper_angle(self, value):
         if value > 0.0:
