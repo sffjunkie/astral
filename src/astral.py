@@ -1614,8 +1614,8 @@ class Astral(object):
         :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
         """
 
-        start = self.astral.sunrise_utc(date, latitude, longitude)
-        end = self.astral.sunset_utc(date, latitude, longitude)
+        start = self.sunrise_utc(date, latitude, longitude)
+        end = self.sunset_utc(date, latitude, longitude)
 
         return start, end
 
@@ -1633,9 +1633,9 @@ class Astral(object):
         :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
         """
 
-        start = self.astral.dusk_utc(date, self.latitude, self.longitude, 18)
+        start = self.dusk_utc(date, latitude, longitude, 18)
         tomorrow = date + datetime.timedelta(days=1)
-        end = self.astral.dawn_utc(tomorrow, self.latitude, self.longitude, 18)
+        end = self.dawn_utc(tomorrow, latitude, longitude, 18)
 
         return start, end
 
