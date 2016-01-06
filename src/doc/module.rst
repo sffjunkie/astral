@@ -44,7 +44,9 @@ Location
    .. automethod:: sunrise
    .. automethod:: solar_noon
    .. automethod:: sunset
-   .. automethod:: dusk  
+   .. automethod:: dusk
+   .. automethod:: daylight
+   .. automethod:: night
    .. automethod:: time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True)
    .. automethod:: solar_azimuth   
    .. automethod:: solar_elevation   

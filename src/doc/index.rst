@@ -27,6 +27,12 @@ Dusk
     The time in the evening when the sun is a specific number of degrees
     below the horizon.
 
+Daylight
+   The time when the sun is up i.e. between sunrise and sunset
+   
+Night
+   The time between astronomical dusk of one day and astronomical dawn of the next
+
 Time At Elevation
    the time when the sun is at a specific elevation for either a rising or a
    setting sun.
