@@ -240,6 +240,7 @@ Version  Description
 0.9      * Added a method to calculate the date and time when the sun is at a
            specific elevation, for either a rising or a setting sun.
          * Added daylight and night methods to Location and Astral classes.
+         * Rahukaalam methods now return a tuple.
 -------- -----------------------------------------------------------------------
 0.8.2    * Fix for moon phase calcualtions which were off by 1.
          * Use pytz.timezone().localize method instead of passing tzinfo
