@@ -51,7 +51,8 @@ Location
    .. automethod:: solar_azimuth   
    .. automethod:: solar_elevation   
    .. automethod:: solar_zenith   
-   .. automethod:: moon_phase   
+   .. automethod:: moon_phase
+   .. automethod:: rahukaalam
 
 Geocoders
 ---------
