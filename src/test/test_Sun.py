@@ -167,8 +167,8 @@ def test_Astral_Rahukaalam():
         end = pytz.UTC.localize(end)
         
         info = a.rahukaalam_utc(day, l.latitude, l.longitude)
-        start_utc = info['start']
-        end_utc = info['end']
+        start_utc = info[0]
+        end_utc = info[1]
         assert datetime_almost_equal(start, start_utc)
         assert datetime_almost_equal(end, end_utc)
 

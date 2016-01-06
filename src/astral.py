@@ -998,8 +998,8 @@ class Location(object):
                                                 self.latitude, self.longitude)
 
         if local:
-            for key, dt in rahukaalam.items():
-                rahukaalam[key] = dt.astimezone(self.tz)
+            rahukaalam = (rahukaalam[0].astimezone(self.tz),
+                          rahukaalam[1].astimezone(self.tz))
 
         return rahukaalam
 
@@ -1709,7 +1709,7 @@ class Astral(object):
         start = sunrise + (octant_duration * octant)
         end = start + octant_duration
 
-        return {'start': start, 'end': end}
+        return start, end
 
     def solar_azimuth(self, dateandtime, latitude, longitude):
         """Calculate the azimuth angle of the sun.
