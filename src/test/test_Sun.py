@@ -258,7 +258,7 @@ def test_Astral_TimeAtElevation_BadElevation():
 
     d = datetime.date(2016, 1, 4)
     with pytest.raises(AstralError):
-        dt = a.time_at_elevation_utc(20, SUN_RISING, d, l.latitude, l.longitude)
+        a.time_at_elevation_utc(20, SUN_RISING, d, l.latitude, l.longitude)
 
 
 def test_Astral_Daylight():
