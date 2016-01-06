@@ -877,10 +877,10 @@ class Location(object):
         else:
             return dusk
 
-    def daytime(self, date=None, local=True):
-        """Calculates the daytime time (the time between sunrise and sunset)
+    def daylight(self, date=None, local=True):
+        """Calculates the daylight time (the time between sunrise and sunset)
 
-        :param date: The date for which to calculate daytime.
+        :param date: The date for which to calculate daylight.
                      If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
@@ -897,18 +897,18 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.daytime_utc(date, self.latitude, self.longitude)
+        start, end = self.astral.daylight_utc(date, self.latitude, self.longitude)
 
         if local:
             return start.astimezone(self.tz), end.astimezone(self.tz)
         else:
             return start, end
 
-    def nighttime(self, date=None, local=True):
-        """Calculates the nighttime time (the time between astronomical dusk and
+    def night(self, date=None, local=True):
+        """Calculates the night time (the time between astronomical dusk and
         astronomical dawn of the next day)
 
-        :param date: The date for which to calculate nighttime.
+        :param date: The date for which to calculate night.
                      If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
@@ -925,7 +925,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.nighttime_utc(date, self.latitude, self.longitude)
+        start, end = self.astral.night_utc(date, self.latitude, self.longitude)
 
         if local:
             return start.astimezone(self.tz), end.astimezone(self.tz)
@@ -1599,8 +1599,8 @@ class Astral(object):
             raise AstralError(('Sun remains below the horizon on this day, '
                                'at this location.'))
 
-    def daytime_utc(self, date, latitude, longitude):
-        """Calculate daytime start and end times in the UTC timezone.
+    def daylight_utc(self, date, latitude, longitude):
+        """Calculate daylight start and end times in the UTC timezone.
 
         :param date:       Date to calculate for.
         :type date:        :class:`datetime.date`
@@ -1609,7 +1609,7 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :return: A tuple of the UTC date and time at which daytime starts and ends.
+        :return: A tuple of the UTC date and time at which daylight starts and ends.
         :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
         """
 
@@ -1618,8 +1618,8 @@ class Astral(object):
 
         return start, end
 
-    def nighttime_utc(self, date, latitude, longitude):
-        """Calculate nighttime start and end times in the UTC timezone.
+    def night_utc(self, date, latitude, longitude):
+        """Calculate night start and end times in the UTC timezone.
 
         :param date:       Date to calculate for.
         :type date:        :class:`datetime.date`
@@ -1628,7 +1628,7 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :return: A tuple of the UTC date and time at which nighttime starts and ends.
+        :return: A tuple of the UTC date and time at which night starts and ends.
         :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
         """
 

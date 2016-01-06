@@ -261,12 +261,12 @@ def test_Astral_TimeAtElevation_BadElevation():
         dt = a.time_at_elevation_utc(20, SUN_RISING, d, l.latitude, l.longitude)
 
 
-def test_Astral_Daytime():
+def test_Astral_Daylight():
     a = Astral()
     l = a['London']
 
     d = datetime.date(2016, 1, 6)
-    start, end = a.daytime_utc(d, l.latitude, l.longitude)
+    start, end = a.daylight_utc(d, l.latitude, l.longitude)
     cstart = datetime.datetime(2016, 1, 6, 8, 5, 0, tzinfo=pytz.UTC)
     cend = datetime.datetime(2016, 1, 6, 16, 7, 0, tzinfo=pytz.UTC)
     assert datetime_almost_equal(start, cstart, 300)
@@ -278,7 +278,7 @@ def test_Astral_Nighttime():
     l = a['London']
 
     d = datetime.date(2016, 1, 6)
-    start, end = a.nighttime_utc(d, l.latitude, l.longitude)
+    start, end = a.night_utc(d, l.latitude, l.longitude)
     cstart = datetime.datetime(2016, 1, 6, 18, 10, 0, tzinfo=pytz.UTC)
     cend = datetime.datetime(2016, 1, 7, 6, 2, 0, tzinfo=pytz.UTC)
     assert datetime_almost_equal(start, cstart, 300)
