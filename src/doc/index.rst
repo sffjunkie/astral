@@ -238,12 +238,12 @@ Version History
 Version  Description
 ======== =======================================================================
 0.9      * Added a method to calculate the date and time when the sun is at a
-           specific elevation for either a rising or a setting sun.
-         * Added daytime and nighttime methods to Location and Astral classes.
+           specific elevation, for either a rising or a setting sun.
+         * Added daylight and night methods to Location and Astral classes.
 -------- -----------------------------------------------------------------------
 0.8.2    * Fix for moon phase calcualtions which were off by 1.
          * Use pytz.timezone().localize method instead of passing tzinfo
-           parameter to datetime.datetime
+           parameter to datetime.datetime. See the `pytz docs`_ for info
 -------- -----------------------------------------------------------------------
 0.8.1    * Fix for bug `1417641`_\: :meth:`~astral.Astral.solar_elevation` and
            :meth:`~astral.Astral.solar_azimuth` fail when a naive
@@ -323,7 +323,7 @@ Version  Description
 .. _1407773: https://bugs.launchpad.net/astral/+bug/1407773
 .. _1417641: https://bugs.launchpad.net/astral/+bug/1417641
 .. _javascript: http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
-    
+.. _pytz docs: http://pytz.sourceforge.net/#localized-times-and-date-arithmetic
 
 .. toctree::
    :maxdepth: 2
