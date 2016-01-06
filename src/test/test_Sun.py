@@ -222,6 +222,26 @@ def test_Astral_TimeAtElevation_SunSetting():
     assert datetime_almost_equal(dt, cdt, 300)
 
 
+def test_Astral_TimeAtElevation_GreaterThan90():
+    a = Astral()
+    l = a['London']
+
+    d = datetime.date(2016, 1, 4)
+    dt = a.time_at_elevation_utc(166, SUN_RISING, d, l.latitude, l.longitude)
+    cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.UTC)
+    assert datetime_almost_equal(dt, cdt, 300)
+
+
+def test_Astral_TimeAtElevation_GreaterThan180():
+    a = Astral()
+    l = a['London']
+
+    d = datetime.date(2015, 12, 1)
+    dt = a.time_at_elevation_utc(186, SUN_RISING, d, l.latitude, l.longitude)
+    cdt = datetime.datetime(2015, 12, 1, 16, 34, tzinfo=pytz.UTC)
+    assert datetime_almost_equal(dt, cdt, 300)
+
+
 def test_Astral_TimeAtElevation_SunRisingBelowHorizon():
     a = Astral()
     l = a['London']
