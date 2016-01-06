@@ -983,9 +983,8 @@ class Location(object):
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
 
-        :return: Dictionary with keys ``start`` and ``end`` whose values are
-                 the start and end times for Rahukaalam.
-        :rtype: dict
+        :return: Tuple containing the start and end times for Rahukaalam.
+        :rtype: tuple
         """
 
         if self.astral is None:
@@ -1683,9 +1682,8 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :return: Dictionary with keys ``start`` and ``end`` whose values are
-                 the start and end times for Rahukaalam.
-        :rtype: dict
+        :return: Tuple containing the start and end times for Rahukaalam.
+        :rtype: tuple
         """
 
         if date is None:
