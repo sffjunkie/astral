@@ -520,15 +520,15 @@ class Location(object):
             self.name = 'Greenwich'
             self.region = 'England'
             self._latitude = 51.168
-            self._longitude = 0
+            self._longitude = 0.0
             self._timezone_group = 'Europe'
             self._timezone_location = 'London'
             self._elevation = 24
         else:
             self.name = ''
             self.region = ''
-            self._latitude = 0
-            self._longitude = 0
+            self._latitude = 0.0
+            self._longitude = 0.0
             self._timezone_group = ''
             self._timezone_location = ''
             self._elevation = 0
@@ -1757,7 +1757,7 @@ class Astral(object):
             if latitude > 0.0:
                 azimuth = 180.0
             else:
-                azimuth = 0
+                azimuth = 0.0
 
         if azimuth < 0.0:
             azimuth = azimuth + 360.0
@@ -1849,7 +1849,7 @@ class Astral(object):
             if latitude > 0.0:
                 azimuth = 180.0
             else:
-                azimuth = 0
+                azimuth = 0.0
 
         if azimuth < 0.0:
             azimuth = azimuth + 360.0
@@ -1897,7 +1897,7 @@ class Astral(object):
         in the UTC timezone.
         """
 
-        return self.solar_elevation(dateandtime)
+        return self.solar_elevation(dateandtime, latitude, longitude)
 
     def moon_phase(self, date):
         """Calculates the phase of the moon on the specified date.
