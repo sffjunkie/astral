@@ -551,8 +551,9 @@ class Location(object):
                               self.timezone,
                               self.latitude, self.longitude)
 
-    def latitude():
-        doc = """The location's latitude
+    @property
+    def latitude(self):
+        """The location's latitude
 
         ``latitude`` can be set either as a string or as a number
 
@@ -563,27 +564,24 @@ class Location(object):
         For numbers, positive numbers signify latitudes to the North.
         """
 
-        def fget(self):
-            return self._latitude
+        return self._latitude
 
-        def fset(self, latitude):
-            if isinstance(latitude, str):
-                (deg, rest) = latitude.split("°", 1)
-                (minute, rest) = rest.split("'", 1)
+    @latitude.setter
+    def latitude(self, latitude):
+        if isinstance(latitude, str):
+            (deg, rest) = latitude.split("°", 1)
+            (minute, rest) = rest.split("'", 1)
 
-                self._latitude = float(deg) + (float(minute) / 60)
+            self._latitude = float(deg) + (float(minute) / 60)
 
-                if latitude.endswith("S"):
-                    self._latitude = -self._latitude
-            else:
-                self._latitude = float(latitude)
+            if latitude.endswith("S"):
+                self._latitude = -self._latitude
+        else:
+            self._latitude = float(latitude)
 
-        return locals()
-
-    latitude = property(**latitude())
-
-    def longitude():
-        doc = """The location's longitude.
+    @property
+    def longitude(self):
+        """The location's longitude.
 
         ``longitude`` can be set either as a string or as a number
 
@@ -594,40 +592,34 @@ class Location(object):
         For numbers, positive numbers signify longitudes to the East.
         """
 
-        def fget(self):
-            return self._longitude
+        return self._longitude
 
-        def fset(self, longitude):
-            if isinstance(longitude, str):
-                (deg, rest) = longitude.split("°", 1)
-                (minute, rest) = rest.split("'", 1)
+    @longitude.setter
+    def longitude(self, longitude):
+        if isinstance(longitude, str):
+            (deg, rest) = longitude.split("°", 1)
+            (minute, rest) = rest.split("'", 1)
 
-                self._longitude = float(deg) + (float(minute) / 60)
+            self._longitude = float(deg) + (float(minute) / 60)
 
-                if longitude.endswith("W"):
-                    self._longitude = -self._longitude
-            else:
-                self._longitude = float(longitude)
+            if longitude.endswith("W"):
+                self._longitude = -self._longitude
+        else:
+            self._longitude = float(longitude)
 
-        return locals()
+    @property
+    def elevation(self):
+        """The elevation in metres above sea level."""
 
-    longitude = property(**longitude())
+        return self._elevation
 
-    def elevation():
-        doc = """The elevation in metres above sea level."""
+    @elevation.setter
+    def elevation(self, elevation):
+        self._elevation = int(elevation)
 
-        def fget(self):
-            return self._elevation
-
-        def fset(self, elevation):
-            self._elevation = int(elevation)
-
-        return locals()
-
-    elevation = property(**elevation())
-
-    def timezone():
-        doc = """The name of the time zone for the location.
+    @property
+    def timezone(self):
+        """The name of the time zone for the location.
 
         A list of time zone names can be obtained from pytz. For example.
 
@@ -636,45 +628,39 @@ class Location(object):
         ...     print(timezone)
         """
 
-        def fget(self):
-            if self._timezone_location != '':
-                return '%s/%s' % (self._timezone_group,
-                                  self._timezone_location)
-            else:
-                return self._timezone_group
+        if self._timezone_location != '':
+            return '%s/%s' % (self._timezone_group,
+                              self._timezone_location)
+        else:
+            return self._timezone_group
 
-        def fset(self, name):
-            if name not in pytz.all_timezones:
-                raise ValueError('Timezone \'%s\' not recognized' % name)
+    @timezone.setter
+    def timezone(self, name):
+        if name not in pytz.all_timezones:
+            raise ValueError('Timezone \'%s\' not recognized' % name)
 
-            try:
-                self._timezone_group, self._timezone_location = \
-                    name.split('/', 1)
-            except ValueError:
-                self._timezone_group = name
-                self._timezone_location = ''
+        try:
+            self._timezone_group, self._timezone_location = \
+                name.split('/', 1)
+        except ValueError:
+            self._timezone_group = name
+            self._timezone_location = ''
 
-        return locals()
+    @property
+    def tz(self):
+        """Time zone information."""
 
-    timezone = property(**timezone())
+        try:
+            tz = pytz.timezone(self.timezone)
+            return tz
+        except pytz.UnknownTimeZoneError:
+            raise AstralError('Unknown timezone \'%s\'' % self.timezone)
 
-    def tz():
-        doc = """Time zone information."""
-
-        def fget(self):
-            try:
-                tz = pytz.timezone(self.timezone)
-                return tz
-            except pytz.UnknownTimeZoneError:
-                raise AstralError('Unknown timezone \'%s\'' % self.timezone)
-
-        return locals()
-
-    tz = property(**tz())
     tzinfo = tz
 
-    def solar_depression():
-        doc = """The number of degrees the sun must be below the horizon for the
+    @property
+    def solar_depression(self):
+        """The number of degrees the sun must be below the horizon for the
         dawn/dusk calculation.
 
         Can either be set as a number of degrees below the horizon or as
@@ -689,18 +675,14 @@ class Location(object):
         ============= =======
         """
 
-        def fget(self):
-            return self.astral.solar_depression
+        return self.astral.solar_depression
 
-        def fset(self, depression):
-            if self.astral is None:
-                self.astral = Astral()
+    @solar_depression.setter
+    def solar_depression(self, depression):
+        if self.astral is None:
+            self.astral = Astral()
 
-            self.astral.solar_depression = depression
-
-        return locals()
-
-    solar_depression = property(**solar_depression())
+        self.astral.solar_depression = depression
 
     def sun(self, date=None, local=True):
         """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
@@ -1112,7 +1094,7 @@ class LocationGroup(object):
 
         try:
             lookup_name, lookup_region = key.split(',', 1)
-        except:
+        except ValueError:
             lookup_name = key
             lookup_region = ''
 
@@ -1159,18 +1141,14 @@ class LocationGroup(object):
     def items(self):
         return self._locations.items()
 
-    def locations():
-        def fget(self):
-            k = []
-            for location_list in self._locations.values():
-                for location in location_list:
-                    k.append(location.name)
+    @property
+    def locations(self):
+        k = []
+        for location_list in self._locations.values():
+            for location in location_list:
+                k.append(location.name)
 
-            return k
-
-        return locals()
-
-    locations = property(**locations())
+        return k
 
     def _sanitize_key(self, key):
         return str(key).lower().replace(' ', '_')
@@ -1198,7 +1176,7 @@ class AstralGeocoder(object):
                 key = l._timezone_group.lower()
                 try:
                     group = self.__getattr__(key)
-                except:
+                except KeyError:
                     group = LocationGroup(l._timezone_group)
                     self._groups[key] = group
 
@@ -1245,25 +1223,17 @@ class AstralGeocoder(object):
 
         return False
 
-    def locations():
-        def fget(self):
-            k = []
-            for group in self._groups.values():
-                k.extend(group.locations)
+    @property
+    def locations(self):
+        k = []
+        for group in self._groups.values():
+            k.extend(group.locations)
 
-            return k
+        return k
 
-        return locals()
-
-    locations = property(**locations())
-
-    def groups():
-        def fget(self):
-            return self._groups
-
-        return locals()
-
-    groups = property(**groups())
+    @property
+    def groups(self):
+        return self._groups
 
 
 class GoogleGeocoder(object):
@@ -1385,8 +1355,9 @@ class Astral(object):
         location.astral = self
         return location
 
-    def solar_depression():
-        doc = """The number of degrees the sun must be below the horizon for the
+    @property
+    def solar_depression(self):
+        """The number of degrees the sun must be below the horizon for the
         dawn/dusk calculation.
 
         Can either be set as a number of degrees below the horizon or as
@@ -1401,26 +1372,22 @@ class Astral(object):
         ============= =======
         """
 
-        def fget(self):
-            return self._depression
+        return self._depression
 
-        def fset(self, depression):
-            if isinstance(depression, str):
-                try:
-                    self._depression = {
-                        'civil': 6,
-                        'nautical': 12,
-                        'astronomical': 18}[depression]
-                except:
-                    raise KeyError(("solar_depression must be either a number "
-                                    "or one of 'civil', 'nautical' or "
-                                    "'astronomical'"))
-            else:
-                self._depression = float(depression)
-
-        return locals()
-
-    solar_depression = property(**solar_depression())
+    @solar_depression.setter
+    def solar_depression(self, depression):
+        if isinstance(depression, str):
+            try:
+                self._depression = {
+                    'civil': 6,
+                    'nautical': 12,
+                    'astronomical': 18}[depression]
+            except:
+                raise KeyError(("solar_depression must be either a number "
+                                "or one of 'civil', 'nautical' or "
+                                "'astronomical'"))
+        else:
+            self._depression = float(depression)
 
     def sun_utc(self, date, latitude, longitude):
         """Calculate all the info for the sun at once.
