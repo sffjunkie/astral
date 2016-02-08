@@ -540,7 +540,7 @@ class Location(object):
                 self.longitude = info[3]
                 self.timezone = info[4]
                 self.elevation = info[5]
-            except:
+            except IndexError:
                 pass
 
         self.url = ''
