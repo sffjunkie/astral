@@ -1176,7 +1176,7 @@ class AstralGeocoder(object):
                 key = l._timezone_group.lower()
                 try:
                     group = self.__getattr__(key)
-                except KeyError:
+                except AttributeError:
                     group = LocationGroup(l._timezone_group)
                     self._groups[key] = group
 
