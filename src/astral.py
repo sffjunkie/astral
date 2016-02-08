@@ -143,7 +143,7 @@ Brussels,Belgium,50°51'N,04°21'E,Europe/Brussels,62
 Bucharest,Romania,44°27'N,26°10'E,Europe/Bucharest,71
 Bucuresti,Romania,44°27'N,26°10'E,Europe/Bucharest,71
 Budapest,Hungary,47°29'N,19°05'E,Europe/Budapest,120
-Buenos Aires,Argentina,36°30'S,60°00'W,America/Buenos_Aires,6
+Buenos Aires,Argentina,34°62'S,58°44'W,America/Buenos_Aires,6
 Bujumbura,Burundi,03°16'S,29°18'E,Africa/Bujumbura,782
 Cairo,Egypt,30°01'N,31°14'E,Africa/Cairo,74
 Canberra,Australia,35°15'S,149°08'E,Australia/Canberra,575
