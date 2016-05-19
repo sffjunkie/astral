@@ -89,6 +89,29 @@ The following example demonstrates the functionality available in the module::
     Sunset:   2009-04-22 20:09:07+01:00
     Dusk:     2009-04-22 20:45:52+01:00
 
+If the location you want is not in the Astral geocoder then you need to
+construct a :class:`~astral.Location` and fill in the values either with a
+tuple on initialization::
+
+   l = Location(('name', 'region',
+                 0.1, 1.2, 'timezone/name', 0))
+   l.sun()
+                 
+or set the attributes after initialization::
+
+   l = Location()
+   l.name = 'name'
+   l.region = 'region'
+   l.latitude = 0.1
+   l.longitude = 1.2
+   l.timezone = 'US/Central'
+   l.elevation = 0
+   l.sun()
+
+.. note::
+
+   `name` and `region` can be anything you like.
+
 Access to the current geocoder can be made through the Astral class::
     
     >>> a = Astral()
@@ -237,6 +260,10 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.0      * It's time for a version 1.0
+         * Added examples where the location you want is not in the Astral
+           geocoder.
+-------- -----------------------------------------------------------------------
 0.9      * Added a method to calculate the date and time when the sun is at a
            specific elevation, for either a rising or a setting sun.
          * Added daylight and night methods to Location and Astral classes.
