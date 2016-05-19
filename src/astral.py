@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
+# Copyright 2009-2016, Simon Kennedy, sffjunkie+code@gmail.com
 
 """The :mod:`astral` module provides the means to calculate dawn, sunrise,
 solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and
@@ -983,6 +983,74 @@ class Location(object):
                           rahukaalam[1].astimezone(self.tz))
 
         return rahukaalam
+    
+    def golden_hour(self, date=None, local=True, direction=SUN_RISING):
+        """Returns the start and end times of the Golden Hour when the sun is traversing
+        in the specified direction.
+        
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
+        :param date: The date for which to calculate the times.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Times to be returned in location's time zone;
+                      False = Times to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: The date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
+        """
+
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        start, end = self.astral.golden_hour_utc(date,
+                                                 self.latitude, self.longitude,
+                                                 direction)        
+        
+        if local:
+            start = start.astimezone(self.tz)
+            end = end.astimezone(self.tz)
+        
+        return start, end
+    
+    def blue_hour(self, date=None, local=True, direction=SUN_RISING):
+        """Returns the start and end times of the Blue Hour when the sun is traversing
+        in the specified direction.
+        
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
+        :param date: The date for which to calculate the times.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Times to be returned in location's time zone;
+                      False = Times to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: The date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
+        """
+
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+            
+        start, end = self.astral.blue_hour_utc(date,
+                                               self.latitude, self.longitude,
+                                               direction)
+        
+        if local:
+            start = start.astimezone(self.tz)
+            end = end.astimezone(self.tz)
+        
+        return start, end
 
     def solar_azimuth(self, dateandtime=None):
         """Calculates the solar azimuth angle for a specific date/time.
@@ -1865,6 +1933,107 @@ class Astral(object):
         """
 
         return self.solar_elevation(dateandtime, latitude, longitude)
+    
+    def twilight_utc(self, date, latitude, longitude, direction):
+        """Returns the start and end times of the Blue Hour when the sun is traversing
+        in the specified direction.
+        
+        :param date: The date for which to calculate the times.
+        :type date: :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
+
+        :returns: The date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
+        """
+
+        if date is None:
+            date = datetime.date.today()
+        
+        start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude)
+        if direction == SUN_RISING:
+            end = self.sunrise_utc(date, latitude, longitude)
+        else:
+            end = self.sunset_utc(date, latitude, longitude)
+        
+        if direction == SUN_RISING:
+            return start, end
+        else:
+            return end, start
+    
+    def golden_hour_utc(self, date, latitude, longitude, direction):
+        """Returns the start and end times of the Golden Hour when the sun is traversing
+        in the specified direction.
+        
+        This method uses the definition from PhotoPills i.e. the
+        golden hour is when the sun is between 4 degrees below the horizon
+        and 6 degrees above.
+        
+        :param date: The date for which to calculate the times.
+        :type date: :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
+
+        :returns: The date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
+        """
+
+        if date is None:
+            date = datetime.date.today()
+        
+        start = self.time_at_elevation_utc(-4, direction, date,
+                                           latitude, longitude)
+        end = self.time_at_elevation_utc(6, direction, date,
+                                         latitude, longitude)
+        
+        if direction == SUN_RISING:
+            return start, end
+        else:
+            return end, start
+
+    def blue_hour_utc(self, date, latitude, longitude, direction):
+        """Returns the start and end times of the Blue Hour when the sun is traversing
+        in the specified direction.
+        
+        This method uses the definition from PhotoPills i.e. the
+        blue hour is when the sun is between 6 and 4 degrees below the horizon.
+        
+        :param date: The date for which to calculate the times.
+        :type date: :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
+
+        :returns: The date and time at which dusk occurs.
+        :rtype: :class:`datetime.datetime`
+        """
+
+        if date is None:
+            date = datetime.date.today()
+        
+        start = self.time_at_elevation_utc(-6, direction, date,
+                                           latitude, longitude)
+        end = self.time_at_elevation_utc(-4, direction, date,
+                                         latitude, longitude)
+        
+        if direction == SUN_RISING:
+            return start, end
+        else:
+            return end, start
 
     def moon_phase(self, date):
         """Calculates the phase of the moon on the specified date.
