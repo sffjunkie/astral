@@ -24,14 +24,14 @@ if MOCK_MODULES and on_rtd:
 
 project = 'Astral'
 author = 'Simon Kennedy'
-copyright = '2009-2015, %s' % author
-version = '1.0'
-release = '1.0'
+copyright = '2009-2016, %s' % author
+version = '1.1'
+release = '1.1'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
-intersphinx_mapping = {'python': ('http://docs.python.org/', None)}
+intersphinx_mapping = {'python': ('http://docs.python.org/3', None)}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
