@@ -998,7 +998,6 @@ class Location(object):
                       False = Times to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :return: A tuple of the UTC date and time at which twilight starts and ends.
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
         :type direction:   int
