@@ -833,7 +833,7 @@ class Location(object):
         """Calculates the dusk time (the time in the evening when the sun is a
         certain number of degrees below the horizon. By default this is 6
         degrees but can be changed by setting the
-        :attr:`Astral.solar_depression` property.)
+        :attr:`solar_depression` property.)
 
         :param date: The date for which to calculate the dusk time.
                      If no date is specified then the current date will be used.
@@ -914,6 +914,37 @@ class Location(object):
         else:
             return start, end
 
+    def twilight(self, direction=SUN_RISING, date=None, local=True):
+        """Returns the start and end times of Twilight in the UTC timezone when
+        the sun is traversing in the specified direction.
+        
+        This method defines twilight as being between the time
+        when the sun is at -6 degrees and sunrise/sunset.
+        
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
+        :type direction:   int
+        :param date: The date for which to calculate the times.
+        :type date: :class:`datetime.date`
+        :param local: True  = Time to be returned in location's time zone;
+                      False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :return: A tuple of the UTC date and time at which twilight starts and ends.
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
+        """
+
+        if date is None:
+            date = datetime.date.today()
+            
+        start, end = self.astral.twilight_utc(date, direction,
+                                              self.latitude, self.longitude)
+
+        if local:
+            return start.astimezone(self.tz), end.astimezone(self.tz)
+        else:
+            return start, end
+
     def time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True):
         """Calculate the time when the sun is at the specified elevation.
         
@@ -984,7 +1015,7 @@ class Location(object):
 
         return rahukaalam
     
-    def golden_hour(self, date=None, local=True, direction=SUN_RISING):
+    def golden_hour(self, direction=SUN_RISING, date=None, local=True):
         """Returns the start and end times of the Golden Hour when the sun is traversing
         in the specified direction.
         
@@ -992,15 +1023,14 @@ class Location(object):
         golden hour is when the sun is between 4 degrees below the horizon
         and 6 degrees above.
         
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
         :param date: The date for which to calculate the times.
         :type date: :class:`datetime.date`
         :param local: True  = Times to be returned in location's time zone;
                       False = Times to be returned in UTC.
                       If not specified then the time will be returned in local time
-
-        :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
-        :type direction:   int
 
         :return: A tuple of the date and time at which the Golden Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -1012,9 +1042,8 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.golden_hour_utc(date,
-                                                 self.latitude, self.longitude,
-                                                 direction)        
+        start, end = self.astral.golden_hour_utc(direction, date,
+                                                 self.latitude, self.longitude)        
         
         if local:
             start = start.astimezone(self.tz)
@@ -1022,19 +1051,19 @@ class Location(object):
         
         return start, end
     
-    def blue_hour(self, date=None, local=True, direction=SUN_RISING):
+    def blue_hour(self, direction=SUN_RISING, date=None, local=True):
         """Returns the start and end times of the Blue Hour when the sun is traversing
         in the specified direction.
         
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+        :type direction:   int
         :param date: The date for which to calculate the times.
                      If no date is specified then the current date will be used.
 
         :param local: True  = Times to be returned in location's time zone;
                       False = Times to be returned in UTC.
                       If not specified then the time will be returned in local time
-        :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
-        :type direction:   int
 
         :return: A tuple of the date and time at which the Blue Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -1046,9 +1075,8 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
             
-        start, end = self.astral.blue_hour_utc(date,
-                                               self.latitude, self.longitude,
-                                               direction)
+        start, end = self.astral.blue_hour_utc(direction, date,
+                                               self.latitude, self.longitude)
         
         if local:
             start = start.astimezone(self.tz)
@@ -1676,22 +1704,22 @@ class Astral(object):
 
         return start, end
 
-    def twilight_utc(self, date, latitude, longitude, direction):
+    def twilight_utc(self, direction, date, latitude, longitude):
         """Returns the start and end times of Twilight in the UTC timezone when
         the sun is traversing in the specified direction.
         
         This method defines twilight as being between the time
         when the sun is at -6 degrees and sunrise/sunset.
         
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
+        :type direction:   int
         :param date: The date for which to calculate the times.
         :type date: :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
-        :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
-        :type direction:   int
 
         :return: A tuple of the UTC date and time at which twilight starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -1973,7 +2001,7 @@ class Astral(object):
 
         return self.solar_elevation(dateandtime, latitude, longitude)
     
-    def golden_hour_utc(self, date, latitude, longitude, direction):
+    def golden_hour_utc(self, direction, date, latitude, longitude):
         """Returns the start and end times of the Golden Hour in the UTC timezone
         when the sun is traversing in the specified direction.
         
@@ -1981,15 +2009,15 @@ class Astral(object):
         golden hour is when the sun is between 4 degrees below the horizon
         and 6 degrees above.
         
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
+        :type direction:   int
         :param date: The date for which to calculate the times.
         :type date: :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
-        :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
-        :type direction:   int
 
         :return: A tuple of the UTC date and time at which the Golden Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -2008,22 +2036,22 @@ class Astral(object):
         else:
             return end, start
 
-    def blue_hour_utc(self, date, latitude, longitude, direction):
+    def blue_hour_utc(self, direction, date, latitude, longitude):
         """Returns the start and end times of the Blue Hour in the UTC timezone
         when the sun is traversing in the specified direction.
         
         This method uses the definition from PhotoPills i.e. the
         blue hour is when the sun is between 6 and 4 degrees below the horizon.
         
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
+        :type direction:   int
         :param date: The date for which to calculate the times.
         :type date: :class:`datetime.date`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
-        :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
-        :type direction:   int
 
         :return: A tuple of the UTC date and time at which the Blue Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)

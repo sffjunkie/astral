@@ -47,12 +47,13 @@ Location
    .. automethod:: dusk
    .. automethod:: daylight
    .. automethod:: night
-   .. automethod:: time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True)
+   .. automethod:: twilight(direction=SUN_RISING, date=None, local=True)
+   .. automethod:: time_at_elevation(elevation, direction=SUN_RISING, date=None, local=True)
    .. automethod:: solar_azimuth   
    .. automethod:: solar_elevation   
    .. automethod:: solar_zenith   
-   .. automethod:: golden_hour(self, date=None, local=True, direction=SUN_RISING)
-   .. automethod:: blue_hour(self, date=None, local=True, direction=SUN_RISING)
+   .. automethod:: golden_hour(direction=SUN_RISING, date=None, local=True)
+   .. automethod:: blue_hour(direction=SUN_RISING, date=None, local=True)
    .. automethod:: moon_phase
    .. automethod:: rahukaalam
 

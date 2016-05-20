@@ -32,7 +32,7 @@ def test_Location_GoldenHour_Morning():
         start1 = pytz.UTC.localize(golden_hour[0])
         end1 = pytz.UTC.localize(golden_hour[1])
         
-        start2, end2 = l.golden_hour(day, direction=SUN_RISING)
+        start2, end2 = l.golden_hour(SUN_RISING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -50,7 +50,7 @@ def test_Location_GoldenHour_Evening():
         start1 = pytz.UTC.localize(golden_hour[0])
         end1 = pytz.UTC.localize(golden_hour[1])
         
-        start2, end2 = l.golden_hour(day, direction=SUN_SETTING)
+        start2, end2 = l.golden_hour(SUN_SETTING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -68,7 +68,7 @@ def test_Location_BlueHour_Morning():
         start1 = pytz.UTC.localize(blue_hour[0])
         end1 = pytz.UTC.localize(blue_hour[1])
         
-        start2, end2 = l.blue_hour(day, direction=SUN_RISING)
+        start2, end2 = l.blue_hour(SUN_RISING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -86,6 +86,6 @@ def test_Location_BlueHour_Evening():
         start1 = pytz.UTC.localize(blue_hour[0])
         end1 = pytz.UTC.localize(blue_hour[1])
         
-        start2, end2 = l.blue_hour(day, direction=SUN_SETTING)
+        start2, end2 = l.blue_hour(SUN_SETTING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
