@@ -784,7 +784,7 @@ class Location(object):
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :returns: The date and time at which noon occurs.
+        :returns: The date and time at which the solar noon occurs.
         :rtype: :class:`~datetime.datetime`
         """
 
@@ -1054,6 +1054,9 @@ class Location(object):
     def blue_hour(self, direction=SUN_RISING, date=None, local=True):
         """Returns the start and end times of the Blue Hour when the sun is traversing
         in the specified direction.
+        
+        This method uses the definition from PhotoPills i.e. the
+        blue hour is when the sun is between 6 and 4 degrees below the horizon.
         
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
