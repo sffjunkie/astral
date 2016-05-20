@@ -1939,9 +1939,11 @@ class Astral(object):
         return self.solar_elevation(dateandtime, latitude, longitude)
     
     def twilight_utc(self, date, latitude, longitude, direction):
-        """Returns the start and end times of the Twilight when the sun is traversing
-        in the specified direction i.e. the time when the sun is between -6 degrees
-        and sunrise/sunset.
+        """Returns the start and end times of Twilight in the UTC timezone when
+        the sun is traversing in the specified direction.
+        
+        This method defines twilight as being between the time
+        when the sun is at -6 degrees and sunrise/sunset.
         
         :param date: The date for which to calculate the times.
         :type date: :class:`datetime.date`
@@ -1950,7 +1952,7 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
         :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
 
         :return: A tuple of the UTC date and time at which twilight starts and ends.
@@ -1972,8 +1974,8 @@ class Astral(object):
             return end, start
     
     def golden_hour_utc(self, date, latitude, longitude, direction):
-        """Returns the start and end times of the Golden Hour when the sun is traversing
-        in the specified direction.
+        """Returns the start and end times of the Golden Hour in the UTC timezone
+        when the sun is traversing in the specified direction.
         
         This method uses the definition from PhotoPills i.e. the
         golden hour is when the sun is between 4 degrees below the horizon
@@ -1986,7 +1988,7 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
         :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
 
         :return: A tuple of the UTC date and time at which the Golden Hour starts and ends.
@@ -2007,8 +2009,8 @@ class Astral(object):
             return end, start
 
     def blue_hour_utc(self, date, latitude, longitude, direction):
-        """Returns the start and end times of the Blue Hour when the sun is traversing
-        in the specified direction.
+        """Returns the start and end times of the Blue Hour in the UTC timezone
+        when the sun is traversing in the specified direction.
         
         This method uses the definition from PhotoPills i.e. the
         blue hour is when the sun is between 6 and 4 degrees below the horizon.
@@ -2020,7 +2022,7 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
         :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
 
         :return: A tuple of the UTC date and time at which the Blue Hour starts and ends.
