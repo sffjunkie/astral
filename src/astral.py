@@ -1676,6 +1676,41 @@ class Astral(object):
 
         return start, end
 
+    def twilight_utc(self, date, latitude, longitude, direction):
+        """Returns the start and end times of Twilight in the UTC timezone when
+        the sun is traversing in the specified direction.
+        
+        This method defines twilight as being between the time
+        when the sun is at -6 degrees and sunrise/sunset.
+        
+        :param date: The date for which to calculate the times.
+        :type date: :class:`datetime.date`
+        :param latitude:   Latitude - Northern latitudes should be positive
+        :type latitude:    float
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+        :param direction:  Determines whether the time is for the sun rising or setting.
+                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
+        :type direction:   int
+
+        :return: A tuple of the UTC date and time at which twilight starts and ends.
+        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        """
+
+        if date is None:
+            date = datetime.date.today()
+        
+        start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude)
+        if direction == SUN_RISING:
+            end = self.sunrise_utc(date, latitude, longitude)
+        else:
+            end = self.sunset_utc(date, latitude, longitude)
+        
+        if direction == SUN_RISING:
+            return start, end
+        else:
+            return end, start
+    
     def time_at_elevation_utc(self, elevation, direction, date, latitude, longitude):
         """Calculate the time in the UTC timezone when the sun is at
         the specified elevation on the specified date.
@@ -1937,41 +1972,6 @@ class Astral(object):
         """
 
         return self.solar_elevation(dateandtime, latitude, longitude)
-    
-    def twilight_utc(self, date, latitude, longitude, direction):
-        """Returns the start and end times of Twilight in the UTC timezone when
-        the sun is traversing in the specified direction.
-        
-        This method defines twilight as being between the time
-        when the sun is at -6 degrees and sunrise/sunset.
-        
-        :param date: The date for which to calculate the times.
-        :type date: :class:`datetime.date`
-        :param latitude:   Latitude - Northern latitudes should be positive
-        :type latitude:    float
-        :param longitude:  Longitude - Eastern longitudes should be positive
-        :type longitude:   float
-        :param direction:  Determines whether the time is for the sun rising or setting.
-                           Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
-        :type direction:   int
-
-        :return: A tuple of the UTC date and time at which twilight starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
-        """
-
-        if date is None:
-            date = datetime.date.today()
-        
-        start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude)
-        if direction == SUN_RISING:
-            end = self.sunrise_utc(date, latitude, longitude)
-        else:
-            end = self.sunset_utc(date, latitude, longitude)
-        
-        if direction == SUN_RISING:
-            return start, end
-        else:
-            return end, start
     
     def golden_hour_utc(self, date, latitude, longitude, direction):
         """Returns the start and end times of the Golden Hour in the UTC timezone
