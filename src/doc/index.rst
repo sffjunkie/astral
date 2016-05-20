@@ -33,6 +33,15 @@ Daylight
 Night
    The time between astronomical dusk of one day and astronomical dawn of the next
 
+Twilight
+   The time between dawn and sunrise or between sunset and dusk
+   
+The Golden Hour
+   The time when the sun is between 4 degrees below the horizon and 6 degrees above.
+   
+The Blue Hour
+   The time when the sun is between 6 and 4 degrees below the horizon.
+
 Time At Elevation
    the time when the sun is at a specific elevation for either a rising or a
    setting sun.
@@ -260,6 +269,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.1      * Added methods to calculate Twilight, the Golden Hour and the Blue
+           Hour. 
+-------- -----------------------------------------------------------------------
 1.0      * It's time for a version 1.0
          * Added examples where the location you want is not in the Astral
            geocoder.
