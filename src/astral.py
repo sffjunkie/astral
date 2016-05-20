@@ -727,7 +727,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: The date and time at which dawn occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if self.astral is None:
@@ -757,7 +757,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: The date and time at which sunrise occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if self.astral is None:
@@ -785,7 +785,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: The date and time at which noon occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if self.astral is None:
@@ -813,7 +813,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: The date and time at which sunset occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if self.astral is None:
@@ -843,7 +843,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: The date and time at which dusk occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if self.astral is None:
@@ -870,7 +870,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: A tuple containing the start and end times
-        :rtype: tuple(:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: tuple(:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         if self.astral is None:
@@ -898,7 +898,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: A tuple containing the start and end times
-        :rtype: tuple(:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: tuple(:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         if self.astral is None:
@@ -936,7 +936,7 @@ class Location(object):
                       If not specified then the time will be returned in local time
 
         :returns: The date and time at which dusk occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if self.astral is None:
@@ -1003,7 +1003,7 @@ class Location(object):
         :type direction:   int
 
         :return: A tuple of the date and time at which the Golden Hour starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         if self.astral is None:
@@ -1037,7 +1037,7 @@ class Location(object):
         :type direction:   int
 
         :return: A tuple of the date and time at which the Blue Hour starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         if self.astral is None:
@@ -1060,7 +1060,7 @@ class Location(object):
         """Calculates the solar azimuth angle for a specific date/time.
 
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`datetime.datetime`
+        :type dateandtime: :class:`~datetime.datetime`
 
         :returns: The azimuth angle in degrees clockwise from North.
         :rtype: float
@@ -1083,7 +1083,7 @@ class Location(object):
         """Calculates the solar elevation angle for a specific time.
 
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`datetime.datetime`
+        :type dateandtime: :class:`~datetime.datetime`
 
         :returns: The elevation angle in degrees above the horizon.
         :rtype: float
@@ -1106,7 +1106,7 @@ class Location(object):
         """Calculates the solar zenith angle for a specific time.
 
         :param dateandtime: The date and time for which to calculate the angle.
-        :type dateandtime: :class:`datetime.datetime`
+        :type dateandtime: :class:`~datetime.datetime`
 
         :returns: The zenith angle in degrees above the horizon.
         :rtype: float
@@ -1505,7 +1505,7 @@ class Astral(object):
         :type depression:  float
 
         :return: The UTC date and time at which dawn occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if depression == 0:
@@ -1529,7 +1529,7 @@ class Astral(object):
         :type longitude:   float
 
         :return: The UTC date and time at which sunrise occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         try:
@@ -1549,7 +1549,7 @@ class Astral(object):
         :type longitude:   float
 
         :return: The UTC date and time at which noon occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         julianday = self._julianday(date)
@@ -1602,7 +1602,7 @@ class Astral(object):
         :type longitude:   float
 
         :return: The UTC date and time at which sunset occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         try:
@@ -1624,7 +1624,7 @@ class Astral(object):
         :type depression:   float
 
         :return: The UTC date and time at which dusk occurs.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
 
         if depression == 0:
@@ -1648,7 +1648,7 @@ class Astral(object):
         :type longitude:   float
 
         :return: A tuple of the UTC date and time at which daylight starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         start = self.sunrise_utc(date, latitude, longitude)
@@ -1667,7 +1667,7 @@ class Astral(object):
         :type longitude:   float
 
         :return: A tuple of the UTC date and time at which night starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         start = self.dusk_utc(date, latitude, longitude, 18)
@@ -1694,7 +1694,7 @@ class Astral(object):
         :type direction:   int
 
         :return: A tuple of the UTC date and time at which twilight starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         if date is None:
@@ -1731,7 +1731,7 @@ class Astral(object):
 
         :return: The UTC date and time at which the sun is at the required
                  elevation.
-        :rtype: :class:`datetime.datetime`
+        :rtype: :class:`~datetime.datetime`
         """
         
         if elevation > 90.0:
@@ -1751,7 +1751,7 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime:  :class:`datetime.datetime`
+        :type dateandtime:  :class:`~datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
@@ -1843,7 +1843,7 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime:  :class:`datetime.datetime`
+        :type dateandtime:  :class:`~datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
@@ -1958,7 +1958,7 @@ class Astral(object):
 
         :param dateandtime: The date and time for which to calculate
                             the angle.
-        :type dateandtime: :class:`datetime.datetime`
+        :type dateandtime: :class:`~datetime.datetime`
         :param latitude:   Latitude - Northern latitudes should be positive
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
@@ -1992,7 +1992,7 @@ class Astral(object):
         :type direction:   int
 
         :return: A tuple of the UTC date and time at which the Golden Hour starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         if date is None:
@@ -2026,7 +2026,7 @@ class Astral(object):
         :type direction:   int
 
         :return: A tuple of the UTC date and time at which the Blue Hour starts and ends.
-        :rtype: (:class:`datetime.datetime`, :class:`datetime.datetime`)
+        :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
         if date is None:
