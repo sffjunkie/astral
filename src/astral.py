@@ -377,7 +377,7 @@ Barrow-In-Furness,England,54°06'N,3°13'W,Europe/London,20
 # US State Capitals
 Montgomery,USA,32°21'N,86°16'W,US/Central,42
 Juneau,USA,58°23'N,134°11'W,US/Alaska,29
-Phoenix,USA,33°26'N,112°04'W,US/Mountain,331
+Phoenix,USA,33°26'N,112°04'W,America/Phoenix,331
 Little Rock,USA,34°44'N,92°19'W,US/Central,95
 Sacramento,USA,38°33'N,121°28'W,US/Pacific,15
 Denver,USA,39°44'N,104°59'W,US/Mountain,1600
