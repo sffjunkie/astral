@@ -13,4 +13,4 @@ def test_GhentDawn_NeverReachesDepression():
         a = astral.Astral(astral.GoogleGeocoder)
         l = a['Ghent,Belgium']
         l.solar_depression = 18
-        l.dawn_utc(local=True)
+        l.dawn(local=True)
