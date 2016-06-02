@@ -890,7 +890,7 @@ class Location(object):
         """Calculates the night time (the time between astronomical dusk and
         astronomical dawn of the next day)
 
-        :param date: The date for which to calculate night.
+        :param date: The date for which to calculate the start of the night time.
                      If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
@@ -1546,8 +1546,8 @@ class Astral(object):
         try:
             return self._calc_time(depression, SUN_RISING, date, latitude, longitude)
         except:
-            raise AstralError(('Sun remains below the horizon on this day, '
-                               'at this location.'))
+            raise AstralError(('Sun never reaches %d degrees below the horizon, '
+                               'at this location.') % (depression - 90))
 
     def sunrise_utc(self, date, latitude, longitude):
         """Calculate sunrise time in the UTC timezone.
@@ -1665,8 +1665,8 @@ class Astral(object):
         try:
             return self._calc_time(depression, SUN_SETTING, date, latitude, longitude)
         except:
-            raise AstralError(('Sun remains below the horizon on this day, '
-                               'at this location.'))
+            raise AstralError(('Sun never reaches %d degrees below the horizon, '
+                               'at this location.') % (depression - 90))
 
     def daylight_utc(self, date, latitude, longitude):
         """Calculate daylight start and end times in the UTC timezone.
@@ -1689,6 +1689,9 @@ class Astral(object):
 
     def night_utc(self, date, latitude, longitude):
         """Calculate night start and end times in the UTC timezone.
+        
+        Night is calculated to be between astronomical dusk on the
+        date specified and astronomical dawn of the next day.
 
         :param date:       Date to calculate for.
         :type date:        :class:`datetime.date`
