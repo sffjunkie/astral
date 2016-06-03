@@ -57,6 +57,8 @@ or ::
     >>> a.geocoder = GoogleGeocoder()
 """
 
+from __future__ import unicode_literals
+
 try:
     import pytz
 except ImportError:
@@ -67,6 +69,7 @@ import datetime
 from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
 from math import radians, degrees, pow
+import sys
 
 try:
     from urllib import quote_plus
@@ -82,7 +85,12 @@ try:
     import simplejson as json
 except ImportError:
     import json
-
+    
+if sys.version_info[0] >= 3:
+    ustr = str
+else:
+    ustr = unicode
+    
 __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
@@ -568,7 +576,7 @@ class Location(object):
 
     @latitude.setter
     def latitude(self, latitude):
-        if isinstance(latitude, str):
+        if isinstance(latitude, str) or isinstance(latitude, ustr):
             (deg, rest) = latitude.split("°", 1)
             (minute, rest) = rest.split("'", 1)
 
@@ -596,7 +604,7 @@ class Location(object):
 
     @longitude.setter
     def longitude(self, longitude):
-        if isinstance(longitude, str):
+        if isinstance(longitude, str) or isinstance(longitude, ustr):
             (deg, rest) = longitude.split("°", 1)
             (minute, rest) = rest.split("'", 1)
 
@@ -1479,7 +1487,7 @@ class Astral(object):
 
     @solar_depression.setter
     def solar_depression(self, depression):
-        if isinstance(depression, str):
+        if isinstance(depression, str) or isinstance(depression, ustr):
             try:
                 self._depression = {
                     'civil': 6,
