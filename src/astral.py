@@ -101,7 +101,7 @@ __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 SUN_RISING = 1
 SUN_SETTING = -1
 
-# name,region,longitude,latitude,timezone,elevation
+# name,region,latitude,longitude,timezone,elevation
 _LOCATION_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai,5
 Abu Dhabi,United Arab Emirates,24°28'N,54°22'E,Asia/Dubai,5
 Abuja,Nigeria,09°05'N,07°32'E,Africa/Lagos,342
