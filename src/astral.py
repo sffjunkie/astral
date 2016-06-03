@@ -1647,7 +1647,7 @@ class Astral(object):
         try:
             return self._calc_time(90 + 0.833, SUN_SETTING, date, latitude, longitude)
         except:
-            raise AstralError(('Sun remains below the horizon on this day, '
+            raise AstralError(('Sun remains above the horizon on this day, '
                                'at this location.'))
 
     def dusk_utc(self, date, latitude, longitude, depression=0):
@@ -1853,9 +1853,8 @@ class Astral(object):
         try:
             return self._calc_time(depression, direction, date, latitude, longitude)
         except Exception:
-            raise AstralError(('The sun does not reach the elevation specified '
-                               'on this day and '
-                               'at this location.'))
+            raise AstralError(('Sun never reaches an elevation of %d degrees'
+                               'at this location.') % elevation)
 
     def solar_azimuth(self, dateandtime, latitude, longitude):
         """Calculate the azimuth angle of the sun.
