@@ -8,9 +8,9 @@ import pytest
 import astral
 
 
-def test_GhentDawn_NeverReachesDepression():
+def test_Dawn_NeverReachesDepression():
     with pytest.raises(astral.AstralError):
-        a = astral.Astral(astral.GoogleGeocoder)
-        l = a['Ghent,Belgium']
+        a = astral.Astral()
+        l = a['London']
         l.solar_depression = 18
         l.dawn(local=True)
