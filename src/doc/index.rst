@@ -269,6 +269,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.2      * Added handling for when unicode literals are used.
+         * Changed timezone for Phoenix, AZ to America/Phoenix 
+-------- -----------------------------------------------------------------------
 1.1      * Added methods to calculate Twilight, the Golden Hour and the Blue
            Hour. 
 -------- -----------------------------------------------------------------------
