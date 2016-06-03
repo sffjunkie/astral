@@ -269,7 +269,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
-1.2      * Added handling for when unicode literals are used.
+1.2      * Added handling for when unicode literals are used. This may possibly
+           affect your code if you're using Python 2 (there are tests for this
+           but they may not catch all uses.)
          * Changed timezone for Phoenix, AZ to America/Phoenix 
 -------- -----------------------------------------------------------------------
 1.1      * Added methods to calculate Twilight, the Golden Hour and the Blue
