@@ -12,6 +12,12 @@ import pytest
 import astral
 
 @pytest.mark.py2only
+def test_Location_WithUnicodeLiteral():
+    a = astral.Astral()
+    _l = a['London']
+
+
+@pytest.mark.py2only
 def test_Latitude_WithUnicodeLiteral():
     l = astral.Location(('a place', 'a region', 1, 1))
     l.latitude = "24°28'N"
