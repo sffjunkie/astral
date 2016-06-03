@@ -271,8 +271,8 @@ Version  Description
 ======== =======================================================================
 1.2      * Added handling for when unicode literals are used. This may possibly
            affect your code if you're using Python 2 (there are tests for this
-           but they may not catch all uses.)
-         * Changed timezone for Phoenix, AZ to America/Phoenix 
+           but they may not catch all uses.) (Bug `1588198`_\)
+         * Changed timezone for Phoenix, AZ to America/Phoenix (Bug `1561258`_\) 
 -------- -----------------------------------------------------------------------
 1.1      * Added methods to calculate Twilight, the Golden Hour and the Blue
            Hour. 
@@ -367,6 +367,8 @@ Version  Description
 .. _1402103: https://bugs.launchpad.net/astral/+bug/1402103
 .. _1407773: https://bugs.launchpad.net/astral/+bug/1407773
 .. _1417641: https://bugs.launchpad.net/astral/+bug/1417641
+.. _1561258: https://bugs.launchpad.net/astral/+bug/1561258
+.. _1588198: https://bugs.launchpad.net/astral/+bug/1588198
 .. _javascript: http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
 .. _pytz docs: http://pytz.sourceforge.net/#localized-times-and-date-arithmetic
 
