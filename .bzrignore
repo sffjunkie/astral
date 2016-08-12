@@ -18,3 +18,4 @@ venv
 .cache
 **/*.egg-info
 .idea
+.git

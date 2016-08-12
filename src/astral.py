@@ -498,6 +498,11 @@ Iqaluit,Canada,63°44'N,68°31'W,America/Iqaluit,3
 class AstralError(Exception):
     pass
 
+
+class SunBelowHorizonError(AstralError):
+    pass
+
+
 class Location(object):
     """Provides access to information for single location."""
 
