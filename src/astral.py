@@ -85,12 +85,12 @@ try:
     import simplejson as json
 except ImportError:
     import json
-    
+
 if sys.version_info[0] >= 3:
     ustr = str
 else:
     ustr = unicode
-    
+
 __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
@@ -930,10 +930,10 @@ class Location(object):
     def twilight(self, direction=SUN_RISING, date=None, local=True):
         """Returns the start and end times of Twilight in the UTC timezone when
         the sun is traversing in the specified direction.
-        
+
         This method defines twilight as being between the time
         when the sun is at -6 degrees and sunrise/sunset.
-        
+
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
@@ -949,7 +949,7 @@ class Location(object):
 
         if date is None:
             date = datetime.date.today()
-            
+
         start, end = self.astral.twilight_utc(date, direction,
                                               self.latitude, self.longitude)
 
@@ -960,10 +960,10 @@ class Location(object):
 
     def time_at_elevation(self, elevation, direction=SUN_RISING, date=None, local=True):
         """Calculate the time when the sun is at the specified elevation.
-        
+
         Note:
             This method uses positive elevations for those above the horizon.
-            
+
             Elevations greater than 90 degrees are converted to a setting sun
             i.e. an elevation of 110 will calculate a setting sun at 70 degrees.
 
@@ -988,7 +988,7 @@ class Location(object):
 
         if date is None:
             date = datetime.date.today()
-        
+
         if elevation > 90.0:
             elevation = 180.0 - elevation
             direction = SUN_SETTING
@@ -1027,15 +1027,15 @@ class Location(object):
                           rahukaalam[1].astimezone(self.tz))
 
         return rahukaalam
-    
+
     def golden_hour(self, direction=SUN_RISING, date=None, local=True):
         """Returns the start and end times of the Golden Hour when the sun is traversing
         in the specified direction.
-        
+
         This method uses the definition from PhotoPills i.e. the
         golden hour is when the sun is between 4 degrees below the horizon
         and 6 degrees above.
-        
+
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
         :type direction:   int
@@ -1056,21 +1056,21 @@ class Location(object):
             date = datetime.date.today()
 
         start, end = self.astral.golden_hour_utc(direction, date,
-                                                 self.latitude, self.longitude)        
-        
+                                                 self.latitude, self.longitude)
+
         if local:
             start = start.astimezone(self.tz)
             end = end.astimezone(self.tz)
-        
+
         return start, end
-    
+
     def blue_hour(self, direction=SUN_RISING, date=None, local=True):
         """Returns the start and end times of the Blue Hour when the sun is traversing
         in the specified direction.
-        
+
         This method uses the definition from PhotoPills i.e. the
         blue hour is when the sun is between 6 and 4 degrees below the horizon.
-        
+
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
         :type direction:   int
@@ -1090,14 +1090,14 @@ class Location(object):
 
         if date is None:
             date = datetime.date.today()
-            
+
         start, end = self.astral.blue_hour_utc(direction, date,
                                                self.latitude, self.longitude)
-        
+
         if local:
             start = start.astimezone(self.tz)
             end = end.astimezone(self.tz)
-        
+
         return start, end
 
     def solar_azimuth(self, dateandtime=None):
@@ -1117,7 +1117,7 @@ class Location(object):
             dateandtime = datetime.datetime.now(self.tz)
         elif not dateandtime.tzinfo:
             dateandtime = self.tz.localize(dateandtime)
-            
+
         dateandtime = dateandtime.astimezone(pytz.UTC)
 
         return self.astral.solar_azimuth(dateandtime,
@@ -1140,7 +1140,7 @@ class Location(object):
             dateandtime = datetime.datetime.now(self.tz)
         elif not dateandtime.tzinfo:
             dateandtime = self.tz.localize(dateandtime)
-            
+
         dateandtime = dateandtime.astimezone(pytz.UTC)
 
         return self.astral.solar_elevation(dateandtime,
@@ -1152,11 +1152,11 @@ class Location(object):
         :param dateandtime: The date and time for which to calculate the angle.
         :type dateandtime: :class:`~datetime.datetime`
 
-        :returns: The zenith angle in degrees above the horizon.
+        :returns: The zenith angle in degrees from vertical.
         :rtype: float
         """
 
-        return self.solar_elevation(dateandtime)
+        return 90.0 - self.solar_elevation(dateandtime)
 
     def moon_phase(self, date=None):
         """Calculates the moon phase for a specific date.
@@ -1702,7 +1702,7 @@ class Astral(object):
 
     def night_utc(self, date, latitude, longitude):
         """Calculate night start and end times in the UTC timezone.
-        
+
         Night is calculated to be between astronomical dusk on the
         date specified and astronomical dawn of the next day.
 
@@ -1726,10 +1726,10 @@ class Astral(object):
     def twilight_utc(self, direction, date, latitude, longitude):
         """Returns the start and end times of Twilight in the UTC timezone when
         the sun is traversing in the specified direction.
-        
+
         This method defines twilight as being between the time
         when the sun is at -6 degrees and sunrise/sunset.
-        
+
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
@@ -1746,26 +1746,26 @@ class Astral(object):
 
         if date is None:
             date = datetime.date.today()
-        
+
         start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude)
         if direction == SUN_RISING:
             end = self.sunrise_utc(date, latitude, longitude)
         else:
             end = self.sunset_utc(date, latitude, longitude)
-        
+
         if direction == SUN_RISING:
             return start, end
         else:
             return end, start
-    
+
     def golden_hour_utc(self, direction, date, latitude, longitude):
         """Returns the start and end times of the Golden Hour in the UTC timezone
         when the sun is traversing in the specified direction.
-        
+
         This method uses the definition from PhotoPills i.e. the
         golden hour is when the sun is between 4 degrees below the horizon
         and 6 degrees above.
-        
+
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
@@ -1782,12 +1782,12 @@ class Astral(object):
 
         if date is None:
             date = datetime.date.today()
-        
+
         start = self.time_at_elevation_utc(-4, direction, date,
                                            latitude, longitude)
         end = self.time_at_elevation_utc(6, direction, date,
                                          latitude, longitude)
-        
+
         if direction == SUN_RISING:
             return start, end
         else:
@@ -1796,10 +1796,10 @@ class Astral(object):
     def blue_hour_utc(self, direction, date, latitude, longitude):
         """Returns the start and end times of the Blue Hour in the UTC timezone
         when the sun is traversing in the specified direction.
-        
+
         This method uses the definition from PhotoPills i.e. the
         blue hour is when the sun is between 6 and 4 degrees below the horizon.
-        
+
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
@@ -1816,21 +1816,21 @@ class Astral(object):
 
         if date is None:
             date = datetime.date.today()
-        
+
         start = self.time_at_elevation_utc(-6, direction, date,
                                            latitude, longitude)
         end = self.time_at_elevation_utc(-4, direction, date,
                                          latitude, longitude)
-        
+
         if direction == SUN_RISING:
             return start, end
         else:
             return end, start
-    
+
     def time_at_elevation_utc(self, elevation, direction, date, latitude, longitude):
         """Calculate the time in the UTC timezone when the sun is at
         the specified elevation on the specified date.
-        
+
         Note: This method uses positive elevations for those above the horizon.
 
         :param elevation:  Elevation in degrees above the horizon to calculate for.
@@ -1849,7 +1849,7 @@ class Astral(object):
                  elevation.
         :rtype: :class:`~datetime.datetime`
         """
-        
+
         if elevation > 90.0:
             elevation = 180.0 - elevation
             direction = SUN_SETTING
@@ -2079,14 +2079,14 @@ class Astral(object):
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
-        :return: The zenith angle in degrees above the horizon.
+        :return: The zenith angle in degrees from vertical.
         :rtype: float
 
         If `dateandtime` is a naive Python datetime then it is assumed to be
         in the UTC timezone.
         """
 
-        return self.solar_elevation(dateandtime, latitude, longitude)
+        return 90.0 - self.solar_elevation(dateandtime, latitude, longitude)
 
     def moon_phase(self, date):
         """Calculates the phase of the moon on the specified date.
@@ -2103,7 +2103,7 @@ class Astral(object):
                 | 21 = Last quarter
         :rtype: int
         """
-        
+
         jd = self._julianday(date)
         DT = pow((jd - 2382148), 2) / (41048480 * 86400)
         T = (jd + DT - 2451545.0) / 36525
@@ -2308,10 +2308,10 @@ class Astral(object):
 
         n = cos(depression_rad)
         d = cos(latitude_rad) * cos(declination_rad)
-        
+
         t = tan(latitude_rad) * tan(declination_rad)
         h = (n / d) - t
-        
+
         HA = acos(h)
         return HA
 
