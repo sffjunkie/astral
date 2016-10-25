@@ -1587,8 +1587,6 @@ class Astral(object):
 
         :param date:       Date to calculate for.
         :type date:        :class:`datetime.date`
-        :param latitude:   Latitude - Northern latitudes should be positive
-        :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
 
