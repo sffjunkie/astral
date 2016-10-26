@@ -63,6 +63,14 @@ def test_Astral_SolarAzimuth():
     assert float_almost_equal(azimuth, 133.162, 0.1)
 
 
+def test_Astral_SolarZenith():
+    dd = Astral()
+    dt = datetime.datetime(2015, 2, 3, 9, 0, 0, tzinfo=pytz.UTC)
+
+    zenith = dd.solar_zenith(dt, 51.5, -0.12)
+    assert float_almost_equal(zenith, 90.0 - 9.97, 0.1)
+
+
 def test_Astral_SolarElevationWithTimezone():
     dd = Astral()
     location = dd['Jubail']
