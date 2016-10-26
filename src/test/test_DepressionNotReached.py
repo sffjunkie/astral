@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 import os
 import sys
 sys.path.insert(0,
@@ -6,11 +8,12 @@ sys.path.insert(0,
 
 import pytest 
 import astral
+import datetime
 
 
 def test_Dawn_NeverReachesDepression():
+    d = datetime.date(2016, 5, 29)
     with pytest.raises(astral.AstralError):
-        a = astral.Astral()
-        l = a['London']
+        l = astral.Location(("Ghent", "Belgium", "51°3'N", "3°44'W", "Europe/Brussels"))
         l.solar_depression = 18
-        l.dawn(local=True)
+        l.dawn(date=d, local=True)
