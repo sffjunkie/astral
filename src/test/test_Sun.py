@@ -152,6 +152,21 @@ def test_Astral_SolarNoon():
         assert datetime_almost_equal(solar_noon, solar_noon_utc)
 
 
+def test_Astral_SolarMidnight():
+    a = Astral()
+    l = a['London']
+
+    test_data = {
+        datetime.date(2016, 2, 18): datetime.datetime(2016, 2, 18, 0, 14),
+        datetime.date(2016, 10, 26): datetime.datetime(2016, 10, 25, 23, 44),
+    }
+
+    for day, solar_midnight in test_data.items():    
+        solar_midnight = pytz.UTC.localize(solar_midnight)
+        solar_midnight_utc = a.solar_midnight_utc(day, l.longitude)
+        assert datetime_almost_equal(solar_midnight, solar_midnight_utc)
+
+
 # Test data from http://www.astroloka.com/rahukaal.aspx?City=Delhi
 def test_Astral_Rahukaalam():
     a = Astral()
