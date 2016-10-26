@@ -19,6 +19,9 @@ Sunrise
 Solar Noon
     The time when the sun is at its highest point.
     
+Solar Midnight
+    The time when the sun is at its lowest point.
+
 Sunset
     The time in the evening when the sun is about to disappear below the horizon
     (asuming a location with no obscuring features.)
