@@ -872,6 +872,34 @@ class Location(object):
         else:
             return dusk
 
+    def solar_midnight(self, date=None, local=True):
+        """Calculates the solar midnight (the time when the sun is at its lowest
+        point.)
+
+        :param date: The date for which to calculate the midnight time.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Time to be returned in location's time zone;
+                      False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: The date and time at which the solar midnight occurs.
+        :rtype: :class:`~datetime.datetime`
+        """
+
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        midnight = self.astral.solar_midnight_utc(date, self.longitude)
+
+        if local:
+            return midnight.astimezone(self.tz)
+        else:
+            return midnight
+
     def daylight(self, date=None, local=True):
         """Calculates the daylight time (the time between sunrise and sunset)
 
@@ -1678,6 +1706,58 @@ class Astral(object):
         except:
             raise AstralError(('Sun never reaches %d degrees below the horizon, '
                                'at this location.') % (depression - 90))
+
+    def solar_midnight_utc(self, date, longitude):
+        """Calculate solar midnight time in the UTC timezone.
+
+        Note that this claculates the solar midgnight that is closest
+        to 00:00:00 of the specified date i.e. it may return a time that is on
+        the previous day.
+
+        :param date:       Date to calculate for.
+        :type date:        :class:`datetime.date`
+        :param longitude:  Longitude - Eastern longitudes should be positive
+        :type longitude:   float
+
+        :return: The UTC date and time at which midnight occurs.
+        :rtype: :class:`~datetime.datetime`
+        """
+
+        julianday = self._julianday(date)
+
+        newt = self._jday_to_jcentury(julianday + 0.5 + -longitude / 360.0)
+
+        eqtime = self._eq_of_time(newt)
+        timeUTC = (-longitude * 4.0) - eqtime
+
+        timeUTC = timeUTC / 60.0
+        hour = int(timeUTC)
+        minute = int((timeUTC - hour) * 60)
+        second = int((((timeUTC - hour) * 60) - minute) * 60)
+
+        if second > 59:
+            second -= 60
+            minute += 1
+        elif second < 0:
+            second += 60
+            minute -= 1
+
+        if minute > 59:
+            minute -= 60
+            hour += 1
+        elif minute < 0:
+            minute += 60
+            hour -= 1
+
+        if hour < 0:
+            hour += 24
+            date -= datetime.timedelta(days=1)
+
+        midnight = datetime.datetime(date.year, date.month, date.day,
+                                 hour, minute, second)
+        midnight = pytz.UTC.localize(midnight)
+
+        return midnight
 
     def daylight_utc(self, date, latitude, longitude):
         """Calculate daylight start and end times in the UTC timezone.
