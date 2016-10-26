@@ -269,6 +269,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.3      * Corrected solar zenith to return the angle from the vertical.
+         * Added solar midnight calculation.
+-------- -----------------------------------------------------------------------
 1.2      * Added handling for when unicode literals are used. This may possibly
            affect your code if you're using Python 2 (there are tests for this
            but they may not catch all uses.) (Bug `1588198`_\)
