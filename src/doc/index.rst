@@ -15,10 +15,10 @@ Dawn
 Sunrise
     The time in the morning when the top of the sun breaks the horizon
     (asuming a location with no obscuring features.)
-    
+
 Solar Noon
     The time when the sun is at its highest point.
-    
+
 Solar Midnight
     The time when the sun is at its lowest point.
 
@@ -32,16 +32,16 @@ Dusk
 
 Daylight
    The time when the sun is up i.e. between sunrise and sunset
-   
+
 Night
    The time between astronomical dusk of one day and astronomical dawn of the next
 
 Twilight
    The time between dawn and sunrise or between sunset and dusk
-   
+
 The Golden Hour
    The time when the sun is between 4 degrees below the horizon and 6 degrees above.
-   
+
 The Blue Hour
    The time when the sun is between 6 and 4 degrees below the horizon.
 
@@ -59,7 +59,7 @@ Solar Elevation
     "Rahukaalam or the period of Rahu is a certain amount of time every day
     that is considered inauspicious for any new venture according to Indian
     Vedic astrology".
-    
+
 Moon Phase
     Calculates the phase of the moon for a specified date.
 
@@ -70,25 +70,25 @@ The following example demonstrates the functionality available in the module::
 
     >>> import datetime
     >>> from astral import Astral
-    
+
     >>> city_name = 'London'
-    
+
     >>> a = Astral()
     >>> a.solar_depression = 'civil'
-    
+
     >>> city = a[city_name]
-    
+
     >>> print('Information for %s/%s\n' % (city_name, city.region))
     Information for London/England
-    
+
     >>> timezone = city.timezone
     >>> print('Timezone: %s' % timezone)
     Timezone: Europe/London
-    
+
     >>> print('Latitude: %.02f; Longitude: %.02f\n' % \
     >>>     (city.latitude, city.longitude))
     Latitude: 51.60; Longitude: 0.08
-    
+
     >>> sun = city.sun(date=datetime.date(2009, 4, 22), local=True)
     >>> print('Dawn:    %s' % str(sun['dawn']))
     >>> print('Sunrise: %s' % str(sun['sunrise']))
@@ -108,7 +108,7 @@ tuple on initialization::
    l = Location(('name', 'region',
                  0.1, 1.2, 'timezone/name', 0))
    l.sun()
-                 
+
 or set the attributes after initialization::
 
    l = Location()
@@ -125,14 +125,14 @@ or set the attributes after initialization::
    `name` and `region` can be anything you like.
 
 Access to the current geocoder can be made through the Astral class::
-    
+
     >>> a = Astral()
     >>> geo = a.geocoder
     >>> london = geo['London']
-    
+
 Timezone groups such as Europe can be accessed via attributes on the
 :class:`~astral.AstralGeocoder`::
-    
+
     >>> geo = AstralGeocoder()
     >>> europe = geo.europe.locations
     >>> europe.sort()
@@ -143,7 +143,7 @@ Note on Localized Timezones
 ===========================
 
 When creating a datetime object in a specific timezone do not use the
-`tzinfo` parameter to the datetime constructor. Instead please use the 
+`tzinfo` parameter to the datetime constructor. Instead please use the
 :meth:`~datetime.datetime.localize` method on the correct pytz timezone::
 
    dt = datetime.datetime(2015, 1, 1, 9, 0, 0)
@@ -245,13 +245,13 @@ Thanks
 
 The sun calculations in this module were adapted, for Python, from the following
 spreadsheet.
-    
+
     http://www.ecy.wa.gov/programs/eap/models/twilight.zip
-    
+
 Which takes its calculations from
 
     http://www.srrb.noaa.gov/highlights/sunrise/azel.html
-    
+
 The moon phase calculation is based on some `javascript`_ code
 from Sky and Telescope magazine
 
@@ -263,25 +263,27 @@ of the docs is any easier.)
 
 Contact
 =======
-    
+
 Simon Kennedy <sffjunkie+code@gmail.com>
-    
+
 Version History
 ===============
 
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.3.1    * Added LICENSE file to sdist
+-------- -----------------------------------------------------------------------
 1.3      * Corrected solar zenith to return the angle from the vertical.
          * Added solar midnight calculation.
 -------- -----------------------------------------------------------------------
 1.2      * Added handling for when unicode literals are used. This may possibly
            affect your code if you're using Python 2 (there are tests for this
            but they may not catch all uses.) (Bug `1588198`_\)
-         * Changed timezone for Phoenix, AZ to America/Phoenix (Bug `1561258`_\) 
+         * Changed timezone for Phoenix, AZ to America/Phoenix (Bug `1561258`_\)
 -------- -----------------------------------------------------------------------
 1.1      * Added methods to calculate Twilight, the Golden Hour and the Blue
-           Hour. 
+           Hour.
 -------- -----------------------------------------------------------------------
 1.0      * It's time for a version 1.0
          * Added examples where the location you want is not in the Astral
@@ -305,7 +307,7 @@ Version  Description
          * Added `tzinfo` as an alias for `tz`
 -------- -----------------------------------------------------------------------
 0.8      Fix for bug `1407773`_\: Moon phase calculation changed to remove
-         time zone parameter (tz) as it is not required for the calculation. 
+         time zone parameter (tz) as it is not required for the calculation.
 -------- -----------------------------------------------------------------------
 0.7.5    Fix for bug `1402103`_\: Buenos Aires incorrect timezone
 -------- -----------------------------------------------------------------------
@@ -320,7 +322,7 @@ Version  Description
          :class:`~astral.GoogleGeocoder`
 -------- -----------------------------------------------------------------------
 0.7      * Added ability to lookup location information from
-           Google's mapping APIs (see :class:`~astral.GoogleGeocoder`) 
+           Google's mapping APIs (see :class:`~astral.GoogleGeocoder`)
          * Renamed :class:`City` class to :class:`~astral.Location`
          * Renamed :class:`CityDB` to :class:`~astral.AstralGeocoder`
          * Added elevations of cities to database and property to
@@ -334,9 +336,9 @@ Version  Description
 -------- -----------------------------------------------------------------------
 0.6      * Fix for bug `884716`_ submitted by Martin Heemskerk
            regarding moon phase calculations
-           
+
          * Fixes for bug report `944754`_ submitted by Hajo Werder
-         
+
            - Changed co-ordinate system so that eastern longitudes
              are now positive
            - Added solar_depression property to City class
@@ -355,7 +357,7 @@ Version  Description
          * Fix for bug `555508`_ submitted by me.
          * US state capitals and other cities added.
 -------- -----------------------------------------------------------------------
-0.2      Fix for bug `554041`_ submitted by Derek\_ / John Dimatos 
+0.2      Fix for bug `554041`_ submitted by Derek\_ / John Dimatos
 -------- -----------------------------------------------------------------------
 0.1      First release
 ======== =======================================================================
@@ -381,5 +383,5 @@ Version  Description
 .. toctree::
    :maxdepth: 2
    :hidden:
-   
+
    module
