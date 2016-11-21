@@ -272,6 +272,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.3.2    * Updated URL to point to gitgub.com
+         * Added Apache 2.0 boilerplate to source file
+-------- -----------------------------------------------------------------------
 1.3.1    * Added LICENSE file to sdist
 -------- -----------------------------------------------------------------------
 1.3      * Corrected solar zenith to return the angle from the vertical.
