@@ -44,14 +44,14 @@ try:
     long_description = read_contents(os.path.dirname(__file__), 'README')
 except ImportError:
     long_description = description
-        
+
 setup(name='astral',
       version=astral_version,
       description=description,
       long_description=long_description,
       author='Simon Kennedy',
       author_email='sffjunkie+code@gmail.com',
-      url="https://launchpad.net/astral",
+      url="https://github.com/sffjunkie/astral",
       license='Apache-2.0',
       classifiers=[
         "Intended Audience :: Developers",
@@ -62,7 +62,7 @@ setup(name='astral',
       package_dir={'': PACKAGE_DIR},
       py_modules=['astral'],
       install_requires=['pytz'],
-    
+
       cmdclass = cmd_class,
       tests_require=tests_require,
 )
