@@ -4,7 +4,7 @@ This is 'astral' a Python module which calculates
       sunset, dusk, solar elevation, solar azimuth and rahukaalam.
     * The phase of the moon.
 
-For documentation see the http://pythonhosted.org/astral/
+For documentation see the http://astral.readthedocs.io/en/latest/index.html
 
 GoogleGeocoder
 --------------
