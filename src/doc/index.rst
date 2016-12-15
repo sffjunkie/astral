@@ -272,7 +272,7 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
-1.3.3    * Fixed call to twilight_utc as date and driection parameters
+1.3.3    * Fixed call to twilight_utc as date and direction parameters
            were reversed.
 -------- -----------------------------------------------------------------------
 1.3.2    * Updated URL to point to gitgub.com
