@@ -272,6 +272,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.3.3    * Fixed call to twilight_utc as date and driection parameters
+           were reversed.
+-------- -----------------------------------------------------------------------
 1.3.2    * Updated URL to point to gitgub.com
          * Added Apache 2.0 boilerplate to source file
 -------- -----------------------------------------------------------------------
