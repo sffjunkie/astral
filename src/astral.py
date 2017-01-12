@@ -1409,9 +1409,9 @@ class GoogleGeocoder(object):
     def __init__(self, cache=False):
         self.cache = cache
         self.geocache = {}
-        self._location_query_base = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
+        self._location_query_base = 'https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
         self._timezone_query_base = 'https://maps.googleapis.com/maps/api/timezone/json?location=%f,%f&timestamp=%d&sensor=false'
-        self._elevation_query_base = 'http://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=false'
+        self._elevation_query_base = 'https://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=false'
 
     def __getitem__(self, key):
         if self.cache and key in self.geocache:
