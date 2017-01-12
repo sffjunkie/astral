@@ -990,7 +990,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.twilight_utc(date, direction,
+        start, end = self.astral.twilight_utc(direction, date,
                                               self.latitude, self.longitude)
 
         if local:
