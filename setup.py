@@ -1,4 +1,4 @@
-# Copyright 2009-2015, Simon Kennedy, sffjunkie+code@gmail.com
+# Copyright 2009-2017, Simon Kennedy, sffjunkie+code@gmail.com
 
 import os
 import sys
