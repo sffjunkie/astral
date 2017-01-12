@@ -77,6 +77,12 @@ except ImportError:
     raise ImportError(('The astral module requires the '
                       'pytz module to be available.'))
 
+try:
+    import requests
+except ImportError:
+    raise ImportError(('The astral module requires the '
+                       'requests module to be available.'))
+
 import datetime
 from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
@@ -1483,18 +1489,9 @@ class GoogleGeocoder(object):
             location.elevation = 0
 
     def _read_from_url(self, url):
-        ds = urlopen(url)
-        content_types = ds.headers.get('Content-Type').split(';')
+        ds = requests.get(url)
 
-        charset = 'UTF-8'
-        for ct in content_types:
-            if ct.strip().startswith('charset'):
-                charset = ct.split('=')[1]
-
-        data = ds.read().decode(charset)
-        ds.close()
-
-        return data
+        return ds.text
 
 
 class Astral(object):

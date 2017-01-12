@@ -61,7 +61,7 @@ setup(name='astral',
       ],
       package_dir={'': PACKAGE_DIR},
       py_modules=['astral'],
-      install_requires=['pytz'],
+      install_requires=['pytz', 'requests'],
 
       cmdclass = cmd_class,
       tests_require=tests_require,
