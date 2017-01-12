@@ -2,3 +2,4 @@ include LICENSE
 include notes.txt
 include src/test/*.py
 global-exclude *.pyc
+exclude setup.cfg
