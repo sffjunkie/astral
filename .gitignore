@@ -1,9 +1,11 @@
+tox.ini
+
 # Numerous always-ignore extensions
 *.diff
 *.err
 *.orig
 *.log
-*.pyc
+*.py[cod]
 *.rej
 *.swo
 *.swp
@@ -16,6 +18,7 @@
 Thumbs.db
 .cache
 .project
+.pydevproject
 .settings
 .tmproj
 *.esproj
@@ -32,6 +35,7 @@ dwsync.xml
 .komodotools
 
 # Folders to ignore
+.bzr
 .hg
 .svn
 .CVS
