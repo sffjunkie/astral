@@ -1,3 +1,4 @@
+setup.cfg
 tox.ini
 
 # Numerous always-ignore extensions
