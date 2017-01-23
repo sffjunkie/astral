@@ -18,6 +18,7 @@ tox.ini
 .DS_Store
 Thumbs.db
 .cache
+.coverage
 .project
 .pydevproject
 .settings
