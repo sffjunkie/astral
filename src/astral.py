@@ -511,10 +511,6 @@ class AstralError(Exception):
     pass
 
 
-class SunBelowHorizonError(AstralError):
-    pass
-
-
 def excel_datediff(start_date, end_date):
     return end_date.toordinal() - start_date.toordinal() + 2
 
