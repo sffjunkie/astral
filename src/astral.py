@@ -508,10 +508,11 @@ Iqaluit,Canada,63°44'N,68°31'W,America/Iqaluit,3
 """
 
 class AstralError(Exception):
-    pass
+    """Astral base exception class"""
 
 
 def excel_datediff(start_date, end_date):
+    """Return the same number of days between 2 dates as Excel does"""
     return end_date.toordinal() - start_date.toordinal() + 2
 
 
