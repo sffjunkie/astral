@@ -75,7 +75,7 @@ try:
     import pytz
 except ImportError:
     raise ImportError(('The astral module requires the '
-                      'pytz module to be available.'))
+                       'pytz module to be available.'))
 
 import datetime
 from time import time
@@ -516,7 +516,7 @@ class SunBelowHorizonError(AstralError):
 
 
 def excel_datediff(start_date, end_date):
-    return end_date.toordinal() - start_date.toordinal() + 2 
+    return end_date.toordinal() - start_date.toordinal() + 2
 
 
 class Location(object):
@@ -1037,7 +1037,8 @@ class Location(object):
             elevation = 180.0 - elevation
             direction = SUN_SETTING
 
-        time_ = self.astral.time_at_elevation_utc(elevation, direction, date, self.latitude, self.longitude)
+        time_ = self.astral.time_at_elevation_utc(elevation, direction,
+                                                  date, self.latitude, self.longitude)
 
         if local:
             return time_.astimezone(self.tz)
@@ -1766,7 +1767,7 @@ class Astral(object):
             date -= datetime.timedelta(days=1)
 
         midnight = datetime.datetime(date.year, date.month, date.day,
-                                 hour, minute, second)
+                                     hour, minute, second)
         midnight = pytz.UTC.localize(midnight)
 
         return midnight
@@ -2018,7 +2019,7 @@ class Astral(object):
 
         azDenom = (cos(radians(latitude)) * sin(radians(zenith)))
 
-        if (abs(azDenom) > 0.001):
+        if abs(azDenom) > 0.001:
             azRad = ((sin(radians(latitude)) * cos(radians(zenith))) -
                      sin(radians(solarDec))) / azDenom
 
@@ -2092,7 +2093,7 @@ class Astral(object):
             trueSolarTime = trueSolarTime - 1440
 
         hourangle = trueSolarTime / 4.0 - 180.0
-        #    Thanks to Louis Schwarzmayr for the next line:
+        # Thanks to Louis Schwarzmayr for the next line:
         if hourangle < -180:
             hourangle = hourangle + 360.0
 
@@ -2110,7 +2111,7 @@ class Astral(object):
 
         azDenom = (cos(radians(latitude)) * sin(radians(zenith)))
 
-        if (abs(azDenom) > 0.001):
+        if abs(azDenom) > 0.001:
             azRad = ((sin(radians(latitude)) * cos(radians(zenith))) -
                      sin(radians(solarDec))) / azDenom
 
@@ -2264,13 +2265,13 @@ class Astral(object):
             end_date = utcdatetime.date()
             hour = utcdatetime.hour
             minute = utcdatetime.minute
-            second = utcdatetime.second 
+            second = utcdatetime.second
         else:
             end_date = utcdatetime
             hour = 0
             minute = 0
             second = 0
-        
+
         if timezone:
             if isinstance(timezone, int):
                 hour_offset = timezone
@@ -2370,7 +2371,7 @@ class Astral(object):
 
         sint = sin(radians(e)) * sin(radians(lambd))
         return degrees(asin(sint))
-    
+
     def _var_y(self, juliancentury):
         epsilon = self._obliquity_correction(juliancentury)
         y = tan(radians(epsilon) / 2.0)
