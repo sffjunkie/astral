@@ -515,6 +515,10 @@ class SunBelowHorizonError(AstralError):
     pass
 
 
+def excel_datediff(start_date, end_date):
+    return end_date.toordinal() - start_date.toordinal() + 2 
+
+
 class Location(object):
     """Provides access to information for single location."""
 
@@ -1619,7 +1623,7 @@ class Astral(object):
         try:
             return self._calc_time(90 + 0.833, SUN_RISING, date, latitude, longitude)
         except:
-            raise AstralError(('Sun remains below the horizon on this day, '
+            raise AstralError(('Sun never reaches the horizon on this day, '
                                'at this location.'))
 
     def solar_noon_utc(self, date, longitude):
@@ -1634,14 +1638,10 @@ class Astral(object):
         :rtype: :class:`~datetime.datetime`
         """
 
-        julianday = self._julianday(date)
+        jc = self._jday_to_jcentury(self._julianday(date))
+        eqtime = self._eq_of_time(jc)
+        timeUTC = (720.0 - (4 * longitude) - eqtime) / 60.0
 
-        newt = self._jday_to_jcentury(julianday + 0.5 + -longitude / 360.0)
-
-        eqtime = self._eq_of_time(newt)
-        timeUTC = 720.0 + (-longitude * 4.0) - eqtime
-
-        timeUTC = timeUTC / 60.0
         hour = int(timeUTC)
         minute = int((timeUTC - hour) * 60)
         second = int((((timeUTC - hour) * 60) - minute) * 60)
@@ -1690,7 +1690,7 @@ class Astral(object):
         try:
             return self._calc_time(90 + 0.833, SUN_SETTING, date, latitude, longitude)
         except:
-            raise AstralError(('Sun remains above the horizon on this day, '
+            raise AstralError(('Sun never reaches the horizon on this day, '
                                'at this location.'))
 
     def dusk_utc(self, date, latitude, longitude, depression=0):
@@ -2235,12 +2235,8 @@ class Astral(object):
         if date is None:
             date = datetime.date.today()
 
-        try:
-            sunrise = self.sunrise_utc(date, latitude, longitude)
-            sunset = self.sunset_utc(date, latitude, longitude)
-        except:
-            raise AstralError(('Sun remains below the horizon on this day, '
-                               'at this location.'))
+        sunrise = self.sunrise_utc(date, latitude, longitude)
+        sunset = self.sunset_utc(date, latitude, longitude)
 
         octant_duration = (sunset - sunrise) / 8
 
@@ -2263,27 +2259,31 @@ class Astral(object):
             tmp = ceil(abs(value / 360.0))
             return value + tmp * 360.0
 
-    def _julianday(self, date, timezone=None):
-        day = date.day
-        month = date.month
-        year = date.year
-
+    def _julianday(self, utcdatetime, timezone=None):
+        if isinstance(utcdatetime, datetime.datetime):
+            end_date = utcdatetime.date()
+            hour = utcdatetime.hour
+            minute = utcdatetime.minute
+            second = utcdatetime.second 
+        else:
+            end_date = utcdatetime
+            hour = 0
+            minute = 0
+            second = 0
+        
         if timezone:
-            offset = timezone.localize(datetime.datetime(year, month, day)).utcoffset()
-            offset = offset.total_seconds() / 1440.0
-            day += offset + 0.5
+            if isinstance(timezone, int):
+                hour_offset = timezone
+            else:
+                offset = timezone.localize(utcdatetime).utcoffset()
+                hour_offset = offset.total_seconds() / 3600.0
+        else:
+            hour_offset = 0
 
-        if month <= 2:
-            year = year - 1
-            month = month + 12
-
-        A = floor(year / 100.0)
-        B = 2 - A + floor(A / 4.0)
-
-        jd = floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + \
-            day - 1524.5
-        if jd > 2299160.4999999:
-            jd += B
+        start_date = datetime.date(1900, 1, 1)
+        time_fraction = (hour * 3600.0 + minute * 60.0 + second) / (24.0 * 3600.0)
+        date_diff = excel_datediff(start_date, end_date)
+        jd = date_diff + 2415018.5 + time_fraction - (hour_offset / 24)
 
         return jd
 
@@ -2293,49 +2293,18 @@ class Astral(object):
     def _jcentury_to_jday(self, juliancentury):
         return (juliancentury * 36525.0) + 2451545.0
 
-    def _mean_obliquity_of_ecliptic(self, juliancentury):
-        seconds = 21.448 - juliancentury * \
-            (46.815 + juliancentury * (0.00059 - juliancentury * (0.001813)))
-        return 23.0 + (26.0 + (seconds / 60.0)) / 60.0
-
-    def _obliquity_correction(self, juliancentury):
-        e0 = self._mean_obliquity_of_ecliptic(juliancentury)
-
-        omega = 125.04 - 1934.136 * juliancentury
-        return e0 + 0.00256 * cos(radians(omega))
-
     def _geom_mean_long_sun(self, juliancentury):
         l0 = 280.46646 + \
             juliancentury * (36000.76983 + 0.0003032 * juliancentury)
         return l0 % 360.0
 
-    def _eccentrilocation_earth_orbit(self, juliancentury):
-        return 0.016708634 - \
-            juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
-
     def _geom_mean_anomaly_sun(self, juliancentury):
         return 357.52911 + \
             juliancentury * (35999.05029 - 0.0001537 * juliancentury)
 
-    def _eq_of_time(self, juliancentury):
-        epsilon = self._obliquity_correction(juliancentury)
-        l0 = self._geom_mean_long_sun(juliancentury)
-        e = self._eccentrilocation_earth_orbit(juliancentury)
-        m = self._geom_mean_anomaly_sun(juliancentury)
-
-        y = tan(radians(epsilon) / 2.0)
-        y = y * y
-
-        sin2l0 = sin(2.0 * radians(l0))
-        sinm = sin(radians(m))
-        cos2l0 = cos(2.0 * radians(l0))
-        sin4l0 = sin(4.0 * radians(l0))
-        sin2m = sin(2.0 * radians(m))
-
-        Etime = y * sin2l0 - 2.0 * e * sinm + 4.0 * e * y * sinm * cos2l0 - \
-            0.5 * y * y * sin4l0 - 1.25 * e * e * sin2m
-
-        return degrees(Etime) * 4.0
+    def _eccentrilocation_earth_orbit(self, juliancentury):
+        return 0.016708634 - \
+            juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
 
     def _sun_eq_of_center(self, juliancentury):
         m = self._geom_mean_anomaly_sun(juliancentury)
@@ -2357,18 +2326,11 @@ class Astral(object):
 
         return l0 + c
 
-    def _sun_apparent_long(self, juliancentury):
-        O = self._sun_true_long(juliancentury)
+    def _sun_true_anomoly(self, juliancentury):
+        m = self._geom_mean_anomaly_sun(juliancentury)
+        c = self._sun_eq_of_center(juliancentury)
 
-        omega = 125.04 - 1934.136 * juliancentury
-        return O - 0.00569 - 0.00478 * sin(radians(omega))
-
-    def _sun_declination(self, juliancentury):
-        e = self._obliquity_correction(juliancentury)
-        lambd = self._sun_apparent_long(juliancentury)
-
-        sint = sin(radians(e)) * sin(radians(lambd))
-        return degrees(asin(sint))
+        return m + c
 
     def _sun_rad_vector(self, juliancentury):
         v = self._sun_true_anomoly(juliancentury)
@@ -2376,20 +2338,61 @@ class Astral(object):
 
         return (1.000001018 * (1 - e * e)) / (1 + e * cos(radians(v)))
 
-    def _sun_rt_ascension(self, juliancentury):
-        e = self._obliquity_correction(juliancentury)
-        lambd = self._sun_apparent_long(juliancentury)
+    def _sun_apparent_long(self, juliancentury):
+        O = self._sun_true_long(juliancentury)
 
-        tananum = (cos(radians(e)) * sin(radians(lambd)))
-        tanadenom = (cos(radians(lambd)))
+        omega = 125.04 - 1934.136 * juliancentury
+        return O - 0.00569 - 0.00478 * sin(radians(omega))
+
+    def _mean_obliquity_of_ecliptic(self, juliancentury):
+        seconds = 21.448 - juliancentury * \
+            (46.815 + juliancentury * (0.00059 - juliancentury * (0.001813)))
+        return 23.0 + (26.0 + (seconds / 60.0)) / 60.0
+
+    def _obliquity_correction(self, juliancentury):
+        e0 = self._mean_obliquity_of_ecliptic(juliancentury)
+
+        omega = 125.04 - 1934.136 * juliancentury
+        return e0 + 0.00256 * cos(radians(omega))
+
+    def _sun_rt_ascension(self, juliancentury):
+        oc = self._obliquity_correction(juliancentury)
+        al = self._sun_apparent_long(juliancentury)
+
+        tananum = (cos(radians(oc)) * sin(radians(al)))
+        tanadenom = cos(radians(al))
 
         return degrees(atan2(tananum, tanadenom))
 
-    def _sun_true_anomoly(self, juliancentury):
-        m = self._geom_mean_anomaly_sun(juliancentury)
-        c = self._sun_eq_of_center(juliancentury)
+    def _sun_declination(self, juliancentury):
+        e = self._obliquity_correction(juliancentury)
+        lambd = self._sun_apparent_long(juliancentury)
 
-        return m + c
+        sint = sin(radians(e)) * sin(radians(lambd))
+        return degrees(asin(sint))
+    
+    def _var_y(self, juliancentury):
+        epsilon = self._obliquity_correction(juliancentury)
+        y = tan(radians(epsilon) / 2.0)
+        return y * y
+
+    def _eq_of_time(self, juliancentury):
+        l0 = self._geom_mean_long_sun(juliancentury)
+        e = self._eccentrilocation_earth_orbit(juliancentury)
+        m = self._geom_mean_anomaly_sun(juliancentury)
+
+        y = self._var_y(juliancentury)
+
+        sin2l0 = sin(2.0 * radians(l0))
+        sinm = sin(radians(m))
+        cos2l0 = cos(2.0 * radians(l0))
+        sin4l0 = sin(4.0 * radians(l0))
+        sin2m = sin(2.0 * radians(m))
+
+        Etime = y * sin2l0 - 2.0 * e * sinm + 4.0 * e * y * sinm * cos2l0 - \
+            0.5 * y * y * sin4l0 - 1.25 * e * e * sin2m
+
+        return degrees(Etime) * 4.0
 
     def _hour_angle(self, latitude, declination, depression):
         latitude_rad = radians(latitude)
@@ -2398,7 +2401,6 @@ class Astral(object):
 
         n = cos(depression_rad)
         d = cos(latitude_rad) * cos(declination_rad)
-
         t = tan(latitude_rad) * tan(declination_rad)
         h = (n / d) - t
 
@@ -2418,24 +2420,13 @@ class Astral(object):
         eqtime = self._eq_of_time(t)
         solarDec = self._sun_declination(t)
 
-        hourangle = -self._hour_angle(latitude, solarDec, 90 + 0.833)
-
-        delta = -longitude - degrees(hourangle)
-        timeDiff = 4.0 * delta
-        timeUTC = 720.0 + timeDiff - eqtime
-
-        newt = self._jday_to_jcentury(self._jcentury_to_jday(t) +
-                                      timeUTC / 1440.0)
-        eqtime = self._eq_of_time(newt)
-        solarDec = self._sun_declination(newt)
-
         hourangle = self._hour_angle(latitude, solarDec, depression)
         if direction == SUN_SETTING:
             hourangle = -hourangle
 
         delta = -longitude - degrees(hourangle)
-        timeDiff = 4 * delta
-        timeUTC = 720 + timeDiff - eqtime
+        timeDiff = 4.0 * delta
+        timeUTC = 720.0 + timeDiff - eqtime
 
         timeUTC = timeUTC / 60.0
         hour = int(timeUTC)
