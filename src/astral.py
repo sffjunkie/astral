@@ -69,7 +69,7 @@ or ::
     >>> a.geocoder = GoogleGeocoder()
 """
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, division
 
 try:
     import pytz
@@ -2238,7 +2238,7 @@ class Astral(object):
         sunrise = self.sunrise_utc(date, latitude, longitude)
         sunset = self.sunset_utc(date, latitude, longitude)
 
-        octant_duration = (sunset - sunrise) / 8
+        octant_duration = datetime.timedelta(seconds=(sunset - sunrise).seconds / 8)
 
         # Mo,Sa,Fr,We,Th,Tu,Su
         octant_index = [1, 6, 4, 5, 3, 2, 7]
