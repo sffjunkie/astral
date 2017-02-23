@@ -22,7 +22,7 @@ def test_Location_GoldenHour_Morning():
     l = a['London']
 
     test_data = {
-        datetime.date(2016, 5, 18): (datetime.datetime(2016, 5, 18, 3, 37),
+        datetime.date(2016, 5, 18): (datetime.datetime(2016, 5, 18, 3, 38),
                                      datetime.datetime(2016, 5, 18, 4, 53)),
         datetime.date(2016, 1, 1): (datetime.datetime(2016, 1, 1, 7, 41),
                                     datetime.datetime(2016, 1, 1, 9, 7)),

@@ -46,14 +46,27 @@ def test_Location_TimezoneName():
     assert c.name == 'Asia/Riyadh'
 
 
-def test_Location_Timezone():
+def test_Location_TimezoneNameNoLocation():
+    c = Location()
+    c._timezone_group = 'Europe'
+    c._timezone_location = ''
+    assert c.timezone == 'Europe'
+
+
+def test_Location_TimezoneNameBad():
+    c = Location()
+    with raises(ValueError):
+        c.timezone = 'bad/timezone'
+
+
+def test_Location_TimezoneLookup():
     c = Location()
     assert c.tz == pytz.timezone('Europe/London')
     c.timezone='Europe/Stockholm'
     assert c.tz == pytz.timezone('Europe/Stockholm')
 
 
-def test_Location_BadTimezoneName():
+def test_Location_TimezoneLookupBad():
     c = Location()
     c._timezone_group = 'bad'
     c._timezone_location = 'timezone'
