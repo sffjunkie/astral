@@ -243,14 +243,9 @@ Wichita, Wilmington
 Thanks
 ======
 
-The sun calculations in this module were adapted, for Python, from the following
-spreadsheet.
+The sun calculations in this module were adapted, for Python, from the spreadsheets on the following page.
 
-    http://www.ecy.wa.gov/programs/eap/models/twilight.zip
-
-Which takes its calculations from
-
-    http://www.srrb.noaa.gov/highlights/sunrise/azel.html
+    https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
 
 The moon phase calculation is based on some `javascript`_ code
 from Sky and Telescope magazine
@@ -272,6 +267,11 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.4      * Changed to use calculations from NOAA spreadsheets
+         * Changed some exception error messages for when sun does not reach
+           a requested elevation.
+         * Added more tests
+-------- -----------------------------------------------------------------------
 1.3.4    * Changes to project configuration files. No user facing changes.
 -------- -----------------------------------------------------------------------
 1.3.3    * Fixed call to twilight_utc as date and direction parameters
