@@ -8,8 +8,6 @@ PACKAGE_DIR = 'src'
 
 sys.path.insert(0, PACKAGE_DIR)
 
-from astral import __version__ as astral_version
-
 def dev_dir():
     dev_home = os.environ.get('DEV_HOME', None)
     if not dev_home:
@@ -46,7 +44,7 @@ except ImportError:
     long_description = description
 
 setup(name='astral',
-      version=astral_version,
+      version='1.4',
       description=description,
       long_description=long_description,
       author='Simon Kennedy',
