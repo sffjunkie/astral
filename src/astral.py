@@ -1228,7 +1228,7 @@ class Location(object):
 
 class LocationGroup(object):
     """Groups a set of timezones by the timezone group"""
-    
+
     def __init__(self, name):
         self.name = name
         self._locations = {}
