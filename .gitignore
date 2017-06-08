@@ -1,5 +1,6 @@
 setup.cfg
 tox.ini
+.tox
 
 # Numerous always-ignore extensions
 *.diff
