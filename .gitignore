@@ -1,6 +1,7 @@
 setup.cfg
 tox.ini
 .tox
+_version.py
 
 # Numerous always-ignore extensions
 *.diff
