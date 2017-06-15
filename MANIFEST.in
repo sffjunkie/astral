@@ -3,3 +3,5 @@ include notes.txt
 include src/test/*.py
 global-exclude *.pyc
 exclude setup.cfg
+include versioneer.py
+include src/_version.py

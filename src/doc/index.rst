@@ -267,6 +267,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.4.1    * Using versioneer to manage version numbers
+-------- -----------------------------------------------------------------------
 1.4      * Changed to use calculations from NOAA spreadsheets
          * Changed some exception error messages for when sun does not reach
            a requested elevation.
