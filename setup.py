@@ -3,6 +3,7 @@
 import os
 import sys
 from setuptools import setup
+import versioneer
 
 PACKAGE_DIR = 'src'
 
@@ -15,7 +16,7 @@ def dev_dir():
 
     return os.path.join(dev_home, 'projects')
 
-cmd_class = {}
+cmd_class = versioneer.get_cmdclass()
 tests_require = []
 
 dd = dev_dir()
@@ -44,7 +45,7 @@ except ImportError:
     long_description = description
 
 setup(name='astral',
-      version='1.4',
+      version=versioneer.get_version(),
       description=description,
       long_description=long_description,
       author='Simon Kennedy',
