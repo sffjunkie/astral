@@ -1,7 +1,10 @@
 setup.cfg
+setup-dev.cfg
 tox.ini
 .tox
 _version.py
+.coveragerc
+.coveralls.yml
 
 # Numerous always-ignore extensions
 *.diff
@@ -44,6 +47,7 @@ dwsync.xml
 .bzr
 .hg
 .svn
+.eggs
 .CVS
 intermediate
 publish
