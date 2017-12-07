@@ -3,4 +3,4 @@ the following location
 
 	http://support.google.com/maps/bin/static.py?hl=en&ts=1342531&page=ts.cs
 
-Refer to the README file for Attribution.
+Refer to the README.md file for Attribution.
