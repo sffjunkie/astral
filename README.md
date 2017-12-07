@@ -1,3 +1,5 @@
+# Astral
+
 This is 'astral' a Python module which calculates
 
     * Times for various positions of the sun: dawn, sunrise, solar noon,
@@ -6,8 +8,7 @@ This is 'astral' a Python module which calculates
 
 For documentation see the http://astral.readthedocs.io/en/latest/index.html
 
-GoogleGeocoder
---------------
+## GoogleGeocoder
 
 `GoogleGeocoder` uses the mapping services provided by Google
 
