@@ -44,7 +44,7 @@ except ImportError:
     long_description = description
 
 setup(name='astral',
-      version='1.4.1',
+      version='1.5',
       description=description,
       long_description=long_description,
       author='Simon Kennedy',
