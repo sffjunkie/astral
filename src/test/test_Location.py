@@ -154,25 +154,26 @@ def test_Location_TimeAtElevation():
     test_data = {
         datetime.date(2016, 1, 5): datetime.datetime(2016, 1, 5, 10, 0),
     }
-    
+
     for day, cdt in test_data.items():
         cdt = location.tz.localize(cdt)
         dt = location.time_at_elevation(28, date=day)
         assert datetime_almost_equal(dt, cdt, seconds=600)
 
-   
+
 def test_Location_SolarDepression():
     c = Location(("Heidelberg", "Germany", 49.412, -8.71, "Europe/Berlin"))
     c.solar_depression = 'nautical'
     assert c.solar_depression == 12
-    
+
     c.solar_depression = 18
     assert c.solar_depression == 18
 
-    
+
 def test_Location_Moon():
+    d = datetime.date(2017, 12, 1)
     c=Location()
-    c.moon_phase()
+    assert c.moon_phase(date=d) == 11
 
 
 def test_Location_TzError():
