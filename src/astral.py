@@ -1542,7 +1542,7 @@ class Astral(object):
                     'civil': 6,
                     'nautical': 12,
                     'astronomical': 18}[depression]
-            except:
+            except KeyError:
                 raise KeyError(("solar_depression must be either a number "
                                 "or one of 'civil', 'nautical' or "
                                 "'astronomical'"))
@@ -1602,9 +1602,12 @@ class Astral(object):
 
         try:
             return self._calc_time(depression, SUN_RISING, date, latitude, longitude)
-        except:
-            raise AstralError(('Sun never reaches %d degrees below the horizon, '
-                               'at this location.') % (depression - 90))
+        except ValueError as exc:
+            if exc.args[0] == 'math domain error':
+                raise AstralError(('Sun never reaches %d degrees below the horizon, '
+                                   'at this location.') % (depression - 90))
+            else:
+                raise
 
     def sunrise_utc(self, date, latitude, longitude):
         """Calculate sunrise time in the UTC timezone.
@@ -1622,9 +1625,12 @@ class Astral(object):
 
         try:
             return self._calc_time(90 + 0.833, SUN_RISING, date, latitude, longitude)
-        except:
-            raise AstralError(('Sun never reaches the horizon on this day, '
-                               'at this location.'))
+        except ValueError as exc:
+            if exc.args[0] == 'math domain error':
+                raise AstralError(('Sun never reaches the horizon on this day, '
+                                   'at this location.'))
+            else:
+                raise
 
     def solar_noon_utc(self, date, longitude):
         """Calculate solar noon time in the UTC timezone.
@@ -1689,9 +1695,12 @@ class Astral(object):
 
         try:
             return self._calc_time(90 + 0.833, SUN_SETTING, date, latitude, longitude)
-        except:
-            raise AstralError(('Sun never reaches the horizon on this day, '
-                               'at this location.'))
+        except ValueError as exc:
+            if exc.args[0] == 'math domain error':
+                raise AstralError(('Sun never reaches the horizon on this day, '
+                                   'at this location.'))
+            else:
+                raise
 
     def dusk_utc(self, date, latitude, longitude, depression=0):
         """Calculate dusk time in the UTC timezone.
@@ -1715,9 +1724,12 @@ class Astral(object):
 
         try:
             return self._calc_time(depression, SUN_SETTING, date, latitude, longitude)
-        except:
-            raise AstralError(('Sun never reaches %d degrees below the horizon, '
-                               'at this location.') % (depression - 90))
+        except ValueError as exc:
+            if exc.args[0] == 'math domain error':
+                raise AstralError(('Sun never reaches %d degrees below the horizon, '
+                                   'at this location.') % (depression - 90))
+            else:
+                raise
 
     def solar_midnight_utc(self, date, longitude):
         """Calculate solar midnight time in the UTC timezone.
@@ -1947,9 +1959,12 @@ class Astral(object):
         depression = 90 - elevation
         try:
             return self._calc_time(depression, direction, date, latitude, longitude)
-        except Exception:
-            raise AstralError(('Sun never reaches an elevation of %d degrees'
-                               'at this location.') % elevation)
+        except ValueError as exc:
+            if exc.args[0] == 'math domain error':
+                raise AstralError(('Sun never reaches an elevation of %d degrees'
+                                   'at this location.') % elevation)
+            else:
+                raise
 
     def solar_azimuth(self, dateandtime, latitude, longitude):
         """Calculate the azimuth angle of the sun.
