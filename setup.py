@@ -39,7 +39,7 @@ except ImportError:
 description = 'Calculations for the position of the sun and moon.'
 try:
     from common.setup_funcs import read_contents
-    long_description = read_contents(os.path.dirname(__file__), 'README')
+    long_description = read_contents(os.path.dirname(__file__), 'README.md')
 except ImportError:
     long_description = description
 
