@@ -5,6 +5,8 @@ tox.ini
 _version.py
 .coveragerc
 .coveralls.yml
+.atom-build.yaml
+.atom-build.yml
 
 # Numerous always-ignore extensions
 *.diff
