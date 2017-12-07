@@ -1331,16 +1331,16 @@ class AstralGeocoder(object):
 
                 info = line.split(',')
 
-                l = Location(info)
+                location = Location(info)
 
-                key = l._timezone_group.lower()
+                key = location._timezone_group.lower()
                 try:
                     group = self.__getattr__(key)
                 except AttributeError:
-                    group = LocationGroup(l._timezone_group)
+                    group = LocationGroup(location._timezone_group)
                     self._groups[key] = group
 
-                group[info[0].lower()] = l
+                group[info[0].lower()] = location
 
     def __getattr__(self, key):
         """Access to each timezone group. For example London is in timezone
@@ -1448,9 +1448,9 @@ class GoogleGeocoder(object):
                 location.name = formatted_address[:pos].strip()
                 location.region = formatted_address[pos + 1:].strip()
 
-            l = response['results'][0]['geometry']['location']
-            location.latitude = float(l['lat'])
-            location.longitude = float(l['lng'])
+            geo_location = response['results'][0]['geometry']['location']
+            location.latitude = float(geo_location['lat'])
+            location.longitude = float(geo_location['lng'])
         else:
             raise AstralError('GoogleGeocoder: Unable to locate %s' % key)
 
@@ -2339,10 +2339,10 @@ class Astral(object):
         return (1.000001018 * (1 - e * e)) / (1 + e * cos(radians(v)))
 
     def _sun_apparent_long(self, juliancentury):
-        O = self._sun_true_long(juliancentury)
+        true_long = self._sun_true_long(juliancentury)
 
         omega = 125.04 - 1934.136 * juliancentury
-        return O - 0.00569 - 0.00478 * sin(radians(omega))
+        return true_long - 0.00569 - 0.00478 * sin(radians(omega))
 
     def _mean_obliquity_of_ecliptic(self, juliancentury):
         seconds = 21.448 - juliancentury * \
