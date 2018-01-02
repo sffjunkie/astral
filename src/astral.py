@@ -574,8 +574,12 @@ class Location(object):
         self.url = ''
 
     def __repr__(self):
-        repr_format = '%s/%s, tz=%s, lat=%0.02f, lon=%0.02f'
-        return repr_format % (self.name, self.region,
+        if self.region:
+            _repr = '%s/%s' % (self.name, self.region)
+        else:
+            _repr = self.name
+        repr_format = '%s, tz=%s, lat=%0.02f, lon=%0.02f'
+        return repr_format % (_repr,
                               self.timezone,
                               self.latitude, self.longitude)
 
