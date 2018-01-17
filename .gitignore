@@ -36,6 +36,7 @@ nbproject
 *.sublime-project
 *.sublime-workspace
 *.iml
+.vscode
 
 # Dreamweaver added files
 _notes
