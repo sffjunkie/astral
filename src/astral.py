@@ -83,6 +83,7 @@ import datetime
 from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
 from math import radians, degrees, pow
+from numbers import Number
 import sys
 
 try:
@@ -2429,6 +2430,9 @@ class Astral(object):
         return HA
 
     def _calc_time(self, depression, direction, date, latitude, longitude):
+        if not isinstance(latitude, Number) or not isinstance(longitude, Number):
+            raise TypeError('Latitude and longitude must be a numbers')
+
         julianday = self._julianday(date)
 
         if latitude > 89.8:
