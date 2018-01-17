@@ -13,7 +13,7 @@ def read_contents(*names, **kwargs):
 description = 'Calculations for the position of the sun and moon.'
 try:
     long_description = read_contents(os.path.dirname(__file__), 'README.md')
-except ImportError:
+except:
     long_description = description
 
 setup(name='astral',
