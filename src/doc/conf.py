@@ -24,7 +24,7 @@ if MOCK_MODULES and on_rtd:
 
 project = 'Astral'
 author = 'Simon Kennedy'
-copyright = '2009-2017, %s' % author
+copyright = '2009-2018, %s' % author
 version = '1.5'
 release = '1.5'
 
