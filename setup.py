@@ -4,6 +4,8 @@ import io
 import os
 from setuptools import setup
 
+import monkeypatch # pylint: disable=W0611
+
 def read_contents(*names, **kwargs):
     return io.open(
         os.path.join(*names),
