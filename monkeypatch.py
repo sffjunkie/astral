@@ -1,10 +1,11 @@
-"""Monkey patch distutils to also use setup-dev.cfg"""
+"""Monkey patch distutils to also use setup-dev.cfg and setuptools to add README.md to the default files"""
 
 import os
 import sys
 import distutils.dist
-from distutils.util import check_environ
+from distutils.util import (check_environ, convert_path)
 from distutils.debug import DEBUG
+import setuptools.command.sdist
 
 
 def find_config_files(self):
@@ -60,4 +61,17 @@ def find_config_files(self):
 
     return files
 
+
+def check_readme(self):
+    for f in self.READMES + ('README.md',):
+        if os.path.exists(f):
+            return
+    else:
+        self.warn(
+            "standard file not found: should have one of " +
+            ', '.join(self.READMES)
+        )
+
+
 distutils.dist.Distribution.find_config_files = find_config_files
+setuptools.command.sdist.sdist.check_readme = check_readme
