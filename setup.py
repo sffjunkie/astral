@@ -14,7 +14,7 @@ def read_contents(*names, **kwargs):
 
 description = 'Calculations for the position of the sun and moon.'
 try:
-    long_description = read_contents(os.path.dirname(__file__), 'README.md')
+    long_description = read_contents(os.path.dirname(__file__), 'README.rst')
 except:
     long_description = description
 

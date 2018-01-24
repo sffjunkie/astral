@@ -1,4 +1,5 @@
-# Astral
+Astral
+======
 
 This is 'astral' a Python module which calculates
 
@@ -8,7 +9,8 @@ This is 'astral' a Python module which calculates
 
 For documentation see the https://astral.readthedocs.io/en/stable/index.html
 
-## GoogleGeocoder
+GoogleGeocoder
+~~~~~~~~~~~~~~
 
 `GoogleGeocoder` uses the mapping services provided by Google
 
