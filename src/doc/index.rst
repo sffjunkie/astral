@@ -75,10 +75,15 @@ Solar Elevation
 Moon Phase
     Calculates the phase of the moon for a specified date.
 
-Example
-=======
+Examples
+========
 
-The following example demonstrates the functionality available in the module::
+The following examples demonstrate the functionality available in the module
+
+Sun
+----
+
+::
 
     >>> import datetime
     >>> from astral import Astral
@@ -136,6 +141,39 @@ or set the attributes after initialization::
 
    `name` and `region` can be anything you like.
 
+
+Moon
+----
+
+::
+
+   >>> import datetime
+   >>> from astral import Astral
+   >>> a = Astral()
+   >>> moon_phase = a.moon_phase(date=datetime.date(2018, 1, 1))
+   >>> print(moon_phase)
+   13
+
+The moon phase method returns an integer describing the phase, where the value is between 0 and 27.
+The foloowing lists the mapping of various vales to the description of the phase of the moon.
+
+   | 0  = New moon
+   | 7  = First quarter
+   | 14 = Full moon
+   | 21 = Last quarter
+
+.. note ::
+
+   The moon phase does not depend on your location. However what the moon
+   actually looks like to you does depend on your location. If you're in the
+   southern hemisphere it looks different than if you were in the northern
+   hemisphere.
+
+   See http://moongazer.x10.mx/website/astronomy/moon-phases/ for an example.
+
+Geolocation
+-----------
+
 Access to the current geocoder can be made through the Astral class::
 
     >>> a = Astral()
@@ -150,6 +188,7 @@ Timezone groups such as Europe can be accessed via attributes on the
     >>> europe.sort()
     >>> europe
     ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...]
+
 
 Note on Localized Timezones
 ===========================
