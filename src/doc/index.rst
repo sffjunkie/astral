@@ -279,6 +279,10 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.5      * Added :meth:`moon_phase_asfloat` to
+           :meth:`Astral <astral.Astral.moon_phase_asfloat>` and
+           :meth:`Location <astral.Location.moon_phase_asfloat>` classes
+-------- -----------------------------------------------------------------------
 1.4.1    * Using versioneer to manage version numbers
 -------- -----------------------------------------------------------------------
 1.4      * Changed to use calculations from NOAA spreadsheets
