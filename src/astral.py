@@ -1215,7 +1215,7 @@ class Location(object):
         :type date: :class:`datetime.date`
 
         :returns:
-            A number designating the phase
+            An integer designating the phase
 
                 | 0  = New moon
                 | 7  = First quarter
@@ -1231,6 +1231,31 @@ class Location(object):
             date = datetime.date.today()
 
         return self.astral.moon_phase(date)
+
+    def moon_phase_asfloat(self, date=None):
+        """Calculates the moon phase for a specific date.
+
+        :param date: The date to calculate the phase for.
+                     If ommitted the current date is used.
+        :type date: :class:`datetime.date`
+
+        :returns:
+            A floating point number designating the phase. Numbers between the following phases
+
+                | 0  = New moon
+                | 7  = First quarter
+                | 14 = Full moon
+                | 21 = Last quarter
+        :rtype: float
+        """
+
+        if self.astral is None:
+            self.astral = Astral()
+
+        if date is None:
+            date = datetime.date.today()
+
+        return self.astral.moon_phase_asfloat(date)
 
 
 class LocationGroup(object):
@@ -2207,7 +2232,7 @@ class Astral(object):
         :type date: :class:`datetime.date`
 
         :return:
-            A number designating the phase
+            An integer designating the phase
 
                 | 0  = New moon
                 | 7  = First quarter
@@ -2216,27 +2241,32 @@ class Astral(object):
         :rtype: int
         """
 
-        jd = self._julianday(date)
-        DT = pow((jd - 2382148), 2) / (41048480 * 86400)
-        T = (jd + DT - 2451545.0) / 36525
-        T2 = pow(T, 2)
-        T3 = pow(T, 3)
-        D = 297.85 + (445267.1115 * T) - (0.0016300 * T2) + (T3 / 545868)
-        D = radians(self._proper_angle(D))
-        M = 357.53 + (35999.0503 * T)
-        M = radians(self._proper_angle(M))
-        M1 = 134.96 + (477198.8676 * T) + (0.0089970 * T2) + (T3 / 69699)
-        M1 = radians(self._proper_angle(M1))
-        elong = degrees(D) + 6.29 * sin(M1)
-        elong -= 2.10 * sin(M)
-        elong += 1.27 * sin(2 * D - M1)
-        elong += 0.66 * sin(2 * D)
-        elong = self._proper_angle(elong)
-        elong = round(elong)
-        moon = ((elong + 6.43) / 360) * 28
+        moon = self._moon_phase_asfloat(date)
         moon = floor(moon)
         if moon == 28:
             moon = 0
+
+        return moon
+
+    def moon_phase_asfloat(self, date):
+        """Calculates the phase of the moon on the specified date.
+
+        :param date: The date to calculate the phase for.
+        :type date: :class:`datetime.date`
+
+        :return:
+            A floating point number designating the phase.
+
+                | 0..6.99̅   = New moon
+                | 7..13.99  = First quarter
+                | 14..20.99 = Full moon
+                | 21..27.99 = Last quarter
+        :rtype: float
+        """
+
+        moon = self._moon_phase_asfloat(date)
+        if moon >= 28.0:
+            moon -= 28.0
 
         return moon
 
@@ -2484,3 +2514,24 @@ class Astral(object):
         dt = pytz.UTC.localize(dt)
 
         return dt
+
+    def _moon_phase_asfloat(self, date):
+        jd = self._julianday(date)
+        DT = pow((jd - 2382148), 2) / (41048480 * 86400)
+        T = (jd + DT - 2451545.0) / 36525
+        T2 = pow(T, 2)
+        T3 = pow(T, 3)
+        D = 297.85 + (445267.1115 * T) - (0.0016300 * T2) + (T3 / 545868)
+        D = radians(self._proper_angle(D))
+        M = 357.53 + (35999.0503 * T)
+        M = radians(self._proper_angle(M))
+        M1 = 134.96 + (477198.8676 * T) + (0.0089970 * T2) + (T3 / 69699)
+        M1 = radians(self._proper_angle(M1))
+        elong = degrees(D) + 6.29 * sin(M1)
+        elong -= 2.10 * sin(M)
+        elong += 1.27 * sin(2 * D - M1)
+        elong += 0.66 * sin(2 * D)
+        elong = self._proper_angle(elong)
+        elong = round(elong)
+        moon = ((elong + 6.43) / 360) * 28
+        return moon

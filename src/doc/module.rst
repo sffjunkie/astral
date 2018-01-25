@@ -22,13 +22,13 @@ Astral
 
 .. autoclass:: Astral
    :members:
-   :member-order: bysource 
+   :member-order: bysource
 
    .. automethod:: __getitem__
 
 Location
 --------
-   
+
 .. autoclass:: Location
 
    .. automethod:: __init__
@@ -51,21 +51,22 @@ Location
    .. automethod:: golden_hour(direction=SUN_RISING, date=None, local=True)
    .. automethod:: blue_hour(direction=SUN_RISING, date=None, local=True)
    .. automethod:: time_at_elevation(elevation, direction=SUN_RISING, date=None, local=True)
-   .. automethod:: solar_azimuth   
-   .. automethod:: solar_elevation   
-   .. automethod:: solar_zenith   
+   .. automethod:: solar_azimuth
+   .. automethod:: solar_elevation
+   .. automethod:: solar_zenith
    .. automethod:: moon_phase
+   .. automethod:: moon_phase_asfloat
    .. automethod:: rahukaalam
 
 Geocoders
 ---------
-   
+
 .. autoclass:: AstralGeocoder
    :members:
-   :member-order: bysource 
-   
+   :member-order: bysource
+
 .. autoclass:: GoogleGeocoder
    :members:
-   :member-order: bysource 
-   
+   :member-order: bysource
+
 
