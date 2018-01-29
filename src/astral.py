@@ -2216,6 +2216,9 @@ class Astral(object):
                 | 21 = Last quarter
         """
 
+        if rtype != float and rtype != int:
+            rtype = int
+
         moon = self._moon_phase_asfloat(date)
         if moon >= 28.0:
             moon -= 28.0
