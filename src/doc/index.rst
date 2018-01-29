@@ -318,9 +318,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
-1.5      * Added :meth:`moon_phase_asfloat` to
-           :meth:`Astral <astral.Astral.moon_phase_asfloat>` and
-           :meth:`Location <astral.Location.moon_phase_asfloat>` classes
+1.5      * Added parameter `rtype` to :meth:`moon_phase` to determine the
+           return type of the method.
          * Added example for calculating the phase of the moon.
 -------- -----------------------------------------------------------------------
 1.4.1    * Using versioneer to manage version numbers

@@ -1207,7 +1207,7 @@ class Location(object):
 
         return 90.0 - self.solar_elevation(dateandtime)
 
-    def moon_phase(self, date=None):
+    def moon_phase(self, date=None, rtype=int):
         """Calculates the moon phase for a specific date.
 
         :param date: The date to calculate the phase for.
@@ -1230,32 +1230,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        return self.astral.moon_phase(date)
-
-    def moon_phase_asfloat(self, date=None):
-        """Calculates the moon phase for a specific date.
-
-        :param date: The date to calculate the phase for.
-                     If ommitted the current date is used.
-        :type date: :class:`datetime.date`
-
-        :returns:
-            A floating point number designating the phase. Numbers between the following phases
-
-                | 0  = New moon
-                | 7  = First quarter
-                | 14 = Full moon
-                | 21 = Last quarter
-        :rtype: float
-        """
-
-        if self.astral is None:
-            self.astral = Astral()
-
-        if date is None:
-            date = datetime.date.today()
-
-        return self.astral.moon_phase_asfloat(date)
+        return self.astral.moon_phase(date, rtype)
 
 
 class LocationGroup(object):
@@ -2225,48 +2200,26 @@ class Astral(object):
 
         return 90.0 - self.solar_elevation(dateandtime, latitude, longitude)
 
-    def moon_phase(self, date):
+    def moon_phase(self, date, rtype=int):
         """Calculates the phase of the moon on the specified date.
 
         :param date: The date to calculate the phase for.
         :type date: :class:`datetime.date`
+        :param rtype: The type to return either int (default) or float.
 
         :return:
-            An integer designating the phase
+            A number designating the phase.
 
                 | 0  = New moon
                 | 7  = First quarter
                 | 14 = Full moon
                 | 21 = Last quarter
-        :rtype: int
-        """
-
-        moon = self._moon_phase_asfloat(date)
-        moon = floor(moon)
-        if moon == 28:
-            moon = 0
-
-        return moon
-
-    def moon_phase_asfloat(self, date):
-        """Calculates the phase of the moon on the specified date.
-
-        :param date: The date to calculate the phase for.
-        :type date: :class:`datetime.date`
-
-        :return:
-            A floating point number designating the phase.
-
-                | 0..6.99̅   = New moon
-                | 7..13.99  = First quarter
-                | 14..20.99 = Full moon
-                | 21..27.99 = Last quarter
-        :rtype: float
         """
 
         moon = self._moon_phase_asfloat(date)
         if moon >= 28.0:
             moon -= 28.0
+        moon = rtype(moon)
 
         return moon
 

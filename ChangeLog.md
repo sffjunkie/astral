@@ -2,6 +2,7 @@
 
 ## 1.5 - 2017-12-07
 ### Added
+- moon_phase_asfloat
 - this file
 
 ### Changed

@@ -38,4 +38,4 @@ def test_Location_Moon_PhaseNumberAsFloat():
     d = datetime.date(2011, 1, 1)
 
     l = a['London']
-    assert l.moon_phase_asfloat(d) == pytest.approx(25.3, abs=0.1)
+    assert l.moon_phase(d, float) == pytest.approx(25.3, abs=0.1)
