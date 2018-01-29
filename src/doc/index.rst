@@ -154,13 +154,16 @@ Moon
    >>> print(moon_phase)
    13
 
-The moon phase method returns an integer describing the phase, where the value is between 0 and 27.
-The foloowing lists the mapping of various vales to the description of the phase of the moon.
+The moon phase method returns an number describing the phase, where the value is between 0 and 27.
+The following lists the mapping of various vales to the description of the phase of the moon.
 
    | 0  = New moon
    | 7  = First quarter
    | 14 = Full moon
    | 21 = Last quarter
+
+The return value can be cast to either an integer (the default or a float by passing the
+type required as the `rtype` parameter to :meth:`moon_phase`
 
 .. note ::
 
