@@ -162,8 +162,8 @@ The following lists the mapping of various vales to the description of the phase
    | 14 = Full moon
    | 21 = Last quarter
 
-The return value can be cast to either an integer (the default or a float by passing the
-type required as the `rtype` parameter to :meth:`moon_phase`
+The return value can be cast to either an int (the default) or a float by passing the
+type required as the `rtype` parameter to :meth:`~astral.Astral.moon_phase`
 
 .. note ::
 
