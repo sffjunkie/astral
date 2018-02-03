@@ -1215,13 +1215,12 @@ class Location(object):
         :type date: :class:`datetime.date`
 
         :returns:
-            An integer designating the phase
+            A number designating the phase
 
                 | 0  = New moon
                 | 7  = First quarter
                 | 14 = Full moon
                 | 21 = Last quarter
-        :rtype: int
         """
 
         if self.astral is None:
