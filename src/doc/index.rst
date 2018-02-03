@@ -118,30 +118,6 @@ Sun
     Sunset:   2009-04-22 20:09:07+01:00
     Dusk:     2009-04-22 20:45:52+01:00
 
-If the location you want is not in the Astral geocoder then you need to
-construct a :class:`~astral.Location` and fill in the values either with a
-tuple on initialization::
-
-   l = Location(('name', 'region',
-                 0.1, 1.2, 'timezone/name', 0))
-   l.sun()
-
-or set the attributes after initialization::
-
-   l = Location()
-   l.name = 'name'
-   l.region = 'region'
-   l.latitude = 0.1
-   l.longitude = 1.2
-   l.timezone = 'US/Central'
-   l.elevation = 0
-   l.sun()
-
-.. note::
-
-   `name` and `region` can be anything you like.
-
-
 Moon
 ----
 
@@ -173,6 +149,32 @@ type required as the `rtype` parameter to :meth:`~astral.Astral.moon_phase`
    hemisphere.
 
    See http://moongazer.x10.mx/website/astronomy/moon-phases/ for an example.
+
+Locations
+---------
+
+If the location you want is not in the Astral geocoder then you need to
+construct a :class:`~astral.Location` and fill in the values either with a
+tuple on initialization::
+
+   l = Location(('name', 'region',
+                 0.1, 1.2, 'timezone/name', 0))
+   l.sun()
+
+or set the attributes after initialization::
+
+   l = Location()
+   l.name = 'name'
+   l.region = 'region'
+   l.latitude = 0.1
+   l.longitude = 1.2
+   l.timezone = 'US/Central'
+   l.elevation = 0
+   l.sun()
+
+.. note::
+
+   `name` and `region` can be anything you like.
 
 Geolocation
 -----------
