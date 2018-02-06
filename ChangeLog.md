@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6 - 2018-02-60
+### Changed
+- Added apiKey to GoogleGeocoder __init__ method
+
 ## 1.5 - 2017-12-07
 ### Added
 - this file

@@ -1410,12 +1410,13 @@ class GoogleGeocoder(object):
     https://developers.google.com/maps/documentation/
     """
 
-    def __init__(self, cache=False):
+    def __init__(self, cache=False, apiKey=''):
         self.cache = cache
+        self.apiKey = apiKey
         self.geocache = {}
-        self._location_query_base = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
+        self._location_query_base = 'https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
         self._timezone_query_base = 'https://maps.googleapis.com/maps/api/timezone/json?location=%f,%f&timestamp=%d&sensor=false'
-        self._elevation_query_base = 'http://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=false'
+        self._elevation_query_base = 'https://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=false'
 
     def __getitem__(self, key):
         if self.cache and key in self.geocache:
@@ -1430,7 +1431,7 @@ class GoogleGeocoder(object):
             raise AstralError(('GoogleGeocoder: Unable to contact '
                                'Google maps API'))
 
-        url = 'http://maps.google.com/maps?q=loc:%f,%f'
+        url = 'https://maps.google.com/maps?q=loc:%f,%f'
         location.url = url % (location.latitude, location.longitude)
 
         if self.cache:
@@ -1442,6 +1443,8 @@ class GoogleGeocoder(object):
         """Lookup the Google geocoding API information for `key`"""
 
         url = self._location_query_base % quote_plus(key)
+        if self.apiKey != '':
+            url += '&key=%s'%self.apiKey
         data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
@@ -1471,6 +1474,8 @@ class GoogleGeocoder(object):
         url = self._timezone_query_base % (location.latitude,
                                            location.longitude,
                                            int(time()))
+        if self.apiKey != '':
+            url += '&key=%s' % self.apiKey
         data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
@@ -1485,6 +1490,8 @@ class GoogleGeocoder(object):
 
         url = self._elevation_query_base % (location.latitude,
                                             location.longitude)
+        if self.apiKey != '':
+            url += '&key=%s' % self.apiKey
         data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
