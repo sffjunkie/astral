@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # Import unicode_literals as that caused problems with the code
-# See bug https://bugs.launchpad.net/astral/+bug/1588198 
+# See bug https://bugs.launchpad.net/astral/+bug/1588198
 from __future__ import unicode_literals
-import os
-import sys
-sys.path.insert(0,
-                os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-import pytest 
+import pytest
 import astral
 
 @pytest.mark.py2only
@@ -33,4 +28,3 @@ def test_Longitude_WithUnicodeLiteral():
 def test_Depression_WithUnicodeLiteral():
     l = astral.Location(('a place', 'a region', 1, 1))
     l.solar_depression = 'civil'
-    

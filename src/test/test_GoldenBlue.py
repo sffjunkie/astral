@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 # Test data taken from http://www.timeanddate.com/sun/uk/london
 
-import os
-import sys
-sys.path.insert(0,
-                os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 import pytz
 import datetime
 from astral import Astral, SUN_RISING, SUN_SETTING
@@ -31,7 +26,7 @@ def test_Location_GoldenHour_Morning():
     for day, golden_hour in test_data.items():
         start1 = pytz.UTC.localize(golden_hour[0])
         end1 = pytz.UTC.localize(golden_hour[1])
-        
+
         start2, end2 = l.golden_hour(SUN_RISING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
@@ -49,7 +44,7 @@ def test_Location_GoldenHour_Evening():
     for day, golden_hour in test_data.items():
         start1 = pytz.UTC.localize(golden_hour[0])
         end1 = pytz.UTC.localize(golden_hour[1])
-        
+
         start2, end2 = l.golden_hour(SUN_SETTING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
@@ -67,7 +62,7 @@ def test_Location_BlueHour_Morning():
     for day, blue_hour in test_data.items():
         start1 = pytz.UTC.localize(blue_hour[0])
         end1 = pytz.UTC.localize(blue_hour[1])
-        
+
         start2, end2 = l.blue_hour(SUN_RISING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
@@ -85,7 +80,7 @@ def test_Location_BlueHour_Evening():
     for day, blue_hour in test_data.items():
         start1 = pytz.UTC.localize(blue_hour[0])
         end1 = pytz.UTC.localize(blue_hour[1])
-        
+
         start2, end2 = l.blue_hour(SUN_SETTING, day)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
