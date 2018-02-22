@@ -323,6 +323,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.6      * Added api_key parameter to the GoogleGeocoder :meth:`__init__` method
+-------- -----------------------------------------------------------------------
 1.5      * Added parameter `rtype` to :meth:`moon_phase` to determine the
            return type of the method.
          * Added example for calculating the phase of the moon.
