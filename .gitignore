@@ -1,3 +1,5 @@
+.api_key
+
 setup.cfg
 setup-dev.cfg
 tox.ini
