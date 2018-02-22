@@ -37,6 +37,7 @@ nbproject
 *.sublime-workspace
 *.iml
 .vscode
+.pytest_cache
 
 # Dreamweaver added files
 _notes
