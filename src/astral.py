@@ -116,7 +116,7 @@ __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
            'AstralError']
 
-__version__ = "1.5"
+__version__ = "1.6"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 SUN_RISING = 1
@@ -1416,9 +1416,9 @@ class GoogleGeocoder(object):
     https://developers.google.com/maps/documentation/
     """
 
-    def __init__(self, cache=False, apiKey=''):
+    def __init__(self, cache=False, api_key=''):
         self.cache = cache
-        self.apiKey = apiKey
+        self.api_key = api_key
         self.geocache = {}
         self._location_query_base = 'https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
         self._timezone_query_base = 'https://maps.googleapis.com/maps/api/timezone/json?location=%f,%f&timestamp=%d&sensor=false'
@@ -1449,8 +1449,8 @@ class GoogleGeocoder(object):
         """Lookup the Google geocoding API information for `key`"""
 
         url = self._location_query_base % quote_plus(key)
-        if self.apiKey != '':
-            url += '&key=%s'%self.apiKey
+        if self.api_key:
+            url += '&key=%s'%self.api_key
         data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
@@ -1480,8 +1480,8 @@ class GoogleGeocoder(object):
         url = self._timezone_query_base % (location.latitude,
                                            location.longitude,
                                            int(time()))
-        if self.apiKey != '':
-            url += '&key=%s' % self.apiKey
+        if self.api_key != '':
+            url += '&key=%s' % self.api_key
         data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
@@ -1496,8 +1496,8 @@ class GoogleGeocoder(object):
 
         url = self._elevation_query_base % (location.latitude,
                                             location.longitude)
-        if self.apiKey != '':
-            url += '&key=%s' % self.apiKey
+        if self.api_key != '':
+            url += '&key=%s' % self.api_key
         data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':

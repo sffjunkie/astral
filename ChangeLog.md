@@ -1,8 +1,8 @@
 # CHANGELOG
 
-## 1.6 - 2018-02-60
+## 1.6 - 2018-02-22
 ### Changed
-- Added apiKey to GoogleGeocoder __init__ method
+- Added api_key parameter to GoogleGeocoder __init__ method. Idea from wpietruszewski https://github.com/sffjunkie/astral/pull/12
 
 ## 1.5 - 2017-12-07
 ### Added
