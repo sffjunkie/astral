@@ -13,3 +13,6 @@ indent_size = 3
 
 [*.{json,yml}]
 indent_size = 2
+
+[.api_key]
+insert_final_newline = false
