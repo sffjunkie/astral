@@ -110,7 +110,7 @@ except ImportError:
 if sys.version_info[0] >= 3:
     ustr = str
 else:
-    ustr = unicode
+    ustr = unicode # pylint: disable=E0602
 
 __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
@@ -1685,7 +1685,7 @@ class Astral(object):
 
         noon = datetime.datetime(date.year, date.month, date.day,
                                  hour, minute, second)
-        noon = pytz.UTC.localize(noon)
+        noon = pytz.UTC.localize(noon) # pylint: disable=E1120
 
         return noon
 
@@ -1789,7 +1789,7 @@ class Astral(object):
 
         midnight = datetime.datetime(date.year, date.month, date.day,
                                      hour, minute, second)
-        midnight = pytz.UTC.localize(midnight)
+        midnight = pytz.UTC.localize(midnight) # pylint: disable=E1120
 
         return midnight
 
@@ -2470,7 +2470,7 @@ class Astral(object):
 
         dt = datetime.datetime(date.year, date.month, date.day,
                                hour, minute, second)
-        dt = pytz.UTC.localize(dt)
+        dt = pytz.UTC.localize(dt) # pylint: disable=E1120
 
         return dt
 
