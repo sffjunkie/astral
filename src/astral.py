@@ -98,9 +98,9 @@ except ImportError:
     from urllib.parse import quote_plus
 
 try:
-    from urllib2 import urlopen, URLError
+    from urllib2 import URLError
 except ImportError:
-    from urllib.request import urlopen, URLError
+    from urllib.request import URLError
 
 try:
     import simplejson as json
@@ -110,7 +110,7 @@ except ImportError:
 if sys.version_info[0] >= 3:
     ustr = str
 else:
-    ustr = unicode # pylint: disable=E0602
+    ustr = unicode  # pylint: disable=E0602
 
 __all__ = ['Astral', 'Location',
            'AstralGeocoder', 'GoogleGeocoder',
@@ -515,6 +515,7 @@ Whitehorse,Canada,60°43'N,135°3'W,America/Whitehorse,696
 Yellowknife,Canada,62°27'N,114°22'W,America/Yellowknife,191
 Iqaluit,Canada,63°44'N,68°31'W,America/Iqaluit,3
 """
+
 
 class AstralError(Exception):
     """Astral base exception class"""
@@ -1450,7 +1451,7 @@ class GoogleGeocoder(object):
 
         url = self._location_query_base % quote_plus(key)
         if self.api_key:
-            url += '&key=%s'%self.api_key
+            url += '&key=%s' % self.api_key
         data = self._read_from_url(url)
         response = json.loads(data)
         if response['status'] == 'OK':
@@ -1685,7 +1686,7 @@ class Astral(object):
 
         noon = datetime.datetime(date.year, date.month, date.day,
                                  hour, minute, second)
-        noon = pytz.UTC.localize(noon) # pylint: disable=E1120
+        noon = pytz.UTC.localize(noon)  # pylint: disable=E1120
 
         return noon
 
@@ -1789,7 +1790,7 @@ class Astral(object):
 
         midnight = datetime.datetime(date.year, date.month, date.day,
                                      hour, minute, second)
-        midnight = pytz.UTC.localize(midnight) # pylint: disable=E1120
+        midnight = pytz.UTC.localize(midnight)  # pylint: disable=E1120
 
         return midnight
 
@@ -2325,9 +2326,10 @@ class Astral(object):
         sin2m = sin(mrad + mrad)
         sin3m = sin(mrad + mrad + mrad)
 
-        c = sinm * (1.914602 - juliancentury * \
-            (0.004817 + 0.000014 * juliancentury)) + \
-            sin2m * (0.019993 - 0.000101 * juliancentury) + sin3m * 0.000289
+        c = sinm * (1.914602 - juliancentury *
+                    (0.004817 + 0.000014 * juliancentury)) + \
+            sin2m * (0.019993 - 0.000101 * juliancentury) + \
+            sin3m * 0.000289
 
         return c
 
@@ -2470,7 +2472,7 @@ class Astral(object):
 
         dt = datetime.datetime(date.year, date.month, date.day,
                                hour, minute, second)
-        dt = pytz.UTC.localize(dt) # pylint: disable=E1120
+        dt = pytz.UTC.localize(dt)  # pylint: disable=E1120
 
         return dt
 
