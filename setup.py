@@ -28,7 +28,7 @@ setup(name='astral',
       project_urls={
           'Documentation': 'https://astral.readthedocs.io/en/stable/index.html',
           'Source': 'https://github.com/sffjunkie/astral',
-          'Tracker': 'https://github.com/sffjunkie/astral/issues',
+          'Issues': 'https://github.com/sffjunkie/astral/issues',
       },
       license='Apache-2.0',
       classifiers=[
