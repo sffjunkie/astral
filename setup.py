@@ -25,6 +25,11 @@ setup(name='astral',
       author='Simon Kennedy',
       author_email='sffjunkie+code@gmail.com',
       url="https://github.com/sffjunkie/astral",
+      project_urls={
+          'Documentation': 'https://astral.readthedocs.io/en/stable/index.html',
+          'Source': 'https://github.com/sffjunkie/astral',
+          'Tracker': 'https://github.com/sffjunkie/astral/issues',
+      },
       license='Apache-2.0',
       classifiers=[
         "Intended Audience :: Developers",
