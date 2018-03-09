@@ -1,0 +1,2 @@
+#!/bin/env sh
+flake8 --append-config=setup-dev.cfg src/astral.py
