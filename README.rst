@@ -1,6 +1,9 @@
 Astral
 ======
 
+.. image:: https://travis-ci.org/sffjunkie/astral.svg?branch=master
+    :target: https://travis-ci.org/sffjunkie/astral
+
 This is 'astral' a Python module which calculates
 
     * Times for various positions of the sun: dawn, sunrise, solar noon,
