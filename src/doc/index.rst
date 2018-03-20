@@ -274,7 +274,7 @@ Falls, Skopje, Sofia, Southampton, Springfield, Sri Jayawardenapura Kotte, St.
 George's, St. John's, St. Peter Port, Stanley, Stockholm, Sucre, Suva, Swansea,
 Swindon, Sydney, T'bilisi, Taipei, Tallahassee, Tallinn, Tarawa, Tashkent,
 Tbilisi, Tegucigalpa, Tehran, Thimphu, Tirana, Tirane, Tokyo, Toledo, Topeka,
-Torshavn, Trenton, Tripoli, Tunis, Ulaanbataar, Ulan Bator, Vaduz, Valletta,
+Torshavn, Trenton, Tripoli, Tunis, Ulaanbaatar, Ulan Bator, Vaduz, Valletta,
 Vienna, Vientiane, Vilnius, Virginia Beach, W. Indies, Warsaw, Washington DC,
 Wellington, Wichita, Willemstad, Wilmington, Windhoek, Wolverhampton,
 Yamoussoukro, Yangon, Yaounde, Yaren, Yerevan, Zagreb
