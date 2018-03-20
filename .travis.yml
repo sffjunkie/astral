@@ -3,4 +3,5 @@ python:
   - "3.6"
   - "2.7"
 script:
-  - pytest
+  - pytest -m "not webtest"
+
