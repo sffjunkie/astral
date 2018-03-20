@@ -132,13 +132,17 @@ Moon
    >>> print(moon_phase)
    13
 
-The moon phase method returns an number describing the phase, where the value is between 0 and 27.
+The moon phase method returns an number describing the phase, where the value is between 0 and 27
+(27.99 if you pass float as the return type).
 The following lists the mapping of various vales to the description of the phase of the moon.
 
-   | 0  = New moon
-   | 7  = First quarter
-   | 14 = Full moon
-   | 21 = Last quarter
+   | 0  = New Moon
+   | 7  = First Quarter
+   | 14 = Full Moon
+   | 21 = Last Quarter
+
+If for example the number returned was 27(.99) then the moon would be almost at the New Moon phase,
+and if it was 24 it would be half way between the Last Quarter and a New Moon.
 
 The return value can be cast to either an int (the default) or a float by passing the
 type required as the `rtype` parameter to :meth:`~astral.Astral.moon_phase`
