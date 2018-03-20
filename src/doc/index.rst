@@ -15,6 +15,8 @@
 Astral v\ |release|
 ===================
 
+|travis_status| |pypi_ver|
+
 Astral is a python module for calculating the times of various aspects of
 the sun and moon.
 
@@ -451,6 +453,12 @@ Version  Description
 .. _1588198: https://bugs.launchpad.net/astral/+bug/1588198
 .. _javascript: http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
 .. _pytz docs: http://pytz.sourceforge.net/#localized-times-and-date-arithmetic
+
+.. |travis_status| image:: https://travis-ci.org/sffjunkie/astral.svg?branch=master
+    :target: https://travis-ci.org/sffjunkie/astral
+
+.. |pypi_ver| image:: https://img.shields.io/pypi/v/astral.svg
+    :target: https://pypi.org/project/astral/
 
 .. toctree::
    :maxdepth: 2
