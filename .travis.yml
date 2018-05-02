@@ -4,4 +4,6 @@ python:
   - "2.7"
 script:
   - pytest -m "not webtest"
-
+install:
+  - pip -r requirements.txt
+  - pip -r requirements-dev.txt
