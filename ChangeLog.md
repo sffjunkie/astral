@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.6.1 - 2018-05-02
+### Changed
+- Updated Travis CI configuration
+
+### Added
+- requirements-dev.txt
+
 ## 1.6 - 2018-02-22
 ### Changed
 - Added api_key parameter to GoogleGeocoder __init__ method. Idea from wpietruszewski https://github.com/sffjunkie/astral/pull/12

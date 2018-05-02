@@ -329,6 +329,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.6.1    * Updates for Travis CI integration / Github signed release.
+-------- -----------------------------------------------------------------------
 1.6      * Added api_key parameter to the GoogleGeocoder :meth:`__init__` method
 -------- -----------------------------------------------------------------------
 1.5      * Added parameter `rtype` to :meth:`moon_phase` to determine the
