@@ -63,7 +63,8 @@ def find_config_files(self):
 
 
 def check_readme(self):
-    for f in self.READMES + ('README.md',):
+    self.READMES += ('README.md',)
+    for f in self.READMES:
         if os.path.exists(f):
             return
     else:
