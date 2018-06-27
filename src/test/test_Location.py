@@ -176,3 +176,21 @@ def test_Location_TzError():
     with raises(AttributeError):
         c = Location()
         c.tz = 1
+
+
+def test_Location_equality():
+    c1 = Location()
+    c2 = Location()
+    t = (c1, c2)
+    assert c1 == c2
+    assert len(set(t)) == 1
+
+    c1 = Location(["Oslo", "Norway", 59.9, 10.7, "Europe/Oslo", 0])
+    c2 = Location(["Oslo", "Norway", 59.9, 10.7, "Europe/Oslo", 0])
+    c3 = Location(["Stockholm", "Sweden", 59.3, 18, "Europe/Stockholm", 0])
+    t1 = (c1, c2)
+    t2 = (c1, c3)
+    assert c1 == c2
+    assert len(set(t1)) == 1
+    assert c1 != c3
+    assert len(set(t2)) == 2
