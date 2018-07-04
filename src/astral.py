@@ -77,7 +77,7 @@ try:
     import pytz
 except ImportError:
     raise ImportError(
-        ("The astral module requires the " "pytz module to be available.")
+        ("The astral module requires the pytz module to be available.")
     )
 
 import datetime
