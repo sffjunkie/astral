@@ -80,14 +80,8 @@ except ImportError:
         ("The astral module requires the " "pytz module to be available.")
     )
 
-try:
-    import requests
-except ImportError:
-    raise ImportError(
-        ("The astral module requires the " "requests module to be available.")
-    )
-
 import datetime
+from importlib import import_module
 from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
 from math import radians, degrees, pow
@@ -1417,6 +1411,11 @@ class GoogleGeocoder(object):
     """
 
     def __init__(self, cache=False, api_key=""):
+        try:
+            self.requests = import_module("requests")
+        except ModuleNotFoundError:
+            raise ImportError("The GoogleGeocoder requires the requests module to be available.")
+
         self.cache = cache
         self.api_key = api_key
         self.geocache = {}
@@ -1515,7 +1514,7 @@ class GoogleGeocoder(object):
             location.elevation = 0
 
     def _read_from_url(self, url):
-        ds = requests.get(url)
+        ds = self.requests.get(url)
 
         return ds.text
 
