@@ -581,6 +581,14 @@ class Location(object):
 
         self.url = ""
 
+    def __eq__(self, other):
+        if type(other) is Location:
+            return vars(self) == vars(other)
+        return NotImplemented
+
+    def __hash__(self):
+        return hash(tuple(sorted(vars(self).items())))
+
     def __repr__(self):
         if self.region:
             _repr = "%s/%s" % (self.name, self.region)
