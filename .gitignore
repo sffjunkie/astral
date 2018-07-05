@@ -40,6 +40,7 @@ nbproject
 *.iml
 .vscode
 .pytest_cache
+.mypy_cache
 
 # Dreamweaver added files
 _notes
