@@ -40,6 +40,6 @@ setup(name='astral',
       package_dir={'': 'src'},
       py_modules=['astral'],
       install_requires=['pytz'],
-      extras_require={'GoogelGeocoder': ['requests']},
+      extras_require={'GoogleGeocoder': ['requests']},
       tests_require=['pytest-runner'],
 )
