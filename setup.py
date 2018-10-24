@@ -19,7 +19,7 @@ except:
     long_description = description
 
 setup(name='astral',
-      version='1.6.1',
+      version='1.7',
       description=description,
       long_description=long_description,
       author='Simon Kennedy',
@@ -39,6 +39,7 @@ setup(name='astral',
       ],
       package_dir={'': 'src'},
       py_modules=['astral'],
-      install_requires=['pytz', 'requests'],
+      install_requires=['pytz'],
+      extras_require={'GoogleGeocoder': ['requests']},
       tests_require=['pytest-runner'],
 )
