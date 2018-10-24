@@ -12,18 +12,10 @@ def read_contents(*names, **kwargs):
 
 try:
     api_key = read_contents(os.path.dirname(__file__), '.api_key').strip()
-except:
-    api_key = ''
+except IOError as exc:
+    raise ValueError("Google now requires an API key to be provided") from exc
 
 @pytest.mark.webtest
-@pytest.mark.skipif(api_key != '', reason="api key file found")
-def test_GoogleLocator():
-    locator = GoogleGeocoder()
-    l = locator['Eiffel Tower']
-    assert l is not None
-
-@pytest.mark.webtest
-@pytest.mark.skipif(api_key == '', reason="api key file not found")
 def test_GoogleLocator_WithAPIKey():
     locator = GoogleGeocoder(api_key=api_key)
     l = locator['Eiffel Tower']

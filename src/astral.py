@@ -1420,7 +1420,7 @@ class GoogleGeocoder(object):
                 raise ImportError("The GoogleGeocoder requires the requests module to be available.")
         return cls
 
-    def __init__(self, cache=False, api_key=""):
+    def __init__(self, api_key, cache=False):
         self.cache = cache
         self.api_key = api_key
         self.geocache = {}
