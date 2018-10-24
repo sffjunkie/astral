@@ -1409,13 +1409,18 @@ class GoogleGeocoder(object):
     See the following for more info.
     https://developers.google.com/maps/documentation/
     """
+    _requests = None
+
+    def __new__(cls, *args, **kwargs):
+        cls = object.__new__(cls)
+        if cls._requests is None:
+            try:
+                cls._requests = import_module("requests")
+            except ModuleNotFoundError:
+                raise ImportError("The GoogleGeocoder requires the requests module to be available.")
+        return cls
 
     def __init__(self, cache=False, api_key=""):
-        try:
-            self.requests = import_module("requests")
-        except ModuleNotFoundError:
-            raise ImportError("The GoogleGeocoder requires the requests module to be available.")
-
         self.cache = cache
         self.api_key = api_key
         self.geocache = {}
@@ -1474,7 +1479,8 @@ class GoogleGeocoder(object):
             location.latitude = float(geo_location["lat"])
             location.longitude = float(geo_location["lng"])
         else:
-            raise AstralError("GoogleGeocoder: Unable to locate %s" % key)
+            raise AstralError("GoogleGeocoder: Unable to locate %s. Server Response=%s" %
+                              (key, response["status"]))
 
     def _get_timezone(self, location):
         """Query the timezone information with the latitude and longitude of
@@ -1514,7 +1520,7 @@ class GoogleGeocoder(object):
             location.elevation = 0
 
     def _read_from_url(self, url):
-        ds = self.requests.get(url)
+        ds = self._requests.get(url)
 
         return ds.text
 
