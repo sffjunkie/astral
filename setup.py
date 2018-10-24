@@ -19,7 +19,7 @@ except:
     long_description = description
 
 setup(name='astral',
-      version='1.6.1',
+      version='1.7',
       description=description,
       long_description=long_description,
       author='Simon Kennedy',
