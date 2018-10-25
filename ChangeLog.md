@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.7.1 - 2018-10-25
+
+### Changed
+
+Changed GoogleGeocoder test to not use raise...from as this is not valid for Python 2
+
 ## 1.7 - 2018-10-24
 
 ### Changed

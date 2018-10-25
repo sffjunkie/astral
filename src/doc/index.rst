@@ -329,6 +329,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.7.1    * Changed GoogleGeocoder test to not use raise...from as this is not
+           valid for Python 2
+-------- -----------------------------------------------------------------------
 1.7      * Requests is now only needed when using GoogleGeocoder
          * GoogleGeocoder now requires the `api_key` parameter to be passed to
            the constructor as Google now require it for their API calls.
