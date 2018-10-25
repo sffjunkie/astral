@@ -17,7 +17,7 @@ if not api_key:
 	try:
 	    api_key = read_contents(os.path.dirname(__file__), '.api_key').strip()
 	except IOError as exc:
-	    raise ValueError("Google now requires an API key to be provided") from exc
+	    raise ValueError("Google now requires an API key to be provided")
 
 @pytest.mark.webtest
 def test_GoogleLocator_WithAPIKey():
