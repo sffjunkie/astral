@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Requests is now only needed when using GoogleGeocoder
 - GoogleGeocoder now requires the `api_key` parameter to be passed to the constructor
 
 ## 1.6.1 - 2018-05-02

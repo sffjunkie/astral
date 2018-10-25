@@ -329,7 +329,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
-1.7      * GoogleGeocoder now requires the `api_key` parameter to be passed to
+1.7      * Requests is now only needed when using GoogleGeocoder
+         * GoogleGeocoder now requires the `api_key` parameter to be passed to
            the constructor as Google now require it for their API calls.
 -------- -----------------------------------------------------------------------
 1.6.1    * Updates for Travis CI integration / Github signed release.
