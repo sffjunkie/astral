@@ -668,6 +668,9 @@ class Location(object):
         ...     print(timezone)
         """
 
+        if not self._timezone_group and not self._timezone_location:
+            return None
+
         if self._timezone_location != "":
             return "%s/%s" % (self._timezone_group, self._timezone_location)
         else:
@@ -675,6 +678,11 @@ class Location(object):
 
     @timezone.setter
     def timezone(self, name):
+        if name is None:
+            self._timezone_group = None
+            self._timezone_location = None
+            return
+
         if name not in pytz.all_timezones:
             raise ValueError("Timezone '%s' not recognized" % name)
 
@@ -687,6 +695,9 @@ class Location(object):
     @property
     def tz(self):
         """Time zone information."""
+
+        if self.timezone is None:
+            return None
 
         try:
             tz = pytz.timezone(self.timezone)
@@ -738,6 +749,9 @@ class Location(object):
         :rtype: dict
          """
 
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
         if self.astral is None:
             self.astral = Astral()
 
@@ -767,6 +781,9 @@ class Location(object):
         :returns: The date and time at which dawn occurs.
         :rtype: :class:`~datetime.datetime`
         """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
 
         if self.astral is None:
             self.astral = Astral()
@@ -798,6 +815,9 @@ class Location(object):
         :rtype: :class:`~datetime.datetime`
         """
 
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
         if self.astral is None:
             self.astral = Astral()
 
@@ -826,6 +846,9 @@ class Location(object):
         :rtype: :class:`~datetime.datetime`
         """
 
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
         if self.astral is None:
             self.astral = Astral()
 
@@ -853,6 +876,9 @@ class Location(object):
         :returns: The date and time at which sunset occurs.
         :rtype: :class:`~datetime.datetime`
         """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
 
         if self.astral is None:
             self.astral = Astral()
@@ -884,6 +910,9 @@ class Location(object):
         :rtype: :class:`~datetime.datetime`
         """
 
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
         if self.astral is None:
             self.astral = Astral()
 
@@ -912,6 +941,9 @@ class Location(object):
         :rtype: :class:`~datetime.datetime`
         """
 
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
         if self.astral is None:
             self.astral = Astral()
 
@@ -938,6 +970,9 @@ class Location(object):
         :returns: A tuple containing the start and end times
         :rtype: tuple(:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
 
         if self.astral is None:
             self.astral = Astral()
@@ -966,6 +1001,9 @@ class Location(object):
         :returns: A tuple containing the start and end times
         :rtype: tuple(:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
 
         if self.astral is None:
             self.astral = Astral()
@@ -999,6 +1037,9 @@ class Location(object):
         :return: A tuple of the UTC date and time at which twilight starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
 
         if date is None:
             date = datetime.date.today()
@@ -1037,6 +1078,9 @@ class Location(object):
         :rtype: :class:`~datetime.datetime`
         """
 
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
         if self.astral is None:
             self.astral = Astral()
 
@@ -1068,6 +1112,9 @@ class Location(object):
         :return: Tuple containing the start and end times for Rahukaalam.
         :rtype: tuple
         """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
 
         if self.astral is None:
             self.astral = Astral()
@@ -1106,6 +1153,9 @@ class Location(object):
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
         if self.astral is None:
             self.astral = Astral()
 
@@ -1142,6 +1192,9 @@ class Location(object):
         :return: A tuple of the date and time at which the Blue Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
 
         if self.astral is None:
             self.astral = Astral()
