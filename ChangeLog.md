@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.8 - 2018-12-06
+
+### Changed
+
+Added command line interface to return sun information as json.
+Added support for no timezone in Location methods.
+
 ## 1.7.1 - 2018-10-25
 
 ### Changed

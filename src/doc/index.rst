@@ -329,6 +329,10 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.8      * Location methods now allow the timezone to be None which returns all
+           times as UTC.
+         * Added command line interface to return 'sun' values
+-------- -----------------------------------------------------------------------
 1.7.1    * Changed GoogleGeocoder test to not use raise...from as this is not
            valid for Python 2
 -------- -----------------------------------------------------------------------
