@@ -2628,7 +2628,7 @@ if __name__ == "__main__":
     if args.date is not None:
         try:
             kwargs["date"] = datetime.datetime.strptime(args.date, "%Y-%m-%d").date()
-        except:  # pylint: disable=E0722
+        except:  # noqa: E0722
             kwargs["date"] = datetime.date.today()
 
     if args.tzname is None:
