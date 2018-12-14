@@ -30,6 +30,7 @@ setup(name='astral',
         'Source': 'https://github.com/sffjunkie/astral',
         'Issues': 'https://github.com/sffjunkie/astral/issues',
     },
+    keywords="sun moon sunrise sunset dawn dusk",
     license='Apache-2.0',
     classifiers=[
     "Intended Audience :: Developers",
