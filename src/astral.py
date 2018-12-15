@@ -116,6 +116,7 @@ __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 SUN_RISING = 1
 SUN_SETTING = -1
 
+#region Location Info
 # name,region,latitude,longitude,timezone,elevation
 _LOCATION_INFO = """Abu Dhabi,UAE,24°28'N,54°22'E,Asia/Dubai,5
 Abu Dhabi,United Arab Emirates,24°28'N,54°22'E,Asia/Dubai,5
@@ -509,6 +510,7 @@ Whitehorse,Canada,60°43'N,135°3'W,America/Whitehorse,696
 Yellowknife,Canada,62°27'N,114°22'W,America/Yellowknife,191
 Iqaluit,Canada,63°44'N,68°31'W,America/Iqaluit,3
 """
+#endregion
 
 
 class AstralError(Exception):
