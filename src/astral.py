@@ -384,7 +384,7 @@ Leeds,England,53°48'N,01°35'W,Europe/London,47
 Leicester,England,52°38'N,01°08'W,Europe/London,138
 Liverpool,England,53°25'N,03°00'W,Europe/London,25
 Manchester,England,53°30'N,02°15'W,Europe/London,78
-Newcastle Upon Time,England,54°59'N,01°36'W,Europe/London,47
+Newcastle Upon Tyne,England,54°59'N,01°36'W,Europe/London,47
 Newcastle,England,54°59'N,01°36'W,Europe/London,47
 Norwich,England,52°38'N,01°18'E,Europe/London,18
 Oxford,England,51°45'N,01°15'W,Europe/London,72
