@@ -84,7 +84,7 @@ import datetime
 from importlib import import_module
 from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
-from math import radians, degrees, pow
+from math import radians, degrees, pi, pow, sqrt
 from numbers import Number
 import sys
 
@@ -760,7 +760,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        sun = self.astral.sun_utc(date, self.latitude, self.longitude)
+        sun = self.astral.sun_utc(date, self.latitude, self.longitude, self.elevation)
 
         if local:
             for key, dt in sun.items():
@@ -793,7 +793,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        dawn = self.astral.dawn_utc(date, self.latitude, self.longitude)
+        dawn = self.astral.dawn_utc(date, self.latitude, self.longitude, observer_elevation=self.elevation)
 
         if local:
             return dawn.astimezone(self.tz)
@@ -826,7 +826,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        sunrise = self.astral.sunrise_utc(date, self.latitude, self.longitude)
+        sunrise = self.astral.sunrise_utc(date, self.latitude, self.longitude, self.elevation)
 
         if local:
             return sunrise.astimezone(self.tz)
@@ -888,7 +888,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        sunset = self.astral.sunset_utc(date, self.latitude, self.longitude)
+        sunset = self.astral.sunset_utc(date, self.latitude, self.longitude, self.elevation)
 
         if local:
             return sunset.astimezone(self.tz)
@@ -921,7 +921,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        dusk = self.astral.dusk_utc(date, self.latitude, self.longitude)
+        dusk = self.astral.dusk_utc(date, self.latitude, self.longitude, observer_elevation=self.elevation)
 
         if local:
             return dusk.astimezone(self.tz)
@@ -982,7 +982,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.daylight_utc(date, self.latitude, self.longitude)
+        start, end = self.astral.daylight_utc(date, self.latitude, self.longitude, self.elevation)
 
         if local:
             return start.astimezone(self.tz), end.astimezone(self.tz)
@@ -1013,7 +1013,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.night_utc(date, self.latitude, self.longitude)
+        start, end = self.astral.night_utc(date, self.latitude, self.longitude, self.elevation)
 
         if local:
             return start.astimezone(self.tz), end.astimezone(self.tz)
@@ -1047,7 +1047,7 @@ class Location(object):
             date = datetime.date.today()
 
         start, end = self.astral.twilight_utc(
-            direction, date, self.latitude, self.longitude
+            direction, date, self.latitude, self.longitude, self._elevation
         )
 
         if local:
@@ -1124,7 +1124,7 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        rahukaalam = self.astral.rahukaalam_utc(date, self.latitude, self.longitude)
+        rahukaalam = self.astral.rahukaalam_utc(date, self.latitude, self.longitude, self.elevation)
 
         if local:
             rahukaalam = (
@@ -1165,7 +1165,7 @@ class Location(object):
             date = datetime.date.today()
 
         start, end = self.astral.golden_hour_utc(
-            direction, date, self.latitude, self.longitude
+            direction, date, self.latitude, self.longitude, self._elevation
         )
 
         if local:
@@ -1205,7 +1205,7 @@ class Location(object):
             date = datetime.date.today()
 
         start, end = self.astral.blue_hour_utc(
-            direction, date, self.latitude, self.longitude
+            direction, date, self.latitude, self.longitude, self._elevation
         )
 
         if local:
@@ -1639,7 +1639,7 @@ class Astral(object):
         else:
             self._depression = float(depression)
 
-    def sun_utc(self, date, latitude, longitude):
+    def sun_utc(self, date, latitude, longitude, observer_elevation=0):
         """Calculate all the info for the sun at once.
         All times are returned in the UTC timezone.
 
@@ -1649,6 +1649,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param elevation:  Elevation in metres to calculate sunrise for
+        :type elevation:   int
 
         :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
             ``sunset`` and ``dusk`` whose values are the results of the
@@ -1656,11 +1658,11 @@ class Astral(object):
         :rtype: dict
         """
 
-        dawn = self.dawn_utc(date, latitude, longitude)
-        sunrise = self.sunrise_utc(date, latitude, longitude)
+        dawn = self.dawn_utc(date, latitude, longitude, observer_elevation)
+        sunrise = self.sunrise_utc(date, latitude, longitude, observer_elevation)
         noon = self.solar_noon_utc(date, longitude)
-        sunset = self.sunset_utc(date, latitude, longitude)
-        dusk = self.dusk_utc(date, latitude, longitude)
+        sunset = self.sunset_utc(date, latitude, longitude, observer_elevation)
+        dusk = self.dusk_utc(date, latitude, longitude, observer_elevation)
 
         return {
             "dawn": dawn,
@@ -1670,7 +1672,7 @@ class Astral(object):
             "dusk": dusk,
         }
 
-    def dawn_utc(self, date, latitude, longitude, depression=0):
+    def dawn_utc(self, date, latitude, longitude, depression=0, observer_elevation=0):
         """Calculate dawn time in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -1691,7 +1693,7 @@ class Astral(object):
         depression += 90
 
         try:
-            return self._calc_time(depression, SUN_RISING, date, latitude, longitude)
+            return self._calc_time(depression, SUN_RISING, date, latitude, longitude, observer_elevation)
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
@@ -1704,7 +1706,7 @@ class Astral(object):
             else:
                 raise
 
-    def sunrise_utc(self, date, latitude, longitude):
+    def sunrise_utc(self, date, latitude, longitude, observer_elevation=0):
         """Calculate sunrise time in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -1719,7 +1721,7 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(90 + 0.833, SUN_RISING, date, latitude, longitude)
+            return self._calc_time(90 + 0.833, SUN_RISING, date, latitude, longitude, observer_elevation)
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
@@ -1774,7 +1776,7 @@ class Astral(object):
 
         return noon
 
-    def sunset_utc(self, date, latitude, longitude):
+    def sunset_utc(self, date, latitude, longitude, observer_elevation=0):
         """Calculate sunset time in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -1789,7 +1791,7 @@ class Astral(object):
         """
 
         try:
-            return self._calc_time(90 + 0.833, SUN_SETTING, date, latitude, longitude)
+            return self._calc_time(90 + 0.833, SUN_SETTING, date, latitude, longitude, observer_elevation)
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
@@ -1798,7 +1800,7 @@ class Astral(object):
             else:
                 raise
 
-    def dusk_utc(self, date, latitude, longitude, depression=0):
+    def dusk_utc(self, date, latitude, longitude, depression=0, observer_elevation=0):
         """Calculate dusk time in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -1819,7 +1821,7 @@ class Astral(object):
         depression += 90
 
         try:
-            return self._calc_time(depression, SUN_SETTING, date, latitude, longitude)
+            return self._calc_time(depression, SUN_SETTING, date, latitude, longitude, observer_elevation)
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
@@ -1885,7 +1887,7 @@ class Astral(object):
 
         return midnight
 
-    def daylight_utc(self, date, latitude, longitude):
+    def daylight_utc(self, date, latitude, longitude, observer_elevation=0):
         """Calculate daylight start and end times in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -1899,12 +1901,12 @@ class Astral(object):
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
-        start = self.sunrise_utc(date, latitude, longitude)
-        end = self.sunset_utc(date, latitude, longitude)
+        start = self.sunrise_utc(date, latitude, longitude, observer_elevation)
+        end = self.sunset_utc(date, latitude, longitude, observer_elevation)
 
         return start, end
 
-    def night_utc(self, date, latitude, longitude):
+    def night_utc(self, date, latitude, longitude, observer_elevation=0):
         """Calculate night start and end times in the UTC timezone.
 
         Night is calculated to be between astronomical dusk on the
@@ -1921,13 +1923,13 @@ class Astral(object):
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
         """
 
-        start = self.dusk_utc(date, latitude, longitude, 18)
+        start = self.dusk_utc(date, latitude, longitude, 18, observer_elevation)
         tomorrow = date + datetime.timedelta(days=1)
-        end = self.dawn_utc(tomorrow, latitude, longitude, 18)
+        end = self.dawn_utc(tomorrow, latitude, longitude, 18, observer_elevation)
 
         return start, end
 
-    def twilight_utc(self, direction, date, latitude, longitude):
+    def twilight_utc(self, direction, date, latitude, longitude, observer_elevation=0):
         """Returns the start and end times of Twilight in the UTC timezone when
         the sun is traversing in the specified direction.
 
@@ -1951,7 +1953,7 @@ class Astral(object):
         if date is None:
             date = datetime.date.today()
 
-        start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude)
+        start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude, observer_elevation)
         if direction == SUN_RISING:
             end = self.sunrise_utc(date, latitude, longitude)
         else:
@@ -1962,7 +1964,7 @@ class Astral(object):
         else:
             return end, start
 
-    def golden_hour_utc(self, direction, date, latitude, longitude):
+    def golden_hour_utc(self, direction, date, latitude, longitude, observer_elevation=0):
         """Returns the start and end times of the Golden Hour in the UTC timezone
         when the sun is traversing in the specified direction.
 
@@ -1987,15 +1989,15 @@ class Astral(object):
         if date is None:
             date = datetime.date.today()
 
-        start = self.time_at_elevation_utc(-4, direction, date, latitude, longitude)
-        end = self.time_at_elevation_utc(6, direction, date, latitude, longitude)
+        start = self.time_at_elevation_utc(-4, direction, date, latitude, longitude, observer_elevation)
+        end = self.time_at_elevation_utc(6, direction, date, latitude, longitude, observer_elevation)
 
         if direction == SUN_RISING:
             return start, end
         else:
             return end, start
 
-    def blue_hour_utc(self, direction, date, latitude, longitude):
+    def blue_hour_utc(self, direction, date, latitude, longitude, observer_elevation=0):
         """Returns the start and end times of the Blue Hour in the UTC timezone
         when the sun is traversing in the specified direction.
 
@@ -2019,15 +2021,15 @@ class Astral(object):
         if date is None:
             date = datetime.date.today()
 
-        start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude)
-        end = self.time_at_elevation_utc(-4, direction, date, latitude, longitude)
+        start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude, observer_elevation)
+        end = self.time_at_elevation_utc(-4, direction, date, latitude, longitude, observer_elevation)
 
         if direction == SUN_RISING:
             return start, end
         else:
             return end, start
 
-    def time_at_elevation_utc(self, elevation, direction, date, latitude, longitude):
+    def time_at_elevation_utc(self, elevation, direction, date, latitude, longitude, observer_elevation=0):
         """Calculate the time in the UTC timezone when the sun is at
         the specified elevation on the specified date.
 
@@ -2056,7 +2058,7 @@ class Astral(object):
 
         depression = 90 - elevation
         try:
-            return self._calc_time(depression, direction, date, latitude, longitude)
+            return self._calc_time(depression, direction, date, latitude, longitude, observer_elevation)
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
@@ -2066,7 +2068,7 @@ class Astral(object):
             else:
                 raise
 
-    def solar_azimuth(self, dateandtime, latitude, longitude):
+    def solar_azimuth(self, dateandtime, latitude, longitude, observer_elevation=0):
         """Calculate the azimuth angle of the sun.
 
         :param dateandtime: The date and time for which to calculate
@@ -2340,7 +2342,7 @@ class Astral(object):
 
         return moon
 
-    def rahukaalam_utc(self, date, latitude, longitude):
+    def rahukaalam_utc(self, date, latitude, longitude, observer_elevation=0):
         """Calculate ruhakaalam times in the UTC timezone.
 
         :param date:       Date to calculate for.
@@ -2357,8 +2359,8 @@ class Astral(object):
         if date is None:
             date = datetime.date.today()
 
-        sunrise = self.sunrise_utc(date, latitude, longitude)
-        sunset = self.sunset_utc(date, latitude, longitude)
+        sunrise = self.sunrise_utc(date, latitude, longitude, observer_elevation)
+        sunset = self.sunset_utc(date, latitude, longitude, observer_elevation)
 
         octant_duration = datetime.timedelta(seconds=(sunset - sunrise).seconds / 8)
 
@@ -2536,7 +2538,7 @@ class Astral(object):
         HA = acos(h)
         return HA
 
-    def _calc_time(self, depression, direction, date, latitude, longitude):
+    def _calc_time(self, depression, direction, date, latitude, longitude, observer_elevation=0):
         if not isinstance(latitude, Number) or not isinstance(longitude, Number):
             raise TypeError("Latitude and longitude must be a numbers")
 
@@ -2548,11 +2550,16 @@ class Astral(object):
         if latitude < -89.8:
             latitude = -89.8
 
+        if observer_elevation != 0:
+            adjustment = self._depression_adjustment(observer_elevation)
+        else:
+            adjustment = 0
+
         t = self._jday_to_jcentury(julianday)
         eqtime = self._eq_of_time(t)
         solarDec = self._sun_declination(t)
 
-        hourangle = self._hour_angle(latitude, solarDec, depression)
+        hourangle = self._hour_angle(latitude, solarDec, depression + adjustment)
         if direction == SUN_SETTING:
             hourangle = -hourangle
 
@@ -2612,6 +2619,27 @@ class Astral(object):
         moon = ((elong + 6.43) / 360) * 28
         return moon
 
+    def _depression_adjustment(self, elevation):
+        """Calculate the extra degrees of depression due to the increase in elevation.
+
+        :param elevation: Elevation above the earth in metres
+        :type  elevation: float
+        """
+
+        if elevation <= 0:
+            return 0
+
+        r = 6356900 # radius of the earth
+        a1 = r
+        h1 = r + elevation
+        theta1 = acos(a1 / h1)
+
+        a2 = r * sin(theta1)
+        b2 = r - (r * cos(theta1))
+        h2 = sqrt(pow(a2, 2) + pow(b2, 2))
+        theta2 = acos(a2 / h2)
+
+        return degrees(theta2)
 
 if __name__ == "__main__":
     import argparse
