@@ -2550,7 +2550,7 @@ class Astral(object):
         if latitude < -89.8:
             latitude = -89.8
 
-        if observer_elevation != 0:
+        if observer_elevation > 0:
             adjustment = self._depression_adjustment(observer_elevation)
         else:
             adjustment = 0
