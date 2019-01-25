@@ -2637,9 +2637,9 @@ class Astral(object):
         a2 = r * sin(theta1)
         b2 = r - (r * cos(theta1))
         h2 = sqrt(pow(a2, 2) + pow(b2, 2))
-        theta2 = acos(a2 / h2)
+        alpha = acos(a2 / h2)
 
-        return degrees(theta2)
+        return degrees(alpha)
 
 if __name__ == "__main__":
     import argparse
