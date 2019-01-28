@@ -1,4 +1,4 @@
-.. Copyright 2009-2018, Simon Kennedy, sffjunkie+code@gmail.com
+.. Copyright 2009-2019, Simon Kennedy, sffjunkie+code@gmail.com
 
 .. Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -200,6 +200,21 @@ Timezone groups such as Europe can be accessed via attributes on the
     >>> europe
     ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...]
 
+Effect of Elevation
+===================
+
+An attempt has been made to allow for the effect of elevation on the times for the sun.
+Higher elevations cause the sun to rise earlier and to set later for the observer.
+
+This is performed by calculating the angle α in the image below and adding this to the
+depression angle for the sun calculations.
+
+.. image:: elevation.svg
+
+.. warning::
+
+   This may not be the correct calculation for the angle. Please raise an `issue`_ if you know
+   how it should be calculated.
 
 Note on Localized Timezones
 ===========================
@@ -329,6 +344,8 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.9      Now takes elevation into account.
+-------- -----------------------------------------------------------------------
 1.8      * Location methods now allow the timezone to be None which returns all
            times as UTC.
          * Added command line interface to return 'sun' values
@@ -470,6 +487,7 @@ Version  Description
 .. _1588198: https://bugs.launchpad.net/astral/+bug/1588198
 .. _javascript: http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
 .. _pytz docs: http://pytz.sourceforge.net/#localized-times-and-date-arithmetic
+.. _issue: https://github.com/sffjunkie/astral/issues
 
 .. |travis_status| image:: https://travis-ci.org/sffjunkie/astral.svg?branch=master
     :target: https://travis-ci.org/sffjunkie/astral

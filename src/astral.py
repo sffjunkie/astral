@@ -735,15 +735,22 @@ class Location(object):
 
         self.astral.solar_depression = depression
 
-    def sun(self, date=None, local=True):
+    def sun(self, date=None, local=True, use_elevation=True):
         """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
 
         :param date: The date for which to calculate the times.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
             ``sunset`` and ``dusk`` whose values are the results of the
@@ -760,7 +767,8 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        sun = self.astral.sun_utc(date, self.latitude, self.longitude, self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        sun = self.astral.sun_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
 
         if local:
             for key, dt in sun.items():
@@ -768,17 +776,24 @@ class Location(object):
 
         return sun
 
-    def dawn(self, date=None, local=True):
+    def dawn(self, date=None, local=True, use_elevation=True):
         """Calculates the time in the morning when the sun is a certain number
         of degrees below the horizon. By default this is 6 degrees but can be
         changed by setting the :attr:`Astral.solar_depression` property.
 
         :param date: The date for which to calculate the dawn time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :returns: The date and time at which dawn occurs.
         :rtype: :class:`~datetime.datetime`
@@ -793,14 +808,15 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        dawn = self.astral.dawn_utc(date, self.latitude, self.longitude, observer_elevation=self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        dawn = self.astral.dawn_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
 
         if local:
             return dawn.astimezone(self.tz)
         else:
             return dawn
 
-    def sunrise(self, date=None, local=True):
+    def sunrise(self, date=None, local=True, use_elevation=True):
         """Return sunrise time.
 
         Calculates the time in the morning when the sun is a 0.833 degrees
@@ -808,10 +824,17 @@ class Location(object):
 
         :param date: The date for which to calculate the sunrise time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :returns: The date and time at which sunrise occurs.
         :rtype: :class:`~datetime.datetime`
@@ -826,7 +849,8 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        sunrise = self.astral.sunrise_utc(date, self.latitude, self.longitude, self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        sunrise = self.astral.sunrise_utc(date, self.latitude, self.longitude, elevation)
 
         if local:
             return sunrise.astimezone(self.tz)
@@ -839,10 +863,12 @@ class Location(object):
 
         :param date: The date for which to calculate the noon time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
 
         :returns: The date and time at which the solar noon occurs.
         :rtype: :class:`~datetime.datetime`
@@ -864,16 +890,23 @@ class Location(object):
         else:
             return noon
 
-    def sunset(self, date=None, local=True):
+    def sunset(self, date=None, local=True, use_elevation=True):
         """Calculates sunset time (the time in the evening when the sun is a
         0.833 degrees below the horizon. This is to account for refraction.)
 
         :param date: The date for which to calculate the sunset time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :returns: The date and time at which sunset occurs.
         :rtype: :class:`~datetime.datetime`
@@ -888,14 +921,15 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        sunset = self.astral.sunset_utc(date, self.latitude, self.longitude, self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        sunset = self.astral.sunset_utc(date, self.latitude, self.longitude, elevation)
 
         if local:
             return sunset.astimezone(self.tz)
         else:
             return sunset
 
-    def dusk(self, date=None, local=True):
+    def dusk(self, date=None, local=True, use_elevation=True):
         """Calculates the dusk time (the time in the evening when the sun is a
         certain number of degrees below the horizon. By default this is 6
         degrees but can be changed by setting the
@@ -903,10 +937,17 @@ class Location(object):
 
         :param date: The date for which to calculate the dusk time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :returns: The date and time at which dusk occurs.
         :rtype: :class:`~datetime.datetime`
@@ -921,7 +962,8 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        dusk = self.astral.dusk_utc(date, self.latitude, self.longitude, observer_elevation=self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        dusk = self.astral.dusk_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
 
         if local:
             return dusk.astimezone(self.tz)
@@ -934,10 +976,12 @@ class Location(object):
 
         :param date: The date for which to calculate the midnight time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
 
         :returns: The date and time at which the solar midnight occurs.
         :rtype: :class:`~datetime.datetime`
@@ -959,15 +1003,22 @@ class Location(object):
         else:
             return midnight
 
-    def daylight(self, date=None, local=True):
+    def daylight(self, date=None, local=True, use_elevation=True):
         """Calculates the daylight time (the time between sunrise and sunset)
 
         :param date: The date for which to calculate daylight.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :returns: A tuple containing the start and end times
         :rtype: tuple(:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -982,23 +1033,31 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.daylight_utc(date, self.latitude, self.longitude, self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        start, end = self.astral.daylight_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
 
         if local:
             return start.astimezone(self.tz), end.astimezone(self.tz)
         else:
             return start, end
 
-    def night(self, date=None, local=True):
+    def night(self, date=None, local=True, use_elevation=True):
         """Calculates the night time (the time between astronomical dusk and
         astronomical dawn of the next day)
 
         :param date: The date for which to calculate the start of the night time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :returns: A tuple containing the start and end times
         :rtype: tuple(:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -1013,14 +1072,15 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        start, end = self.astral.night_utc(date, self.latitude, self.longitude, self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        start, end = self.astral.night_utc(date, self.latitude, self.longitude, elevation)
 
         if local:
             return start.astimezone(self.tz), end.astimezone(self.tz)
         else:
             return start, end
 
-    def twilight(self, direction=SUN_RISING, date=None, local=True):
+    def twilight(self, direction=SUN_RISING, date=None, local=True, use_elevation=True):
         """Returns the start and end times of Twilight in the UTC timezone when
         the sun is traversing in the specified direction.
 
@@ -1030,11 +1090,19 @@ class Location(object):
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``.
         :type direction:   int
+
         :param date: The date for which to calculate the times.
         :type date: :class:`datetime.date`
+
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :return: A tuple of the UTC date and time at which twilight starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -1046,8 +1114,9 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
+        elevation = self.elevation if use_elevation else 0
         start, end = self.astral.twilight_utc(
-            direction, date, self.latitude, self.longitude, self._elevation
+            direction, date, self.latitude, self.longitude, elevation
         )
 
         if local:
@@ -1066,15 +1135,19 @@ class Location(object):
 
         :param elevation:  Elevation in degrees above the horizon to calculate for.
         :type elevation:   float
+
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
         :type direction:   int
+
         :param date: The date for which to calculate the elevation time.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
 
         :returns: The date and time at which dusk occurs.
         :rtype: :class:`~datetime.datetime`
@@ -1102,14 +1175,21 @@ class Location(object):
         else:
             return time_
 
-    def rahukaalam(self, date=None, local=True):
+    def rahukaalam(self, date=None, local=True, use_elevation=True):
         """Calculates the period of rahukaalam.
 
         :param date: The date for which to calculate the rahukaalam period.
                      A value of ``None`` uses the current date.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :return: Tuple containing the start and end times for Rahukaalam.
         :rtype: tuple
@@ -1124,7 +1204,8 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
-        rahukaalam = self.astral.rahukaalam_utc(date, self.latitude, self.longitude, self.elevation)
+        elevation = self.elevation if use_elevation else 0
+        rahukaalam = self.astral.rahukaalam_utc(date, self.latitude, self.longitude, elevation)
 
         if local:
             rahukaalam = (
@@ -1134,7 +1215,7 @@ class Location(object):
 
         return rahukaalam
 
-    def golden_hour(self, direction=SUN_RISING, date=None, local=True):
+    def golden_hour(self, direction=SUN_RISING, date=None, local=True, use_elevation=True):
         """Returns the start and end times of the Golden Hour when the sun is traversing
         in the specified direction.
 
@@ -1145,11 +1226,19 @@ class Location(object):
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
         :type direction:   int
+
         :param date: The date for which to calculate the times.
         :type date: :class:`datetime.date`
+
         :param local: True  = Times to be returned in location's time zone;
                       False = Times to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :return: A tuple of the date and time at which the Golden Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -1164,8 +1253,9 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
+        elevation = self.elevation if use_elevation else 0
         start, end = self.astral.golden_hour_utc(
-            direction, date, self.latitude, self.longitude, self._elevation
+            direction, date, self.latitude, self.longitude, elevation
         )
 
         if local:
@@ -1174,7 +1264,7 @@ class Location(object):
 
         return start, end
 
-    def blue_hour(self, direction=SUN_RISING, date=None, local=True):
+    def blue_hour(self, direction=SUN_RISING, date=None, local=True, use_elevation=True):
         """Returns the start and end times of the Blue Hour when the sun is traversing
         in the specified direction.
 
@@ -1184,12 +1274,20 @@ class Location(object):
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SUN_SETTING``. Default is rising.
         :type direction:   int
+
         :param date: The date for which to calculate the times.
                      If no date is specified then the current date will be used.
+        :type date:  :class:`~datetime.date`
 
         :param local: True  = Times to be returned in location's time zone;
                       False = Times to be returned in UTC.
                       If not specified then the time will be returned in local time
+        :type local:  bool
+
+        :param use_elevation: True  = Return times that allow for the location's elevation;
+                              False = Return times that don't use elevation
+                              If not specified then times will take elevation into account.
+        :type use_elevation:  bool
 
         :return: A tuple of the date and time at which the Blue Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -1204,8 +1302,9 @@ class Location(object):
         if date is None:
             date = datetime.date.today()
 
+        elevation = self.elevation if use_elevation else 0
         start, end = self.astral.blue_hour_utc(
-            direction, date, self.latitude, self.longitude, self._elevation
+            direction, date, self.latitude, self.longitude, elevation
         )
 
         if local:
@@ -2068,7 +2167,7 @@ class Astral(object):
             else:
                 raise
 
-    def solar_azimuth(self, dateandtime, latitude, longitude, observer_elevation=0):
+    def solar_azimuth(self, dateandtime, latitude, longitude):
         """Calculate the azimuth angle of the sun.
 
         :param dateandtime: The date and time for which to calculate
@@ -2640,6 +2739,7 @@ class Astral(object):
         alpha = acos(a2 / h2)
 
         return degrees(alpha)
+
 
 if __name__ == "__main__":
     import argparse
