@@ -110,7 +110,7 @@ else:
 
 __all__ = ["Astral", "Location", "AstralGeocoder", "GoogleGeocoder", "AstralError"]
 
-__version__ = "1.7.1"
+__version__ = "1.9"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 SUN_RISING = 1
