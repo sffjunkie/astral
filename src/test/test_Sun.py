@@ -17,6 +17,24 @@ def datetime_almost_equal(datetime1, datetime2, seconds=60):
     return abs(sd) <= seconds
 
 
+def test_Astral_Sun():
+    a = Astral()
+    l = a['London']
+
+    test_data = {
+        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 7, 4),
+        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 7, 6),
+        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 7, 7),
+        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 7, 17),
+        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 7, 25),
+    }
+
+    for day, dawn in test_data.items():
+        dawn = pytz.UTC.localize(dawn)
+        dawn_utc = a.sun_utc(day, l.latitude, l.longitude)['dawn']
+        assert datetime_almost_equal(dawn, dawn_utc)
+
+
 def test_Astral_Dawn_Civil():
     a = Astral()
     l = a['London']

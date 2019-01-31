@@ -344,6 +344,9 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.9.2    1.9 broke the sun_utc method. Sun UTC calculation passed incorrect
+         parameter to more specific methods e.g. sunrise, sunset etc.
+-------- -----------------------------------------------------------------------
 1.9.1    Correct version number in astral.py
 -------- -----------------------------------------------------------------------
 1.9      Now takes elevation into account.

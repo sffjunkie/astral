@@ -110,7 +110,7 @@ else:
 
 __all__ = ["Astral", "Location", "AstralGeocoder", "GoogleGeocoder", "AstralError"]
 
-__version__ = "1.9.1"
+__version__ = "1.9.2"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 SUN_RISING = 1
@@ -1757,11 +1757,11 @@ class Astral(object):
         :rtype: dict
         """
 
-        dawn = self.dawn_utc(date, latitude, longitude, observer_elevation)
-        sunrise = self.sunrise_utc(date, latitude, longitude, observer_elevation)
+        dawn = self.dawn_utc(date, latitude, longitude, observer_elevation=observer_elevation)
+        sunrise = self.sunrise_utc(date, latitude, longitude, observer_elevation=observer_elevation)
         noon = self.solar_noon_utc(date, longitude)
-        sunset = self.sunset_utc(date, latitude, longitude, observer_elevation)
-        dusk = self.dusk_utc(date, latitude, longitude, observer_elevation)
+        sunset = self.sunset_utc(date, latitude, longitude, observer_elevation=observer_elevation)
+        dusk = self.dusk_utc(date, latitude, longitude, observer_elevation=observer_elevation)
 
         return {
             "dawn": dawn,
