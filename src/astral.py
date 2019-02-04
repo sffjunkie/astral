@@ -86,6 +86,7 @@ from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
 from math import radians, degrees, pi, pow, sqrt
 from numbers import Number
+import re
 import sys
 
 try:
@@ -548,6 +549,9 @@ class Location(object):
         """
 
         self.astral = None
+        self.url = ""
+        self._dms_re = re.compile(r"(?P<deg>\d{1,3})[°](?P<min>\d{1,2})[′']((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])")
+
         if info is None:
             self.name = "Greenwich"
             self.region = "England"
@@ -574,8 +578,6 @@ class Location(object):
                 self.elevation = info[5]
             except IndexError:
                 pass
-
-        self.url = ""
 
     def __eq__(self, other):
         if type(other) is Location:
@@ -610,13 +612,21 @@ class Location(object):
 
     @latitude.setter
     def latitude(self, latitude):
-        if isinstance(latitude, str) or isinstance(latitude, ustr):
-            (deg, rest) = latitude.split("°", 1)
-            (minute, rest) = rest.split("'", 1)
+        if isinstance(latitude, (str, ustr)):
+            if sys.version_info[0] < 3 and isinstance(latitude, str):
+                latitude = latitude.decode('utf-8')
 
-            self._latitude = float(deg) + (float(minute) / 60)
+            m = self._dms_re.match(latitude)
+            deg = m.group("deg")
+            min_ = m.group("min")
+            sec = m.group("sec")
+            dir_ = m.group("dir")
 
-            if latitude.endswith("S"):
+            self._latitude = float(deg) + (float(min_) / 60)
+            if sec:
+                self._latitude += (float(sec) / 3600)
+
+            if dir_ == "S":
                 self._latitude = -self._latitude
         else:
             self._latitude = float(latitude)
@@ -638,13 +648,21 @@ class Location(object):
 
     @longitude.setter
     def longitude(self, longitude):
-        if isinstance(longitude, str) or isinstance(longitude, ustr):
-            (deg, rest) = longitude.split("°", 1)
-            (minute, rest) = rest.split("'", 1)
+        if isinstance(longitude, (str, ustr)):
+            if sys.version_info[0] < 3 and isinstance(longitude, str):
+                longitude = longitude.decode('utf-8')
 
-            self._longitude = float(deg) + (float(minute) / 60)
+            m = self._dms_re.match(longitude)
+            deg = m.group("deg")
+            min_ = m.group("min")
+            sec = m.group("sec")
+            dir_ = m.group("dir")
 
-            if longitude.endswith("W"):
+            self._longitude = float(deg) + (float(min_) / 60)
+            if sec:
+                self._longitude += (float(sec) / 3600)
+
+            if dir_ == "W":
                 self._longitude = -self._longitude
         else:
             self._longitude = float(longitude)
@@ -1489,26 +1507,64 @@ class AstralGeocoder(object):
 
     def __init__(self):
         self._groups = {}
+        self._add_from_str(_LOCATION_INFO)
 
-        locations = _LOCATION_INFO.split("\n")
-        for line in locations:
-            line = line.strip()
-            if line != "" and line[0] != "#":
-                if line[-1] == "\n":
-                    line = line[:-1]
+    def add_locations(self, locations):
+        """Add extra locations to AstralGeocoder.
 
-                info = line.split(",")
+        Extra locations can be
 
-                location = Location(info)
+        * A single string containing one or more locations separated by a newline.
+        * A list of strings
+        * A list of lists/tuples that are passed to a :class:`Location` constructor
+        """
 
-                key = location._timezone_group.lower()
-                try:
-                    group = self.__getattr__(key)
-                except AttributeError:
-                    group = LocationGroup(location._timezone_group)
-                    self._groups[key] = group
+        if isinstance(locations, (str, ustr)):
+            self._add_from_str(locations)
+        elif isinstance(locations, (list, tuple)):
+            self._add_from_list(locations)
 
-                group[info[0].lower()] = location
+    def _add_from_str(self, s):
+        """Add locations from a string"""
+
+        if sys.version_info[0] < 3 and isinstance(s, str):
+            s = s.decode('utf-8')
+
+        for line in s.split("\n"):
+            self._parse_line(line)
+
+    def _add_from_list(self, l):
+        """Add locations from a list of either strings or lists or tuples.
+
+        Lists of lists and tuples are passed to the Location constructor
+        """
+
+        for item in l:
+            if isinstance(item, (str, ustr)):
+                self._add_from_str(item)
+            elif isinstance(item, (list, tuple)):
+                location = Location(item)
+                self._add_location(location)
+
+    def _parse_line(self, line):
+        line = line.strip()
+        if line != "" and line[0] != "#":
+            if line[-1] == "\n":
+                line = line[:-1]
+
+            info = line.split(",")
+            location = Location(info)
+            self._add_location(location)
+
+    def _add_location(self, location):
+        key = location._timezone_group.lower()
+        try:
+            group = self.__getattr__(key)
+        except AttributeError:
+            group = LocationGroup(location._timezone_group)
+            self._groups[key] = group
+
+        group[location.name.lower()] = location
 
     def __getattr__(self, key):
         """Access to each timezone group. For example London is in timezone
