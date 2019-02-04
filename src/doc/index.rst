@@ -159,8 +159,21 @@ type required as the `rtype` parameter to :meth:`~astral.Astral.moon_phase`
 Locations
 ---------
 
-If the location you want is not in the Astral geocoder then you need to
-construct a :class:`~astral.Location` and fill in the values either with a
+.. _additional_locations:
+
+Additional Locations
+~~~~~~~~~~~~~~~~~~~~
+
+If you are using :class:`~astral.AstralGeocoder` you can add to the list of available locations
+using the :meth:`~astral.AstralGeocoder.add_locations` method and passing either a string with one
+line per location or by passing a list containing strings, lists or tuples (lists and tuples are
+passed directly to the Location constructor).
+
+Custom Location
+~~~~~~~~~~~~~~~
+
+If the location you want is not in the Astral geocoder then you can
+construct a :class:`~astral.Location` and fill in the values, either with a
 tuple on initialization::
 
    l = Location(('name', 'region',
@@ -185,11 +198,17 @@ or set the attributes after initialization::
 Geolocation
 -----------
 
+Access to Geocoder Instance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Access to the current geocoder can be made through the Astral class::
 
     >>> a = Astral()
     >>> geo = a.geocoder
     >>> london = geo['London']
+
+Timezone Groups
+~~~~~~~~~~~~~~~
 
 Timezone groups such as Europe can be accessed via attributes on the
 :class:`~astral.AstralGeocoder`::
@@ -344,6 +363,10 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.10     Added support to AstralGeocoder to add
+         `additional locations <additional_locations_>`__
+         to the database.
+-------- -----------------------------------------------------------------------
 1.9.2    1.9 broke the sun_utc method. Sun UTC calculation passed incorrect
          parameter to more specific methods e.g. sunrise, sunset etc.
 -------- -----------------------------------------------------------------------
