@@ -1,8 +1,33 @@
 # CHANGELOG
 
-## 1.8 - 2018-12-06
+## 1.10 - 2019-02-04
+
+### Added
+
+Added method to AstralGeocoder to add locations to the database
+
+## 1.9.2 - 2019-01-31
 
 ### Changed
+
+Version 1.9 broke the sun_utc method. Sun UTC calculation passed incorrect
+parameter to more specific methods e.g. sunrise, sunset etc.
+
+## 1.9.1 - 2019-01-28
+
+### Changed
+
+Corrected version number in module source code.
+
+## 1.9 - 2019-01-28
+
+### Added
+
+Sun calculations now take into account the elevation of the location.
+
+## 1.8 - 2018-12-06
+
+### Added
 
 Added command line interface to return sun information as json.
 Added support for no timezone in Location methods.
