@@ -766,7 +766,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -809,7 +809,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -850,7 +850,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -922,7 +922,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -963,7 +963,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -1034,7 +1034,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -1073,7 +1073,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -1118,7 +1118,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -1205,7 +1205,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -1254,7 +1254,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -1303,7 +1303,7 @@ class Location(object):
         :type local:  bool
 
         :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation
+                              False = Return times that don't use elevation.
                               If not specified then times will take elevation into account.
         :type use_elevation:  bool
 
@@ -1804,8 +1804,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
-        :param elevation:  Elevation in metres to calculate sunrise for
-        :type elevation:   int
+        :param observer_elevation:  Elevation in metres to calculate sun for
+        :type observer_elevation:   int
 
         :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
             ``sunset`` and ``dusk`` whose values are the results of the
@@ -1838,6 +1838,8 @@ class Astral(object):
         :type longitude:   float
         :param depression: Override the depression used
         :type depression:  float
+        :param observer_elevation:  Elevation in metres to calculate dawn for
+        :type observer_elevation:   int
 
         :return: The UTC date and time at which dawn occurs.
         :rtype: :class:`~datetime.datetime`
@@ -1870,6 +1872,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate sunrise for
+        :type observer_elevation:   int
 
         :return: The UTC date and time at which sunrise occurs.
         :rtype: :class:`~datetime.datetime`
@@ -1940,6 +1944,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate sunset for
+        :type observer_elevation:   int
 
         :return: The UTC date and time at which sunset occurs.
         :rtype: :class:`~datetime.datetime`
@@ -1966,6 +1972,8 @@ class Astral(object):
         :type longitude:   float
         :param depression: Override the depression used
         :type depression:   float
+        :param observer_elevation:  Elevation in metres to calculate dusk for
+        :type observer_elevation:   int
 
         :return: The UTC date and time at which dusk occurs.
         :rtype: :class:`~datetime.datetime`
@@ -2051,6 +2059,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate daylight for
+        :type observer_elevation:   int
 
         :return: A tuple of the UTC date and time at which daylight starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -2073,6 +2083,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate night for
+        :type observer_elevation:   int
 
         :return: A tuple of the UTC date and time at which night starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -2100,6 +2112,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate twilight for
+        :type observer_elevation:   int
 
         :return: A tuple of the UTC date and time at which twilight starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -2136,6 +2150,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate the golden hour for
+        :type observer_elevation:   int
 
         :return: A tuple of the UTC date and time at which the Golden Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -2168,6 +2184,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate the blue hour for
+        :type observer_elevation:   int
 
         :return: A tuple of the UTC date and time at which the Blue Hour starts and ends.
         :rtype: (:class:`~datetime.datetime`, :class:`~datetime.datetime`)
@@ -2201,6 +2219,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate time at elevation for
+        :type observer_elevation:   int
 
         :return: The UTC date and time at which the sun is at the required
                  elevation.
@@ -2506,6 +2526,8 @@ class Astral(object):
         :type latitude:    float
         :param longitude:  Longitude - Eastern longitudes should be positive
         :type longitude:   float
+        :param observer_elevation:  Elevation in metres to calculate Rahukaalam for
+        :type observer_elevation:   int
 
         :return: Tuple containing the start and end times for Rahukaalam.
         :rtype: tuple
