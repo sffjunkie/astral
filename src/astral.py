@@ -1744,10 +1744,12 @@ class GoogleGeocoder(object):
 
 
 class Astral(object):
-    def __init__(self, geocoder=AstralGeocoder):
-        """Initialise the geocoder and set the default depression."""
+    def __init__(self, geocoder=AstralGeocoder, **kwargs):
+        """Initialise the geocoder and set the default depression.
 
-        self.geocoder = geocoder()
+        Any keyword arguments are passed to the geocoder."""
+
+        self.geocoder = geocoder(**kwargs)
         self._depression = 6  # Set default depression in degrees
 
     def __getitem__(self, key):
