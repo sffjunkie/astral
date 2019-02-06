@@ -156,8 +156,17 @@ type required as the `rtype` parameter to :meth:`~astral.Astral.moon_phase`
 
    See http://moongazer.x10.mx/website/astronomy/moon-phases/ for an example.
 
-Locations
----------
+Geocoders
+=========
+
+Access to the current geocoder instance can be made through the Astral class::
+
+    >>> a = Astral()
+    >>> geo = a.geocoder
+    >>> london = geo['London']
+
+AstralGeocoder
+--------------
 
 .. _additional_locations:
 
@@ -172,7 +181,7 @@ passed directly to the Location constructor).
 Custom Location
 ~~~~~~~~~~~~~~~
 
-If the location you want is not in the Astral geocoder then you can
+If you only need a single location that is not in the Astral geocoder then you can
 construct a :class:`~astral.Location` and fill in the values, either with a
 tuple on initialization::
 
@@ -195,18 +204,6 @@ or set the attributes after initialization::
 
    `name` and `region` can be anything you like.
 
-Geolocation
------------
-
-Access to Geocoder Instance
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Access to the current geocoder can be made through the Astral class::
-
-    >>> a = Astral()
-    >>> geo = a.geocoder
-    >>> london = geo['London']
-
 Timezone Groups
 ~~~~~~~~~~~~~~~
 
@@ -218,6 +215,16 @@ Timezone groups such as Europe can be accessed via attributes on the
     >>> europe.sort()
     >>> europe
     ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...]
+
+GoogleGeocoder
+--------------
+
+The :class:`~astral.GoogleGeocoder` class can be used by passing GoogleGeocoder as
+the `geocoder` parameter to the :class:`~astral.Astral` class and by passing an API key with
+the `api_key` paramater::
+
+    a = Astral(geocoder=GoogleGeocoder, api_key="<Insert API key here>")
+
 
 Effect of Elevation
 ===================
@@ -254,7 +261,8 @@ This module is licensed under the terms of the `Apache`_ V2.0 license.
 Dependencies
 ============
 
-Astral has one external Python dependency on 'pytz'.
+Astral has one required external Python dependency on 'pytz'. If you want to use the
+GoogleGeocoder then the 'requests' package is also required.
 
 Installation
 ============
@@ -363,6 +371,10 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
+1.10.1   Keyword args are now passed to the geocoder class from Astral __init__
+         in order to allow the Google Maps API key to be passed to the
+         GoogleGeocoder.
+-------- -----------------------------------------------------------------------
 1.10     Added support to AstralGeocoder to add
          `additional locations <additional_locations_>`__
          to the database.

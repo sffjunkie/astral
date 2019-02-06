@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.10.1 - 2019-02-06
+
+### Changed
+
+Keywords arguments to Astral __init__ are now passed to the geocoder to allow for passing
+the `api_key` to GoogleGeocoder.
+
 ## 1.10 - 2019-02-04
 
 ### Added

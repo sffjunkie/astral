@@ -111,7 +111,7 @@ else:
 
 __all__ = ["Astral", "Location", "AstralGeocoder", "GoogleGeocoder", "AstralError"]
 
-__version__ = "1.10"
+__version__ = "1.10.1"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 SUN_RISING = 1
@@ -1639,6 +1639,12 @@ class GoogleGeocoder(object):
         return cls
 
     def __init__(self, api_key, cache=False):
+        """:param api_key: Google maps API key. This is required by Google's maps API
+        :type api_key: str
+        :param cache: Determines whether lookups to the Maps API are cached or not.
+        :type cache: bool
+        """
+
         self.cache = cache
         self.api_key = api_key
         self.geocache = {}
