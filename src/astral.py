@@ -84,7 +84,7 @@ import datetime
 from importlib import import_module
 from time import time
 from math import cos, sin, tan, acos, asin, atan2, floor, ceil
-from math import radians, degrees, pi, pow, sqrt
+from math import radians, degrees, pow, sqrt
 from numbers import Number
 import re
 import sys
