@@ -156,6 +156,14 @@ type required as the `rtype` parameter to :meth:`~astral.Astral.moon_phase`
 
    See http://moongazer.x10.mx/website/astronomy/moon-phases/ for an example.
 
+.. note::
+
+   For an example of using this library to generate moon phases including the names in various
+   languages and the correct Unicode glyphs see the
+   `project by PanderMusubi <https://github.com/PanderMusubi/lunar-phase-calendar/>`_
+   on Github.
+
+
 Geocoders
 =========
 
