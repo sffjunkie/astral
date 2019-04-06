@@ -523,6 +523,23 @@ def excel_datediff(start_date, end_date):
     return end_date.toordinal() - start_date.toordinal() + 2
 
 
+def date_today_in_tz(tz=None):
+    """
+    Get current date either in tz or UTC.
+
+    Note that datetime.date.today uses the system tz
+
+    :param tz: Use this timezone for date calculation (default=utc)
+    :return:
+    """
+    if tz is None:
+        tz = pytz.utc
+
+    utc_now = pytz.utc.localize(datetime.datetime.utcnow())
+    local_now = utc_now.astimezone(tz)
+    return local_now.date()
+
+
 class Location(object):
     """Provides access to information for single location."""
 
@@ -727,6 +744,14 @@ class Location(object):
 
     tzinfo = tz
 
+    def date_today(self, local=True):
+        if local:
+            tz = self.tz
+        else:
+            tz = pytz.utc
+
+        return date_today_in_tz(tz)
+
     @property
     def solar_depression(self):
         """The number of degrees the sun must be below the horizon for the
@@ -783,7 +808,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         sun = self.astral.sun_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
@@ -824,7 +849,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         dawn = self.astral.dawn_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
@@ -865,7 +890,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         sunrise = self.astral.sunrise_utc(date, self.latitude, self.longitude, elevation)
@@ -899,7 +924,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         noon = self.astral.solar_noon_utc(date, self.longitude)
 
@@ -937,7 +962,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         sunset = self.astral.sunset_utc(date, self.latitude, self.longitude, elevation)
@@ -978,7 +1003,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         dusk = self.astral.dusk_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
@@ -1012,7 +1037,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         midnight = self.astral.solar_midnight_utc(date, self.longitude)
 
@@ -1049,7 +1074,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         start, end = self.astral.daylight_utc(date, self.latitude, self.longitude, observer_elevation=elevation)
@@ -1088,7 +1113,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         start, end = self.astral.night_utc(date, self.latitude, self.longitude, elevation)
@@ -1130,7 +1155,7 @@ class Location(object):
             raise ValueError("Local time requested but Location has no timezone set.")
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         start, end = self.astral.twilight_utc(
@@ -1178,7 +1203,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         if elevation > 90.0:
             elevation = 180.0 - elevation
@@ -1220,7 +1245,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         rahukaalam = self.astral.rahukaalam_utc(date, self.latitude, self.longitude, elevation)
@@ -1269,7 +1294,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         start, end = self.astral.golden_hour_utc(
@@ -1318,7 +1343,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=local)
 
         elevation = self.elevation if use_elevation else 0
         start, end = self.astral.blue_hour_utc(
@@ -1407,7 +1432,7 @@ class Location(object):
             self.astral = Astral()
 
         if date is None:
-            date = datetime.date.today()
+            date = self.date_today(local=False)
 
         return self.astral.moon_phase(date, rtype)
 

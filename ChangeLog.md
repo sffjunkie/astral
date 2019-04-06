@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.10.2 - xxxx-xx-xx
+
+### Changed
+
+Take timezone into account when calculating today's date in `Location` methods when `local=True`
+
 ## 1.10.1 - 2019-02-06
 
 ### Changed
