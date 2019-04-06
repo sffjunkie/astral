@@ -2153,7 +2153,7 @@ class Astral(object):
         """
 
         if date is None:
-            date = datetime.date.today()
+            date = date_today_in_tz(pytz.utc)
 
         start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude, observer_elevation)
         if direction == SUN_RISING:
@@ -2191,7 +2191,7 @@ class Astral(object):
         """
 
         if date is None:
-            date = datetime.date.today()
+            date = date_today_in_tz(pytz.utc)
 
         start = self.time_at_elevation_utc(-4, direction, date, latitude, longitude, observer_elevation)
         end = self.time_at_elevation_utc(6, direction, date, latitude, longitude, observer_elevation)
@@ -2225,7 +2225,7 @@ class Astral(object):
         """
 
         if date is None:
-            date = datetime.date.today()
+            date = date_today_in_tz(pytz.utc)
 
         start = self.time_at_elevation_utc(-6, direction, date, latitude, longitude, observer_elevation)
         end = self.time_at_elevation_utc(-4, direction, date, latitude, longitude, observer_elevation)
@@ -2567,7 +2567,7 @@ class Astral(object):
         """
 
         if date is None:
-            date = datetime.date.today()
+            date = date_today_in_tz(pytz.utc)
 
         sunrise = self.sunrise_utc(date, latitude, longitude, observer_elevation)
         sunset = self.sunset_utc(date, latitude, longitude, observer_elevation)
