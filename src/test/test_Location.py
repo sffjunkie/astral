@@ -4,6 +4,12 @@ from pytest import raises
 from astral import Astral, AstralError, Location
 import datetime
 import pytz
+from freezegun import freeze_time
+
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 
 
 def datetime_almost_equal(datetime1, datetime2, seconds=60):
@@ -164,6 +170,30 @@ def test_Location_SolarDepression():
 
     c.solar_depression = 18
     assert c.solar_depression == 18
+
+
+@freeze_time("2019-04-06 20:00:00", tz_offset=0)
+def test_Location_DateToday():
+    c = Location(("Auckland", "New Zealand", -36.8485, 174.7633, "Pacific/Auckland"))
+
+    assert c.date_today(local=True) == datetime.date(2019, 4, 7)
+    assert c.date_today(local=False) == datetime.date(2019, 4, 6)
+
+
+@freeze_time("2019-04-06 20:00:00", tz_offset=0)
+def test_Location_Dawn_DefaultDate():
+    c = Location(("Auckland", "New Zealand", -36.8485, 174.7633, "Pacific/Auckland"))
+
+    c.astral = mock.MagicMock()
+
+    c.dawn()
+    # date should default to local in timezone
+    c.astral.dawn_utc.assert_called_once_with(
+        datetime.date(2019, 4, 7),
+        c.latitude,
+        c.longitude,
+        observer_elevation=0
+    )
 
 
 def test_Location_Moon():
