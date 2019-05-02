@@ -2425,32 +2425,6 @@ class Astral(object):
 
         zenith = degrees(acos(csz))
 
-        azDenom = cos(radians(latitude)) * sin(radians(zenith))
-
-        if abs(azDenom) > 0.001:
-            azRad = (
-                (sin(radians(latitude)) * cos(radians(zenith))) - sin(radians(solarDec))
-            ) / azDenom
-
-            if abs(azRad) > 1.0:
-                if azRad < 0:
-                    azRad = -1.0
-                else:
-                    azRad = 1.0
-
-            azimuth = 180.0 - degrees(acos(azRad))
-
-            if hourangle > 0.0:
-                azimuth = -azimuth
-        else:
-            if latitude > 0.0:
-                azimuth = 180.0
-            else:
-                azimuth = 0.0
-
-        if azimuth < 0.0:
-            azimuth = azimuth + 360.0
-
         exoatmElevation = 90.0 - zenith
 
         if exoatmElevation > 85.0:
@@ -2465,9 +2439,9 @@ class Astral(object):
                 )
             elif exoatmElevation > -0.575:
                 step1 = -12.79 + exoatmElevation * 0.711
-                step2 = 103.4 + exoatmElevation * (step1)
-                step3 = -518.2 + exoatmElevation * (step2)
-                refractionCorrection = 1735.0 + exoatmElevation * (step3)
+                step2 = 103.4 + exoatmElevation * step1
+                step3 = -518.2 + exoatmElevation * step2
+                refractionCorrection = 1735.0 + exoatmElevation * step3
             else:
                 refractionCorrection = -20.774 / te
 
