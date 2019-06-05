@@ -66,3 +66,16 @@ def test_elevations():
 
     # This fails.    
     assert failed == []
+
+
+def test_elevation_altitude():
+    june = datetime(2019, 6, 5, 2, 0, 0, tzinfo=UTC)
+    location = astral.Location(("Perth", "Australia", -31.8584265, 115.769342, "UTC"))
+
+    e_ground = location.solar_elevation(june)
+
+    location.elevation = 1000
+    e_altitude = location.solar_elevation(june)
+
+    # This should fail, since when at altitude the elevation should be less
+    assert e_ground > e_altitude
