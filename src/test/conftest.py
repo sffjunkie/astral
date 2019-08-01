@@ -1,5 +1,5 @@
 import pytest
-from astral import LocationInfo, Observer
+from astral import LocationInfo
 from astral.location import Location
 
 
