@@ -256,7 +256,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.sun(self.tz, observer, date, self.solar_depression)
+            return astral.local.sun(observer, date, self.solar_depression, self.tz)
         else:
             return astral.utc.sun(observer, date, self.solar_depression)
 
@@ -291,7 +291,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.dawn(self.tz, observer, date, self.solar_depression)
+            return astral.local.dawn(observer, date, self.solar_depression, self.tz)
         else:
             return astral.utc.dawn(observer, date, self.solar_depression)
 
@@ -329,7 +329,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.sunrise(self.tz, observer, date)
+            return astral.local.sunrise(observer, date, self.tz)
         else:
             return astral.utc.sunrise(observer, date)
 
@@ -357,7 +357,7 @@ class Location:
 
         observer = Observer(self.latitude, self.longitude)
         if local:
-            return astral.local.solar_noon(self.tz, observer, date)
+            return astral.local.solar_noon(observer, date, self.tz)
         else:
             return astral.utc.solar_noon(observer, date)
 
@@ -393,7 +393,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.sunset(self.tz, observer, date)
+            return astral.local.sunset(observer, date, self.tz)
         else:
             return astral.utc.sunset(observer, date)
 
@@ -429,7 +429,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.dusk(self.tz, observer, date, self.solar_depression)
+            return astral.local.dusk(observer, date, self.solar_depression, self.tz)
         else:
             return astral.utc.dusk(observer, date, self.solar_depression)
 
@@ -458,7 +458,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude)
 
         if local:
-            return astral.local.solar_midnight(self.tz, observer, date)
+            return astral.local.solar_midnight(observer, date, self.tz)
         else:
             return astral.utc.solar_midnight(observer, date)
 
@@ -493,7 +493,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.daylight(self.tz, observer, date)
+            return astral.local.daylight(observer, date, self.tz)
         else:
             return astral.utc.daylight(observer, date)
 
@@ -527,7 +527,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.night(self.tz, observer, date)
+            return astral.local.night(observer, date, self.tz)
         else:
             return astral.utc.night(observer, date)
 
@@ -573,7 +573,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.twilight(self.tz, observer, date, direction)
+            return astral.local.twilight(observer, date, direction, self.tz)
         else:
             return astral.utc.twilight(observer, date, direction)
 
@@ -621,7 +621,7 @@ class Location:
 
         if local:
             return astral.local.time_at_altitude(
-                self.tz, observer, altitude, date, direction
+                observer, altitude, date, direction, self.tz
             )
         else:
             return astral.utc.time_at_altitude(observer, altitude, date, direction)
@@ -656,7 +656,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.rahukaalam(self.tz, observer, date)
+            return astral.local.rahukaalam(observer, date, self.tz)
         else:
             return astral.utc.rahukaalam(observer, date)
 
@@ -701,7 +701,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.golden_hour(self.tz, observer, date, direction)
+            return astral.local.golden_hour(observer, date, direction, self.tz)
         else:
             return astral.utc.golden_hour(observer, date, direction)
 
@@ -746,7 +746,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.local.blue_hour(self.tz, observer, date, direction)
+            return astral.local.blue_hour(observer, date, direction, self.tz)
         else:
             return astral.utc.blue_hour(observer, date, direction)
 
