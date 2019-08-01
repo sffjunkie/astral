@@ -169,7 +169,7 @@ class Location:
         self._location_info = dataclasses.replace(self._location_info, timezone=name)
 
     @property
-    def tz(self) -> pytz.tzinfo:  # type: ignore
+    def tzinfo(self) -> pytz.tzinfo:  # type: ignore
         """Time zone information."""
 
         try:
@@ -178,7 +178,7 @@ class Location:
         except pytz.UnknownTimeZoneError:
             raise AstralError("Unknown timezone '%s'" % self.timezone)
 
-    tzinfo = tz
+    tz = tzinfo
 
     @property
     def solar_depression(self) -> float:
