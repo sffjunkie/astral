@@ -30,7 +30,7 @@ def proper_angle(value: float) -> float:
 
 
 def julianday(
-    date: Union[datetime.datetime, datetime.date],
+    date: datetime.date,
     timezone: Union[int, pytz.BaseTzInfo] = None,
 ) -> float:
     y = date.year
