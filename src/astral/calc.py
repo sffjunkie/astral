@@ -32,6 +32,7 @@ def proper_angle(value: float) -> float:
 def julianday(
     date: datetime.date
 ) -> float:
+    """Calculate the Julian Day for the specified date"""
     y = date.year
     m = date.month
     d = date.day
@@ -48,6 +49,7 @@ def julianday(
 
 
 def minutes_to_timedelta(minutes: float) -> datetime.timedelta:
+    """Convert a floating point number of minutes to a :class:`~datetime.timedelta`"""
     d = int(minutes / 1440)
     minutes = minutes - (d * 1440)
     minutes = minutes * 60
@@ -59,27 +61,33 @@ def minutes_to_timedelta(minutes: float) -> datetime.timedelta:
 
 
 def jday_to_jcentury(julianday: float) -> float:
+    """Convert a Julian Day number to a Julian Century"""
     return (julianday - 2451545.0) / 36525.0
 
 
 def jcentury_to_jday(juliancentury: float) -> float:
+    """Convert a Julian Century number to a Julian Day"""
     return (juliancentury * 36525.0) + 2451545.0
 
 
 def geom_mean_long_sun(juliancentury: float) -> float:
+    """Calculate the geometric mean longitude of the sun"""
     l0 = 280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury)
     return l0 % 360.0
 
 
 def geom_mean_anomaly_sun(juliancentury: float) -> float:
+    """Calculate the geometric mean anomaly of the sun"""
     return 357.52911 + juliancentury * (35999.05029 - 0.0001537 * juliancentury)
 
 
 def eccentrilocation_earth_orbit(juliancentury: float) -> float:
+    """Calculate the eccentricity of Earth's orbit"""
     return 0.016708634 - juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
 
 
 def sun_eq_of_center(juliancentury: float) -> float:
+    """Calculate the equation of the center of the sun"""
     m = geom_mean_anomaly_sun(juliancentury)
 
     mrad = radians(m)
@@ -97,6 +105,7 @@ def sun_eq_of_center(juliancentury: float) -> float:
 
 
 def sun_true_long(juliancentury: float) -> float:
+    """Calculate the sun's true longitude"""
     l0 = geom_mean_long_sun(juliancentury)
     c = sun_eq_of_center(juliancentury)
 
@@ -104,6 +113,7 @@ def sun_true_long(juliancentury: float) -> float:
 
 
 def sun_true_anomoly(juliancentury: float) -> float:
+    """Calculate the sun's true anomaly"""
     m = geom_mean_anomaly_sun(juliancentury)
     c = sun_eq_of_center(juliancentury)
 
@@ -139,6 +149,7 @@ def obliquity_correction(juliancentury: float) -> float:
 
 
 def sun_rt_ascension(juliancentury: float) -> float:
+    """Calculate the sun's right ascension"""
     oc = obliquity_correction(juliancentury)
     al = sun_apparent_long(juliancentury)
 
@@ -149,6 +160,7 @@ def sun_rt_ascension(juliancentury: float) -> float:
 
 
 def sun_declination(juliancentury: float) -> float:
+    """Calculate the sun's declination"""
     e = obliquity_correction(juliancentury)
     lambd = sun_apparent_long(juliancentury)
 
