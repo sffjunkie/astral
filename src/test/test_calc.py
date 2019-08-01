@@ -74,7 +74,7 @@ def test_EccentricityEarthOrbit():
     ]
 
     for jc, eeo in test_data:
-        assert approx(calc.eccentrilocation_earth_orbit(jc), eeo, abs=1e-6)
+        assert approx(calc.eccentric_location_earth_orbit(jc), eeo, abs=1e-6)
 
 
 def test_SunEqOfCenter():

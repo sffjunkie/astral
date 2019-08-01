@@ -80,7 +80,7 @@ def geom_mean_anomaly_sun(juliancentury: float) -> float:
     return 357.52911 + juliancentury * (35999.05029 - 0.0001537 * juliancentury)
 
 
-def eccentrilocation_earth_orbit(juliancentury: float) -> float:
+def eccentric_location_earth_orbit(juliancentury: float) -> float:
     """Calculate the eccentricity of Earth's orbit"""
     return 0.016708634 - juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
 
@@ -121,7 +121,7 @@ def sun_true_anomoly(juliancentury: float) -> float:
 
 def sun_rad_vector(juliancentury: float) -> float:
     v = sun_true_anomoly(juliancentury)
-    e = eccentrilocation_earth_orbit(juliancentury)
+    e = eccentric_location_earth_orbit(juliancentury)
 
     return (1.000001018 * (1 - e * e)) / (1 + e * cos(radians(v)))
 
@@ -175,7 +175,7 @@ def var_y(juliancentury: float) -> float:
 
 def eq_of_time(juliancentury: float) -> float:
     l0 = geom_mean_long_sun(juliancentury)
-    e = eccentrilocation_earth_orbit(juliancentury)
+    e = eccentric_location_earth_orbit(juliancentury)
     m = geom_mean_anomaly_sun(juliancentury)
 
     y = var_y(juliancentury)
