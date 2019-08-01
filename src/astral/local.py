@@ -1,4 +1,4 @@
-"""Sun claculations in a local timezone"""
+"""Sun calculations in a local timezone"""
 
 import datetime
 from typing import Dict, Optional, Tuple
