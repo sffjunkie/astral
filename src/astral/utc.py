@@ -10,20 +10,22 @@ from astral import AstralError, Observer, SunDirection
 
 
 def now() -> datetime.datetime:
+    """Returns the current time in the UTC time zone"""
     return pytz.utc.localize(datetime.datetime.utcnow())
 
 
 def today() -> datetime.date:
+    """Returns the current date in the UTC time zone"""
     return now().date()
 
 
 def solar_noon(
     observer: Observer, date: Optional[datetime.date] = None
 ) -> datetime.datetime:
-    """Calculate solar noon time in the UTC timezone.
+    """Returns the solar noon time in the UTC timezone.
 
-    :param observer: Observer to calculate noon time for
-    :param date:     Date to calculate for.
+    :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
+    :param date:     The date to calculate for (Default: today)
     :return:         The UTC date and time at which noon occurs.
     """
     if date is None:
@@ -37,13 +39,12 @@ def solar_midnight(
 ) -> datetime.datetime:
     """Calculate solar midnight time in the UTC timezone.
 
-    Note that this claculates the solar midgnight that is closest
+    Note that this calculates the solar midgnight that is closest
     to 00:00:00 of the specified date i.e. it may return a time that is on
-    the previous daytime.
+    the previous day.
 
-    :param observer: Observer to calculate solar midnight for
-    :param date:     Date to calculate for.
-    :return:         The UTC date and time at which midnight occurs.
+    :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
+    :param date:     The date to calculate for (Default: today)
     """
     if date is None:
         date = today()
