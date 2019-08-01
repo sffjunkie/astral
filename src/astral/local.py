@@ -29,7 +29,11 @@ def solar_noon(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:         The local :class:`~datetime.datetime` at which noon occurs.
     """
+    if date is None:
+        date = today(tzinfo)
+
     t = astral.utc.solar_noon(observer, date)
     return t.astimezone(tzinfo)
 
@@ -44,7 +48,11 @@ def solar_midnight(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:         The local :class:`~datetime.datetime` at which midnight occurs.
     """
+    if date is None:
+        date = today(tzinfo)
+
     t = astral.utc.solar_midnight(observer, date)
     return t.astimezone(tzinfo)
 
@@ -61,7 +69,11 @@ def dawn(
     :param date:       The date to calculate for (Default: today)
     :param depression: The solar depression to use for the dawn time (Default: 6.0 degrees)
     :param tzinfo:     A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:           The local :class:`~datetime.datetime` at which dawn occurs.
     """
+    if date is None:
+        date = today(tzinfo)
+
     return astral.utc.dawn(observer, date, depression).astimezone(tzinfo)
 
 
@@ -75,7 +87,11 @@ def sunrise(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:         The local :class:`~datetime.datetime` at which sunrise occurs.
     """
+    if date is None:
+        date = today(tzinfo)
+
     t = astral.utc.sunrise(observer, date)
     return t.astimezone(tzinfo)
 
@@ -90,7 +106,11 @@ def sunset(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:         The local :class:`~datetime.datetime` at which sunset occurs.
     """
+    if date is None:
+        date = today(tzinfo)
+
     t = astral.utc.sunset(observer, date)
     return t.astimezone(tzinfo)
 
@@ -107,7 +127,11 @@ def dusk(
     :param date:       The date to calculate for (Default: today)
     :param depression: The solar depression to use for the dawn time (Default: 6.0 degrees)
     :param tzinfo:     A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:           The local :class:`~datetime.datetime` at which dusk occurs.
     """
+    if date is None:
+        date = today(tzinfo)
+
     t = astral.utc.dusk(observer, date, depression)
     return t.astimezone(tzinfo)
 
@@ -122,7 +146,12 @@ def daylight(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:         A tuple of local :class:`~datetime.datetime`\s at which daylight starts
+                     and stops.
     """
+    if date is None:
+        date = today(tzinfo)
+
     t0, t1 = astral.utc.daylight(observer, date)
     return t0.astimezone(tzinfo), t1.astimezone(tzinfo)
 
@@ -137,7 +166,12 @@ def night(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
+    :return:         A tuple of local :class:`~datetime.datetime`\s at which night starts
+                     and stops.
     """
+    if date is None:
+        date = today(tzinfo)
+
     t0, t1 = astral.utc.night(observer, date)
     return t0.astimezone(tzinfo), t1.astimezone(tzinfo)
 
@@ -157,6 +191,9 @@ def time_at_altitude(
     :param direction: Whether the time is for the sun rising or setting (Default: rising)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
+    if date is None:
+        date = today(tzinfo)
+
     t = astral.utc.time_at_altitude(observer, altitude, date, direction)
     return t.astimezone(tzinfo)
 
@@ -174,6 +211,9 @@ def twilight(
     :param direction: Whether the time is for the sun rising or setting (Default: rising)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
+    if date is None:
+        date = today(tzinfo)
+
     t0, t1 = astral.utc.twilight(observer, date, direction)
     return t0.astimezone(tzinfo), t1.astimezone(tzinfo)
 
@@ -191,6 +231,9 @@ def golden_hour(
     :param direction: Whether the time is for the sun rising or setting (Default: rising)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
+    if date is None:
+        date = today(tzinfo)
+
     t0, t1 = astral.utc.golden_hour(observer, date, direction)
     return t0.astimezone(tzinfo), t1.astimezone(tzinfo)
 
@@ -208,6 +251,9 @@ def blue_hour(
     :para: direction: Whether the time is for the sun rising or setting (Default: rising)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
+    if date is None:
+        date = today(tzinfo)
+
     t0, t1 = astral.utc.blue_hour(observer, date, direction)
     return t0.astimezone(tzinfo), t1.astimezone(tzinfo)
 
@@ -225,6 +271,9 @@ def rahukaalam(
     :para: daytime:   Whether the time is during the day time or the night time (Default: True)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
+    if date is None:
+        date = today(tzinfo)
+
     t0, t1 = astral.utc.rahukaalam(observer, date, daytime)
     return t0.astimezone(tzinfo), t1.astimezone(tzinfo)
 
@@ -244,5 +293,8 @@ def sun(
                                  ``sunset`` and ``dusk`` whose values are the results of
                                  the corresponding methods.
     """
+    if date is None:
+        date = today(tzinfo)
+
     s = astral.utc.sun(observer, date, dawn_dusk_depression)
     return {key: s[key].astimezone(tzinfo) for key in s}
