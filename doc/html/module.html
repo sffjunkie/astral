@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>The astral Module</title>
+    
+      <link rel="stylesheet" href="_static/pygments.css">
+      <link rel="stylesheet" href="_static/theme.css">
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+
+      
+      <script src="_static/theme-vendors.js"></script>
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="prev" title="Astral v2" href="index.html" /> 
+  </head>
+
+  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <img class="logo" src="_static/earth_sun.png" alt="doit logo"/>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#version-history">Astral v2</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">The astral Module</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#location" class="reference internal">Location</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">astral</span></code> Module</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← Astral v2</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <div class="section" id="module-astral">
+<span id="the-astral-module"></span><h1>The <a class="reference internal" href="#module-astral" title="astral"><code class="xref py py-mod docutils literal notranslate"><span class="pre">astral</span></code></a> Module<a class="headerlink" href="#module-astral" title="Permalink to this headline">¶</a></h1>
+<p>Calculations for the position of the sun and moon.</p>
+<p>The <a class="reference internal" href="#module-astral" title="astral"><code class="xref py py-mod docutils literal notranslate"><span class="pre">astral</span></code></a> package provides the means to calculate dawn, sunrise,
+solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and
+elevation, for specific locations or at a specific latitude/longitude. It can
+also calculate the moon phase for a specific date.</p>
+<p>The package provides 2 modules to provide calculations in UTC and local time zones.
+It also provides a self contained geocoder to turn location names into
+timezone, latitude, longitude and elevation.</p>
+<dl class="simple">
+<dt><code class="xref py py-class docutils literal notranslate"><span class="pre">Location</span></code></dt><dd><p>Holds information about a location and provides functions to calculate
+the event times in its time zone.</p>
+</dd>
+</dl>
+<p>For example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral.geocoder</span> <span class="k">import</span> <span class="n">lookup</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">location</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">(</span><span class="s1">&#39;London&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Information for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">location</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="go">Information for London</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timezone</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">timezone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Timezone: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">timezone</span><span class="p">)</span>
+<span class="go">Timezone: Europe/London</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Latitude: </span><span class="si">%.02f</span><span class="s1">; Longitude: </span><span class="si">%.02f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">location</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">longitude</span><span class="p">))</span>
+<span class="go">Latitude: 51.60; Longitude: 0.05</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">date</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astral.sun.local</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">22</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sun</span> <span class="o">=</span> <span class="n">astral</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">sun</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dawn:    </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s1">&#39;dawn&#39;</span><span class="p">]))</span>
+<span class="go">Dawn:    2009-04-22 05:12:56+01:00</span>
+</pre></div>
+</div>
+<p>Geocoding lookups can be perfomed using the <code class="xref py py-func docutils literal notranslate"><span class="pre">lookup()</span></code> function defined in
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">astral.geocoder</span></code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Astral and GoogleGeocoder classes from earlier versions have been
+removed.</p>
+</div>
+<dl class="class">
+<dt id="astral.Observer">
+<em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">Observer</code><span class="sig-paren">(</span><em class="sig-param">latitude: float</em>, <em class="sig-param">longitude: float</em>, <em class="sig-param">elevation: int = 0</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.Observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the location of an observer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>latitude</strong> – Latitude - Northern latitudes should be positive</p></li>
+<li><p><strong>longitude</strong> – Longitude - Eastern longitudes should be positive</p></li>
+<li><p><strong>elevation</strong> – Elevation in metres above sea level.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="astral.LocationInfo">
+<em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">LocationInfo</code><span class="sig-paren">(</span><em class="sig-param">name: str = None</em>, <em class="sig-param">region: str = None</em>, <em class="sig-param">timezone: str = None</em>, <em class="sig-param">latitude: float = 0.0</em>, <em class="sig-param">longitude: float = 0.0</em>, <em class="sig-param">elevation: int = 0</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.LocationInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a location on the Earth</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Location name (can be any string)</p></li>
+<li><p><strong>region</strong> – Region location is in (can be any string)</p></li>
+<li><p><strong>timezone</strong> – The location’s time zone (a list of time zone names can be obtained from
+<cite>pytz.all_timezones</cite>)</p></li>
+<li><p><strong>latitude</strong> – Location’s latitude</p></li>
+<li><p><strong>longitude</strong> – Location’s longitude</p></li>
+<li><p><strong>elevation</strong> – The elevation in metres above sea level.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="location">
+<h2>Location<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="astral.location.Location">
+<em class="property">class </em><code class="sig-prename descclassname">astral.location.</code><code class="sig-name descname">Location</code><span class="sig-paren">(</span><em class="sig-param">info: astral.LocationInfo = None</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides access to information for single location.</p>
+<dl class="method">
+<dt id="astral.location.Location.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">info: astral.LocationInfo = None</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the object with a LocationInfo object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>info</strong> – <p>A tuple of information to fill in the location info.</p>
+<p>The tuple should contain items in the following order</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>Greenwich</p></td>
+</tr>
+<tr class="row-odd"><td><p>region</p></td>
+<td><p>England</p></td>
+</tr>
+<tr class="row-even"><td><p>latitude</p></td>
+<td><p>51.168</p></td>
+</tr>
+<tr class="row-odd"><td><p>longitude</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>time zone name</p></td>
+<td><p>Europe/London</p></td>
+</tr>
+<tr class="row-odd"><td><p>elevation</p></td>
+<td><p>24</p></td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="#astral.location.Location.timezone" title="astral.location.Location.timezone"><code class="xref py py-attr docutils literal notranslate"><span class="pre">timezone</span></code></a> property for a method of obtaining time zone
+names</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="astral.location.Location.latitude">
+<code class="sig-name descname">latitude</code><a class="headerlink" href="#astral.location.Location.latitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>The location’s latitude</p>
+<p><code class="docutils literal notranslate"><span class="pre">latitude</span></code> can be set either as a string or as a number</p>
+<p>For strings they must be of the form</p>
+<blockquote>
+<div><p>degrees°minutes’[N|S] e.g. 51°31’N</p>
+</div></blockquote>
+<p>For numbers, positive numbers signify latitudes to the North.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="astral.location.Location.longitude">
+<code class="sig-name descname">longitude</code><a class="headerlink" href="#astral.location.Location.longitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>The location’s longitude.</p>
+<p><code class="docutils literal notranslate"><span class="pre">longitude</span></code> can be set either as a string or as a number</p>
+<p>For strings they must be of the form</p>
+<blockquote>
+<div><p>degrees°minutes’[E|W] e.g. 51°31’W</p>
+</div></blockquote>
+<p>For numbers, positive numbers signify longitudes to the East.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="astral.location.Location.elevation">
+<code class="sig-name descname">elevation</code><a class="headerlink" href="#astral.location.Location.elevation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The elevation in metres above sea level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="astral.location.Location.timezone">
+<code class="sig-name descname">timezone</code><a class="headerlink" href="#astral.location.Location.timezone" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the time zone for the location.</p>
+<p>A list of time zone names can be obtained from pytz. For example.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytz</span> <span class="k">import</span> <span class="n">all_timezones</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">timezone</span> <span class="ow">in</span> <span class="n">all_timezones</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">timezone</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="astral.location.Location.tz">
+<code class="sig-name descname">tz</code><a class="headerlink" href="#astral.location.Location.tz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time zone information.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="astral.location.Location.tzinfo">
+<code class="sig-name descname">tzinfo</code><a class="headerlink" href="#astral.location.Location.tzinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time zone information.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="astral.location.Location.solar_depression">
+<code class="sig-name descname">solar_depression</code><a class="headerlink" href="#astral.location.Location.solar_depression" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of degrees the sun must be below the horizon for the
+dawn/dusk calculation.</p>
+<p>Can either be set as a number of degrees below the horizon or as
+one of the following strings</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 65%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>String</p></th>
+<th class="head"><p>Degrees</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>civil</p></td>
+<td><p>6.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>nautical</p></td>
+<td><p>12.0</p></td>
+</tr>
+<tr class="row-even"><td><p>astronomical</p></td>
+<td><p>18.0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.sun">
+<code class="sig-name descname">sun</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#astral.location.Location.sun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns dawn, sunrise, noon, sunset and dusk as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> – The date for which to calculate the times.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with keys <code class="docutils literal notranslate"><span class="pre">dawn</span></code>, <code class="docutils literal notranslate"><span class="pre">sunrise</span></code>, <code class="docutils literal notranslate"><span class="pre">noon</span></code>,
+<code class="docutils literal notranslate"><span class="pre">sunset</span></code> and <code class="docutils literal notranslate"><span class="pre">dusk</span></code> whose values are the results of the
+corresponding methods.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.dawn">
+<code class="sig-name descname">dawn</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.dawn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the time in the morning when the sun is a certain number
+of degrees below the horizon. By default this is 6 degrees but can be
+changed by setting the <code class="xref py py-attr docutils literal notranslate"><span class="pre">Astral.solar_depression</span></code> property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> – The date for which to calculate the dawn time.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The date and time at which dawn occurs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.sunrise">
+<code class="sig-name descname">sunrise</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.sunrise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sunrise time.</p>
+<p>Calculates the time in the morning when the sun is a 0.833 degrees
+below the horizon. This is to account for refraction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code></a>) – The date for which to calculate the sunrise time.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The date and time at which sunrise occurs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.solar_noon">
+<code class="sig-name descname">solar_noon</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.solar_noon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solar noon (the time when the sun is at its highest
+point.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> – The date for which to calculate the noon time.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The date and time at which the solar noon occurs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.sunset">
+<code class="sig-name descname">sunset</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.sunset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates sunset time (the time in the evening when the sun is a
+0.833 degrees below the horizon. This is to account for refraction.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code></a>) – The date for which to calculate the sunset time.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The date and time at which sunset occurs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.dusk">
+<code class="sig-name descname">dusk</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.dusk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the dusk time (the time in the evening when the sun is a
+certain number of degrees below the horizon. By default this is 6
+degrees but can be changed by setting the
+<a class="reference internal" href="#astral.location.Location.solar_depression" title="astral.location.Location.solar_depression"><code class="xref py py-attr docutils literal notranslate"><span class="pre">solar_depression</span></code></a> property.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> – The date for which to calculate the dusk time.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The date and time at which dusk occurs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.daylight">
+<code class="sig-name descname">daylight</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.daylight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the daylight time (the time between sunrise and sunset)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code></a>) – The date for which to calculate daylight.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple containing the start and end times</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple(<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.night">
+<code class="sig-name descname">night</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.location.Location.night" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the night time (the time between astronomical dusk and
+astronomical dawn of the next day)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> – The date for which to calculate the start of the night time.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple containing the start and end times</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple(<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.twilight">
+<code class="sig-name descname">twilight</code><span class="sig-paren">(</span><em class="sig-param">direction=SUN_RISING</em>, <em class="sig-param">date=None</em>, <em class="sig-param">local=True</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.twilight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the start and end times of Twilight in the UTC timezone when
+the sun is traversing in the specified direction.</p>
+<p>This method defines twilight as being between the time
+when the sun is at -6 degrees and sunrise/sunset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Determines whether the time is for the sun rising or setting.
+Use <code class="docutils literal notranslate"><span class="pre">astral.SUN_RISING</span></code> or <code class="docutils literal notranslate"><span class="pre">astral.SunDirection.SETTING</span></code>.</p></li>
+<li><p><strong>date</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.date</span></code></a>) – The date for which to calculate the times.</p></li>
+<li><p><strong>local</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of the UTC date and time at which twilight starts and ends.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.golden_hour">
+<code class="sig-name descname">golden_hour</code><span class="sig-paren">(</span><em class="sig-param">direction=SUN_RISING</em>, <em class="sig-param">date=None</em>, <em class="sig-param">local=True</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.golden_hour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the start and end times of the Golden Hour when the sun is traversing
+in the specified direction.</p>
+<p>This method uses the definition from PhotoPills i.e. the
+golden hour is when the sun is between 4 degrees below the horizon
+and 6 degrees above.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> – Determines whether the time is for the sun rising or setting.
+Use <code class="docutils literal notranslate"><span class="pre">SunDirection.RISING</span></code> or <code class="docutils literal notranslate"><span class="pre">SunDirection.SETTING</span></code>.
+Default is rising.</p></li>
+<li><p><strong>date</strong> – The date for which to calculate the times.</p></li>
+<li><p><strong>local</strong> – True  = Times to be returned in location’s time zone;
+False = Times to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of the date and time at which the Golden Hour starts and ends.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.blue_hour">
+<code class="sig-name descname">blue_hour</code><span class="sig-paren">(</span><em class="sig-param">direction=SUN_RISING</em>, <em class="sig-param">date=None</em>, <em class="sig-param">local=True</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.blue_hour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the start and end times of the Blue Hour when the sun is traversing
+in the specified direction.</p>
+<p>This method uses the definition from PhotoPills i.e. the
+blue hour is when the sun is between 6 and 4 degrees below the horizon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> – Determines whether the time is for the sun rising or setting.
+Use <code class="docutils literal notranslate"><span class="pre">SunDirection.RISING</span></code> or <code class="docutils literal notranslate"><span class="pre">SunDirection.SETTING</span></code>.
+Default is rising.</p></li>
+<li><p><strong>date</strong> – The date for which to calculate the times.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> – True  = Times to be returned in location’s time zone;
+False = Times to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+<li><p><strong>use_elevation</strong> – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of the date and time at which the Blue Hour starts and ends.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.time_at_altitude">
+<code class="sig-name descname">time_at_altitude</code><span class="sig-paren">(</span><em class="sig-param">elevation</em>, <em class="sig-param">direction=SUN_RISING</em>, <em class="sig-param">date=None</em>, <em class="sig-param">local=True</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.time_at_altitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the time when the sun is at the specified altitude.</p>
+<dl>
+<dt>Note:</dt><dd><p>This method uses positive altitudes for those above the horizon.</p>
+<p>Elevations greater than 90 degrees are converted to a setting sun
+i.e. an altitude of 110 will calculate a setting sun at 70 degrees.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>altitude</strong> – Elevation in degrees above the horizon to calculate for.</p></li>
+<li><p><strong>direction</strong> – Determines whether the time is for the sun rising or setting.
+Use <code class="docutils literal notranslate"><span class="pre">SunDirection.RISING</span></code> or <code class="docutils literal notranslate"><span class="pre">SunDirection.SETTING</span></code>.
+Default is rising.</p></li>
+<li><p><strong>date</strong> – The date for which to calculate the altitude time.
+If no date is specified then the current date will be used.</p></li>
+<li><p><strong>local</strong> – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.
+If not specified then the time will be returned in local time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The date and time at which dusk occurs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.solar_azimuth">
+<code class="sig-name descname">solar_azimuth</code><span class="sig-paren">(</span><em class="sig-param">dateandtime: datetime.datetime = None</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.location.Location.solar_azimuth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solar azimuth angle for a specific date/time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dateandtime</strong> – The date and time for which to calculate the angle.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The azimuth angle in degrees clockwise from North.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.solar_elevation">
+<code class="sig-name descname">solar_elevation</code><span class="sig-paren">(</span><em class="sig-param">dateandtime: datetime.datetime = None</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.location.Location.solar_elevation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solar elevation angle for a specific time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dateandtime</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>) – The date and time for which to calculate the angle.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The elevation angle in degrees above the horizon.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.solar_zenith">
+<code class="sig-name descname">solar_zenith</code><span class="sig-paren">(</span><em class="sig-param">dateandtime: datetime.datetime</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.location.Location.solar_zenith" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solar zenith angle for a specific time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dateandtime</strong> – The date and time for which to calculate the angle.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The zenith angle in degrees from vertical.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.moon_phase">
+<code class="sig-name descname">moon_phase</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">rtype: type = &lt;class 'int'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.moon_phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the moon phase for a specific date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>date</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.date</span></code></a>) – The date to calculate the phase for. If ommitted the current date is used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>A number designating the phase</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0  = New moon</div>
+<div class="line">7  = First quarter</div>
+<div class="line">14 = Full moon</div>
+<div class="line">21 = Last quarter</div>
+</div>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astral.location.Location.rahukaalam">
+<code class="sig-name descname">rahukaalam</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">use_elevation: bool = True</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.location.Location.rahukaalam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the period of rahukaalam.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code></a>) – The date for which to calculate the rahukaalam period.
+A value of <code class="docutils literal notranslate"><span class="pre">None</span></code> uses the current date.</p></li>
+<li><p><strong>local</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Time to be returned in location’s time zone;
+False = Time to be returned in UTC.</p></li>
+<li><p><strong>use_elevation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – True  = Return times that allow for the location’s elevation;
+False = Return times that don’t use elevation.
+If not specified then times will take elevation into account.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple containing the start and end times for Rahukaalam.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← Astral v2</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2009-2019, Simon Kennedy.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+  </div></body>
+</html>

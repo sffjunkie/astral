@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 import os
 import sys
 
@@ -25,8 +24,8 @@ if MOCK_MODULES and on_rtd:
 project = 'Astral'
 author = 'Simon Kennedy'
 copyright = '2009-2019, %s' % author
-version = '1.10.1'
-release = '1.10'
+version = '2.0.0a'
+release = '2'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
@@ -104,8 +103,9 @@ if not on_rtd:
     else:
         raise OSError('Unable to find theme root: Please set the PROJECT_HOME environment variable')
 
-    html_theme = 'sffjunkie'
-    html_theme_options = {'logo_shadow': True, 'fixed_header': False}
+    html_theme = "press"
+    # html_theme = 'sffjunkie'
+    # html_theme_options = {'logo_shadow': True, 'fixed_header': False}
 else:
     html_theme = 'default'
 

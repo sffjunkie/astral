@@ -1,4 +1,3 @@
-include notes.txt
 include src/test/*.py
 global-exclude *.pyc
 include monkeypatch.py

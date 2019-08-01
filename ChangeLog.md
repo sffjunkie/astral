@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2.0.0 alpha
+
+* Requires python 3.6+ for dataclasses support
+* New LocationInfo class to store a location name, region, timezone, latitude, longitude & elevation
+* New Observer class to store a latitude, longitude & elevation
+* GoogleGeocoder removed
+* AstralGeocoder returns a LocationInfo instead of a Location
+* elevation in functions renamed to altitude.
+* astral.sun.local return times in a specific timezone
+* astral.sun.utc returns times in the UTC timezone
+
 ## 1.10.1 - 2019-02-06
 
 ### Changed

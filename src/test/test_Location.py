@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from pytest import raises
+import pytest
 
-from astral import Astral, AstralError, Location
+from astral import LocationInfo
+from astral.location import Location
 import datetime
 import pytz
 
@@ -14,60 +15,49 @@ def datetime_almost_equal(datetime1, datetime2, seconds=60):
 
 def test_Location_Name():
     c = Location()
-    assert c.name == 'Greenwich'
-    c.name = 'London'
-    assert c.name == 'London'
-    c.name = 'Köln'
-    assert c.name == 'Köln'
+    assert c.name == "Greenwich"
+    c.name = "London"
+    assert c.name == "London"
+    c.name = "Köln"
+    assert c.name == "Köln"
 
 
 def test_Location_Country():
     c = Location()
-    assert c.region == 'England'
-    c.region = 'Australia'
-    assert c.region == 'Australia'
+    assert c.region == "England"
+    c.region = "Australia"
+    assert c.region == "Australia"
 
 
 def test_Location_Elevation():
-    dd = Astral()
-    c = dd['London']
-
+    c = Location()
     assert c.elevation == 24
 
 
 def test_Location_TimezoneName():
     c = Location()
-    assert c.timezone == 'Europe/London'
-    c.name = 'Asia/Riyadh'
-    assert c.name == 'Asia/Riyadh'
-
-
-def test_Location_TimezoneNameNoLocation():
-    c = Location()
-    c._timezone_group = 'Europe'
-    c._timezone_location = ''
-    assert c.timezone == 'Europe'
+    assert c.timezone == "Europe/London"
+    c.name = "Asia/Riyadh"
+    assert c.name == "Asia/Riyadh"
 
 
 def test_Location_TimezoneNameBad():
     c = Location()
-    with raises(ValueError):
-        c.timezone = 'bad/timezone'
+    with pytest.raises(ValueError):
+        c.timezone = "bad/timezone"
 
 
 def test_Location_TimezoneLookup():
     c = Location()
-    assert c.tz == pytz.timezone('Europe/London')
-    c.timezone='Europe/Stockholm'
-    assert c.tz == pytz.timezone('Europe/Stockholm')
+    assert c.tz == pytz.timezone("Europe/London")
+    c.timezone = "Europe/Stockholm"
+    assert c.tz == pytz.timezone("Europe/Stockholm")
 
 
 def test_Location_TimezoneLookupBad():
     c = Location()
-    c._timezone_group = 'bad'
-    c._timezone_location = 'timezone'
-    with raises(AstralError):
-        c.tz
+    with pytest.raises(ValueError):
+        c.timezone = "bad/timezone"
 
 
 def test_Location_Sun():
@@ -125,41 +115,32 @@ def test_Location_SunsetUTC():
     c.sunset(local=False)
 
 
-def test_Location_SolarElevation():
-    dd = Astral()
-    location = dd['Riyadh']
+def test_Location_SolarElevation(riyadh):
     dt = datetime.datetime(2015, 12, 14, 8, 0, 0)
-    dt = location.tz.localize(dt)
-    elevation = location.solar_elevation(dt)
+    dt = riyadh.tz.localize(dt)
+    elevation = riyadh.solar_elevation(dt)
     assert abs(elevation - 17) < 0.5
 
 
-def test_Location_SolarAzimuth():
-    dd = Astral()
-    location = dd['Riyadh']
+def test_Location_SolarAzimuth(riyadh):
     dt = datetime.datetime(2015, 12, 14, 8, 0, 0)
-    dt = location.tz.localize(dt)
-    azimuth = location.solar_azimuth(dt)
+    dt = riyadh.tz.localize(dt)
+    azimuth = riyadh.solar_azimuth(dt)
     assert abs(azimuth - 126) < 0.5
 
 
-def test_Location_TimeAtElevation():
-    dd = Astral()
-    location = dd['New Delhi']
-
-    test_data = {
-        datetime.date(2016, 1, 5): datetime.datetime(2016, 1, 5, 10, 0),
-    }
+def test_Location_TimeAtAltitude(new_delhi):
+    test_data = {datetime.date(2016, 1, 5): datetime.datetime(2016, 1, 5, 10, 0)}
 
     for day, cdt in test_data.items():
-        cdt = location.tz.localize(cdt)
-        dt = location.time_at_elevation(28, date=day)
+        cdt = new_delhi.tz.localize(cdt)
+        dt = new_delhi.time_at_altitude(28, day)
         assert datetime_almost_equal(dt, cdt, seconds=600)
 
 
 def test_Location_SolarDepression():
-    c = Location(("Heidelberg", "Germany", 49.412, -8.71, "Europe/Berlin"))
-    c.solar_depression = 'nautical'
+    c = Location(LocationInfo("Heidelberg", "Germany", "Europe/Berlin", 49.412, -8.71))
+    c.solar_depression = "nautical"
     assert c.solar_depression == 12
 
     c.solar_depression = 18
@@ -168,29 +149,28 @@ def test_Location_SolarDepression():
 
 def test_Location_Moon():
     d = datetime.date(2017, 12, 1)
-    c=Location()
+    c = Location()
     assert c.moon_phase(date=d) == 11
 
 
 def test_Location_TzError():
-    with raises(AttributeError):
+    with pytest.raises(AttributeError):
         c = Location()
         c.tz = 1
 
 
-def test_Location_equality():
+def test_Location_Equality():
     c1 = Location()
     c2 = Location()
-    t = (c1, c2)
-    assert c1 == c2
-    assert len(set(t)) == 1
+    assert c1.__eq__(c2)
 
-    c1 = Location(["Oslo", "Norway", 59.9, 10.7, "Europe/Oslo", 0])
-    c2 = Location(["Oslo", "Norway", 59.9, 10.7, "Europe/Oslo", 0])
-    c3 = Location(["Stockholm", "Sweden", 59.3, 18, "Europe/Stockholm", 0])
-    t1 = (c1, c2)
-    t2 = (c1, c3)
-    assert c1 == c2
-    assert len(set(t1)) == 1
-    assert c1 != c3
-    assert len(set(t2)) == 2
+
+#     c1 = Location(LocationInfo("Oslo", "Norway", "Europe/Oslo", 59.9, 10.7, 0))
+#     c2 = Location(LocationInfo("Oslo", "Norway", "Europe/Oslo", 59.9, 10.7, 0))
+#     c3 = Location(LocationInfo("Stockholm", "Sweden", "Europe/Stockholm", 59.3, 18, 0))
+#     t1 = (c1, c2)
+#     t2 = (c1, c3)
+#     assert c1 == c2
+#     assert len(set(t1)) == 1
+#     assert c1 != c3
+#     assert len(set(t2)) == 2

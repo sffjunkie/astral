@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Astral v2</title>
+    
+      <link rel="stylesheet" href="_static/pygments.css">
+      <link rel="stylesheet" href="_static/theme.css">
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+
+      
+      <script src="_static/theme-vendors.js"></script>
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="The astral Module" href="module.html" /> 
+  </head>
+
+  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="#" class="home-link">
+    
+      <img class="logo" src="_static/earth_sun.png" alt="doit logo"/>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="##version-history">Astral v2</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="module.html" class="reference internal ">The astral Module</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+    
+    <li>Astral v2</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="next">
+    <a href="module.html"
+       title="next chapter">The <code class="xref py py-mod docutils literal notranslate"><span class="pre">astral</span></code> Module →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <div class="section" id="astral-vrelease">
+<h1>Astral v2<a class="headerlink" href="#astral-vrelease" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://travis-ci.org/sffjunkie/astral"><img alt="travis_status" src="https://travis-ci.org/sffjunkie/astral.svg?branch=master" /></a> <a class="reference external" href="https://pypi.org/project/astral/"><img alt="pypi_ver" src="https://img.shields.io/pypi/v/astral.svg" /></a></p>
+<p>Astral is a python module for calculating the times of various aspects of
+the sun and moon.</p>
+<p>It can calculate the following</p>
+<dl class="simple">
+<dt>Dawn</dt><dd><p>The time in the morning when the sun is a specific number of degrees
+below the horizon.</p>
+</dd>
+<dt>Sunrise</dt><dd><p>The time in the morning when the top of the sun breaks the horizon
+(asuming a location with no obscuring features.)</p>
+</dd>
+<dt>Solar Noon</dt><dd><p>The time when the sun is at its highest point.</p>
+</dd>
+<dt>Solar Midnight</dt><dd><p>The time when the sun is at its lowest point.</p>
+</dd>
+<dt>Sunset</dt><dd><p>The time in the evening when the sun is about to disappear below the horizon
+(asuming a location with no obscuring features.)</p>
+</dd>
+<dt>Dusk</dt><dd><p>The time in the evening when the sun is a specific number of degrees
+below the horizon.</p>
+</dd>
+<dt>Daylight</dt><dd><p>The time when the sun is up i.e. between sunrise and sunset</p>
+</dd>
+<dt>Night</dt><dd><p>The time between astronomical dusk of one day and astronomical dawn of the next</p>
+</dd>
+<dt>Twilight</dt><dd><p>The time between dawn and sunrise or between sunset and dusk</p>
+</dd>
+<dt>The Golden Hour</dt><dd><p>The time when the sun is between 4 degrees below the horizon and 6 degrees above.</p>
+</dd>
+<dt>The Blue Hour</dt><dd><p>The time when the sun is between 6 and 4 degrees below the horizon.</p>
+</dd>
+<dt>Time At Elevation</dt><dd><p>the time when the sun is at a specific elevation for either a rising or a
+setting sun.</p>
+</dd>
+<dt>Solar Azimuth</dt><dd><p>The number of degrees clockwise from North at which the sun can be seen</p>
+</dd>
+<dt>Solar Elevation / Altitude</dt><dd><p>The number of degrees up from the horizon at which the sun can be seen</p>
+</dd>
+<dt><a class="reference external" href="http://en.wikipedia.org/wiki/Rahukaalam">Rahukaalam</a></dt><dd><p>“Rahukaalam or the period of Rahu is a certain amount of time every day
+that is considered inauspicious for any new venture according to Indian
+Vedic astrology”.</p>
+</dd>
+<dt>Moon Phase</dt><dd><p>Calculates the phase of the moon for a specified date.</p>
+</dd>
+</dl>
+<p>Astral also comes with a geocoder containing a local database that allows you to look up
+information for a set of locations (<a class="reference internal" href="#additional-locations">new locations can be added</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Google Geocoder has been removed. Instead you can use the
+Google Client for Google Maps Services
+<a class="reference external" href="https://github.com/googlemaps/google-maps-services-python">https://github.com/googlemaps/google-maps-services-python</a></p>
+</div>
+</div>
+<div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>The following examples demonstrate the functionality available in the module</p>
+<div class="section" id="sun">
+<h2>Sun<a class="headerlink" href="#sun" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral</span> <span class="k">import</span> <span class="n">LocationInfo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">city</span> <span class="o">=</span> <span class="n">LocationInfo</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">,</span> <span class="s2">&quot;England&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe/London&quot;</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.116</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Information for </span><span class="si">{city.name}</span><span class="s1">/</span><span class="si">{city.region}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">Information for London/England</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timezone</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">timezone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Timezone: </span><span class="si">{timezone}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">Timezone: Europe/London</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Latitude: </span><span class="si">%.02f</span><span class="s1">; Longitude: </span><span class="si">%.02f</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> \
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">city</span><span class="o">.</span><span class="n">longitude</span><span class="p">))</span>
+<span class="go">Latitude: 51.50; Longitude: -0.12</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral.sun.local</span> <span class="k">import</span> <span class="n">sun</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">sun</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Dawn:    </span><span class="si">{sun[&#39;dawn&#39;]}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Sunrise: </span><span class="si">{sun[&#39;sunrise&#39;]}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Noon:    </span><span class="si">{sun[&#39;noon&#39;]}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Sunset:  </span><span class="si">{sun[&#39;sunset&#39;]}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Dusk:    </span><span class="si">{sun[&#39;dusk&#39;]}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">Dawn:     2009-04-22 05:12:56+01:00</span>
+<span class="go">Sunrise:  2009-04-22 05:49:36+01:00</span>
+<span class="go">Noon:     2009-04-22 12:58:48+01:00</span>
+<span class="go">Sunset:   2009-04-22 20:09:07+01:00</span>
+<span class="go">Dusk:     2009-04-22 20:45:52+01:00</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="moon">
+<h2>Moon<a class="headerlink" href="#moon" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral.moon</span> <span class="k">import</span> <span class="n">phase</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">moon_phase</span> <span class="o">=</span> <span class="n">phase</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">moon_phase</span><span class="p">)</span>
+<span class="go">13</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">moon_phase</span> <span class="o">=</span> <span class="n">phase</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+<span class="go">13.255666666666668</span>
+</pre></div>
+</div>
+<p>The moon phase method returns an number describing the phase, where the value is between 0 and 27
+(27.99 if you pass float as the return type).
+The following lists the mapping of various vales to the description of the phase of the moon.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0  = New Moon</div>
+<div class="line">7  = First Quarter</div>
+<div class="line">14 = Full Moon</div>
+<div class="line">21 = Last Quarter</div>
+</div>
+</div></blockquote>
+<p>If for example the number returned was 27(.99) then the moon would be almost at the New Moon phase,
+and if it was 24 it would be half way between the Last Quarter and a New Moon.</p>
+<p>The return value can be cast to either an int (the default) or a float by passing the
+type required as the <cite>rtype</cite> parameter to <code class="xref py py-meth docutils literal notranslate"><span class="pre">phase()</span></code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The moon phase does not depend on your location. However what the moon
+actually looks like to you does depend on your location. If you’re in the
+southern hemisphere it looks different than if you were in the northern
+hemisphere.</p>
+<p>See <a class="reference external" href="http://moongazer.x10.mx/website/astronomy/moon-phases/">http://moongazer.x10.mx/website/astronomy/moon-phases/</a> for an example.</p>
+<p>For an example of using this library to generate moon phases including the names in various
+languages and the correct Unicode glyphs see the
+<a class="reference external" href="https://github.com/PanderMusubi/lunar-phase-calendar/">project by PanderMusubi</a>
+on Github.</p>
+</div>
+</div>
+<div class="section" id="geocoder">
+<h2>Geocoder<a class="headerlink" href="#geocoder" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral.geocoder</span> <span class="k">import</span> <span class="n">lookup</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lookup</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">)</span>
+<span class="go">LocationInfo(name=&#39;London&#39;, region=&#39;UK&#39;, latitude=51.5073509, longitude=-0.1277583,</span>
+<span class="go">             timezone=&#39;UTC&#39;, elevation=7)</span>
+</pre></div>
+</div>
+<div class="section" id="additional-locations">
+<span id="id1"></span><h3>Additional Locations<a class="headerlink" href="#additional-locations" title="Permalink to this headline">¶</a></h3>
+<p>You can add to the list of available locations
+using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_locations()</span></code> function and passing either a string with one
+line per location or by passing a list containing strings, lists or tuples (lists and tuples are
+passed directly to the LocationInfo constructor).</p>
+</div>
+<div class="section" id="custom-location">
+<h3>Custom Location<a class="headerlink" href="#custom-location" title="Permalink to this headline">¶</a></h3>
+<p>If you only need a single location that is not in the geocoder then you can
+construct a <a class="reference internal" href="module.html#astral.LocationInfo" title="astral.LocationInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocationInfo</span></code></a> and fill in the values, either with a
+tuple on initialization</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astral.sun.utc</span> <span class="k">import</span> <span class="n">sun</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">LocationInfo</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;timezone/name&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sun</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or set the attributes after initialization:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astral</span> <span class="k">import</span> <span class="n">LocationInfo</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">LocationInfo</span><span class="p">()</span>
+<span class="n">l</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;name&#39;</span>
+<span class="n">l</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;region&#39;</span>
+<span class="n">l</span><span class="o">.</span><span class="n">timezone</span> <span class="o">=</span> <span class="s1">&#39;US/Central&#39;</span>
+<span class="n">l</span><span class="o">.</span><span class="n">latitude</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">l</span><span class="o">.</span><span class="n">longitude</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">l</span><span class="o">.</span><span class="n">elevation</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>name</cite> and <cite>region</cite> can be anything you like.</p>
+</div>
+</div>
+<div class="section" id="timezone-groups">
+<h3>Timezone Groups<a class="headerlink" href="#timezone-groups" title="Permalink to this headline">¶</a></h3>
+<p>Timezone groups such as Europe can be accessed via the <code class="xref py py-func docutils literal notranslate"><span class="pre">group()</span></code> function in the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">geocoder</span></code> module</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral</span> <span class="k">import</span> <span class="n">geocoder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">europe</span> <span class="o">=</span> <span class="n">geocoder</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;europe&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">locations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">europe</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">europe</span>
+<span class="go">[&#39;Aberdeen&#39;, &#39;Amsterdam&#39;, &#39;Andorra la Vella&#39;, &#39;Ankara&#39;, &#39;Athens&#39;, ...]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="effect-of-elevation">
+<h1>Effect of Elevation<a class="headerlink" href="#effect-of-elevation" title="Permalink to this headline">¶</a></h1>
+<p>An attempt has been made to allow for the effect of elevation on the times for the sun.
+Higher elevations cause the sun to rise earlier and to set later for the observer.</p>
+<p>This is performed by calculating the angle α in the image below and adding this to the
+depression angle for the sun calculations.</p>
+<img alt="_images/elevation.svg" src="_images/elevation.svg" /><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This may not be the correct calculation for the angle. Please raise an <a class="reference external" href="https://github.com/sffjunkie/astral/issues">issue</a> if you know
+how it should be calculated.</p>
+</div>
+</div>
+<div class="section" id="note-on-localized-timezones">
+<h1>Note on Localized Timezones<a class="headerlink" href="#note-on-localized-timezones" title="Permalink to this headline">¶</a></h1>
+<p>When creating a datetime object in a specific timezone do not use the
+<cite>tzinfo</cite> parameter to the datetime constructor. Instead use the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">localize()</span></code> method provided by pytz on the correct pytz timezone:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Europe/London&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+<p>This module is licensed under the terms of the <a class="reference external" href="http://www.opensource.org/licenses/apache2.0.php">Apache</a> V2.0 license.</p>
+</div>
+<div class="section" id="dependencies">
+<h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h1>
+<p>Astral has one required external Python dependency on <cite>pytz</cite>.</p>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>To install Astral you should use the <strong class="command">pip</strong> tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">astral</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cities">
+<h1>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">¶</a></h1>
+<p>The module includes location and time zone data for the following cities.
+The list includes all capital cities plus some from the UK. The list also
+includes the US state capitals and some other US cities.</p>
+<p>Aberdeen, Abu Dhabi, Abu Dhabi, Abuja, Accra, Addis Ababa, Adelaide, Al Jubail,
+Albany, Albuquerque, Algiers, Amman, Amsterdam, Anchorage, Andorra la Vella,
+Ankara, Annapolis, Antananarivo, Apia, Ashgabat, Asmara, Astana, Asuncion,
+Athens, Atlanta, Augusta, Austin, Avarua, Baghdad, Baku, Baltimore, Bamako,
+Bandar Seri Begawan, Bangkok, Bangui, Banjul, Barrow-In-Furness, Basse-Terre,
+Basseterre, Baton Rouge, Beijing, Beirut, Belfast, Belgrade, Belmopan, Berlin,
+Bern, Billings, Birmingham, Birmingham, Bishkek, Bismarck, Bissau, Bloemfontein,
+Bogota, Boise, Bolton, Boston, Bradford, Brasilia, Bratislava, Brazzaville,
+Bridgeport, Bridgetown, Brisbane, Bristol, Brussels, Bucharest, Bucuresti,
+Budapest, Buenos Aires, Buffalo, Bujumbura, Burlington, Cairo, Canberra, Cape
+Town, Caracas, Cardiff, Carson City, Castries, Cayenne, Charleston, Charlotte,
+Charlotte Amalie, Cheyenne, Chicago, Chisinau, Cleveland, Columbia, Columbus,
+Conakry, Concord, Copenhagen, Cotonou, Crawley, Dakar, Dallas, Damascus, Dammam,
+Denver, Des Moines, Detroit, Dhaka, Dili, Djibouti, Dodoma, Doha, Douglas,
+Dover, Dublin, Dushanbe, Edinburgh, El Aaiun, Fargo, Fort-de-France, Frankfort,
+Freetown, Funafuti, Gaborone, George Town, Georgetown, Gibraltar, Glasgow,
+Greenwich, Guatemala, Hanoi, Harare, Harrisburg, Hartford, Havana, Helena,
+Helsinki, Hobart, Hong Kong, Honiara, Honolulu, Houston, Indianapolis,
+Islamabad, Jackson, Jacksonville, Jakarta, Jefferson City, Jerusalem, Juba,
+Jubail, Juneau, Kabul, Kampala, Kansas City, Kathmandu, Khartoum, Kiev, Kigali,
+Kingston, Kingston, Kingstown, Kinshasa, Koror, Kuala Lumpur, Kuwait, La Paz,
+Lansing, Las Vegas, Leeds, Leicester, Libreville, Lilongwe, Lima, Lincoln,
+Lisbon, Little Rock, Liverpool, Ljubljana, Lome, London, Los Angeles,
+Louisville, Luanda, Lusaka, Luxembourg, Macau, Madinah, Madison, Madrid, Majuro,
+Makkah, Malabo, Male, Mamoudzou, Managua, Manama, Manchester, Manchester,
+Manila, Maputo, Maseru, Masqat, Mbabane, Mecca, Medina, Memphis, Mexico, Miami,
+Milwaukee, Minneapolis, Minsk, Mogadishu, Monaco, Monrovia, Montevideo,
+Montgomery, Montpelier, Moroni, Moscow, Moskva, Mumbai, Muscat, N’Djamena,
+Nairobi, Nashville, Nassau, Naypyidaw, New Delhi, New Orleans, New York, Newark,
+Newcastle, Newcastle Upon Tyne, Ngerulmud, Niamey, Nicosia, Norwich, Nouakchott,
+Noumea, Nuku’alofa, Nuuk, Oklahoma City, Olympia, Omaha, Oranjestad, Orlando,
+Oslo, Ottawa, Ouagadougou, Oxford, P’yongyang, Pago Pago, Palikir, Panama,
+Papeete, Paramaribo, Paris, Perth, Philadelphia, Phnom Penh, Phoenix, Pierre,
+Plymouth, Podgorica, Port Louis, Port Moresby, Port of Spain, Port-Vila,
+Port-au-Prince, Portland, Portland, Porto-Novo, Portsmouth, Prague, Praia,
+Pretoria, Pristina, Providence, Quito, Rabat, Raleigh, Reading, Reykjavik,
+Richmond, Riga, Riyadh, Road Town, Rome, Roseau, Sacramento, Saint Helier, Saint
+Paul, Saint Pierre, Saipan, Salem, Salt Lake City, San Diego, San Francisco, San
+Jose, San Juan, San Marino, San Salvador, Sana, Sana’a, Santa Fe, Santiago,
+Santo Domingo, Sao Tome, Sarajevo, Seattle, Seoul, Sheffield, Singapore, Sioux
+Falls, Skopje, Sofia, Southampton, Springfield, Sri Jayawardenapura Kotte, St.
+George’s, St. John’s, St. Peter Port, Stanley, Stockholm, Sucre, Suva, Swansea,
+Swindon, Sydney, T’bilisi, Taipei, Tallahassee, Tallinn, Tarawa, Tashkent,
+Tbilisi, Tegucigalpa, Tehran, Thimphu, Tirana, Tirane, Tokyo, Toledo, Topeka,
+Torshavn, Trenton, Tripoli, Tunis, Ulaanbaatar, Ulan Bator, Vaduz, Valletta,
+Vienna, Vientiane, Vilnius, Virginia Beach, W. Indies, Warsaw, Washington DC,
+Wellington, Wichita, Willemstad, Wilmington, Windhoek, Wolverhampton,
+Yamoussoukro, Yangon, Yaounde, Yaren, Yerevan, Zagreb</p>
+<div class="section" id="us-cities">
+<h2>US Cities<a class="headerlink" href="#us-cities" title="Permalink to this headline">¶</a></h2>
+<p>Albany, Albuquerque, Anchorage, Annapolis, Atlanta, Augusta, Austin, Baltimore,
+Baton Rouge, Billings, Birmingham, Bismarck, Boise, Boston, Bridgeport, Buffalo,
+Burlington, Carson City, Charleston, Charlotte, Cheyenne, Chicago, Cleveland,
+Columbia, Columbus, Concord, Dallas, Denver, Des Moines, Detroit, Dover, Fargo,
+Frankfort, Harrisburg, Hartford, Helena, Honolulu, Houston, Indianapolis,
+Jackson, Jacksonville, Jefferson City, Juneau, Kansas City, Lansing, Las Vegas,
+Lincoln, Little Rock, Los Angeles, Louisville, Madison, Manchester, Memphis,
+Miami, Milwaukee, Minneapolis, Montgomery, Montpelier, Nashville, New Orleans,
+New York, Newark, Oklahoma City, Olympia, Omaha, Orlando, Philadelphia, Phoenix,
+Pierre, Portland, Portland, Providence, Raleigh, Richmond, Sacramento, Saint
+Paul, Salem, Salt Lake City, San Diego, San Francisco, Santa Fe, Seattle, Sioux
+Falls, Springfield, Tallahassee, Toledo, Topeka, Trenton, Virginia Beach,
+Wichita, Wilmington</p>
+</div>
+</div>
+<div class="section" id="thanks">
+<h1>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h1>
+<p>The sun calculations in this module were adapted, for Python, from the spreadsheets on the following page.</p>
+<blockquote>
+<div><p><a class="reference external" href="https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html</a></p>
+</div></blockquote>
+<p>The moon phase calculation is based on some <a class="reference external" href="http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html">javascript</a> code
+from Sky and Telescope magazine</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Moon-phase calculation</div>
+<div class="line">Roger W. Sinnott, Sky &amp; Telescope, June 16, 2006.</div>
+</div>
+</div></blockquote>
+<p>Also to <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> for making doc generation an easy thing (not that the writing
+of the docs is any easier.)</p>
+</div>
+<div class="section" id="contact">
+<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h1>
+<p>Simon Kennedy &lt;<a class="reference external" href="mailto:sffjunkie+code&#37;&#52;&#48;gmail&#46;com">sffjunkie+code<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
+</div>
+<div class="section" id="version-history">
+<h1>Version History<a class="headerlink" href="#version-history" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Version</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2.0.0</p></td>
+<td><ul class="simple">
+<li><p>Code is now only compatible with Python 3.6 and greater</p></li>
+<li><p>The Google geocoder has been removed</p></li>
+<li><p>New LocationInfo class to store a location name, region, timezone, latitude,
+longitude &amp; elevation</p></li>
+<li><p>New Observer class to store a latitude, longitude &amp; elevation</p></li>
+<li><p>Geocoder functions return a LocationInfo instead of a Location</p></li>
+<li><p><cite>elevation</cite> in functions renamed to <cite>altitude</cite>.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">astral.sun.local</span></code> return times in a specific timezone</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">astral.sun.utc</span></code> returns times in the UTC timezone</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.10.1</p></td>
+<td><p>Keyword args are now passed to the geocoder class from Astral __init__
+in order to allow the Google Maps API key to be passed to the
+GoogleGeocoder.</p></td>
+</tr>
+<tr class="row-even"><td><p>1.10</p></td>
+<td><p>Added support to AstralGeocoder to add
+<a class="reference internal" href="#additional-locations">additional locations</a>
+to the database.</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.9.2</p></td>
+<td><p>1.9 broke the sun_utc method. Sun UTC calculation passed incorrect
+parameter to more specific methods e.g. sunrise, sunset etc.</p></td>
+</tr>
+<tr class="row-even"><td><p>1.9.1</p></td>
+<td><p>Correct version number in astral.py</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.9</p></td>
+<td><p>Now takes elevation into account.</p></td>
+</tr>
+<tr class="row-even"><td><p>1.8</p></td>
+<td><ul class="simple">
+<li><p>Location methods now allow the timezone to be None which returns all
+times as UTC.</p></li>
+<li><p>Added command line interface to return ‘sun’ values</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.7.1</p></td>
+<td><ul class="simple">
+<li><p>Changed GoogleGeocoder test to not use raise…from as this is not
+valid for Python 2</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>1.7</p></td>
+<td><ul class="simple">
+<li><p>Requests is now only needed when using GoogleGeocoder</p></li>
+<li><p>GoogleGeocoder now requires the <cite>api_key</cite> parameter to be passed to
+the constructor as Google now require it for their API calls.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.6.1</p></td>
+<td><ul class="simple">
+<li><p>Updates for Travis CI integration / Github signed release.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>1.6</p></td>
+<td><ul class="simple">
+<li><p>Added api_key parameter to the GoogleGeocoder <code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code> method</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.5</p></td>
+<td><ul class="simple">
+<li><p>Added parameter <cite>rtype</cite> to <code class="xref py py-meth docutils literal notranslate"><span class="pre">moon_phase()</span></code> to determine the
+return type of the method.</p></li>
+<li><p>Added example for calculating the phase of the moon.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>1.4.1</p></td>
+<td><ul class="simple">
+<li><p>Using versioneer to manage version numbers</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.4</p></td>
+<td><ul class="simple">
+<li><p>Changed to use calculations from NOAA spreadsheets</p></li>
+<li><p>Changed some exception error messages for when sun does not reach
+a requested elevation.</p></li>
+<li><p>Added more tests</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>1.3.4</p></td>
+<td><ul class="simple">
+<li><p>Changes to project configuration files. No user facing changes.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.3.3</p></td>
+<td><ul class="simple">
+<li><p>Fixed call to twilight_utc as date and direction parameters
+were reversed.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>1.3.2</p></td>
+<td><ul class="simple">
+<li><p>Updated URL to point to gitgub.com</p></li>
+<li><p>Added Apache 2.0 boilerplate to source file</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.3.1</p></td>
+<td><ul class="simple">
+<li><p>Added LICENSE file to sdist</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>1.3</p></td>
+<td><ul class="simple">
+<li><p>Corrected solar zenith to return the angle from the vertical.</p></li>
+<li><p>Added solar midnight calculation.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.2</p></td>
+<td><ul class="simple">
+<li><p>Added handling for when unicode literals are used. This may possibly
+affect your code if you’re using Python 2 (there are tests for this
+but they may not catch all uses.) (Bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1588198">1588198</a>)</p></li>
+<li><p>Changed timezone for Phoenix, AZ to America/Phoenix (Bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1561258">1561258</a>)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>1.1</p></td>
+<td><ul class="simple">
+<li><p>Added methods to calculate Twilight, the Golden Hour and the Blue
+Hour.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>1.0</p></td>
+<td><ul class="simple">
+<li><p>It’s time for a version 1.0</p></li>
+<li><p>Added examples where the location you want is not in the Astral
+geocoder.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>0.9</p></td>
+<td><ul class="simple">
+<li><p>Added a method to calculate the date and time when the sun is at a
+specific elevation, for either a rising or a setting sun.</p></li>
+<li><p>Added daylight and night methods to Location and Astral classes.</p></li>
+<li><p>Rahukaalam methods now return a tuple.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>0.8.2</p></td>
+<td><ul class="simple">
+<li><p>Fix for moon phase calcualtions which were off by 1.</p></li>
+<li><p>Use pytz.timezone().localize method instead of passing tzinfo
+parameter to datetime.datetime. See the <a class="reference external" href="http://pytz.sourceforge.net/#localized-times-and-date-arithmetic">pytz docs</a> for info</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>0.8.1</p></td>
+<td><ul class="simple">
+<li><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1417641">1417641</a>: <code class="xref py py-meth docutils literal notranslate"><span class="pre">solar_elevation()</span></code> and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">solar_azimuth()</span></code> fail when a naive
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> object is used.</p></li>
+<li><p>Added <code class="xref py py-meth docutils literal notranslate"><span class="pre">solar_zenith()</span></code> methods to <code class="xref py py-class docutils literal notranslate"><span class="pre">Astral</span></code>
+and <code class="xref py py-class docutils literal notranslate"><span class="pre">Location</span></code> as an
+alias for <code class="xref py py-meth docutils literal notranslate"><span class="pre">solar_elevation()</span></code></p></li>
+<li><p>Added <cite>tzinfo</cite> as an alias for <cite>tz</cite></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>0.8</p></td>
+<td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1407773">1407773</a>: Moon phase calculation changed to remove
+time zone parameter (tz) as it is not required for the calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p>0.7.5</p></td>
+<td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1402103">1402103</a>: Buenos Aires incorrect timezone</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.7.4</p></td>
+<td><p>Added Canadian cities from Yip Shing Ho</p></td>
+</tr>
+<tr class="row-even"><td><p>0.7.3</p></td>
+<td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1239387">1239387</a> submitted by Torbjörn Lönnemark</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.7.2</p></td>
+<td><p>Minor bug fix in <code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleGeocoder</span></code>. location name and
+region are now stripped of whitespace</p></td>
+</tr>
+<tr class="row-even"><td><p>0.7.1</p></td>
+<td><p>Bug fix. Missed a vital return statement in the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleGeocoder</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>0.7</p></td>
+<td><ul class="simple">
+<li><p>Added ability to lookup location information from
+Google’s mapping APIs (see <code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleGeocoder</span></code>)</p></li>
+<li><p>Renamed <code class="xref py py-class docutils literal notranslate"><span class="pre">City</span></code> class to <code class="xref py py-class docutils literal notranslate"><span class="pre">Location</span></code></p></li>
+<li><p>Renamed <code class="xref py py-class docutils literal notranslate"><span class="pre">CityDB</span></code> to <code class="xref py py-class docutils literal notranslate"><span class="pre">AstralGeocoder</span></code></p></li>
+<li><p>Added elevations of cities to database and property to
+obtain elevation from <code class="xref py py-class docutils literal notranslate"><span class="pre">Location</span></code> class</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>0.6.2</p></td>
+<td><p>Added various cities to database as per
+<a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1040936">https://bugs.launchpad.net/astral/+bug/1040936</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>0.6.1</p></td>
+<td><ul class="simple">
+<li><p>Docstrings were not updated to match changes to code.</p></li>
+<li><p>Other minor docstring changes made</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>0.6</p></td>
+<td><ul class="simple">
+<li><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/884716">884716</a> submitted by Martin Heemskerk
+regarding moon phase calculations</p></li>
+<li><p>Fixes for bug report <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/944754">944754</a> submitted by Hajo Werder</p>
+<ul>
+<li><p>Changed co-ordinate system so that eastern longitudes
+are now positive</p></li>
+<li><p>Added solar_depression property to City class</p></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>0.5</p></td>
+<td><ul class="simple">
+<li><p>Changed <code class="xref py py-class docutils literal notranslate"><span class="pre">City</span></code> to accept unicode name and country.</p></li>
+<li><p>Moved city information into a database class <code class="xref py py-class docutils literal notranslate"><span class="pre">CityDB</span></code></p></li>
+<li><p>Added attribute access to database for timezone groups</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>0.4</p></td>
+<td><ul class="simple">
+<li><p>Duplicate city names could not be accessed.</p></li>
+<li><p>Sun calculations for some cities failed with times
+outside valid ranges.</p></li>
+<li><p>Fixes for city data.</p></li>
+<li><p>Added calculation for moon phase.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>0.3</p></td>
+<td><ul class="simple">
+<li><p>Changed to <a class="reference external" href="http://www.opensource.org/licenses/apache2.0.php">Apache</a> V2.0 license.</p></li>
+<li><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/555508">555508</a> submitted by me.</p></li>
+<li><p>US state capitals and other cities added.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>0.2</p></td>
+<td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/554041">554041</a> submitted by Derek_ / John Dimatos</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1</p></td>
+<td><p>First release</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="next">
+    <a href="module.html"
+       title="next chapter">The <code class="xref py py-mod docutils literal notranslate"><span class="pre">astral</span></code> Module →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2009-2019, Simon Kennedy.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+  </div></body>
+</html>

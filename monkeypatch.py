@@ -3,7 +3,7 @@
 import os
 import sys
 import distutils.dist
-from distutils.util import (check_environ, convert_path)
+from distutils.util import check_environ, convert_path
 from distutils.debug import DEBUG
 import setuptools.command.sdist
 
@@ -28,7 +28,7 @@ def find_config_files(self):
     check_environ()
 
     # Where to look for the system-wide Distutils config file
-    sys_dir = os.path.dirname(sys.modules['distutils'].__file__)
+    sys_dir = os.path.dirname(sys.modules["distutils"].__file__)
 
     # Look for the system config file
     sys_file = os.path.join(sys_dir, "distutils.cfg")
@@ -36,14 +36,14 @@ def find_config_files(self):
         files.append(sys_file)
 
     # What to call the per-user config file
-    if os.name == 'posix':
+    if os.name == "posix":
         user_filename = ".pydistutils.cfg"
     else:
         user_filename = "pydistutils.cfg"
 
     # And look for the user config file
     if self.want_user_cfg:
-        user_file = os.path.join(os.path.expanduser('~'), user_filename)
+        user_file = os.path.join(os.path.expanduser("~"), user_filename)
         if os.path.isfile(user_file):
             files.append(user_file)
 
@@ -57,20 +57,19 @@ def find_config_files(self):
         files.append(local_dev_file)
 
     if DEBUG:
-        self.announce("using config files: %s" % ', '.join(files))
+        self.announce("using config files: %s" % ", ".join(files))
 
     return files
 
 
 def check_readme(self):
-    self.READMES += ('README.md',)
+    self.READMES += ("README.md",)
     for f in self.READMES:
         if os.path.exists(f):
             return
     else:
         self.warn(
-            "standard file not found: should have one of " +
-            ', '.join(self.READMES)
+            "standard file not found: should have one of " + ", ".join(self.READMES)
         )
 
 
