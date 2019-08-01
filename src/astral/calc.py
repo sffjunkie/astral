@@ -13,7 +13,6 @@ from math import (
     sqrt,
     tan,
 )
-from typing import Union
 
 import pytz
 
