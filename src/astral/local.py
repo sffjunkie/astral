@@ -146,7 +146,7 @@ def daylight(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
-    :return:         A tuple of local :class:`~datetime.datetime`\s at which daylight starts
+    :return:         A tuple of local :class:`~datetime.datetime`\\s at which daylight starts
                      and stops.
     """
     if date is None:
@@ -166,7 +166,7 @@ def night(
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     The date to calculate for (Default: today)
     :param tzinfo:   A tzinfo for the local time zone (Default: :class:`pytz.utc`)
-    :return:         A tuple of local :class:`~datetime.datetime`\s at which night starts
+    :return:         A tuple of local :class:`~datetime.datetime`\\s at which night starts
                      and stops.
     """
     if date is None:
