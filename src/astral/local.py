@@ -154,7 +154,7 @@ def time_at_altitude(
     :param observer:  An observer viewing the sun at a specific, latitude, longitude and elevation
     :param altitude:  The altitude of the sun to calculate the time for
     :param date:      The date to calculate for (Default: today)
-    :para: direction: Whether the time is for the sun rising or setting (Default: rising)
+    :param direction: Whether the time is for the sun rising or setting (Default: rising)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
     t = astral.utc.time_at_altitude(observer, altitude, date, direction)
@@ -171,7 +171,7 @@ def twilight(
 
     :param observer:  An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:      The date to calculate for (Default: today)
-    :para: direction: Whether the time is for the sun rising or setting (Default: rising)
+    :param direction: Whether the time is for the sun rising or setting (Default: rising)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
     t0, t1 = astral.utc.twilight(observer, date, direction)
@@ -188,7 +188,7 @@ def golden_hour(
 
     :param observer:  An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:      The date to calculate for (Default: today)
-    :para: direction: Whether the time is for the sun rising or setting (Default: rising)
+    :param direction: Whether the time is for the sun rising or setting (Default: rising)
     :param tzinfo:    A tzinfo for the local time zone (Default: :class:`pytz.utc`)
     """
     t0, t1 = astral.utc.golden_hour(observer, date, direction)
