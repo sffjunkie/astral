@@ -5,7 +5,7 @@ from typing import Dict, Tuple, Optional
 
 import pytz
 
-import astral.sun.calc
+import astral.calc
 from astral import AstralError, Observer, SunDirection
 
 
@@ -29,7 +29,7 @@ def solar_noon(
     if date is None:
         date = today()
 
-    return astral.sun.calc.solar_noon(observer.longitude, date)
+    return astral.calc.solar_noon(observer.longitude, date)
 
 
 def solar_midnight(
@@ -48,7 +48,7 @@ def solar_midnight(
     if date is None:
         date = today()
 
-    return astral.sun.calc.solar_midnight(observer.longitude, date)
+    return astral.calc.solar_midnight(observer.longitude, date)
 
 
 def azimuth(
@@ -67,7 +67,7 @@ def azimuth(
     if dateandtime is None:
         dateandtime = now()
 
-    return astral.sun.calc.azimuth(dateandtime, observer.latitude, observer.longitude)
+    return astral.calc.azimuth(dateandtime, observer.latitude, observer.longitude)
 
 
 def zenith(
@@ -86,7 +86,7 @@ def zenith(
     if dateandtime is None:
         dateandtime = now()
 
-    return astral.sun.calc.zenith(dateandtime, observer.latitude, observer.longitude)
+    return astral.calc.zenith(dateandtime, observer.latitude, observer.longitude)
 
 
 def altitude(
@@ -105,7 +105,7 @@ def altitude(
     if dateandtime is None:
         dateandtime = now()
 
-    return astral.sun.calc.altitude(dateandtime, observer.latitude, observer.longitude)
+    return astral.calc.altitude(dateandtime, observer.latitude, observer.longitude)
 
 
 def dawn(
@@ -122,7 +122,7 @@ def dawn(
         date = today()
 
     try:
-        return astral.sun.calc.time_of_transit(
+        return astral.calc.time_of_transit(
             observer.latitude,
             observer.longitude,
             observer.elevation,
@@ -152,7 +152,7 @@ def sunrise(
         date = today()
 
     try:
-        return astral.sun.calc.time_of_transit(
+        return astral.calc.time_of_transit(
             observer.latitude,
             observer.longitude,
             observer.elevation,
@@ -186,7 +186,7 @@ def sunset(
         date = today()
 
     try:
-        return astral.sun.calc.time_of_transit(
+        return astral.calc.time_of_transit(
             observer.latitude,
             observer.longitude,
             observer.elevation,
@@ -221,7 +221,7 @@ def dusk(
         date = today()
 
     try:
-        return astral.sun.calc.time_of_transit(
+        return astral.calc.time_of_transit(
             observer.latitude,
             observer.longitude,
             observer.elevation,
@@ -307,7 +307,7 @@ def time_at_altitude(
 
     depression = 90 - altitude
     try:
-        return astral.sun.calc.time_of_transit(
+        return astral.calc.time_of_transit(
             observer.latitude,
             observer.longitude,
             observer.elevation,

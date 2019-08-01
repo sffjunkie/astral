@@ -4,8 +4,8 @@ import pytest
 import pytz
 import datetime
 from astral import AstralError
-from astral.sun import utc
-from astral.sun.calc import SunDirection
+from astral import utc
+from astral.calc import SunDirection
 
 
 def datetime_almost_equal(datetime1, datetime2, seconds=60):

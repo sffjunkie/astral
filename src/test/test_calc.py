@@ -1,9 +1,8 @@
 import datetime
 
-import pytz
 from pytest import approx
 
-from astral.sun import calc
+from astral import calc
 
 
 def test_JulianDay():

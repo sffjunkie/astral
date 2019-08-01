@@ -41,9 +41,9 @@ For example ::
     >>> print('Latitude: %.02f; Longitude: %.02f' % (location.latitude, location.longitude))
     Latitude: 51.60; Longitude: 0.05
     >>> from datetime import date
-    >>> import astral.sun.local
+    >>> import astral.local
     >>> d = date(2009,4,22)
-    >>> sun = astral.sun.local.sun(local=True, date=d)
+    >>> sun = astral.local.sun(local=True, date=d)
     >>> print('Dawn:    %s' % str(sun['dawn']))
     Dawn:    2009-04-22 05:12:56+01:00
 

@@ -4,7 +4,7 @@ import pytest
 import astral
 from datetime import datetime, timedelta
 import pytz
-from astral.sun import utc
+from astral import utc
 
 
 def _next_event(location, datetime, event):

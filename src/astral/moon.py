@@ -2,7 +2,7 @@ import datetime
 from math import degrees, radians, sin
 from typing import Union
 
-from astral.sun.calc import julianday, proper_angle
+from astral.calc import julianday, proper_angle
 
 __all__ = ["phase"]
 

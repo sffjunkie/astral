@@ -1,7 +1,7 @@
 from pytest import approx
 from datetime import timedelta
 from astral import latlng_to_float
-from astral.sun.calc import minutes_to_timedelta
+from astral.calc import minutes_to_timedelta
 
 
 def test_MinutesToTime():

@@ -110,7 +110,7 @@ Sun
     >>>     (city.latitude, city.longitude))
     Latitude: 51.50; Longitude: -0.12
 
-    >>> from astral.sun.local import sun
+    >>> from astral.local import sun
     >>> s = sun(city, date=datetime.date(2009, 4, 22))
     >>> print(f'Dawn:    {sun['dawn']}')
     >>> print(f'Sunrise: {sun['sunrise']}')
@@ -195,7 +195,7 @@ tuple on initialization
 
 .. code-block::
 
-    from astral.sun.utc import sun
+    from astral.utc import sun
     l = LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2, 0)
     sun(observer=l)
 
@@ -380,8 +380,8 @@ Version  Description
          * New Observer class to store a latitude, longitude & elevation
          * Geocoder functions return a LocationInfo instead of a Location
          * `elevation` in functions renamed to `altitude`.
-         * :mod:`astral.sun.local` return times in a specific timezone
-         * :mod:`astral.sun.utc` returns times in the UTC timezone
+         * :mod:`astral.local` return times in a specific timezone
+         * :mod:`astral.utc` returns times in the UTC timezone
 -------- -----------------------------------------------------------------------
 1.10.1   Keyword args are now passed to the geocoder class from Astral __init__
          in order to allow the Google Maps API key to be passed to the
