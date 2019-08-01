@@ -26,7 +26,7 @@ def new_delhi(new_delhi_info) -> Location:
 @pytest.fixture
 def riyadh_info() -> LocationInfo:
     return LocationInfo(
-        "riyadh", "Saudi Arabia", "Asia/Riyadh", 24.71355, 46.67530, 612
+        "Riyadh", "Saudi Arabia", "Asia/Riyadh", 24.71355, 46.67530, 612
     )
 
 
