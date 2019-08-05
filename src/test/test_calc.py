@@ -2,7 +2,7 @@ import datetime
 
 from pytest import approx
 
-from astral import calc
+from astral import calc, Observer
 
 
 def test_JulianDay():
@@ -218,7 +218,7 @@ def test_ProperAngle():
 def test_Azimuth(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert approx(
-        calc.azimuth(d, new_delhi.latitude, new_delhi.longitude),
+        calc.azimuth(new_delhi, d),
         292.77,
     )
 
@@ -226,7 +226,7 @@ def test_Azimuth(new_delhi):
 def test_Altitude(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert approx(
-        calc.altitude(d, new_delhi.latitude, new_delhi.longitude),
+        calc.azimuth(new_delhi, d),
         7.41,
     )
 
@@ -235,16 +235,16 @@ def test_Altitude_NonNaive(new_delhi):
     d = datetime.datetime(2001, 6, 21, 18, 41, 0)
     d = new_delhi.tz.localize(d)
     assert approx(
-        calc.altitude(d, new_delhi.latitude, new_delhi.longitude),
+        calc.altitude(new_delhi, d),
         7.41,
     )
 
 
 def test_Azimuth_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert approx(calc.azimuth(d, 86, 77.2), 276.23)
+    assert approx(calc.azimuth(Observer(86, 77.2), d), 276.23)
 
 
 def test_Altitude_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert approx(calc.altitude(d, 86, 77.2), 23.10)
+    assert approx(calc.altitude(Observer(86, 77.2), d), 23.10)
