@@ -162,15 +162,4 @@ def test_Location_TzError():
 def test_Location_Equality():
     c1 = Location()
     c2 = Location()
-    assert c1.__eq__(c2)
-
-
-#     c1 = Location(LocationInfo("Oslo", "Norway", "Europe/Oslo", 59.9, 10.7, 0))
-#     c2 = Location(LocationInfo("Oslo", "Norway", "Europe/Oslo", 59.9, 10.7, 0))
-#     c3 = Location(LocationInfo("Stockholm", "Sweden", "Europe/Stockholm", 59.3, 18, 0))
-#     t1 = (c1, c2)
-#     t2 = (c1, c3)
-#     assert c1 == c2
-#     assert len(set(t1)) == 1
-#     assert c1 != c3
-#     assert len(set(t2)) == 2
+    assert c1 == c2
