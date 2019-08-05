@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from astral.calc import adjustment_for_elevation
+from astral.sun import adjustment_for_elevation
 
 
 def test_ElevationPositive():

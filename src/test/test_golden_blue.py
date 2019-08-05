@@ -3,8 +3,8 @@
 
 import pytz
 import datetime
-from astral import calc
-from astral.calc import SunDirection
+from astral import sun
+from astral.sun import SunDirection
 
 
 def datetime_almost_equal(datetime1, datetime2, seconds=60):
@@ -29,7 +29,7 @@ def test_Location_GoldenHour_Morning(new_delhi):
         start1 = pytz.utc.localize(golden_hour[0])
         end1 = pytz.utc.localize(golden_hour[1])
 
-        start2, end2 = calc.golden_hour(new_delhi, day, SunDirection.RISING)
+        start2, end2 = sun.golden_hour(new_delhi, day, SunDirection.RISING)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -46,7 +46,7 @@ def test_Location_GoldenHour_Evening(london):
         start1 = pytz.utc.localize(golden_hour[0])
         end1 = pytz.utc.localize(golden_hour[1])
 
-        start2, end2 = calc.golden_hour(london, day, SunDirection.SETTING)
+        start2, end2 = sun.golden_hour(london, day, SunDirection.SETTING)
         assert datetime_almost_equal(end1, end2, seconds=60)
         assert datetime_almost_equal(start1, start2, seconds=60)
 
@@ -63,7 +63,7 @@ def test_Location_BlueHour_Morning(london):
         start1 = pytz.utc.localize(blue_hour[0])
         end1 = pytz.utc.localize(blue_hour[1])
 
-        start2, end2 = calc.blue_hour(london, day, SunDirection.RISING)
+        start2, end2 = sun.blue_hour(london, day, SunDirection.RISING)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -80,6 +80,6 @@ def test_Location_BlueHour_Evening(london):
         start1 = pytz.utc.localize(blue_hour[0])
         end1 = pytz.utc.localize(blue_hour[1])
 
-        start2, end2 = calc.blue_hour(london, day, SunDirection.SETTING)
+        start2, end2 = sun.blue_hour(london, day, SunDirection.SETTING)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)

@@ -1,14 +1,15 @@
 import dataclasses
 import datetime
-from typing import Tuple, Union, Optional
+from typing import Optional, Tuple, Union
 
 import pytz
 
-import astral.moon
-import astral.calc
 import astral.local
+import astral.moon
+import astral.sun
 import astral.utc
-from astral import AstralError, LocationInfo, Observer, SunDirection, latlng_to_float
+from astral import (AstralError, LocationInfo, Observer, SunDirection,
+                    latlng_to_float)
 
 
 class Location:
@@ -256,9 +257,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.sun(observer, date, self.solar_depression, self.tzinfo)
+            return astral.sun.sun(observer, date, self.solar_depression, self.tzinfo)
         else:
-            return astral.calc.sun(observer, date, self.solar_depression)
+            return astral.sun.sun(observer, date, self.solar_depression)
 
     def dawn(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -291,9 +292,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.dawn(observer, date, self.solar_depression, self.tzinfo)
+            return astral.sun.dawn(observer, date, self.solar_depression, self.tzinfo)
         else:
-            return astral.calc.dawn(observer, date, self.solar_depression)
+            return astral.sun.dawn(observer, date, self.solar_depression)
 
     def sunrise(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -329,9 +330,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.sunrise(observer, date, self.tzinfo)
+            return astral.sun.sunrise(observer, date, self.tzinfo)
         else:
-            return astral.calc.sunrise(observer, date)
+            return astral.sun.sunrise(observer, date)
 
     def solar_noon(
         self, date: datetime.date = None, local: bool = True
@@ -357,9 +358,9 @@ class Location:
 
         observer = Observer(self.latitude, self.longitude)
         if local:
-            return astral.calc.solar_noon(observer, date, self.tzinfo)
+            return astral.sun.solar_noon(observer, date, self.tzinfo)
         else:
-            return astral.calc.solar_noon(observer, date)
+            return astral.sun.solar_noon(observer, date)
 
     def sunset(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -393,9 +394,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.sunset(observer, date, self.tzinfo)
+            return astral.sun.sunset(observer, date, self.tzinfo)
         else:
-            return astral.calc.sunset(observer, date)
+            return astral.sun.sunset(observer, date)
 
     def dusk(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -429,9 +430,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.dusk(observer, date, self.solar_depression, self.tzinfo)
+            return astral.sun.dusk(observer, date, self.solar_depression, self.tzinfo)
         else:
-            return astral.calc.dusk(observer, date, self.solar_depression)
+            return astral.sun.dusk(observer, date, self.solar_depression)
 
     def solar_midnight(
         self, date: datetime.date = None, local: bool = True
@@ -458,9 +459,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude)
 
         if local:
-            return astral.calc.solar_midnight(observer, date, self.tzinfo)
+            return astral.sun.solar_midnight(observer, date, self.tzinfo)
         else:
-            return astral.calc.solar_midnight(observer, date)
+            return astral.sun.solar_midnight(observer, date)
 
     def daylight(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -493,9 +494,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.daylight(observer, date, self.tzinfo)
+            return astral.sun.daylight(observer, date, self.tzinfo)
         else:
-            return astral.calc.daylight(observer, date)
+            return astral.sun.daylight(observer, date)
 
     def night(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -527,9 +528,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.night(observer, date, self.tzinfo)
+            return astral.sun.night(observer, date, self.tzinfo)
         else:
-            return astral.calc.night(observer, date)
+            return astral.sun.night(observer, date)
 
     def twilight(
         self,
@@ -573,9 +574,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.twilight(observer, date, direction, self.tzinfo)
+            return astral.sun.twilight(observer, date, direction, self.tzinfo)
         else:
-            return astral.calc.twilight(observer, date, direction)
+            return astral.sun.twilight(observer, date, direction)
 
     def time_at_altitude(
         self,
@@ -620,11 +621,11 @@ class Location:
         observer = Observer(self.latitude, self.longitude, altitude)
 
         if local:
-            return astral.calc.time_at_altitude(
+            return astral.sun.time_at_altitude(
                 observer, altitude, date, direction, self.tzinfo
             )
         else:
-            return astral.calc.time_at_altitude(observer, altitude, date, direction)
+            return astral.sun.time_at_altitude(observer, altitude, date, direction)
 
     def rahukaalam(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -656,9 +657,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.rahukaalam(observer, date, self.tzinfo)
+            return astral.sun.rahukaalam(observer, date, self.tzinfo)
         else:
-            return astral.calc.rahukaalam(observer, date)
+            return astral.sun.rahukaalam(observer, date)
 
     def golden_hour(
         self,
@@ -701,9 +702,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.golden_hour(observer, date, direction, self.tzinfo)
+            return astral.sun.golden_hour(observer, date, direction, self.tzinfo)
         else:
-            return astral.calc.golden_hour(observer, date, direction)
+            return astral.sun.golden_hour(observer, date, direction)
 
     def blue_hour(
         self,
@@ -746,9 +747,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude, elevation)
 
         if local:
-            return astral.calc.blue_hour(observer, date, direction, self.tzinfo)
+            return astral.sun.blue_hour(observer, date, direction, self.tzinfo)
         else:
-            return astral.calc.blue_hour(observer, date, direction)
+            return astral.sun.blue_hour(observer, date, direction)
 
     def solar_azimuth(self, dateandtime: datetime.datetime = None) -> float:
         """Calculates the solar azimuth angle for a specific date/time.
@@ -758,14 +759,14 @@ class Location:
         """
 
         if dateandtime is None:
-            dateandtime = astral.calc.now(self.tzinfo)
+            dateandtime = astral.sun.now(self.tzinfo)
         elif not dateandtime.tzinfo:
             dateandtime = self.tzinfo.localize(dateandtime)
 
         observer = Observer(self.latitude, self.longitude, self.elevation)
 
         dateandtime = dateandtime.astimezone(pytz.utc)
-        return astral.calc.azimuth(observer, dateandtime)
+        return astral.sun.azimuth(observer, dateandtime)
 
     def solar_elevation(self, dateandtime: datetime.datetime = None) -> float:
         """Calculates the solar elevation angle for a specific time.
@@ -776,14 +777,14 @@ class Location:
         """
 
         if dateandtime is None:
-            dateandtime = astral.calc.now(self.tzinfo)
+            dateandtime = astral.sun.now(self.tzinfo)
         elif not dateandtime.tzinfo:
             dateandtime = self.tzinfo.localize(dateandtime)
 
         observer = Observer(self.latitude, self.longitude, self.elevation)
 
         dateandtime = dateandtime.astimezone(pytz.utc)
-        return astral.calc.altitude(observer, dateandtime)
+        return astral.sun.altitude(observer, dateandtime)
 
     def solar_zenith(self, dateandtime: datetime.datetime) -> float:
         """Calculates the solar zenith angle for a specific time.

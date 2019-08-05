@@ -2,7 +2,7 @@ import datetime
 
 from pytest import approx
 
-from astral import calc, Observer
+from astral import sun, Observer
 
 
 def test_JulianDay():
@@ -15,7 +15,7 @@ def test_JulianDay():
     ]
 
     for d, jd in test_data:
-        assert calc.julianday(d) == jd
+        assert sun.julianday(d) == jd
 
 
 def test_JulianCentury():
@@ -28,7 +28,7 @@ def test_JulianCentury():
     ]
 
     for jd, jc in test_data:
-        assert approx(calc.jday_to_jcentury(jd), jc)
+        assert approx(sun.jday_to_jcentury(jd), jc)
 
 
 def test_JulianCenturyToJulianDay():
@@ -41,7 +41,7 @@ def test_JulianCenturyToJulianDay():
     ]
 
     for jc, jd in test_data:
-        assert approx(calc.jcentury_to_jday(jc), jd)
+        assert approx(sun.jcentury_to_jday(jc), jd)
 
 
 def test_GeomMeanLongSun():
@@ -52,7 +52,7 @@ def test_GeomMeanLongSun():
     ]
 
     for jc, gmls in test_data:
-        assert approx(calc.geom_mean_long_sun(jc), gmls)
+        assert approx(sun.geom_mean_long_sun(jc), gmls)
 
 
 def test_GeomAnomolyLongSun():
@@ -63,7 +63,7 @@ def test_GeomAnomolyLongSun():
     ]
 
     for jc, gmas in test_data:
-        assert approx(calc.geom_mean_anomaly_sun(jc), gmas)
+        assert approx(sun.geom_mean_anomaly_sun(jc), gmas)
 
 
 def test_EccentricityEarthOrbit():
@@ -74,7 +74,7 @@ def test_EccentricityEarthOrbit():
     ]
 
     for jc, eeo in test_data:
-        assert approx(calc.eccentric_location_earth_orbit(jc), eeo, abs=1e-6)
+        assert approx(sun.eccentric_location_earth_orbit(jc), eeo, abs=1e-6)
 
 
 def test_SunEqOfCenter():
@@ -85,7 +85,7 @@ def test_SunEqOfCenter():
     ]
 
     for jc, eos in test_data:
-        assert approx(calc.sun_eq_of_center(jc), eos, abs=1e-6)
+        assert approx(sun.sun_eq_of_center(jc), eos, abs=1e-6)
 
 
 def test_SunTrueLong():
@@ -96,7 +96,7 @@ def test_SunTrueLong():
     ]
 
     for jc, stl in test_data:
-        assert approx(calc.sun_true_long(jc), stl, abs=1e-6)
+        assert approx(sun.sun_true_long(jc), stl, abs=1e-6)
 
 
 def test_SunTrueAnomaly():
@@ -107,7 +107,7 @@ def test_SunTrueAnomaly():
     ]
 
     for jc, sta in test_data:
-        assert approx(calc.sun_true_anomoly(jc), sta, abs=1e-3)
+        assert approx(sun.sun_true_anomoly(jc), sta, abs=1e-3)
 
 
 def test_SunRadVector():
@@ -118,7 +118,7 @@ def test_SunRadVector():
     ]
 
     for jc, srv in test_data:
-        assert approx(calc.sun_rad_vector(jc), srv, abs=1e-6)
+        assert approx(sun.sun_rad_vector(jc), srv, abs=1e-6)
 
 
 def test_SunApparentLong():
@@ -129,7 +129,7 @@ def test_SunApparentLong():
     ]
 
     for jc, sal in test_data:
-        assert approx(calc.sun_apparent_long(jc), sal, abs=1e-5)
+        assert approx(sun.sun_apparent_long(jc), sal, abs=1e-5)
 
 
 def test_MeanObliquityOfEcliptic():
@@ -140,7 +140,7 @@ def test_MeanObliquityOfEcliptic():
     ]
 
     for jc, mooe in test_data:
-        assert approx(calc.mean_obliquity_of_ecliptic(jc), mooe, abs=1e-6)
+        assert approx(sun.mean_obliquity_of_ecliptic(jc), mooe, abs=1e-6)
 
 
 def test_ObliquityCorrection():
@@ -151,7 +151,7 @@ def test_ObliquityCorrection():
     ]
 
     for jc, oc in test_data:
-        assert approx(calc.obliquity_correction(jc), oc, abs=1e-5)
+        assert approx(sun.obliquity_correction(jc), oc, abs=1e-5)
 
 
 def test_SunRtAscension():
@@ -162,7 +162,7 @@ def test_SunRtAscension():
     ]
 
     for jc, sra in test_data:
-        assert approx(calc.sun_rt_ascension(jc), sra, abs=1e-7)
+        assert approx(sun.sun_rt_ascension(jc), sra, abs=1e-7)
 
 
 def test_SunDeclination():
@@ -173,7 +173,7 @@ def test_SunDeclination():
     ]
 
     for jc, sd in test_data:
-        assert approx(calc.sun_declination(jc), sd, abs=1e-6)
+        assert approx(sun.sun_declination(jc), sd, abs=1e-6)
 
 
 def test_EquationOfTime():
@@ -184,7 +184,7 @@ def test_EquationOfTime():
     ]
 
     for jc, eot in test_data:
-        assert approx(calc.eq_of_time(jc), eot, abs=1e-6)
+        assert approx(sun.eq_of_time(jc), eot, abs=1e-6)
 
 
 def test_HourAngle(london):
@@ -195,13 +195,13 @@ def test_HourAngle(london):
     ]
 
     for d, ha in test_data:
-        jd = calc.julianday(d)
-        jc = calc.jday_to_jcentury(jd)
-        decl = calc.sun_declination(jc)
+        jd = sun.julianday(d)
+        jc = sun.jday_to_jcentury(jd)
+        decl = sun.sun_declination(jc)
 
         assert approx(
-            calc.hour_angle(
-                london.latitude, decl, 90.8333, calc.SunDirection.RISING
+            sun.hour_angle(
+                london.latitude, decl, 90.8333, sun.SunDirection.RISING
             ),
             ha,
             abs=1e-6,
@@ -209,16 +209,16 @@ def test_HourAngle(london):
 
 
 def test_ProperAngle():
-    assert approx(calc.proper_angle(12), 12)
-    assert approx(calc.proper_angle(13.3), 13.3)
-    assert approx(calc.proper_angle(-3), 357)
-    assert approx(calc.proper_angle(363), 3)
+    assert approx(sun.proper_angle(12), 12)
+    assert approx(sun.proper_angle(13.3), 13.3)
+    assert approx(sun.proper_angle(-3), 357)
+    assert approx(sun.proper_angle(363), 3)
 
 
 def test_Azimuth(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert approx(
-        calc.azimuth(new_delhi, d),
+        sun.azimuth(new_delhi, d),
         292.77,
     )
 
@@ -226,7 +226,7 @@ def test_Azimuth(new_delhi):
 def test_Altitude(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert approx(
-        calc.azimuth(new_delhi, d),
+        sun.azimuth(new_delhi, d),
         7.41,
     )
 
@@ -235,16 +235,16 @@ def test_Altitude_NonNaive(new_delhi):
     d = datetime.datetime(2001, 6, 21, 18, 41, 0)
     d = new_delhi.tz.localize(d)
     assert approx(
-        calc.altitude(new_delhi, d),
+        sun.altitude(new_delhi, d),
         7.41,
     )
 
 
 def test_Azimuth_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert approx(calc.azimuth(Observer(86, 77.2), d), 276.23)
+    assert approx(sun.azimuth(Observer(86, 77.2), d), 276.23)
 
 
 def test_Altitude_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert approx(calc.altitude(Observer(86, 77.2), d), 23.10)
+    assert approx(sun.altitude(Observer(86, 77.2), d), 23.10)

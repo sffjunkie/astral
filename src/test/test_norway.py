@@ -4,14 +4,14 @@ import pytest
 import astral
 from datetime import datetime, timedelta
 import pytz
-from astral import calc
+from astral import sun
 
 
 def _next_event(location, datetime, event):
     for offset in range(0, 365):
         newdate = datetime + timedelta(days=offset)
         try:
-            t = getattr(calc, event)(date=newdate, observer=location)
+            t = getattr(sun, event)(date=newdate, observer=location)
             return t
         except Exception:
             pass
@@ -24,9 +24,9 @@ def test_NorwaySunUp():
     location = astral.LocationInfo("Tisnes", "Norway", "UTC", 69.6, 18.8)
 
     with pytest.raises(astral.AstralError):
-        calc.sunrise(location, june)
+        sun.sunrise(location, june)
     with pytest.raises(astral.AstralError):
-        calc.sunset(location, june)
+        sun.sunset(location, june)
 
     # Find the next sunset and sunrise:
     next_sunrise = _next_event(location, june, "sunrise")
