@@ -21,8 +21,7 @@ solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and
 elevation, for specific locations or at a specific latitude/longitude. It can
 also calculate the moon phase for a specific date.
 
-The package provides 2 modules to provide calculations in UTC and local time zones.
-It also provides a self contained geocoder to turn location names into
+The package also provides a self contained geocoder to turn location names into
 timezone, latitude, longitude and elevation.
 
 :class:`Location`
