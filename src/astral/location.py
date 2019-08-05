@@ -46,8 +46,8 @@ class Location:
             self._location_info = info
 
     def __eq__(self, other: object) -> bool:
-        if type(other) is LocationInfo:
-            return self._location_info == other
+        if type(other) is Location:
+            return self._location_info == other._location_info
         return NotImplemented
 
     def __repr__(self) -> str:
