@@ -91,10 +91,7 @@ def latlng_to_float(dms: str) -> float:
 
         return res
     else:
-        try:
-            return float(dms)
-        except ValueError:
-            return 0
+        return float(dms)
 
 
 class AstralError(Exception):

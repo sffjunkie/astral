@@ -1,4 +1,4 @@
-from pytest import approx
+from pytest import approx, raises
 from datetime import timedelta
 from astral import latlng_to_float
 from astral.sun import minutes_to_timedelta
@@ -29,3 +29,8 @@ def test_dms_West():
 
 def test_dms_float():
     assert latlng_to_float("0.2") == 0.2
+
+
+def test_dms_not_a_float():
+    with raises(ValueError):
+        latlng_to_float("x")
