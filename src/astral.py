@@ -87,27 +87,14 @@ from math import cos, sin, tan, acos, asin, atan2, floor, ceil
 from math import radians, degrees, pow, sqrt
 from numbers import Number
 import re
-import sys
 
-try:
-    from urllib import quote_plus
-except ImportError:
-    from urllib.parse import quote_plus
-
-try:
-    from urllib2 import URLError
-except ImportError:
-    from urllib.request import URLError
+from urllib.parse import quote_plus
+from urllib.request import URLError
 
 try:
     import simplejson as json
 except ImportError:
     import json
-
-if sys.version_info[0] >= 3:
-    ustr = str
-else:
-    ustr = unicode  # pylint: disable=E0602
 
 __all__ = ["Astral", "Location", "AstralGeocoder", "GoogleGeocoder", "AstralError"]
 
@@ -612,10 +599,7 @@ class Location(object):
 
     @latitude.setter
     def latitude(self, latitude):
-        if isinstance(latitude, (str, ustr)):
-            if sys.version_info[0] < 3 and isinstance(latitude, str):
-                latitude = latitude.decode('utf-8')
-
+        if isinstance(latitude, str):
             m = self._dms_re.match(latitude)
             deg = m.group("deg")
             min_ = m.group("min")
@@ -648,10 +632,7 @@ class Location(object):
 
     @longitude.setter
     def longitude(self, longitude):
-        if isinstance(longitude, (str, ustr)):
-            if sys.version_info[0] < 3 and isinstance(longitude, str):
-                longitude = longitude.decode('utf-8')
-
+        if isinstance(longitude, str):
             m = self._dms_re.match(longitude)
             deg = m.group("deg")
             min_ = m.group("min")
@@ -1519,16 +1500,13 @@ class AstralGeocoder(object):
         * A list of lists/tuples that are passed to a :class:`Location` constructor
         """
 
-        if isinstance(locations, (str, ustr)):
+        if isinstance(locations, str):
             self._add_from_str(locations)
         elif isinstance(locations, (list, tuple)):
             self._add_from_list(locations)
 
     def _add_from_str(self, s):
         """Add locations from a string"""
-
-        if sys.version_info[0] < 3 and isinstance(s, str):
-            s = s.decode('utf-8')
 
         for line in s.split("\n"):
             self._parse_line(line)
@@ -1540,7 +1518,7 @@ class AstralGeocoder(object):
         """
 
         for item in l:
-            if isinstance(item, (str, ustr)):
+            if isinstance(item, str):
                 self._add_from_str(item)
             elif isinstance(item, (list, tuple)):
                 location = Location(item)
@@ -1786,7 +1764,7 @@ class Astral(object):
 
     @solar_depression.setter
     def solar_depression(self, depression):
-        if isinstance(depression, str) or isinstance(depression, ustr):
+        if isinstance(depression, str):
             try:
                 self._depression = {"civil": 6, "nautical": 12, "astronomical": 18}[
                     depression

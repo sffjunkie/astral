@@ -8,10 +8,7 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 # http://read-the-docs.readthedocs.org/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
 MOCK_MODULES = ['pytz']
 if MOCK_MODULES and on_rtd:
-    if sys.version_info > (3, 3):
-        from unittest.mock import MagicMock
-    else:
-        from mock import Mock as MagicMock
+    from unittest.mock import MagicMock
 
     class Mock(MagicMock):
         @classmethod
