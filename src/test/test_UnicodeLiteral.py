@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Import unicode_literals as that caused problems with the code
-# See bug https://bugs.launchpad.net/astral/+bug/1588198
-from __future__ import unicode_literals
 import pytest
 import astral
 

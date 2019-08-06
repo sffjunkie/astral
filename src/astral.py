@@ -71,8 +71,6 @@ or ::
     >>> a.geocoder = GoogleGeocoder()
 """
 
-from __future__ import unicode_literals, division
-
 try:
     import pytz
 except ImportError:
