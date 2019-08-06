@@ -1648,7 +1648,7 @@ class GoogleGeocoder:
             self._get_timezone(location)
             self._get_elevation(location)
         except URLError:
-            raise AstralError("GoogleGeocoder: Unable to contact " "Google maps API")
+            raise AstralError("GoogleGeocoder: Unable to contact Google maps API")
 
         url = "https://maps.google.com/maps?q=loc:%f,%f"
         location.url = url % (location.latitude, location.longitude)
@@ -1867,7 +1867,7 @@ class Astral:
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
-                    "Sun never reaches the horizon on this day, " "at this location."
+                    "Sun never reaches the horizon on this day, at this location."
                 )
             else:
                 raise
@@ -1939,7 +1939,7 @@ class Astral:
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
-                    "Sun never reaches the horizon on this day, " "at this location."
+                    "Sun never reaches the horizon on this day, at this location."
                 )
             else:
                 raise
@@ -2220,7 +2220,7 @@ class Astral:
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
-                    ("Sun never reaches an elevation of %d degrees" "at this location.")
+                    ("Sun never reaches an elevation of %d degrees at this location.")
                     % elevation
                 )
             else:
