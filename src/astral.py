@@ -77,7 +77,7 @@ try:
     import pytz
 except ImportError:
     raise ImportError(
-        ("The astral module requires the pytz module to be available.")
+        "The astral module requires the pytz module to be available."
     )
 
 import datetime
@@ -510,7 +510,7 @@ def excel_datediff(start_date, end_date):
     return end_date.toordinal() - start_date.toordinal() + 2
 
 
-class Location(object):
+class Location:
     """Provides access to information for single location."""
 
     def __init__(self, info=None):
@@ -576,7 +576,7 @@ class Location(object):
 
     def __repr__(self):
         if self.region:
-            _repr = "%s/%s" % (self.name, self.region)
+            _repr = "{}/{}".format(self.name, self.region)
         else:
             _repr = self.name
         repr_format = "%s, tz=%s, lat=%0.02f, lon=%0.02f"
@@ -673,7 +673,7 @@ class Location(object):
             return None
 
         if self._timezone_location != "":
-            return "%s/%s" % (self._timezone_group, self._timezone_location)
+            return "{}/{}".format(self._timezone_group, self._timezone_location)
         else:
             return self._timezone_group
 
@@ -1393,7 +1393,7 @@ class Location(object):
         return self.astral.moon_phase(date, rtype)
 
 
-class LocationGroup(object):
+class LocationGroup:
     """Groups a set of timezones by the timezone group"""
 
     def __init__(self, name):
@@ -1456,8 +1456,7 @@ class LocationGroup(object):
 
     def __iter__(self):
         for location_list in self._locations.values():
-            for location in location_list:
-                yield location
+            yield from location_list
 
     def keys(self):
         return self._locations.keys()
@@ -1481,7 +1480,7 @@ class LocationGroup(object):
         return str(key).lower().replace(" ", "_")
 
 
-class AstralGeocoder(object):
+class AstralGeocoder:
     """Looks up geographic information from the locations stored within the
     module
     """
@@ -1598,7 +1597,7 @@ class AstralGeocoder(object):
         return self._groups
 
 
-class GoogleGeocoder(object):
+class GoogleGeocoder:
     """Use Google Maps API Web Service to lookup GPS co-ordinates, timezone and
     elevation.
 
@@ -1649,7 +1648,7 @@ class GoogleGeocoder(object):
             self._get_timezone(location)
             self._get_elevation(location)
         except URLError:
-            raise AstralError(("GoogleGeocoder: Unable to contact " "Google maps API"))
+            raise AstralError("GoogleGeocoder: Unable to contact " "Google maps API")
 
         url = "https://maps.google.com/maps?q=loc:%f,%f"
         location.url = url % (location.latitude, location.longitude)
@@ -1727,7 +1726,7 @@ class GoogleGeocoder(object):
         return ds.text
 
 
-class Astral(object):
+class Astral:
     def __init__(self, geocoder=AstralGeocoder, **kwargs):
         """Initialise the geocoder and set the default depression.
 
@@ -1771,11 +1770,9 @@ class Astral(object):
                 ]
             except KeyError:
                 raise KeyError(
-                    (
                         "solar_depression must be either a number "
                         "or one of 'civil', 'nautical' or "
                         "'astronomical'"
-                    )
                 )
         else:
             self._depression = float(depression)
@@ -1870,7 +1867,7 @@ class Astral(object):
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
-                    ("Sun never reaches the horizon on this day, " "at this location.")
+                    "Sun never reaches the horizon on this day, " "at this location."
                 )
             else:
                 raise
@@ -1942,7 +1939,7 @@ class Astral(object):
         except ValueError as exc:
             if exc.args[0] == "math domain error":
                 raise AstralError(
-                    ("Sun never reaches the horizon on this day, " "at this location.")
+                    "Sun never reaches the horizon on this day, " "at this location."
                 )
             else:
                 raise

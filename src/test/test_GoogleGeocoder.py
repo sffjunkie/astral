@@ -18,7 +18,7 @@ def test_GoogleLocator_WithAPIKey():
     if not api_key:
         try:
             api_key = read_contents(os.path.dirname(__file__), '.api_key').strip()
-        except IOError as exc:
+        except OSError as exc:
             raise ValueError("Google now requires an API key to be provided")
     
     locator = GoogleGeocoder(api_key=api_key)
