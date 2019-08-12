@@ -39,7 +39,7 @@ setup(
         "License :: OSI Approved :: Apache Software License",
     ],
     package_dir={"": "src"},
-    packages=["astral", "astral.sun"],
+    packages=["astral"],
     install_requires=["pytz", 'dataclasses;python_version=="3.6"'],
     tests_require=["pytest-runner"],
     zip_safe=True,
