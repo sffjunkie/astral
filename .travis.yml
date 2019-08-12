@@ -1,9 +1,9 @@
 language: python
 python:
   - "3.6"
-  - "2.7"
+  - "3.7"
 script:
-  - pytest -m "not webtest"
+  - pytest
 install:
   - pip install -r requirements.txt
   - pip install pytest-cov
