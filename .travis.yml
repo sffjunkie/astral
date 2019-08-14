@@ -3,7 +3,7 @@ python:
   - "3.6"
   - "3.7"
 script:
-  - tox
+  - tox -c tox.travis.ini
 install:
   - pip install -r requirements.txt
   - pip install pytest-cov
