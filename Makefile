@@ -1,4 +1,4 @@
-.PHONY: clean test test_docs test_all html report docs
+.PHONY: clean test test_docs test_all html report docs repl
 
 all: clean test report html
 
@@ -24,3 +24,6 @@ report:
 
 docs:
 	sphinx-build -W -b html -d $(BUILDDIR)/doctrees ./src/doc ./doc
+
+repl:
+	PYTHONPATH=src python
