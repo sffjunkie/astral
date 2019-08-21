@@ -21,6 +21,26 @@ from astral import AstralError, Observer, SunDirection
 from astral import local
 
 
+__all__ = [
+    "solar_noon",
+    "solar_midnight",
+    "zenith",
+    "azimuth",
+    "altitude",
+    "dawn",
+    "sunrise",
+    "sunset",
+    "dusk",
+    "daylight",
+    "night",
+    "time_at_altitude",
+    "twilight",
+    "golden_hour",
+    "blue_hour",
+    "rahukaalam",
+]
+
+
 def proper_angle(value: float) -> float:
     if value > 0.0:
         value /= 360.0
@@ -238,10 +258,7 @@ def adjustment_for_elevation(elevation: float) -> float:
 
 
 def time_of_transit(
-    observer: Observer,
-    date: datetime.date,
-    zenith: float,
-    direction: SunDirection,
+    observer: Observer, date: datetime.date, zenith: float, direction: SunDirection
 ) -> datetime.datetime:
     """Calculate the time when the sun transits the specificed zenith
 
@@ -397,11 +414,11 @@ def zenith(
     dateandtime: Optional[datetime.datetime] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> float:
-    """Calculate the elevation angle of the sun.
+    """Calculate the zenith angle of the sun.
 
     :param dateandtime: The date and time for which to calculate the angle.
-    :param observer:    The Observer to calculate the solar elevation for
-    :return:            The elevation angle in degrees above the horizon.
+    :param observer:    The Observer to calculate the solar zenith for
+    :return:            The zenith angle in degrees.
 
     If `dateandtime` is a naive Python datetime then it is assumed to be
     in the UTC timezone.
@@ -631,12 +648,7 @@ def dawn(
         date = today()
 
     try:
-        return time_of_transit(
-            observer,
-            date,
-            90 + depression,
-            SunDirection.RISING,
-        )
+        return time_of_transit(observer, date, 90 + depression, SunDirection.RISING)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
@@ -661,12 +673,7 @@ def sunrise(
         date = today()
 
     try:
-        return time_of_transit(
-            observer,
-            date,
-            90 + 0.833,
-            SunDirection.RISING,
-        )
+        return time_of_transit(observer, date, 90 + 0.833, SunDirection.RISING)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, solar_noon(observer, date))
@@ -695,12 +702,7 @@ def sunset(
         date = today()
 
     try:
-        return time_of_transit(
-            observer,
-            date,
-            90 + 0.833,
-            SunDirection.SETTING,
-        )
+        return time_of_transit(observer, date, 90 + 0.833, SunDirection.SETTING)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, solar_noon(observer, date))
@@ -731,12 +733,7 @@ def dusk(
         date = today()
 
     try:
-        return time_of_transit(
-            observer,
-            date,
-            90 + depression,
-            SunDirection.SETTING,
-        )
+        return time_of_transit(observer, date, 90 + depression, SunDirection.SETTING)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
@@ -820,12 +817,7 @@ def time_at_altitude(
 
     depression = 90 - altitude
     try:
-        return time_of_transit(
-            observer,
-            date,
-            depression,
-            direction,
-        )
+        return time_of_transit(observer, date, depression, direction)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
