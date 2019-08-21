@@ -1,4 +1,3 @@
-include src/test/*.py
 global-exclude *.pyc
 include setup.cfg
 include monkeypatch.py
