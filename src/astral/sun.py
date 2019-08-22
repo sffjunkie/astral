@@ -604,7 +604,7 @@ def altitude(
     """
 
     if dateandtime is None:
-        dateandtime = local.now(tzinfo)
+        dateandtime = now(tzinfo)
 
     return 90 - zenith(observer, dateandtime)
 
