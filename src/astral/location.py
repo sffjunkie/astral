@@ -13,7 +13,7 @@ from astral import (AstralError, LocationInfo, Observer, SunDirection,
 class Location:
     """Provides access to information for single location."""
 
-    def __init__(self, info: LocationInfo = None):
+    def __init__(self, info: Optional[LocationInfo] = None):
         """Initializes the object with a LocationInfo object.
 
             The tuple should contain items in the following order
@@ -45,7 +45,7 @@ class Location:
 
     def __eq__(self, other: object) -> bool:
         if type(other) is Location:
-            return self._location_info == other._location_info
+            return self._location_info == other._location_info  # type: ignore
         return NotImplemented
 
     def __repr__(self) -> str:
@@ -763,7 +763,7 @@ class Location:
 
         observer = Observer(self.latitude, self.longitude, self.elevation)
 
-        dateandtime = dateandtime.astimezone(pytz.utc)
+        dateandtime = dateandtime.astimezone(pytz.utc)  # type: ignore
         return astral.sun.azimuth(observer, dateandtime)
 
     def solar_elevation(self, dateandtime: datetime.datetime = None) -> float:
@@ -781,7 +781,7 @@ class Location:
 
         observer = Observer(self.latitude, self.longitude, self.elevation)
 
-        dateandtime = dateandtime.astimezone(pytz.utc)
+        dateandtime = dateandtime.astimezone(pytz.utc)  # type: ignore
         return astral.sun.altitude(observer, dateandtime)
 
     def solar_zenith(self, dateandtime: datetime.datetime) -> float:

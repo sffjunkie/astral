@@ -48,7 +48,7 @@ if args.tzname is None:
     tzinfo = pytz.utc
     format_str += "Z"
 else:
-    tzinfo = pytz.timezone(loc.timezone)
+    tzinfo = pytz.timezone(loc.timezone)  # type: ignore
     format_str += "%z"
 
 kwargs["tzinfo"] = tzinfo

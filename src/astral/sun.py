@@ -424,7 +424,7 @@ def zenith(
         timezone_hour_offset = 0.0
         utc_datetime = pytz.utc.localize(dateandtime)
     else:
-        timezone_hour_offset = -dateandtime.utcoffset().total_seconds() / 3600.0
+        timezone_hour_offset = -dateandtime.utcoffset().total_seconds() / 3600.0  # type: ignore
         utc_datetime = dateandtime.astimezone(pytz.utc)
 
     day_fraction = (
@@ -517,7 +517,7 @@ def azimuth(
         zone = 0.0
         utc_datetime = dateandtime
     else:
-        zone = -dateandtime.utcoffset().total_seconds() / 3600.0
+        zone = -dateandtime.utcoffset().total_seconds() / 3600.0  # type: ignore
         utc_datetime = dateandtime.astimezone(pytz.utc)
 
     timenow = (
