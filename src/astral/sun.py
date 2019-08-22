@@ -970,7 +970,7 @@ def sun(
     :param tzinfo:               Timezone to return times in. Default is UTC.
     :returns:                    Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
                                  ``sunset`` and ``dusk`` whose values are the results of
-                                 the corresponding methods.
+                                 the corresponding functions.
     """
 
     return {
