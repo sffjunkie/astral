@@ -35,11 +35,13 @@ For example ::
     >>> print('Timezone: %s' % timezone)
     Timezone: Europe/London
     >>> print('Latitude: %.02f; Longitude: %.02f' % (location.latitude, location.longitude))
-    Latitude: 51.60; Longitude: 0.05
+    Latitude: 51.47; Longitude: -0.00
     >>> from datetime import date
-    >>> import astral.local
+    >>> import astral.sun
     >>> d = date(2009,4,22)
-    >>> sun = astral.local.sun(local=True, date=d)
+    >>> import pytz
+    >>> tzinfo = pytz.timezone(timezone)
+    >>> sun = astral.sun.sun(location, date=d, tzinfo=tzinfo)
     >>> print('Dawn:    %s' % str(sun['dawn']))
     Dawn:    2009-04-22 05:12:56+01:00
 
