@@ -1,24 +1,11 @@
 import datetime
-from math import (
-    acos,
-    asin,
-    atan2,
-    ceil,
-    cos,
-    degrees,
-    floor,
-    fmod,
-    radians,
-    sin,
-    sqrt,
-    tan,
-)
+from math import (acos, asin, atan2, ceil, cos, degrees, floor, fmod, radians,
+                  sin, sqrt, tan)
 from typing import Dict, Optional, Tuple
 
 import pytz
 
-from astral import today, AstralError, Observer, SunDirection
-
+from astral import AstralError, Observer, SunDirection, today
 
 __all__ = [
     "solar_noon",
