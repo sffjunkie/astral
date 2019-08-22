@@ -397,7 +397,7 @@ def _zenith_and_azimuth():
 
 def zenith(
     observer: Observer,
-    dateandtime: Optional[datetime.datetime] = None,
+    dateandtime: datetime.datetime,
 ) -> float:
     """Calculate the zenith angle of the sun.
 
@@ -408,9 +408,6 @@ def zenith(
     If `dateandtime` is a naive Python datetime then it is assumed to be
     in the UTC timezone.
     """
-
-    if dateandtime is None:
-        dateandtime = local.now(tzinfo)
 
     if observer.latitude > 89.8:
         latitude = 89.8
@@ -493,7 +490,7 @@ def zenith(
 
 def azimuth(
     observer: Observer,
-    dateandtime: Optional[datetime.datetime] = None,
+    dateandtime: datetime.datetime,
 ) -> float:
     """Calculate the azimuth angle of the sun.
 
@@ -504,9 +501,6 @@ def azimuth(
     If `dateandtime` is a naive Python datetime then it is assumed to be
     in the UTC timezone.
     """
-
-    if dateandtime is None:
-        dateandtime = local.now(tzinfo)
 
     if observer.latitude > 89.8:
         latitude = 89.8
