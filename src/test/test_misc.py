@@ -27,6 +27,10 @@ def test_dms_West():
     assert approx(latlng_to_float("171°50'W"), 171.833333)
 
 
+def test_dms_WestLowercase():
+    assert approx(latlng_to_float("171°50'w"), 171.833333)
+
+
 def test_dms_float():
     assert latlng_to_float("0.2") == 0.2
 

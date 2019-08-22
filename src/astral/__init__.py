@@ -69,7 +69,7 @@ def latlng_to_float(dms: str) -> float:
     """Converts degrees°minutes'seconds", or a float encoded as a string, to a float"""
 
     _dms_re = r"(?P<deg>\d{1,3})[°](?P<min>\d{1,2})[′']((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])"
-    m = re.match(_dms_re, dms)
+    m = re.match(_dms_re, dms, flags=re.IGNORECASE)
     if m:
         deg = m.group("deg")
         min_ = m.group("min")
