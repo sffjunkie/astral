@@ -43,17 +43,20 @@ if args.date is not None:
         kwargs["date"] = datetime.date.today()
 
 sun_as_str = {}
+format_str = "%Y-%m-%dT%H:%M:%S"
 if args.tzname is None:
     tzinfo = pytz.utc
+    format_str += "Z"
 else:
     tzinfo = pytz.timezone(loc.timezone)
+    format_str += "%z"
 
 kwargs["tzinfo"] = tzinfo
 
 s = sun.sun(**kwargs)
 
 for key, value in s.items():
-    sun_as_str[key] = s[key].strftime("%Y-%m-%dT%H:%M:%S%z")
+    sun_as_str[key] = s[key].strftime(format_str)
 
 sun_as_str["timezone"] = tzinfo.zone
 sun_as_str["location"] = f"{loc.name}, {loc.region}"
