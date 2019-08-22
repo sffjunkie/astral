@@ -5,7 +5,7 @@ from typing import Dict, Optional, Tuple
 
 import pytz
 
-from astral import AstralError, Observer, SunDirection, today
+from astral import AstralError, Observer, SunDirection, now, today
 
 __all__ = [
     "solar_noon",
