@@ -412,7 +412,6 @@ def _zenith_and_azimuth():
 def zenith(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
-    tzinfo: datetime.tzinfo = pytz.utc,
 ) -> float:
     """Calculate the zenith angle of the sun.
 
@@ -509,7 +508,6 @@ def zenith(
 def azimuth(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
-    tzinfo: datetime.tzinfo = pytz.utc,
 ) -> float:
     """Calculate the azimuth angle of the sun.
 
