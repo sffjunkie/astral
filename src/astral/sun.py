@@ -17,8 +17,7 @@ from typing import Dict, Optional, Tuple
 
 import pytz
 
-from astral import AstralError, Observer, SunDirection
-from astral import local
+from astral import today, AstralError, Observer, SunDirection
 
 
 __all__ = [
@@ -319,7 +318,7 @@ def solar_noon(
     :return:         The UTC date and time at which noon occurs.
     """
     if date is None:
-        date = local.today(tzinfo)
+        date = today(tzinfo)
 
     jc = jday_to_jcentury(julianday(date))
     eqtime = eq_of_time(jc)
@@ -370,7 +369,7 @@ def solar_midnight(
     :return:         The UTC date and time at which midnight occurs.
     """
     if date is None:
-        date = local.today(tzinfo)
+        date = today(tzinfo)
 
     jd = julianday(date)
     newt = jday_to_jcentury(jd + 0.5 + -observer.longitude / 360.0)

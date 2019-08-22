@@ -49,6 +49,7 @@ For example ::
    removed.
 """
 
+import datetime
 import re
 from dataclasses import dataclass
 from enum import Enum
@@ -63,6 +64,16 @@ __all__ = ["AstralError", "LocationInfo", "Observer", "SunDirection", "latlng_to
 
 __version__ = "2.0.0alpha"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
+
+
+def now(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.datetime:
+    """Returns the current time in the specified time zone"""
+    return pytz.utc.localize(datetime.datetime.utcnow()).astimezone(tzinfo)
+
+
+def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
+    """Returns the current date in the specified time zone"""
+    return now(tzinfo).date()
 
 
 def latlng_to_float(dms: str) -> float:

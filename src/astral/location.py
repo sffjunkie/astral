@@ -4,12 +4,10 @@ from typing import Optional, Tuple, Union
 
 import pytz
 
-import astral.local
 import astral.moon
 import astral.sun
-import astral.utc
 from astral import (AstralError, LocationInfo, Observer, SunDirection,
-                    latlng_to_float)
+                    latlng_to_float, today)
 
 
 class Location:
@@ -222,9 +220,9 @@ class Location:
 
     def today(self, local: bool = True) -> datetime.date:
         if local:
-            return astral.local.today(self.tzinfo)
+            return today(self.tzinfo)
         else:
-            return astral.utc.today()
+            return today()
 
     def sun(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
