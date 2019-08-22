@@ -60,7 +60,15 @@ except ImportError:
     raise ImportError(("The astral module requires the pytz module to be available."))
 
 
-__all__ = ["AstralError", "LocationInfo", "Observer", "SunDirection", "latlng_to_float"]
+__all__ = [
+    "AstralError",
+    "LocationInfo",
+    "Observer",
+    "SunDirection",
+    "latlng_to_float",
+    "now",
+    "today",
+]
 
 __version__ = "2.0.0alpha"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
