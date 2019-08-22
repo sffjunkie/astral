@@ -22,11 +22,8 @@ elevation, for specific locations or at a specific latitude/longitude. It can
 also calculate the moon phase for a specific date.
 
 The package also provides a self contained geocoder to turn location names into
-timezone, latitude, longitude and elevation.
-
-:class:`Location`
-    Holds information about a location and provides functions to calculate
-    the event times in its time zone.
+timezone, latitude, longitude and elevation. The lookups can be perfomed using the
+:func:`lookup` function defined in :mod:`astral.geocoder`
 
 For example ::
 
@@ -46,12 +43,9 @@ For example ::
     >>> print('Dawn:    %s' % str(sun['dawn']))
     Dawn:    2009-04-22 05:12:56+01:00
 
-Geocoding lookups can be perfomed using the :func:`lookup` function defined in
-:mod:`astral.geocoder`
-
 .. note::
 
-   The Astral and GoogleGeocoder classes from earlier versions have been
+   The `Astral` and `GoogleGeocoder` classes from earlier versions have been
    removed.
 """
 
@@ -107,6 +101,11 @@ class SunDirection(Enum):
 class Observer:
     """Defines the location of an observer.
 
+    Latitude and longitude can be set either as a float or as a string. For strings they must
+    be of the form
+
+        degrees°minutes'[N|S|E|W] e.g. 51°31'N
+
     :param latitude:   Latitude - Northern latitudes should be positive
     :param longitude:  Longitude - Eastern longitudes should be positive
     :param elevation:  Elevation in metres above sea level.
@@ -130,13 +129,18 @@ class Observer:
 class LocationInfo:
     """Defines a location on Earth.
 
-    :param name: Location name (can be any string)
-    :param region: Region location is in (can be any string)
-    :param timezone: The location's time zone (a list of time zone names can be obtained from
-                     `pytz.all_timezones`)
-    :param latitude: Location's latitude
-    :param longitude: Location's longitude
-    :param elevation: The elevation in metres above sea level.
+    Latitude and longitude can be set either as a float or as a string. For strings they must
+    be of the form
+
+        degrees°minutes'[N|S|E|W] e.g. 51°31'N
+
+    :param name:      Location name (can be any string)
+    :param region:    Region location is in (can be any string)
+    :param timezone:  The location's time zone (a list of time zone names can be obtained from
+                      `pytz.all_timezones`)
+    :param latitude:  Latitude - Northern latitudes should be positive
+    :param longitude: Longitude - Eastern longitudes should be positive
+    :param elevation: Elevation in metres above sea level.
     """
 
     name: str = "Greenwich"
