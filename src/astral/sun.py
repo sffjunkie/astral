@@ -302,7 +302,8 @@ def solar_noon(
 
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     Date to calculate for.
-    :return:         The UTC date and time at which noon occurs.
+    :param tzinfo:   Timezone to return times in. Default is UTC.
+    :return:         Date and time at which noon occurs.
     """
     if date is None:
         date = today(tzinfo)
@@ -337,7 +338,7 @@ def solar_noon(
         date -= datetime.timedelta(days=1)
 
     noon = datetime.datetime(date.year, date.month, date.day, hour, minute, second)
-    return pytz.utc.localize(noon)  # pylint: disable=E1120
+    return pytz.utc.localize(noon).astimezone(tzinfo)  # pylint: disable=E1120
 
 
 def solar_midnight(
@@ -353,7 +354,8 @@ def solar_midnight(
 
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     Date to calculate for.
-    :return:         The UTC date and time at which midnight occurs.
+    :param tzinfo:   Timezone to return times in. Default is UTC.
+    :return:         Date and time at which midnight occurs.
     """
     if date is None:
         date = today(tzinfo)
@@ -388,7 +390,7 @@ def solar_midnight(
         date -= datetime.timedelta(days=1)
 
     midnight = datetime.datetime(date.year, date.month, date.day, hour, minute, second)
-    return pytz.utc.localize(midnight)  # pylint: disable=E1120
+    return pytz.utc.localize(midnight).astimezone(tzinfo)  # pylint: disable=E1120
 
 
 def _zenith_and_azimuth():
