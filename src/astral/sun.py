@@ -260,7 +260,7 @@ def adjustment_for_elevation(elevation: float) -> float:
 def time_of_transit(
     observer: Observer, date: datetime.date, zenith: float, direction: SunDirection
 ) -> datetime.datetime:
-    """Calculate the time when the sun transits the specificed zenith
+    """Calculate the time in the UTC timezone when the sun transits the specificed zenith
 
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date: The date to calculate for
@@ -648,7 +648,9 @@ def dawn(
         date = today()
 
     try:
-        return time_of_transit(observer, date, 90 + depression, SunDirection.RISING)
+        return time_of_transit(
+            observer, date, 90 + depression, SunDirection.RISING
+        ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
@@ -673,7 +675,7 @@ def sunrise(
         date = today()
 
     try:
-        return time_of_transit(observer, date, 90 + 0.833, SunDirection.RISING)
+        return time_of_transit(observer, date, 90 + 0.833, SunDirection.RISING).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, solar_noon(observer, date))
@@ -702,7 +704,7 @@ def sunset(
         date = today()
 
     try:
-        return time_of_transit(observer, date, 90 + 0.833, SunDirection.SETTING)
+        return time_of_transit(observer, date, 90 + 0.833, SunDirection.SETTING).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, solar_noon(observer, date))
@@ -733,7 +735,7 @@ def dusk(
         date = today()
 
     try:
-        return time_of_transit(observer, date, 90 + depression, SunDirection.SETTING)
+        return time_of_transit(observer, date, 90 + depression, SunDirection.SETTING).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
@@ -757,8 +759,8 @@ def daylight(
     if date is None:
         date = today()
 
-    start = sunrise(observer, date)
-    end = sunset(observer, date)
+    start = sunrise(observer, date, tzinfo)
+    end = sunset(observer, date, tzinfo)
 
     return start, end
 
@@ -780,9 +782,9 @@ def night(
     if date is None:
         date = today()
 
-    start = dusk(observer, date, 6)
+    start = dusk(observer, date, 6, tzinfo)
     tomorrow = date + datetime.timedelta(days=1)
-    end = dawn(observer, tomorrow, 6)
+    end = dawn(observer, tomorrow, 6, tzinfo)
 
     return start, end
 
@@ -817,7 +819,7 @@ def time_at_altitude(
 
     depression = 90 - altitude
     try:
-        return time_of_transit(observer, date, depression, direction)
+        return time_of_transit(observer, date, depression, direction).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
@@ -850,11 +852,11 @@ def twilight(
     if date is None:
         date = today()
 
-    start = time_at_altitude(observer, -6, date, direction)
+    start = time_of_transit(observer, date, 90 + 6, direction).astimezone(tzinfo)
     if direction == SunDirection.RISING:
-        end = sunrise(observer, date)
+        end = sunrise(observer, date, tzinfo).astimezone(tzinfo)
     else:
-        end = sunset(observer, date)
+        end = sunset(observer, date, tzinfo).astimezone(tzinfo)
 
     if direction == SunDirection.RISING:
         return start, end
@@ -885,8 +887,8 @@ def golden_hour(
     if date is None:
         date = today()
 
-    start = time_at_altitude(observer, -4, date, direction)
-    end = time_at_altitude(observer, 6, date, direction)
+    start = time_of_transit(observer, date, 90 + 4, direction).astimezone(tzinfo)
+    end = time_of_transit(observer, date, 90 - 6, direction).astimezone(tzinfo)
 
     if direction == SunDirection.RISING:
         return start, end
@@ -916,8 +918,8 @@ def blue_hour(
     if date is None:
         date = today()
 
-    start = time_at_altitude(observer, -6, date, direction)
-    end = time_at_altitude(observer, -4, date, direction)
+    start = time_of_transit(observer, date, 90 + 6, direction).astimezone(tzinfo)
+    end = time_of_transit(observer, date, 90 + 4, direction).astimezone(tzinfo)
 
     if direction == SunDirection.RISING:
         return start, end
@@ -943,12 +945,12 @@ def rahukaalam(
         date = today()
 
     if daytime:
-        start = sunrise(observer, date)
-        end = sunset(observer, date)
+        start = sunrise(observer, date, tzinfo)
+        end = sunset(observer, date, tzinfo)
     else:
-        start = sunset(observer, date)
+        start = sunset(observer, date, tzinfo)
         oneday = datetime.timedelta(days=1)
-        end = sunrise(observer, date + oneday)
+        end = sunrise(observer, date + oneday, tzinfo)
 
     octant_duration = datetime.timedelta(seconds=(end - start).seconds / 8)
 
@@ -982,9 +984,9 @@ def sun(
     """
 
     return {
-        "dawn": dawn(observer, date, dawn_dusk_depression),
-        "sunrise": sunrise(observer, date),
-        "noon": solar_noon(observer, date),
-        "sunset": sunset(observer, date),
-        "dusk": dusk(observer, date, dawn_dusk_depression),
+        "dawn": dawn(observer, date, dawn_dusk_depression, tzinfo),
+        "sunrise": sunrise(observer, date, tzinfo),
+        "noon": solar_noon(observer, date, tzinfo),
+        "sunset": sunset(observer, date, tzinfo),
+        "dusk": dusk(observer, date, dawn_dusk_depression, tzinfo),
     }
