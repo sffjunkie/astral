@@ -2,53 +2,53 @@
 import pytz
 from pytest import raises, approx
 
-from astral.geocoder import Geocoder, lookup
+import astral.geocoder
 
 
 def test_Lookup():
-    l = lookup("London")
-    assert l.name == "London"
-    assert l.region == "England"
-    assert approx(l.latitude, 51.5)
-    assert approx(l.longitude, -0.166)
+    loc = astral.geocoder.lookup("London")
+    assert loc.name == "London"
+    assert loc.region == "England"
+    assert approx(loc.latitude, 51.5)
+    assert approx(loc.longitude, -0.166)
     tz = pytz.timezone("Europe/London")
-    tzl = pytz.timezone(l.timezone)
+    tzl = pytz.timezone(loc.timezone)
     assert tz == tzl
-    assert l.elevation == 24
+    assert loc.elevation == 24
 
 
 def test_Group():
-    db = Geocoder()
-    _e = db.europe
+    db = astral.geocoder.Geocoder()
+    db.europe
 
 
 def test_UnknownGroup():
     with raises(AttributeError):
-        db = Geocoder()
-        _e = db.wallyland
+        db = astral.geocoder.Geocoder()
+        db.wallyland
 
 
 def test_CityContainment():
-    db = Geocoder()
+    db = astral.geocoder.Geocoder()
     assert "london" in db
 
 
 def test_GroupContainment():
-    db = Geocoder()
+    db = astral.geocoder.Geocoder()
     assert "africa" in db
 
 
 def test_CityCountry():
     city_name = "Birmingham,England"
 
-    db = Geocoder()
+    db = astral.geocoder.Geocoder()
     city = db[city_name]
     assert city.name == "Birmingham"
     assert city.region == "England"
 
 
 def test_MultiCountry():
-    db = Geocoder()
+    db = astral.geocoder.Geocoder()
     city = db["Abu Dhabi"]
     assert city.name == "Abu Dhabi"
 
@@ -56,7 +56,7 @@ def test_MultiCountry():
 def test_MultiCountryWithCountry():
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
 
-    db = Geocoder()
+    db = astral.geocoder.Geocoder()
     city = db["Abu Dhabi,United Arab Emirates"]
     assert city.name == "Abu Dhabi"
 
@@ -67,21 +67,21 @@ def test_MultiCountryWithCountry():
 def test_Adelaide():
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
 
-    db = Geocoder()
-    _city = db["Adelaide"]
+    db = astral.geocoder.Geocoder()
+    db["Adelaide"]
 
 
 def test_CandianCities():
-    db = Geocoder()
+    db = astral.geocoder.Geocoder()
 
     city = db["Fredericton"]
     assert city.elevation == 8
 
 
 def test_AllCities():
-    db = Geocoder()
+    db = astral.geocoder.Geocoder()
     locations = db.locations
     locations.sort()
 
     for city_name in locations:
-        _city = db[city_name]
+        db[city_name]
