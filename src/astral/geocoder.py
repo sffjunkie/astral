@@ -6,6 +6,7 @@ To get the location info you can use the lookup function e.g. ::
     l = lookup("London")
 """
 
+from functools import reduce
 from typing import Dict, List, Tuple, Optional, Union
 
 from astral import LocationInfo, latlng_to_float
@@ -475,6 +476,9 @@ class LocationGroup(object):
 
         return False
 
+    def __len__(self):
+        return len(self._locations)
+
     def __iter__(self):
         for location_list in self._locations.values():
             for location in location_list:
@@ -505,6 +509,10 @@ class LocationGroup(object):
 def _init_location_db() -> None:
     if not _LOCATION_DB:
         _add_locations_from_str(_LOCATION_INFO)
+
+
+def _location_count():
+    return reduce(lambda x, y: x + len(y), _LOCATION_DB.values(), 0)
 
 
 def _add_location_to_db(location_info: LocationInfo) -> None:
