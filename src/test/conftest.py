@@ -1,12 +1,13 @@
-import os
-import sys
-
 import datetime
 import pytest
 from astral import LocationInfo
+from astral.geocoder import LocationDatabase, database
 from astral.location import Location
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+@pytest.fixture
+def astral_database() -> LocationDatabase:
+    return database()
 
 
 @pytest.fixture

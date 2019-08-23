@@ -5,8 +5,8 @@ from pytest import raises, approx
 import astral.geocoder
 
 
-def test_Lookup():
-    loc = astral.geocoder.lookup("London")
+def test_Lookup(astral_database):
+    loc = astral.geocoder.lookup("London", astral_database)
     assert loc.name == "London"
     assert loc.region == "England"
     assert approx(loc.latitude, 51.5)
@@ -85,3 +85,42 @@ def test_AllCities():
 
     for city_name in locations:
         db[city_name]
+
+
+def test_AddLocation_NewlineAtEnd(astral_database):
+    count = astral.geocoder._location_count(astral_database)
+    astral.geocoder.add_locations(
+        "A Place,A Region,Asia/Nicosia,35°10'N,33°25'E,162.0\n", astral_database
+    )
+    assert astral.geocoder._location_count(astral_database) == count + 1
+
+
+def test_AddLocation_FromListOfStrings(astral_database):
+    count = astral.geocoder._location_count(astral_database)
+    astral.geocoder.add_locations(
+        [
+            "A Place,A Region,Asia/Nicosia,35°10'N,33°25'E,162.0",
+            "Another Place,Somewhere else,Asia/Nicosia,35°10'N,33°25'E,162.0",
+        ],
+        astral_database,
+    )
+    assert astral.geocoder._location_count(astral_database) == count + 2
+
+
+def test_AddLocation_FromListOfLists(astral_database):
+    count = astral.geocoder._location_count(astral_database)
+    astral.geocoder.add_locations(
+        [
+            ["A Place", "A Region", "Asia/Nicosia", "35°10'N", "33°25'E", "162.0"],
+            [
+                "Another Place",
+                "Somewhere else",
+                "Asia/Nicosia",
+                "35°10'N",
+                "33°25'E",
+                "162.0",
+            ],
+        ],
+        astral_database,
+    )
+    assert astral.geocoder._location_count(astral_database) == count + 2

@@ -5,29 +5,13 @@ from pytest import approx
 from astral import sun, Observer
 
 
-def test_JulianDay():
-    test_data = [
-        (datetime.date(2012, 1, 1), 2455927.5),
-        (datetime.date(2013, 1, 1), 2456293.5),
-        (datetime.date(2013, 6, 1), 2456444.5),
-        (datetime.date(1867, 2, 1), 2402998.5),
-        (datetime.date(3200, 11, 14), 2890153.5),
-    ]
-
-    for d, jd in test_data:
+def test_JulianDay(julian_day_test_data):
+    for d, jd in julian_day_test_data:
         assert sun.julianday(d) == jd
 
 
-def test_JulianCentury():
-    test_data = [
-        (2455927.5, 0.119986311),
-        (2456293.5, 0.130006845),
-        (2456444.5, 0.134140999),
-        (2402998.5, -1.329130732),
-        (2890153.5, 12.00844627),
-    ]
-
-    for jd, jc in test_data:
+def test_JulianCentury(julian_century_test_data):
+    for jd, jc in julian_century_test_data:
         assert approx(sun.jday_to_jcentury(jd), jc)
 
 
