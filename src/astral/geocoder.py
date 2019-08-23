@@ -559,7 +559,7 @@ def _add_locations_from_list(location_list: List[Tuple]) -> None:
                 timezone=info[2],
                 latitude=latlng_to_float(info[3]),
                 longitude=latlng_to_float(info[4]),
-                elevation=int(info[5]),
+                elevation=float(info[5]),
             )
             _add_location_to_db(location)
 
