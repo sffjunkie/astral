@@ -12,7 +12,7 @@ from typing import Dict, List, Tuple, Optional, Union
 from astral import LocationInfo, latlng_to_float
 
 
-__all__ = ["Geocoder", "lookup"]
+__all__ = ["Geocoder", "database", "lookup"]
 
 
 # region Location Info
@@ -412,7 +412,13 @@ Iqaluit,Canada,America/Iqaluit,63°44'N,68°31'W,3.0
 # endregion
 
 
-_LOCATION_DB: Dict = {}
+LocationDatabase = Dict[str, "LocationGroup"]
+
+
+def database() -> LocationDatabase:
+    db: LocationDatabase = {}
+    _add_locations_from_str(_LOCATION_INFO, db)
+    return db
 
 
 class LocationGroup(object):
@@ -506,26 +512,21 @@ class LocationGroup(object):
         return str(key).lower().replace(" ", "_")
 
 
-def _init_location_db() -> None:
-    if not _LOCATION_DB:
-        _add_locations_from_str(_LOCATION_INFO)
+def _location_count(db: LocationDatabase):
+    return reduce(lambda x, y: x + len(y), db.values(), 0)
 
 
-def _location_count():
-    return reduce(lambda x, y: x + len(y), _LOCATION_DB.values(), 0)
-
-
-def _add_location_to_db(location_info: LocationInfo) -> None:
+def _add_location_to_db(location_info: LocationInfo, db: LocationDatabase) -> None:
     key = location_info.timezone_group.lower()
-    group = _LOCATION_DB.get(key, None)
+    group = db.get(key, None)
     if not group:
         group = LocationGroup(location_info.timezone_group)
-        _LOCATION_DB[key] = group
+        db[key] = group
 
     group[location_info.name.lower()] = location_info
 
 
-def _add_locations_from_str(location_string: str) -> None:
+def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
     """Add locations from a string."""
 
     for line in location_string.split("\n"):
@@ -543,15 +544,15 @@ def _add_locations_from_str(location_string: str) -> None:
                 longitude=latlng_to_float(info[4]),
                 elevation=float(info[5]),
             )
-            _add_location_to_db(location)
+            _add_location_to_db(location, db)
 
 
-def _add_locations_from_list(location_list: List[Tuple]) -> None:
+def _add_locations_from_list(location_list: List[Tuple], db: LocationDatabase) -> None:
     """Add locations from a list of either strings or lists of strings or tuples of strings."""
 
     for info in location_list:
         if isinstance(info, str):
-            _add_locations_from_str(info)
+            _add_locations_from_str(info, db)
         elif isinstance(info, (list, tuple)):
             location = LocationInfo(
                 name=info[0],
@@ -561,39 +562,32 @@ def _add_locations_from_list(location_list: List[Tuple]) -> None:
                 longitude=latlng_to_float(info[4]),
                 elevation=float(info[5]),
             )
-            _add_location_to_db(location)
+            _add_location_to_db(location, db)
 
 
-def add_locations(locations: Union[List, str]) -> None:
-    _init_location_db()
-
+def add_locations(locations: Union[List, str], db: LocationDatabase) -> None:
     if isinstance(locations, str):
-        _add_locations_from_str(locations)
+        _add_locations_from_str(locations, db)
     elif isinstance(locations, (list, tuple)):
-        _add_locations_from_list(locations)
+        _add_locations_from_list(locations, db)
 
 
-def group(key: str) -> LocationGroup:
+def group(key: str, db: LocationDatabase) -> LocationGroup:
     """Access to each timezone group. For example London is in timezone
     group Europe.
 
     Attribute lookup is case insensitive"""
-
-    _init_location_db()
-
     key = str(key).lower()
-    for name, value in _LOCATION_DB.items():
+    for name, value in db.items():
         if name == key:
             return value
 
     raise AttributeError(f"Unrecognised Group - {key}")
 
 
-def lookup(key: str) -> LocationInfo:
-    _init_location_db()
-
+def lookup(key: str, db: LocationDatabase) -> LocationInfo:
     key = str(key).lower()
-    for group in _LOCATION_DB.values():
+    for group in db.values():
         try:
             return group[key]
         except KeyError:
@@ -607,6 +601,9 @@ class Geocoder(object):
     package
     """
 
+    def __init__(self):
+        self.db = database()
+
     def add_locations(self, locations: Optional[Union[str, list]] = None) -> None:
         """Add extra locations to Geocoder.
 
@@ -617,10 +614,8 @@ class Geocoder(object):
         * A list of lists/tuples that are passed to a :class:`LocationInfo` constructor
         """
 
-        _init_location_db()
-
         if isinstance(locations, str):
-            self._add_from_str(locations)
+            self._add_from_str(locations, self.db)
         elif isinstance(locations, (list, tuple)):
             self._add_from_list(locations)
 
@@ -630,21 +625,21 @@ class Geocoder(object):
 
         Attribute lookup is case insensitive"""
 
-        return group(key)
+        return group(key, self.db)
 
     def __getitem__(self, key: str) -> LocationInfo:
         """Lookup a location within all timezone groups.
 
         Item lookup is case insensitive."""
 
-        return lookup(key)
+        return lookup(key, self.db)
 
     def __iter__(self):
-        return _LOCATION_DB.__iter__()
+        return self.db.__iter__()
 
     def __contains__(self, key):
         key = str(key).lower()
-        for name, group in _LOCATION_DB.items():
+        for name, group in self.db.items():
             if name == key:
                 return True
 
@@ -656,11 +651,11 @@ class Geocoder(object):
     @property
     def locations(self):
         k = []
-        for group in _LOCATION_DB.values():
+        for group in self.db.values():
             k.extend(group.locations)
 
         return k
 
     @property
     def groups(self):
-        return _LOCATION_DB
+        return self.db.keys()
