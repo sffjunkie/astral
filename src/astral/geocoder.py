@@ -532,9 +532,6 @@ def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
     for line in location_string.split("\n"):
         line = line.strip()
         if line != "" and line[0] != "#":
-            if line[-1] == "\n":
-                line = line[:-1]
-
             info = line.split(",")
             location = LocationInfo(
                 name=info[0],
