@@ -27,8 +27,9 @@ timezone, latitude, longitude and elevation. The lookups can be perfomed using t
 
 For example ::
 
-    >>> from astral.geocoder import lookup
-    >>> location = lookup('London')
+    >>> from astral.geocoder import database, lookup
+    >>> db = database()
+    >>> location = lookup('London', db)
     >>> print('Information for %s' % location.name)
     Information for London
     >>> timezone = location.timezone
