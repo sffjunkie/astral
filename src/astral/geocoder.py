@@ -4,15 +4,21 @@ To get the location info you can use the lookup function e.g. ::
 
     from astral.geocoder import lookup
     l = lookup("London")
+
+All locations stored in the database can be accessed using the all_locations generator ::
+
+    from astral.geocoder import all_locations
+    for location in all_locations:
+        print(location)
 """
 
 from functools import reduce
-from typing import Dict, List, Tuple, Optional, Union
+from typing import Dict, Generator, List, Tuple, Union
 
 from astral import LocationInfo, latlng_to_float
 
 
-__all__ = ["Geocoder", "database", "lookup"]
+__all__ = ["all_locations", "database", "lookup"]
 
 
 # region Location Info
@@ -412,118 +418,42 @@ Iqaluit,Canada,America/Iqaluit,63°44'N,68°31'W,3.0
 # endregion
 
 
-LocationDatabase = Dict[str, "LocationGroup"]
+LocationGroup = Dict
+LocationDatabase = Dict[str, LocationGroup]
 
 
 def database() -> LocationDatabase:
+    """Returns a database populated with the inital set of locations stored
+    in this module
+    """
     db: LocationDatabase = {}
     _add_locations_from_str(_LOCATION_INFO, db)
     return db
 
 
-class LocationGroup(object):
-    """Groups a set of timezones by the timezone group"""
-
-    def __init__(self, name):
-        self.name = name
-        self._locations = {}
-
-    def __getitem__(self, key):
-        """Returns a Location object for the specified `key`.
-
-            group = astral.europe
-            location = group['London']
-
-        You can supply an optional region name by adding a comma
-        followed by the region name. Where multiple locations have the
-        same name you may need to supply the region name otherwise
-        the first result will be returned which may not be the one
-        you're looking for.
-
-            location = group['Abu Dhabi,United Arab Emirates']
-
-        Handles location names with spaces and mixed case.
-        """
-
-        key = self._sanitize_key(key)
-
-        try:
-            lookup_name, lookup_region = key.split(",", 1)
-        except ValueError:
-            lookup_name = key
-            lookup_region = ""
-
-        lookup_name = lookup_name.strip("\"'")
-        lookup_region = lookup_region.strip("\"'")
-
-        for (location_name, location_list) in self._locations.items():
-            if location_name == lookup_name:
-                if lookup_region == "":
-                    return location_list[0]
-
-                for location in location_list:
-                    if self._sanitize_key(location.region) == lookup_region:
-                        return location
-
-        raise KeyError(f"Unrecognised location name - {key}")
-
-    def __setitem__(self, key, value):
-        key = self._sanitize_key(key)
-        if key not in self._locations:
-            self._locations[key] = [value]
-        else:
-            self._locations[key].append(value)
-
-    def __contains__(self, key):
-        key = self._sanitize_key(key)
-        for name in self._locations.keys():
-            if name == key:
-                return True
-
-        return False
-
-    def __len__(self):
-        return len(self._locations)
-
-    def __iter__(self):
-        for location_list in self._locations.values():
-            for location in location_list:
-                yield location
-
-    def keys(self):
-        return self._locations.keys()
-
-    def values(self):
-        return self._locations.values()
-
-    def items(self):
-        return self._locations.items()
-
-    @property
-    def locations(self):
-        k = []
-        for location_list in self._locations.values():
-            for location in location_list:
-                k.append(location.name)
-
-        return k
-
-    def _sanitize_key(self, key):
-        return str(key).lower().replace(" ", "_")
+def _sanitize_key(key) -> str:
+    """Sanitize the location or group key to look up"""
+    return str(key).lower().replace(" ", "_")
 
 
-def _location_count(db: LocationDatabase):
-    return reduce(lambda x, y: x + len(y), db.values(), 0)
+def _location_count(db: LocationDatabase) -> int:
+    """Returns the count of the locations currently in the database"""
+    return reduce(lambda count, group: count + len(group["locations"]), db.values(), 0)
 
 
-def _add_location_to_db(location_info: LocationInfo, db: LocationDatabase) -> None:
-    key = location_info.timezone_group.lower()
+def _add_location_to_db(location: LocationInfo, db: LocationDatabase) -> None:
+    """Add a single location to a database"""
+    key = location.timezone_group.lower()
     group = db.get(key, None)
     if not group:
-        group = LocationGroup(location_info.timezone_group)
+        group = dict(name=location.timezone_group, locations={})
         db[key] = group
 
-    group[location_info.name.lower()] = location_info
+    location_key = _sanitize_key(location.name)
+    if location_key not in group["locations"]:
+        group["locations"][location_key] = [location]
+    else:
+        group["locations"][location_key].append(location)
 
 
 def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
@@ -546,7 +476,6 @@ def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
 
 def _add_locations_from_list(location_list: List[Tuple], db: LocationDatabase) -> None:
     """Add locations from a list of either strings or lists of strings or tuples of strings."""
-
     for info in location_list:
         if isinstance(info, str):
             _add_locations_from_str(info, db)
@@ -563,96 +492,97 @@ def _add_locations_from_list(location_list: List[Tuple], db: LocationDatabase) -
 
 
 def add_locations(locations: Union[List, str], db: LocationDatabase) -> None:
+    """Add locations to the database"""
     if isinstance(locations, str):
         _add_locations_from_str(locations, db)
     elif isinstance(locations, (list, tuple)):
         _add_locations_from_list(locations, db)
 
 
-def group(key: str, db: LocationDatabase) -> LocationGroup:
+def group(region: str, db: LocationDatabase) -> LocationGroup:
     """Access to each timezone group. For example London is in timezone
     group Europe.
 
-    Attribute lookup is case insensitive"""
-    key = str(key).lower()
+    Lookups are case insensitive
+
+    Raises KeyError if the location is not found
+    """
+    key = _sanitize_key(region)
     for name, value in db.items():
         if name == key:
             return value
 
-    raise AttributeError(f"Unrecognised Group - {key}")
+    raise KeyError(f"Unrecognised Group - {region}")
 
 
-def lookup(key: str, db: LocationDatabase) -> LocationInfo:
-    key = str(key).lower()
-    for group in db.values():
-        try:
-            return group[key]
-        except KeyError:
-            pass
+def lookup_in_group(location: str, group: Dict) -> LocationInfo:
+    """Looks up the location within a group dictionary
+
+    You can supply an optional region name by adding a comma
+    followed by the region name. Where multiple locations have the
+    same name you may need to supply the region name otherwise
+    the first result will be returned which may not be the one
+    you're looking for::
+
+        location = group['Abu Dhabi,United Arab Emirates']
+
+    Lookups are case insensitive.
+
+    Raises KeyError if the location is not found
+    """
+    key = _sanitize_key(location)
+
+    try:
+        lookup_name, lookup_region = key.split(",", 1)
+    except ValueError:
+        lookup_name = key
+        lookup_region = ""
+
+    lookup_name = lookup_name.strip("\"'")
+    lookup_region = lookup_region.strip("\"'")
+
+    for (location_name, location_list) in group["locations"].items():
+        if location_name == lookup_name:
+            if lookup_region == "":
+                return location_list[0]
+
+            for loc in location_list:
+                if _sanitize_key(loc.region) == lookup_region:
+                    return loc
 
     raise KeyError(f"Unrecognised location name - {key}")
 
 
-class Geocoder(object):
-    """Looks up geographic information from the locations stored within the
-    package
+def lookup(name: str, db: LocationDatabase) -> Union[Dict, LocationInfo]:
+    """Look up a name in a database.
+
+    If a group with the name specified is a group name then that will
+    be returned. If no group is found a location with the name will be
+    looked up.
+
+    :param name: The group/location name to look up
+    :param db:   The location database to look in
+
+    Raises KeyError if the name is not found
     """
 
-    def __init__(self):
-        self.db = database()
+    key = _sanitize_key(name)
+    for group_key, group in db.items():
+        if group_key == key:
+            return group
 
-    def add_locations(self, locations: Optional[Union[str, list]] = None) -> None:
-        """Add extra locations to Geocoder.
+        try:
+            return lookup_in_group(name, group)
+        except KeyError:
+            pass
 
-        Extra locations can be
+    raise KeyError(f"Unrecognised name - {name}")
 
-        * A single string containing one or more locations separated by a newline.
-        * A list of strings
-        * A list of lists/tuples that are passed to a :class:`LocationInfo` constructor
-        """
 
-        if isinstance(locations, str):
-            self._add_from_str(locations, self.db)
-        elif isinstance(locations, (list, tuple)):
-            self._add_from_list(locations)
+def all_locations(db: LocationDatabase) -> Generator[LocationInfo, None, None]:
+    """A generator that returns all locations contained in the database"""
 
-    def __getattr__(self, key):
-        """Access to each timezone group. For example London is in timezone
-        group Europe.
-
-        Attribute lookup is case insensitive"""
-
-        return group(key, self.db)
-
-    def __getitem__(self, key: str) -> LocationInfo:
-        """Lookup a location within all timezone groups.
-
-        Item lookup is case insensitive."""
-
-        return lookup(key, self.db)
-
-    def __iter__(self):
-        return self.db.__iter__()
-
-    def __contains__(self, key):
-        key = str(key).lower()
-        for name, group in self.db.items():
-            if name == key:
-                return True
-
-            if key in group:
-                return True
-
-        return False
-
-    @property
-    def locations(self):
-        k = []
-        for group in self.db.values():
-            k.extend(group.locations)
-
-        return k
-
-    @property
-    def groups(self):
-        return self.db.keys()
+    for group in db.values():
+        for location_list in group["locations"]:
+            for location in location_list:
+                yield location
