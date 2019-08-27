@@ -17,74 +17,55 @@ def test_Lookup(astral_database):
     assert loc.elevation == 24
 
 
-def test_Group():
-    db = astral.geocoder.Geocoder()
-    db.europe
+def test_Group(astral_database):
+    astral.geocoder.group("europe", astral_database)
 
 
-def test_UnknownGroup():
-    with raises(AttributeError):
-        db = astral.geocoder.Geocoder()
-        db.wallyland
+def test_UnknownGroup(astral_database):
+    with raises(KeyError):
+        astral.geocoder.group("wallyland", astral_database)
 
 
-def test_CityContainment():
-    db = astral.geocoder.Geocoder()
-    assert "london" in db
+def test_CityContainment(astral_database):
+    astral.geocoder.lookup("london", astral_database)
 
 
-def test_GroupContainment():
-    db = astral.geocoder.Geocoder()
-    assert "africa" in db
+def test_GroupContainment(astral_database):
+    astral.geocoder.lookup("africa", astral_database)
 
 
-def test_CityCountry():
+def test_CityCountry(astral_database):
     city_name = "Birmingham,England"
 
-    db = astral.geocoder.Geocoder()
-    city = db[city_name]
+    city = astral.geocoder.lookup(city_name, astral_database)
     assert city.name == "Birmingham"
     assert city.region == "England"
 
 
-def test_MultiCountry():
-    db = astral.geocoder.Geocoder()
-    city = db["Abu Dhabi"]
+def test_MultiCountry(astral_database):
+    city = astral.geocoder.lookup("Abu Dhabi", astral_database)
     assert city.name == "Abu Dhabi"
 
 
-def test_MultiCountryWithCountry():
+def test_MultiCountryWithCountry(astral_database):
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
 
-    db = astral.geocoder.Geocoder()
-    city = db["Abu Dhabi,United Arab Emirates"]
+    city = astral.geocoder.lookup("Abu Dhabi,United Arab Emirates", astral_database)
     assert city.name == "Abu Dhabi"
 
-    city = db["Abu Dhabi,UAE"]
+    city = astral.geocoder.lookup("Abu Dhabi,UAE", astral_database)
     assert city.name == "Abu Dhabi"
 
 
-def test_Adelaide():
+def test_Adelaide(astral_database):
     """Test for fix made due to bug report from Klaus Alexander Seistrup"""
 
-    db = astral.geocoder.Geocoder()
-    db["Adelaide"]
+    astral.geocoder.lookup("Adelaide", astral_database)
 
 
-def test_CandianCities():
-    db = astral.geocoder.Geocoder()
-
-    city = db["Fredericton"]
+def test_CandianCities(astral_database):
+    city = astral.geocoder.lookup("Fredericton", astral_database)
     assert city.elevation == 8
-
-
-def test_AllCities():
-    db = astral.geocoder.Geocoder()
-    locations = db.locations
-    locations.sort()
-
-    for city_name in locations:
-        db[city_name]
 
 
 def test_AddLocation_NewlineAtEnd(astral_database):
@@ -124,3 +105,7 @@ def test_AddLocation_FromListOfLists(astral_database):
         astral_database,
     )
     assert astral.geocoder._location_count(astral_database) == count + 2
+
+
+def test_SanitizeKey():
+    assert astral.geocoder._sanitize_key("Los Angeles") == "los_angeles"
