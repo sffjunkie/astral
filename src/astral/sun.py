@@ -298,7 +298,7 @@ def solar_noon(
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculate solar noon time in the UTC timezone.
+    """Calculate solar noon time.
 
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
     :param date:     Date to calculate for.
@@ -346,7 +346,7 @@ def solar_midnight(
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculate solar midnight time in the UTC timezone.
+    """Calculate solar midnight time.
 
     Note that this claculates the solar midgnight that is closest
     to 00:00:00 of the specified date i.e. it may return a time that is on
@@ -595,7 +595,7 @@ def altitude(
     dateandtime: Optional[datetime.datetime] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> float:
-    """Calculate the elevation angle of the sun.
+    """Calculate the altitude angle of the sun.
 
     :param observer:    Observer to calculate the solar elevation for
     :param dateandtime: The date and time for which to calculate the angle.
@@ -617,7 +617,7 @@ def dawn(
     depression: float = 6.0,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculate dawn time in the UTC timezone.
+    """Calculate dawn time.
 
     :param observer:   Observer to calculate dawn for
     :param date:       Date to calculate for.
@@ -646,7 +646,7 @@ def sunrise(
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculate sunrise time in the UTC timezone.
+    """Calculate sunrise time.
 
     :param observer: Observer to calculate sunrise for
     :param date:     Date to calculate for.
@@ -675,7 +675,7 @@ def sunset(
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculate sunset time in the UTC timezone.
+    """Calculate sunset time.
 
     :param observer: Observer to calculate sunset for
     :param date:     Date to calculate for.
@@ -706,7 +706,7 @@ def dusk(
     depression: float = 6.0,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculate dusk time in the UTC timezone.
+    """Calculate dusk time.
 
     :param observer:   Observer to calculate dusk for
     :param date:       Date to calculate for.
@@ -734,7 +734,7 @@ def daylight(
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
-    """Calculate daylight start and end times in the UTC timezone.
+    """Calculate daylight start and end times.
 
     :param observer: Observer to calculate daylight for
     :param date:     Date to calculate for.
@@ -755,7 +755,7 @@ def night(
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
-    """Calculate night start and end times in the UTC timezone.
+    """Calculate night start and end times.
 
     Night is calculated to be between astronomical dusk on the
     date specified and astronomical dawn of the next day.
@@ -782,7 +782,7 @@ def time_at_altitude(
     direction: SunDirection = SunDirection.RISING,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculate the time in the UTC timezone when the sun is at
+    """Calculate the time when the sun is at
     the specified altitude on the specified date.
 
     Note: This method uses positive altitudes for those above the horizon.
@@ -822,8 +822,8 @@ def twilight(
     direction: SunDirection = SunDirection.RISING,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
-    """Returns the start and end times of Twilight in the UTC timezone when
-    the sun is traversing in the specified direction.
+    """Returns the start and end times of Twilight
+    when the sun is traversing in the specified direction.
 
     This method defines twilight as being between the time
     when the sun is at -6 degrees and sunrise/sunset.
@@ -857,7 +857,7 @@ def golden_hour(
     direction: SunDirection = SunDirection.RISING,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
-    """Returns the start and end times of the Golden Hour in the UTC timezone
+    """Returns the start and end times of the Golden Hour
     when the sun is traversing in the specified direction.
 
     This method uses the definition from PhotoPills i.e. the
@@ -890,7 +890,7 @@ def blue_hour(
     direction: SunDirection = SunDirection.RISING,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
-    """Returns the start and end times of the Blue Hour in the UTC timezone
+    """Returns the start and end times of the Blue Hour
     when the sun is traversing in the specified direction.
 
     This method uses the definition from PhotoPills i.e. the
@@ -922,7 +922,7 @@ def rahukaalam(
     daytime: bool = True,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
-    """Calculate ruhakaalam times in the UTC timezone.
+    """Calculate ruhakaalam times.
 
     :param observer: Observer to calculate rahukaalam for
     :param date:     Date to calculate for.
