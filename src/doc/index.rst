@@ -110,7 +110,7 @@ Sun
     >>>     (city.latitude, city.longitude))
     Latitude: 51.50; Longitude: -0.12
 
-    >>> from astral.local import sun
+    >>> from astral.sun import sun
     >>> s = sun(city, date=datetime.date(2009, 4, 22))
     >>> print(f'Dawn:    {sun['dawn']}')
     >>> print(f'Sunrise: {sun['sunrise']}')
@@ -190,8 +190,7 @@ Custom Location
 ~~~~~~~~~~~~~~~
 
 If you only need a single location that is not in the geocoder then you can
-construct a :class:`~astral.LocationInfo` and fill in the values, either with a
-tuple on initialization
+construct a :class:`~astral.LocationInfo` and fill in the values, either on initialization
 
 .. code-block::
 
@@ -223,7 +222,7 @@ Timezone groups such as Europe can be accessed via the :func:`group` function in
 .. code-block::
 
     >>> from astral import geocoder
-    >>> europe = geocoder.group('europe').locations
+    >>> europe = geocoder.group('europe')["locations"]
     >>> europe.sort()
     >>> europe
     ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...]
@@ -252,8 +251,10 @@ When creating a datetime object in a specific timezone do not use the
 `tzinfo` parameter to the datetime constructor. Instead use the
 :meth:`~pytz.tzinfo.localize` method provided by pytz on the correct pytz timezone::
 
-   dt = datetime.datetime(2015, 1, 1, 9, 0, 0)
-   dt = pytz.timezone('Europe/London').localize(dt)
+   >>> dt = datetime.datetime(2015, 1, 1, 9, 0, 0)
+   >>> dt = pytz.timezone('Europe/London').localize(dt)
+   >>> dt
+   datetime.datetime(2015, 1, 1, 9, 0, tzinfo=<DstTzInfo 'Europe/London' GMT0:00:00 STD>)
 
 
 License
@@ -373,15 +374,15 @@ Version History
 ======== =======================================================================
 Version  Description
 ======== =======================================================================
-2.0.0    * Code is now only compatible with Python 3.6 and greater
-         * The Google geocoder has been removed
-         * New LocationInfo class to store a location name, region, timezone, latitude,
-           longitude & elevation
-         * New Observer class to store a latitude, longitude & elevation
-         * Geocoder functions return a LocationInfo instead of a Location
-         * `elevation` in functions renamed to `altitude`.
-         * :mod:`astral.local` return times in a specific timezone
-         * :mod:`astral.utc` returns times in the UTC timezone
+2.0a1    * Code is now only compatible with Python 3.6 and greater due to the
+           use of data classes
+         * New :class:`~astral.Observer` class to store a latitude, longitude & elevation
+         * New :class:`~astral.LocationInfo` class to store a location name, region, timezone,
+           latitude, longitude & elevation
+         * Geocoder functions return a :class:`~astral.LocationInfo` instead of a Location
+         * `elevation` in function names renamed to `altitude`. Elevation now
+           refers to the observer's elevation above sea level
+         * The Google geocoder and Astral classes have been removed
 -------- -----------------------------------------------------------------------
 1.10.1   Keyword args are now passed to the geocoder class from Astral __init__
          in order to allow the Google Maps API key to be passed to the
@@ -551,4 +552,4 @@ Version  Description
    :maxdepth: 2
    :hidden:
 
-   module
+   package
