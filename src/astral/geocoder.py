@@ -583,6 +583,6 @@ def all_locations(db: LocationDatabase) -> Generator[LocationInfo, None, None]:
     """A generator that returns all LocationInfos contained in the database"""
 
     for group in db.values():
-        for name, location_list in group["locations"].items():
+        for location_list in group["locations"].values():
             for location in location_list:
                 yield location
