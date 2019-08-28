@@ -163,3 +163,20 @@ def test_Location_Equality():
     c1 = Location()
     c2 = Location()
     assert c1 == c2
+
+
+def test_LocationEquality_NotEqual(london_info):
+    location1 = Location(london_info)
+    location2 = Location(london_info)
+    location2.elevation = 23.0
+
+    assert location2 != location1
+
+
+def test_LocationEquality_NotALocation(london_info):
+    location = Location(london_info)
+
+    class NotALocation():
+        _location_info = london_info
+
+    assert NotALocation() != location
