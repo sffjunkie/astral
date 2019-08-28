@@ -580,9 +580,9 @@ def lookup(name: str, db: LocationDatabase) -> Union[Dict, LocationInfo]:
 
 
 def all_locations(db: LocationDatabase) -> Generator[LocationInfo, None, None]:
-    """A generator that returns all locations contained in the database"""
+    """A generator that returns all LocationInfos contained in the database"""
 
     for group in db.values():
-        for location_list in group["locations"]:
+        for name, location_list in group["locations"].items():
             for location in location_list:
                 yield location
