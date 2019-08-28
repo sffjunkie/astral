@@ -5,6 +5,14 @@ from pytest import raises, approx
 import astral.geocoder
 
 
+def test_AllLocations(astral_database):
+    for loc in astral.geocoder.all_locations(astral_database):
+        assert loc.name
+
+    location_list = astral.geocoder.all_locations(astral_database)
+    assert len(list(filter(lambda item: item.name == "London", location_list))) == 1
+
+
 def test_Lookup(astral_database):
     loc = astral.geocoder.lookup("London", astral_database)
     assert loc.name == "London"
@@ -15,6 +23,11 @@ def test_Lookup(astral_database):
     tzl = pytz.timezone(loc.timezone)
     assert tz == tzl
     assert loc.elevation == 24
+
+
+def test_UnknownLocation(astral_database):
+    with raises(KeyError):
+        astral.geocoder.lookup("Nowhere", astral_database)
 
 
 def test_Group(astral_database):
