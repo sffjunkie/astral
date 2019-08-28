@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import freezegun
 import pytest
 
-from astral import LocationInfo
+from astral import AstralError, LocationInfo
 from astral.location import Location
+import dataclasses
 import datetime
 import pytz
 
@@ -163,6 +165,12 @@ def test_Location_Moon():
     assert c.moon_phase(date=d) == 11
 
 
+@freezegun.freeze_time("2015-12-01")
+def test_Location_MoonNoDate():
+    c = Location()
+    assert c.moon_phase() == 19
+
+
 def test_Location_TzError():
     with pytest.raises(AttributeError):
         c = Location()
@@ -190,3 +198,43 @@ def test_LocationEquality_NotALocation(london_info):
         _location_info = london_info
 
     assert NotALocation() != location
+
+
+def test_Location_SetLatitudeFloat():
+    loc = Location()
+    loc.latitude = 34.0
+    assert loc.latitude == 34.0
+
+
+def test_Location_SetLatitudeString():
+    loc = Location()
+    loc.latitude = "24°28'N"
+
+    assert pytest.approx(loc.latitude, 24.46666666666666)
+
+
+def test_Location_SetLongitudeFloat():
+    loc = Location()
+    loc.longitude = 24.0
+    assert loc.longitude == 24.0
+
+
+def test_Location_SetLongitudeString():
+    loc = Location()
+    loc.longitude = "24°28'S"
+
+    assert pytest.approx(loc.longitude, -24.46666666666666)
+
+
+def test_Location_SetBadLongitudeString():
+    loc = Location()
+    with pytest.raises(ValueError):
+        loc.longitude = "wibble"
+
+
+def test_Location_BadTzinfo():
+    loc = Location()
+    loc._location_info = dataclasses.replace(loc._location_info, timezone="Bad/Timezone")
+
+    with pytest.raises(AstralError):
+        loc.tzinfo
