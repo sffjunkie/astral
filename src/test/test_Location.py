@@ -151,6 +151,12 @@ def test_Location_SolarDepression():
     assert c.solar_depression == 18
 
 
+def test_Location_BadSolarDepression():
+    loc = Location()
+    with pytest.raises(KeyError):
+        loc.solar_depression = "uncivil"
+
+
 def test_Location_Moon():
     d = datetime.date(2017, 12, 1)
     c = Location()
