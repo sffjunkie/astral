@@ -60,6 +60,10 @@ def test_Location_TimezoneLookupBad():
         c.timezone = "bad/timezone"
 
 
+def test_Location_Info(london, london_info):
+    assert london_info == london.info
+
+
 def test_Location_Sun():
     c = Location()
     c.sun()
