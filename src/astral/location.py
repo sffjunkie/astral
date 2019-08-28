@@ -175,7 +175,7 @@ class Location:
             tz = pytz.timezone(self._location_info.timezone)
             return tz
         except pytz.UnknownTimeZoneError:
-            raise AstralError("Unknown timezone '%s'" % self.timezone)
+            raise AstralError("Unknown timezone '%s'" % self._location_info.timezone)
 
     tz = tzinfo
 
