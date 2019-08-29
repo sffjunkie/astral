@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from almost_equal import datetime_almost_equal
 import freezegun
 import pytest
 
@@ -7,12 +8,6 @@ from astral.location import Location
 import dataclasses
 import datetime
 import pytz
-
-
-def datetime_almost_equal(datetime1, datetime2, seconds=60):
-    dd = datetime1 - datetime2
-    sd = (dd.days * 24 * 60 * 60) + dd.seconds
-    return abs(sd) <= seconds
 
 
 def test_Location_Name():
