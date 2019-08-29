@@ -1,6 +1,5 @@
 import datetime
-from math import (acos, asin, atan2, ceil, cos, degrees, floor, radians,
-                  sin, sqrt, tan)
+from math import acos, asin, atan2, ceil, cos, degrees, floor, radians, sin, sqrt, tan
 from typing import Dict, Optional, Tuple
 
 import pytz
@@ -393,10 +392,7 @@ def solar_midnight(
     return pytz.utc.localize(midnight).astimezone(tzinfo)  # pylint: disable=E1120
 
 
-def zenith_and_azimuth(
-    observer: Observer,
-    dateandtime: datetime.datetime,
-) -> float:
+def zenith_and_azimuth(observer: Observer, dateandtime: datetime.datetime) -> float:
     if observer.latitude > 89.8:
         latitude = 89.8
     elif observer.latitude < -89.8:
@@ -617,7 +613,9 @@ def sunrise(
         date = today(tzinfo)
 
     try:
-        return time_of_transit(observer, date, 90 + 0.833, SunDirection.RISING).astimezone(tzinfo)
+        return time_of_transit(
+            observer, date, 90 + 0.833, SunDirection.RISING
+        ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, solar_noon(observer, date))
@@ -647,7 +645,9 @@ def sunset(
         date = today(tzinfo)
 
     try:
-        return time_of_transit(observer, date, 90 + 0.833, SunDirection.SETTING).astimezone(tzinfo)
+        return time_of_transit(
+            observer, date, 90 + 0.833, SunDirection.SETTING
+        ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, solar_noon(observer, date))
@@ -679,7 +679,9 @@ def dusk(
         date = today(tzinfo)
 
     try:
-        return time_of_transit(observer, date, 90 + depression, SunDirection.SETTING).astimezone(tzinfo)
+        return time_of_transit(
+            observer, date, 90 + depression, SunDirection.SETTING
+        ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
