@@ -509,8 +509,8 @@ def zenith(
 ) -> float:
     """Calculate the zenith angle of the sun.
 
-    :param dateandtime: The date and time for which to calculate the angle.
     :param observer:    Observer to calculate the solar zenith for
+    :param dateandtime: The date and time for which to calculate the angle.
     :return:            The zenith angle in degrees.
 
     If `dateandtime` is a naive Python datetime then it is assumed to be
@@ -529,8 +529,8 @@ def azimuth(
 ) -> float:
     """Calculate the azimuth angle of the sun.
 
-    :param dateandtime: The date and time for which to calculate the angle.
     :param observer:    Observer to calculate the solar azimuth for
+    :param dateandtime: The date and time for which to calculate the angle.
     :return:            The azimuth angle in degrees clockwise from North.
 
     If `dateandtime` is a naive Python datetime then it is assumed to be
