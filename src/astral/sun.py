@@ -1,5 +1,5 @@
 import datetime
-from math import (acos, asin, atan2, ceil, cos, degrees, floor, fmod, radians,
+from math import (acos, asin, atan2, ceil, cos, degrees, floor, radians,
                   sin, sqrt, tan)
 from typing import Dict, Optional, Tuple
 
