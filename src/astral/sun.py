@@ -301,7 +301,7 @@ def solar_noon(
     """Calculate solar noon time.
 
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
-    :param date:     Date to calculate for.
+    :param date:     Date to calculate for. Default is today for the specified tzinfo.
     :param tzinfo:   Timezone to return times in. Default is UTC.
     :return:         Date and time at which noon occurs.
     """
@@ -353,7 +353,7 @@ def solar_midnight(
     the previous day.
 
     :param observer: An observer viewing the sun at a specific, latitude, longitude and elevation
-    :param date:     Date to calculate for.
+    :param date:     Date to calculate for. Default is today for the specified tzinfo.
     :param tzinfo:   Timezone to return times in. Default is UTC.
     :return:         Date and time at which midnight occurs.
     """
@@ -506,11 +506,13 @@ def zenith_and_azimuth(
 def zenith(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
+    tzinfo: datetime.tzinfo = pytz.utc,
 ) -> float:
     """Calculate the zenith angle of the sun.
 
     :param observer:    Observer to calculate the solar zenith for
     :param dateandtime: The date and time for which to calculate the angle.
+                        Default is the time now for the specified tzinfo.
     :return:            The zenith angle in degrees.
 
     If `dateandtime` is a naive Python datetime then it is assumed to be
@@ -518,7 +520,7 @@ def zenith(
     """
 
     if dateandtime is None:
-        dateandtime = now()
+        dateandtime = now(tzinfo)
 
     return zenith_and_azimuth(observer, dateandtime)[0]
 
@@ -526,11 +528,14 @@ def zenith(
 def azimuth(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
+    tzinfo: datetime.tzinfo = pytz.utc,
 ) -> float:
     """Calculate the azimuth angle of the sun.
 
     :param observer:    Observer to calculate the solar azimuth for
     :param dateandtime: The date and time for which to calculate the angle.
+                        Default is the time now for the specified tzinfo.
+    :param tzinfo:      Timezone to return times in. Default is UTC.
     :return:            The azimuth angle in degrees clockwise from North.
 
     If `dateandtime` is a naive Python datetime then it is assumed to be
@@ -538,7 +543,7 @@ def azimuth(
     """
 
     if dateandtime is None:
-        dateandtime = now()
+        dateandtime = now(tzinfo)
 
     return zenith_and_azimuth(observer, dateandtime)[1]
 
@@ -552,6 +557,8 @@ def altitude(
 
     :param observer:    Observer to calculate the solar elevation for
     :param dateandtime: The date and time for which to calculate the angle.
+                        Default is the time now for the specified tzinfo.
+    :param tzinfo:      Timezone to return times in. Default is UTC.
     :return:            The elevation angle in degrees above the horizon.
 
     If `dateandtime` is a naive Python datetime then it is assumed to be
@@ -573,13 +580,13 @@ def dawn(
     """Calculate dawn time.
 
     :param observer:   Observer to calculate dawn for
-    :param date:       Date to calculate for.
-    :param depression: Number of degrees below the horizon to use to calculate dawn
+    :param date:       Date to calculate for. Default is today's date for the specified tzinfo.
+    :param depression: Number of degrees below the horizon to use to calculate dawn. Default is 6.0
     :param tzinfo:     Timezone to return times in. Default is UTC.
     :return:           Date and time at which dawn occurs.
     """
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     try:
         return time_of_transit(
@@ -602,12 +609,12 @@ def sunrise(
     """Calculate sunrise time.
 
     :param observer: Observer to calculate sunrise for
-    :param date:     Date to calculate for.
+    :param date:     Date to calculate for. Default is today's date for the specified tzinfo.
     :param tzinfo:   Timezone to return times in. Default is UTC.
     :return:         Date and time at which sunrise occurs.
     """
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     try:
         return time_of_transit(observer, date, 90 + 0.833, SunDirection.RISING).astimezone(tzinfo)
@@ -631,13 +638,13 @@ def sunset(
     """Calculate sunset time.
 
     :param observer: Observer to calculate sunset for
-    :param date:     Date to calculate for.
+    :param date:     Date to calculate for. Default is today's date for the specified tzinfo.
     :param tzinfo:   Timezone to return times in. Default is UTC.
     :return:         Date and time at which sunset occurs.
     """
 
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     try:
         return time_of_transit(observer, date, 90 + 0.833, SunDirection.SETTING).astimezone(tzinfo)
@@ -662,14 +669,14 @@ def dusk(
     """Calculate dusk time.
 
     :param observer:   Observer to calculate dusk for
-    :param date:       Date to calculate for.
+    :param date:       Date to calculate for. Default is today's date for the specified tzinfo.
     :param depression: Number of degrees below the horizon to use to calculate dusk
     :param tzinfo:     Timezone to return times in. Default is UTC.
     :return:           Date and time at which dusk occurs.
     """
 
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     try:
         return time_of_transit(observer, date, 90 + depression, SunDirection.SETTING).astimezone(tzinfo)
@@ -690,12 +697,12 @@ def daylight(
     """Calculate daylight start and end times.
 
     :param observer: Observer to calculate daylight for
-    :param date:     Date to calculate for.
+    :param date:     Date to calculate for. Default is today's date for the specified tzinfo.
     :param tzinfo:   Timezone to return times in. Default is UTC.
     :return:         A tuple of the date and time at which daylight starts and ends.
     """
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     start = sunrise(observer, date, tzinfo)
     end = sunset(observer, date, tzinfo)
@@ -714,12 +721,12 @@ def night(
     date specified and astronomical dawn of the next day.
 
     :param observer: Observer to calculate night for
-    :param date:     Date to calculate for.
+    :param date:     Date to calculate for. Default is today's date for the specified tzinfo.
     :param tzinfo:   Timezone to return times in. Default is UTC.
     :return:         A tuple of the date and time at which night starts and ends.
     """
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     start = dusk(observer, date, 6, tzinfo)
     tomorrow = date + datetime.timedelta(days=1)
@@ -742,7 +749,7 @@ def time_at_altitude(
 
     :param altitude:  Elevation in degrees above the horizon to calculate for.
     :param observer:  Observer to calculate for
-    :param date:      Date to calculate for.
+    :param date:      Date to calculate for. Default is today's date for the specified tzinfo.
     :param direction: Determines whether the calculated time is for the sun rising or setting.
                       Use ``SunDirection.RISING`` or ``SunDirection.SETTING``. Default is rising.
     :param tzinfo:    Timezone to return times in. Default is UTC.
@@ -754,7 +761,7 @@ def time_at_altitude(
         direction = SunDirection.SETTING
 
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     depression = 90 - altitude
     try:
@@ -782,7 +789,7 @@ def twilight(
     when the sun is at -6 degrees and sunrise/sunset.
 
     :param observer:  Observer to calculate twilight for
-    :param date:      Date for which to calculate the times.
+    :param date:      Date for which to calculate the times. Default is today's date for the specified tzinfo.
     :param direction: Determines whether the time is for the sun rising or setting.
                       Use ``astral.SunDirection.RISING`` or ``astral.SunDirection.SETTING``.
     :param tzinfo:    Timezone to return times in. Default is UTC.
@@ -790,7 +797,7 @@ def twilight(
     """
 
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     start = time_of_transit(observer, date, 90 + 6, direction).astimezone(tzinfo)
     if direction == SunDirection.RISING:
@@ -817,8 +824,9 @@ def golden_hour(
     golden hour is when the sun is between 4 degrees below the horizon
     and 6 degrees above.
 
-    :param date:      Date for which to calculate the times.
     :param observer:  Observer to calculate the golden hour for
+    :param date:      Date for which to calculate the times.
+                      Default is today's date for the specified tzinfo.
     :param direction: Determines whether the time is for the sun rising or setting.
                       Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
     :param tzinfo:    Timezone to return times in. Default is UTC.
@@ -826,7 +834,7 @@ def golden_hour(
     """
 
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     start = time_of_transit(observer, date, 90 + 4, direction).astimezone(tzinfo)
     end = time_of_transit(observer, date, 90 - 6, direction).astimezone(tzinfo)
@@ -851,6 +859,7 @@ def blue_hour(
 
     :param observer:  Observer to calculate the blue hour for
     :param date:      Date for which to calculate the times.
+                      Default is today's date for the specified tzinfo.
     :param direction: Determines whether the time is for the sun rising or setting.
                       Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
     :param tzinfo:    Timezone to return times in. Default is UTC.
@@ -858,7 +867,7 @@ def blue_hour(
     """
 
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     start = time_of_transit(observer, date, 90 + 6, direction).astimezone(tzinfo)
     end = time_of_transit(observer, date, 90 + 4, direction).astimezone(tzinfo)
@@ -878,14 +887,14 @@ def rahukaalam(
     """Calculate ruhakaalam times.
 
     :param observer: Observer to calculate rahukaalam for
-    :param date:     Date to calculate for.
+    :param date:     Date to calculate for. Default is today's date for the specified tzinfo.
     :param daytime:  If True calculate for the day time else calculate for the night time.
     :param tzinfo:   Timezone to return times in. Default is UTC.
     :return:         Tuple containing the start and end times for Rahukaalam.
     """
 
     if date is None:
-        date = today()
+        date = today(tzinfo)
 
     if daytime:
         start = sunrise(observer, date, tzinfo)
@@ -919,12 +928,16 @@ def sun(
 
     :param observer:             Observer for which to calculate the times of the sun
     :param date:                 Date to calculate for.
+                                 Default is today's date for the specified tzinfo.
     :param dawn_dusk_depression: Depression to use to calculate dawn and dusk
     :param tzinfo:               Timezone to return times in. Default is UTC.
     :returns:                    Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
                                  ``sunset`` and ``dusk`` whose values are the results of
                                  the corresponding functions.
     """
+
+    if date is None:
+        date = today(tzinfo)
 
     return {
         "dawn": dawn(observer, date, dawn_dusk_depression, tzinfo),
