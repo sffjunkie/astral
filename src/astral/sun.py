@@ -393,117 +393,10 @@ def solar_midnight(
     return pytz.utc.localize(midnight).astimezone(tzinfo)  # pylint: disable=E1120
 
 
-def _zenith_and_azimuth():
-    pass
-
-
-def zenith(
+def zenith_and_azimuth(
     observer: Observer,
     dateandtime: datetime.datetime,
 ) -> float:
-    """Calculate the zenith angle of the sun.
-
-    :param dateandtime: The date and time for which to calculate the angle.
-    :param observer:    Observer to calculate the solar zenith for
-    :return:            The zenith angle in degrees.
-
-    If `dateandtime` is a naive Python datetime then it is assumed to be
-    in the UTC timezone.
-    """
-
-    if observer.latitude > 89.8:
-        latitude = 89.8
-    elif observer.latitude < -89.8:
-        latitude = -89.8
-    else:
-        latitude = observer.latitude
-
-    longitude = observer.longitude
-
-    if dateandtime.tzinfo is None:
-        timezone_hour_offset = 0.0
-        utc_datetime = pytz.utc.localize(dateandtime)
-    else:
-        timezone_hour_offset = -dateandtime.utcoffset().total_seconds() / 3600.0  # type: ignore
-        utc_datetime = dateandtime.astimezone(pytz.utc)
-
-    day_fraction = (
-        utc_datetime.hour + (utc_datetime.minute / 60.0) + (utc_datetime.second / 3600)
-    ) / 24.0
-
-    JD = julianday(dateandtime)
-    t = jday_to_jcentury(JD + day_fraction)
-    solarDec = sun_declination(t)
-    eqtime = eq_of_time(t)
-
-    solarTimeFix = eqtime - (4.0 * -longitude) + (60 * timezone_hour_offset)
-    trueSolarTime = (
-        dateandtime.hour * 60.0
-        + dateandtime.minute
-        + dateandtime.second / 60.0
-        + solarTimeFix
-    )
-    #    in minutes as a float, fractional part is seconds
-
-    if trueSolarTime > 1440:
-        trueSolarTime = fmod(trueSolarTime, 1440)
-
-    hourangle = trueSolarTime / 4.0 - 180.0
-    # Thanks to Louis Schwarzmayr for the next line:
-    if hourangle < -180:
-        hourangle = hourangle + 360.0
-
-    harad = radians(hourangle)
-
-    csz = sin(radians(latitude)) * sin(radians(solarDec)) + cos(
-        radians(latitude)
-    ) * cos(radians(solarDec)) * cos(harad)
-
-    if csz > 1.0:
-        csz = 1.0
-    elif csz < -1.0:
-        csz = -1.0
-
-    zenith = degrees(acos(csz))
-    return zenith
-
-    # Correct for refraction
-    # exoatmElevation = 90.0 - zenith
-
-    # if exoatmElevation <= 85.0:
-    #     te = tan(radians(exoatmElevation))
-    #     if exoatmElevation > 5.0:
-    #         refractionCorrection = (
-    #             58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
-    #         )
-    #     elif exoatmElevation > -0.575:
-    #         step1 = -12.79 + exoatmElevation * 0.711
-    #         step2 = 103.4 + exoatmElevation * (step1)
-    #         step3 = -518.2 + exoatmElevation * (step2)
-    #         refractionCorrection = 1735.0 + exoatmElevation * (step3)
-    #     else:
-    #         refractionCorrection = -20.774 / te
-
-    #     refractionCorrection = refractionCorrection / 3600.0
-    #     zenith -= refractionCorrection
-
-    # return zenith
-
-
-def azimuth(
-    observer: Observer,
-    dateandtime: datetime.datetime,
-) -> float:
-    """Calculate the azimuth angle of the sun.
-
-    :param dateandtime: The date and time for which to calculate the angle.
-    :param observer:    Observer to calculate the solar azimuth for
-    :return:            The azimuth angle in degrees clockwise from North.
-
-    If `dateandtime` is a naive Python datetime then it is assumed to be
-    in the UTC timezone.
-    """
-
     if observer.latitude > 89.8:
         latitude = 89.8
     elif observer.latitude < -89.8:
@@ -561,6 +454,26 @@ def azimuth(
 
     zenith = degrees(acos(csz))
 
+    # Correct for refraction
+    # exoatmElevation = 90.0 - zenith
+
+    # if exoatmElevation <= 85.0:
+    #     te = tan(radians(exoatmElevation))
+    #     if exoatmElevation > 5.0:
+    #         refractionCorrection = (
+    #             58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
+    #         )
+    #     elif exoatmElevation > -0.575:
+    #         step1 = -12.79 + exoatmElevation * 0.711
+    #         step2 = 103.4 + exoatmElevation * (step1)
+    #         step3 = -518.2 + exoatmElevation * (step2)
+    #         refractionCorrection = 1735.0 + exoatmElevation * (step3)
+    #     else:
+    #         refractionCorrection = -20.774 / te
+
+    #     refractionCorrection = refractionCorrection / 3600.0
+    #     zenith -= refractionCorrection
+
     azDenom = cos(radians(latitude)) * sin(radians(zenith))
 
     if abs(azDenom) > 0.001:
@@ -587,7 +500,40 @@ def azimuth(
     if azimuth < 0.0:
         azimuth = azimuth + 360.0
 
-    return azimuth
+    return zenith, azimuth
+
+
+def zenith(
+    observer: Observer,
+    dateandtime: datetime.datetime,
+) -> float:
+    """Calculate the zenith angle of the sun.
+
+    :param dateandtime: The date and time for which to calculate the angle.
+    :param observer:    Observer to calculate the solar zenith for
+    :return:            The zenith angle in degrees.
+
+    If `dateandtime` is a naive Python datetime then it is assumed to be
+    in the UTC timezone.
+    """
+    return zenith_and_azimuth(observer, dateandtime)[0]
+
+
+def azimuth(
+    observer: Observer,
+    dateandtime: datetime.datetime,
+) -> float:
+    """Calculate the azimuth angle of the sun.
+
+    :param dateandtime: The date and time for which to calculate the angle.
+    :param observer:    Observer to calculate the solar azimuth for
+    :return:            The azimuth angle in degrees clockwise from North.
+
+    If `dateandtime` is a naive Python datetime then it is assumed to be
+    in the UTC timezone.
+    """
+
+    return zenith_and_azimuth(observer, dateandtime)[1]
 
 
 def altitude(
