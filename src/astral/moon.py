@@ -7,7 +7,7 @@ from astral.sun import julianday, proper_angle
 __all__ = ["phase"]
 
 
-def phase_asfloat(date: datetime.date) -> float:
+def _phase_asfloat(date: datetime.date) -> float:
     jd = julianday(date)
     DT = pow((jd - 2382148), 2) / (41048480 * 86400)
     T = (jd + DT - 2451545.0) / 36525
@@ -48,7 +48,7 @@ def phase(date: datetime.date, rtype=int) -> Union[int, float]:
     if rtype != float and rtype != int:
         rtype = int
 
-    moon = phase_asfloat(date)
+    moon = _phase_asfloat(date)
     if moon >= 28.0:
         moon -= 28.0
     moon = rtype(moon)
