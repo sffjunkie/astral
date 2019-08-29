@@ -15,7 +15,7 @@ def _next_event(location, datetime, event):
             return t
         except Exception:
             pass
-    assert False, "Should be unreachable"
+    assert False, "Should be unreachable"  # pragma: no cover
 
 
 def test_NorwaySunUp():
