@@ -191,6 +191,53 @@ def test_SolarMidnight_NoDate(london):
     assert datetime_almost_equal(sun.solar_midnight(london), ans)
 
 
+def test_Twilight_SunRising(london):
+    test_data = {
+        datetime.date(2019, 8, 29): (
+            datetime.datetime(2019, 8, 29, 4, 32),
+            datetime.datetime(2019, 8, 29, 5, 7),
+        ),
+    }
+
+    for day, (start, end) in test_data.items():
+        start = pytz.utc.localize(start)
+        end = pytz.utc.localize(end)
+
+        info = sun.twilight(london, day)
+        start_utc = info[0]
+        end_utc = info[1]
+        assert datetime_almost_equal(start, start_utc)
+        assert datetime_almost_equal(end, end_utc)
+
+
+def test_Twilight_SunSetting(london):
+    test_data = {
+        datetime.date(2019, 8, 29): (
+            datetime.datetime(2019, 8, 29, 18, 54),
+            datetime.datetime(2019, 8, 29, 19, 30),
+        ),
+    }
+
+    for day, (start, end) in test_data.items():
+        start = pytz.utc.localize(start)
+        end = pytz.utc.localize(end)
+
+        info = sun.twilight(london, day, direction=SunDirection.SETTING)
+        start_utc = info[0]
+        end_utc = info[1]
+        assert datetime_almost_equal(start, start_utc)
+        assert datetime_almost_equal(end, end_utc)
+
+
+@freezegun.freeze_time("2019-8-29")
+def test_Twilight_NoDate(london):
+    start = pytz.utc.localize(datetime.datetime(2019, 8, 29, 18, 54))
+    end = pytz.utc.localize(datetime.datetime(2019, 8, 29, 19, 30))
+    ans = sun.twilight(london, direction=SunDirection.SETTING)
+    assert datetime_almost_equal(ans[0], start)
+    assert datetime_almost_equal(ans[1], end)
+
+
 # Test data from http://www.astroloka.com/rahukaal.aspx?City=Delhi
 def test_Rahukaalam(new_delhi):
     test_data = {
