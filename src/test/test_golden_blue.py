@@ -3,6 +3,7 @@
 
 import pytz
 import datetime
+import freezegun
 from astral import sun
 from astral.sun import SunDirection
 
@@ -51,6 +52,15 @@ def test_Location_GoldenHour_Evening(london):
         assert datetime_almost_equal(start1, start2, seconds=60)
 
 
+@freezegun.freeze_time("2015-12-1")
+def test_Location_GoldenHour_NoDate(new_delhi):
+    start = pytz.utc.localize(datetime.datetime(2015, 12, 1, 1, 10, 10))
+    end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 2, 0, 43))
+    ans = sun.golden_hour(new_delhi)
+    assert datetime_almost_equal(ans[0], start, 90)
+    assert datetime_almost_equal(ans[1], end, 90)
+
+
 def test_Location_BlueHour_Morning(london):
     test_data = {
         datetime.date(2016, 5, 19): (
@@ -83,3 +93,12 @@ def test_Location_BlueHour_Evening(london):
         start2, end2 = sun.blue_hour(london, day, SunDirection.SETTING)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
+
+
+@freezegun.freeze_time("2016-5-19")
+def test_Location_BlueHour_NoDate(london):
+    start = pytz.utc.localize(datetime.datetime(2016, 5, 19, 20, 18))
+    end = pytz.utc.localize(datetime.datetime(2016, 5, 19, 20, 35))
+    ans = sun.blue_hour(london, direction=SunDirection.SETTING)
+    assert datetime_almost_equal(ans[0], start, 90)
+    assert datetime_almost_equal(ans[1], end, 90)
