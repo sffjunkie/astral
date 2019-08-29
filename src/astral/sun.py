@@ -292,6 +292,47 @@ def time_of_transit(
     return dt
 
 
+def time_at_altitude(
+    observer: Observer,
+    altitude: float,
+    date: Optional[datetime.date] = None,
+    direction: SunDirection = SunDirection.RISING,
+    tzinfo: datetime.tzinfo = pytz.utc,
+) -> datetime.datetime:
+    """Calculate the time when the sun is at
+    the specified altitude on the specified date.
+
+    Note: This method uses positive altitudes for those above the horizon.
+
+    :param altitude:  Elevation in degrees above the horizon to calculate for.
+    :param observer:  Observer to calculate for
+    :param date:      Date to calculate for. Default is today's date for the specified tzinfo.
+    :param direction: Determines whether the calculated time is for the sun rising or setting.
+                      Use ``SunDirection.RISING`` or ``SunDirection.SETTING``. Default is rising.
+    :param tzinfo:    Timezone to return times in. Default is UTC.
+    :return:          Date and time at which the sun is at the required altitude.
+    """
+
+    if altitude > 90.0:
+        altitude = 180.0 - altitude
+        direction = SunDirection.SETTING
+
+    if date is None:
+        date = today(tzinfo)
+
+    depression = 90 - altitude
+    try:
+        return time_of_transit(observer, date, depression, direction).astimezone(tzinfo)
+    except ValueError as exc:
+        if exc.args[0] == "math domain error":
+            raise AstralError(
+                f"Sun never reaches an altitude of {altitude} degrees"
+                "at this location."
+            )
+        else:
+            raise
+
+
 def solar_noon(
     observer: Observer,
     date: Optional[datetime.date] = None,
@@ -735,47 +776,6 @@ def night(
     end = dawn(observer, tomorrow, 6, tzinfo)
 
     return start, end
-
-
-def time_at_altitude(
-    observer: Observer,
-    altitude: float,
-    date: Optional[datetime.date] = None,
-    direction: SunDirection = SunDirection.RISING,
-    tzinfo: datetime.tzinfo = pytz.utc,
-) -> datetime.datetime:
-    """Calculate the time when the sun is at
-    the specified altitude on the specified date.
-
-    Note: This method uses positive altitudes for those above the horizon.
-
-    :param altitude:  Elevation in degrees above the horizon to calculate for.
-    :param observer:  Observer to calculate for
-    :param date:      Date to calculate for. Default is today's date for the specified tzinfo.
-    :param direction: Determines whether the calculated time is for the sun rising or setting.
-                      Use ``SunDirection.RISING`` or ``SunDirection.SETTING``. Default is rising.
-    :param tzinfo:    Timezone to return times in. Default is UTC.
-    :return:          Date and time at which the sun is at the required altitude.
-    """
-
-    if altitude > 90.0:
-        altitude = 180.0 - altitude
-        direction = SunDirection.SETTING
-
-    if date is None:
-        date = today(tzinfo)
-
-    depression = 90 - altitude
-    try:
-        return time_of_transit(observer, date, depression, direction).astimezone(tzinfo)
-    except ValueError as exc:
-        if exc.args[0] == "math domain error":
-            raise AstralError(
-                f"Sun never reaches an altitude of {altitude} degrees"
-                "at this location."
-            )
-        else:
-            raise
 
 
 def twilight(
