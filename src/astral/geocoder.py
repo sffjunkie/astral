@@ -1,11 +1,11 @@
 """Astral geocoder is a local database of locations.
 
-To get the location info you can use the lookup function e.g. ::
+To get the :class:`~astral.LocationInfo` for a location use the lookup function e.g. ::
 
     from astral.geocoder import lookup
     l = lookup("London")
 
-All locations stored in the database can be accessed using the all_locations generator ::
+All locations stored in the database can be accessed using the `all_locations` generator ::
 
     from astral.geocoder import all_locations
     for location in all_locations:
@@ -432,7 +432,11 @@ def database() -> LocationDatabase:
 
 
 def _sanitize_key(key) -> str:
-    """Sanitize the location or group key to look up"""
+    """Sanitize the location or group key to look up
+
+    Args:
+        key: The key to sanitize
+    """
     return str(key).lower().replace(" ", "_")
 
 
@@ -505,7 +509,11 @@ def group(region: str, db: LocationDatabase) -> LocationGroup:
 
     Lookups are case insensitive
 
-    Raises KeyError if the location is not found
+    Args:
+        region: the name to look up
+
+    Raises:
+        KeyError: if the location is not found
     """
     key = _sanitize_key(region)
     for name, value in db.items():
@@ -528,7 +536,12 @@ def lookup_in_group(location: str, group: Dict) -> LocationInfo:
 
     Lookups are case insensitive.
 
-    Raises KeyError if the location is not found
+    Args:
+        location: The location to look up
+        group: The location group to look in
+
+    Raises:
+        KeyError: if the location is not found
     """
     key = _sanitize_key(location)
 
@@ -560,10 +573,12 @@ def lookup(name: str, db: LocationDatabase) -> Union[Dict, LocationInfo]:
     be returned. If no group is found a location with the name will be
     looked up.
 
-    :param name: The group/location name to look up
-    :param db:   The location database to look in
+    Args:
+        name: The group/location name to look up
+        db:   The location database to look in
 
-    Raises KeyError if the name is not found
+    Raises:
+        KeyError: if the name is not found
     """
 
     key = _sanitize_key(name)
@@ -580,8 +595,8 @@ def lookup(name: str, db: LocationDatabase) -> Union[Dict, LocationInfo]:
 
 
 def all_locations(db: LocationDatabase) -> Generator[LocationInfo, None, None]:
-    """A generator that returns all LocationInfos contained in the database"""
-
+    """A generator that returns all the :class:`~astral.LocationInfo`\\s contained in the database
+    """
     for group in db.values():
         for location_list in group["locations"].values():
             for location in location_list:

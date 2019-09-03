@@ -32,17 +32,19 @@ def _phase_asfloat(date: datetime.date) -> float:
 def phase(date: datetime.date, rtype=int) -> Union[int, float]:
     """Calculates the phase of the moon on the specified date.
 
-    :param date: The date to calculate the phase for.
-    :type date: :class:`datetime.date`
-    :param rtype: The type to return either int (default) or float.
+    Args:
+        date: The date to calculate the phase for.
+        rtype: The type to return either int (default) or float.
 
-    :return:
+    Returns:
         A number designating the phase.
 
-            | 0  = New moon
-            | 7  = First quarter
-            | 14 = Full moon
-            | 21 = Last quarter
+        ===  ==============
+        0    New moon
+        7    First quarter
+        14   Full moon
+        21   Last quarter
+        ===  ==============
     """
 
     if rtype != float and rtype != int:
