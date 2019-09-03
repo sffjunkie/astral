@@ -88,7 +88,12 @@ def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
 
 
 def latlng_to_float(dms: str) -> float:
-    """Converts degrees°minutes'seconds", or a float encoded as a string, to a float"""
+    """Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`,
+    or a float encoded as a string, to a float
+
+    N and E return positive values
+    S and W return negative values
+    """
 
     _dms_re = r"(?P<deg>\d{1,3})[°](?P<min>\d{1,2})[′']((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])"
     m = re.match(_dms_re, dms, flags=re.IGNORECASE)
@@ -126,11 +131,15 @@ class Observer:
     Latitude and longitude can be set either as a float or as a string. For strings they must
     be of the form
 
-        degrees°minutes'[N|S|E|W] e.g. 51°31'N
+        degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
 
-    :param latitude:   Latitude - Northern latitudes should be positive
-    :param longitude:  Longitude - Eastern longitudes should be positive
-    :param elevation:  Elevation in metres above sea level.
+    Args:
+        latitude:   Latitude - Northern latitudes should be positive
+        longitude:  Longitude - Eastern longitudes should be positive
+        elevation:  Elevation in metres above sea level.
+
+    Returns:
+        The number of degrees as a float
     """
 
     latitude: float = 51.4733
@@ -154,15 +163,16 @@ class LocationInfo:
     Latitude and longitude can be set either as a float or as a string. For strings they must
     be of the form
 
-        degrees°minutes'[N|S|E|W] e.g. 51°31'N
+        degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
 
-    :param name:      Location name (can be any string)
-    :param region:    Region location is in (can be any string)
-    :param timezone:  The location's time zone (a list of time zone names can be obtained from
+    Args:
+        name:      Location name (can be any string)
+        region:    Region location is in (can be any string)
+        timezone:  The location's time zone (a list of time zone names can be obtained from
                       `pytz.all_timezones`)
-    :param latitude:  Latitude - Northern latitudes should be positive
-    :param longitude: Longitude - Eastern longitudes should be positive
-    :param elevation: Elevation in metres above sea level.
+        latitude:  Latitude - Northern latitudes should be positive
+        longitude: Longitude - Eastern longitudes should be positive
+        elevation: Elevation in metres above sea level.
     """
 
     name: str = "Greenwich"
