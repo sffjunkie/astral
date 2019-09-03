@@ -30,12 +30,12 @@ For example ::
     >>> from astral.geocoder import database, lookup
     >>> db = database()
     >>> location = lookup('London', db)
-    >>> print('Information for %s' % location.name)
+    >>> print(f"Information for {location.name}")
     Information for London
     >>> timezone = location.timezone
     >>> print('Timezone: %s' % timezone)
     Timezone: Europe/London
-    >>> print('Latitude: %.02f; Longitude: %.02f' % (location.latitude, location.longitude))
+    >>> print(f"Latitude: {location.latitude:.02f}; Longitude: {location.longitude:.02f}")
     Latitude: 51.47; Longitude: -0.00
     >>> from datetime import date
     >>> import astral.sun
@@ -43,8 +43,8 @@ For example ::
     >>> import pytz
     >>> tzinfo = pytz.timezone(timezone)
     >>> sun = astral.sun.sun(location, date=d, tzinfo=tzinfo)
-    >>> print('Dawn:    %s' % str(sun['dawn']))
-    Dawn:    2009-04-22 05:12:56+01:00
+    >>> print(f"Dawn:    {sun['dawn']}")
+    Dawn:    2009-04-22 05:12:32.529612+01:00
 
 .. note::
 
