@@ -451,7 +451,7 @@ def midnight(
     return pytz.utc.localize(midnight).astimezone(tzinfo)  # pylint: disable=E1120
 
 
-def zenith_and_azimuth(observer: Observer, dateandtime: datetime.datetime) -> float:
+def zenith_and_azimuth(observer: Observer, dateandtime: datetime.datetime) -> Tuple[float, float]:
     if observer.latitude > 89.8:
         latitude = 89.8
     elif observer.latitude < -89.8:
