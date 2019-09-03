@@ -7,8 +7,8 @@ import pytz
 from astral import AstralError, Observer, SunDirection, now, today
 
 __all__ = [
-    "solar_noon",
-    "solar_midnight",
+    "noon",
+    "midnight",
     "zenith",
     "azimuth",
     "altitude",
@@ -344,7 +344,7 @@ def time_at_altitude(
             raise
 
 
-def solar_noon(
+def noon(
     observer: Observer,
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
@@ -395,7 +395,7 @@ def solar_noon(
     return pytz.utc.localize(noon).astimezone(tzinfo)  # pylint: disable=E1120
 
 
-def solar_midnight(
+def midnight(
     observer: Observer,
     date: Optional[datetime.date] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
@@ -694,7 +694,7 @@ def sunrise(
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
-            z = zenith(observer, solar_noon(observer, date))
+            z = zenith(observer, noon(observer, date))
             if z > 90.0:
                 msg = "Sun is always below the horizon on this day, at this location."
             else:
@@ -729,7 +729,7 @@ def sunset(
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
-            z = zenith(observer, solar_noon(observer, date))
+            z = zenith(observer, noon(observer, date))
             if z > 90.0:
                 msg = "Sun is always below the horizon on this day, at this location."
             else:
@@ -1006,7 +1006,7 @@ def sun(
     return {
         "dawn": dawn(observer, date, dawn_dusk_depression, tzinfo),
         "sunrise": sunrise(observer, date, tzinfo),
-        "noon": solar_noon(observer, date, tzinfo),
+        "noon": noon(observer, date, tzinfo),
         "sunset": sunset(observer, date, tzinfo),
         "dusk": dusk(observer, date, dawn_dusk_depression, tzinfo),
     }

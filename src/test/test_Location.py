@@ -88,12 +88,12 @@ def test_Location_SunriseUTC():
 
 def test_Location_SolarNoon():
     c = Location()
-    c.solar_noon()
+    c.noon()
 
 
 def test_Location_SolarNoonUTC():
     c = Location()
-    c.solar_noon(local=False)
+    c.noon(local=False)
 
 
 def test_Location_Dusk():

@@ -332,7 +332,7 @@ class Location:
         else:
             return astral.sun.sunrise(observer, date)
 
-    def solar_noon(
+    def noon(
         self, date: datetime.date = None, local: bool = True
     ) -> datetime.datetime:
         """Calculates the solar noon (the time when the sun is at its highest
@@ -356,9 +356,9 @@ class Location:
 
         observer = Observer(self.latitude, self.longitude)
         if local:
-            return astral.sun.solar_noon(observer, date, self.tzinfo)
+            return astral.sun.noon(observer, date, self.tzinfo)
         else:
-            return astral.sun.solar_noon(observer, date)
+            return astral.sun.noon(observer, date)
 
     def sunset(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -432,7 +432,7 @@ class Location:
         else:
             return astral.sun.dusk(observer, date, self.solar_depression)
 
-    def solar_midnight(
+    def midnight(
         self, date: datetime.date = None, local: bool = True
     ) -> datetime.datetime:
         """Calculates the solar midnight (the time when the sun is at its lowest
@@ -457,9 +457,9 @@ class Location:
         observer = Observer(self.latitude, self.longitude)
 
         if local:
-            return astral.sun.solar_midnight(observer, date, self.tzinfo)
+            return astral.sun.midnight(observer, date, self.tzinfo)
         else:
-            return astral.sun.solar_midnight(observer, date)
+            return astral.sun.midnight(observer, date)
 
     def daylight(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True

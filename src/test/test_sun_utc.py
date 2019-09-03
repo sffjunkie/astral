@@ -158,14 +158,14 @@ def test_SolarNoon(london):
 
     for day, solar_noon in test_data.items():
         solar_noon = pytz.utc.localize(solar_noon)
-        solar_noon_utc = sun.solar_noon(london, day)
+        solar_noon_utc = sun.noon(london, day)
         assert datetime_almost_equal(solar_noon, solar_noon_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
 def test_SolarNoon_NoDate(london):
     ans = pytz.utc.localize(datetime.datetime(2015, 12, 1, 11, 49))
-    assert datetime_almost_equal(sun.solar_noon(london), ans)
+    assert datetime_almost_equal(sun.noon(london), ans)
 
 
 def test_SolarMidnight(london):
@@ -176,14 +176,14 @@ def test_SolarMidnight(london):
 
     for day, solar_midnight in test_data.items():
         solar_midnight = pytz.utc.localize(solar_midnight)
-        solar_midnight_utc = sun.solar_midnight(london, day)
+        solar_midnight_utc = sun.midnight(london, day)
         assert datetime_almost_equal(solar_midnight, solar_midnight_utc)
 
 
 @freezegun.freeze_time("2016-2-18")
 def test_SolarMidnight_NoDate(london):
     ans = pytz.utc.localize(datetime.datetime(2016, 2, 18, 0, 14))
-    assert datetime_almost_equal(sun.solar_midnight(london), ans)
+    assert datetime_almost_equal(sun.midnight(london), ans)
 
 
 def test_Twilight_SunRising(london):
