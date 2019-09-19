@@ -73,7 +73,7 @@ __all__ = [
     "today",
 ]
 
-__version__ = "2.0a1"
+__version__ = "2.0-alpha"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 
