@@ -93,6 +93,9 @@ def latlng_to_float(dms: str) -> float:
 
     N and E return positive values
     S and W return negative values
+
+    Args:
+        dms: string to convert
     """
 
     _dms_re = r"(?P<deg>\d{1,3})[°](?P<min>\d{1,2})[′']((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])"
@@ -164,6 +167,10 @@ class LocationInfo:
     be of the form
 
         degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
+
+    Note:
+        functions which are defined to take an Observer can also be passed a LocationInfo
+        instance.
 
     Args:
         name:      Location name (can be any string)
