@@ -41,6 +41,7 @@ nbproject
 .vscode
 .pytest_cache
 .mypy_cache
+.venv
 
 # Dreamweaver added files
 _notes
