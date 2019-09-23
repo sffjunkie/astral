@@ -26,17 +26,17 @@ def test_Observer_FromString():
 
 def test_Observer_BadLat():
     with pytest.raises(ValueError):
-        obs = Observer("o", 1, 1)
+        Observer("o", 1, 1)
 
 
 def test_Observer_BadLng():
     with pytest.raises(ValueError):
-        obs = Observer(1, "o", 1)
+        Observer(1, "o", 1)
 
 
 def test_Observer_BadElevaion():
     with pytest.raises(ValueError):
-        obs = Observer(1, 1, "o")
+        Observer(1, 1, "o")
 
 
 def test_LocationInfo_Default():
