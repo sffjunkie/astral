@@ -23,9 +23,9 @@ class Location:
             ================ =============
             name             Greenwich
             region           England
+            time zone name   Europe/London
             latitude         51.4733
             longitude        -0.00088
-            time zone name   Europe/London
             elevation        24
             ================ =============
 
