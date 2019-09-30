@@ -112,7 +112,7 @@ def latlng_to_float(dms: str) -> float:
 
             res = float(deg)
             if min_:
-                res += (float(min_) / 60)
+                res += float(min_) / 60
             if sec:
                 res += float(sec) / 3600
 
@@ -163,8 +163,8 @@ class Observer:
         super(Observer, self).__setattr__(name, value)
 
 
-# Note: we are unable to derive from Observer due to dataclasses adding add fields of Observer
-# before LocationInfo's
+# Note: we don't derive from Observer because dataclasses add fields of Observer
+# before LocationInfo's which puts the arguments in the wrong order for us.
 @dataclass
 class LocationInfo:
     """Defines a location on Earth.
