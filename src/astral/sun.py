@@ -7,22 +7,23 @@ import pytz
 from astral import AstralError, Observer, SunDirection, now, today
 
 __all__ = [
-    "noon",
-    "midnight",
-    "zenith",
-    "azimuth",
-    "elevation",
+    "sun",
     "dawn",
     "sunrise",
     "sunset",
     "dusk",
+    "noon",
+    "midnight",
     "daylight",
     "night",
-    "time_at_elevation",
     "twilight",
     "golden_hour",
     "blue_hour",
     "rahukaalam",
+    "zenith",
+    "azimuth",
+    "elevation",
+    "time_at_elevation",
 ]
 
 
