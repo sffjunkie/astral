@@ -98,24 +98,27 @@ def latlng_to_float(dms: str) -> float:
         dms: string to convert
     """
 
-    _dms_re = r"(?P<deg>\d{1,3})[°](?P<min>\d{1,2})[′']((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])"
-    m = re.match(_dms_re, dms, flags=re.IGNORECASE)
-    if m:
-        deg = m.group("deg")
-        min_ = m.group("min")
-        sec = m.group("sec")
-        dir_ = m.group("dir")
-
-        res = float(deg) + (float(min_) / 60)
-        if sec:
-            res += float(sec) / 3600
-
-        if dir_ == "S" or dir_ == "W":
-            res = -res
-
-        return res
-    else:
+    try:
         return float(dms)
+    except ValueError:
+        _dms_re = r"(?P<deg>\d{1,3})[°](?P<min>\d{1,2})[′']((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])"
+        m = re.match(_dms_re, dms, flags=re.IGNORECASE)
+        if m:
+            deg = m.group("deg")
+            min_ = m.group("min")
+            sec = m.group("sec")
+            dir_ = m.group("dir")
+
+            res = float(deg) + (float(min_) / 60)
+            if sec:
+                res += float(sec) / 3600
+
+            if dir_ == "S" or dir_ == "W":
+                res = -res
+
+            return res
+        else:
+            raise ValueError
 
 
 class AstralError(Exception):
