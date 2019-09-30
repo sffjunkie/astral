@@ -56,6 +56,7 @@ import datetime
 import re
 from dataclasses import dataclass
 from enum import Enum
+from typing import Any
 
 try:
     import pytz
@@ -154,12 +155,12 @@ class Observer:
     longitude: float = -0.00088
     elevation: float = 24.0
 
-    def __post_init__(self):
-        if isinstance(self.latitude, str):
-            object.__setattr__(self, "latitude", latlng_to_float(self.latitude))
-        if isinstance(self.longitude, str):
-            object.__setattr__(self, "longitude", latlng_to_float(self.longitude))
-        object.__setattr__(self, "elevation", float(self.elevation))
+    def __setattr__(self, name: str, value: Any):
+        if name in ["latitude", "longitude"]:
+            value = latlng_to_float(value)
+        elif name == "elevation":
+            value = float(value)
+        super(Observer, self).__setattr__(name, value)
 
 
 # Note: we are unable to derive from Observer due to dataclasses adding add fields of Observer
@@ -194,12 +195,12 @@ class LocationInfo:
     longitude: float = -0.00088
     elevation: float = 24.0
 
-    def __post_init__(self):
-        if isinstance(self.latitude, str):
-            object.__setattr__(self, "latitude", latlng_to_float(self.latitude))
-        if isinstance(self.longitude, str):
-            object.__setattr__(self, "longitude", latlng_to_float(self.longitude))
-        object.__setattr__(self, "elevation", float(self.elevation))
+    def __setattr__(self, name: str, value: Any):
+        if name in ["latitude", "longitude"]:
+            value = latlng_to_float(value)
+        elif name == "elevation":
+            value = float(value)
+        super(LocationInfo, self).__setattr__(name, value)
 
     @property
     def timezone_group(self):
