@@ -11,14 +11,14 @@ __all__ = [
     "midnight",
     "zenith",
     "azimuth",
-    "altitude",
+    "elevation",
     "dawn",
     "sunrise",
     "sunset",
     "dusk",
     "daylight",
     "night",
-    "time_at_altitude",
+    "time_at_elevation",
     "twilight",
     "golden_hour",
     "blue_hour",
@@ -220,8 +220,9 @@ def hour_angle(
     return HA
 
 
-def adjustment_for_elevation(elevation: float) -> float:
-    """Calculate the extra degrees of depression due to the increase in elevation.
+def adjust_depression_for_elevation(elevation: float) -> float:
+    """Calculate the extra degrees of depression that you can see round the earth
+    due to the increase in elevation.
 
     Args:
         elevation: Elevation above the earth in metres
@@ -246,6 +247,30 @@ def adjustment_for_elevation(elevation: float) -> float:
     return degrees(alpha)
 
 
+def adjust_refraction_for_zenith(zenith: float):
+    """Calculate the degrees of refraction of the sun due to the sun's elevation."""
+
+    elevation = 90 - zenith
+    refractionCorrection = 0.0
+    if elevation <= 85.0:
+        te = tan(radians(elevation))
+        if elevation > 5.0:
+            refractionCorrection = (
+                58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
+            )
+        elif elevation > -0.575:
+            step1 = -12.79 + elevation * 0.711
+            step2 = 103.4 + elevation * step1
+            step3 = -518.2 + elevation * step2
+            refractionCorrection = 1735.0 + elevation * step3
+        else:
+            refractionCorrection = -20.774 / te
+
+        refractionCorrection = refractionCorrection / 3600.0
+
+    return refractionCorrection
+
+
 def time_of_transit(
     observer: Observer, date: datetime.date, zenith: float, direction: SunDirection
 ) -> datetime.datetime:
@@ -267,16 +292,25 @@ def time_of_transit(
     else:
         latitude = observer.latitude
 
-    adjustment = 0.0
+    adjustment_for_elevation = 0.0
     if observer.elevation > 0:
-        adjustment = adjustment_for_elevation(observer.elevation)
+        adjustment_for_elevation = adjust_depression_for_elevation(observer.elevation)
+
+    adjustment_for_refraction = 0.0
+    # elevation = 90.0 - zenith
+    # adjustment_for_refraction = adjust_refraction_for_altitude(elevation)
 
     jd = julianday(date)
     t = jday_to_jcentury(jd)
     eqtime = eq_of_time(t)
     solarDec = sun_declination(t)
 
-    hourangle = hour_angle(latitude, solarDec, zenith + adjustment, direction)
+    hourangle = hour_angle(
+        latitude,
+        solarDec,
+        zenith + adjustment_for_elevation - adjustment_for_refraction,
+        direction,
+    )
 
     delta = -observer.longitude - degrees(hourangle)
     timeDiff = 4.0 * delta
@@ -285,7 +319,12 @@ def time_of_transit(
     t = jday_to_jcentury(jcentury_to_jday(t) + timeUTC / 1440.0)
     eqtime = eq_of_time(t)
     solarDec = sun_declination(t)
-    hourangle = hour_angle(latitude, solarDec, zenith + adjustment, direction)
+    hourangle = hour_angle(
+        latitude,
+        solarDec,
+        zenith + adjustment_for_elevation + adjustment_for_refraction,
+        direction,
+    )
 
     delta = -observer.longitude - degrees(hourangle)
     timeDiff = 4.0 * delta
@@ -300,20 +339,20 @@ def time_of_transit(
     return dt
 
 
-def time_at_altitude(
+def time_at_elevation(
     observer: Observer,
-    altitude: float,
+    elevation: float,
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
-    """Calculates the time when the sun is at the specified altitude on the specified date.
+    """Calculates the time when the sun is at the specified elevation on the specified date.
 
     Note:
-        This method uses positive altitudes for those above the horizon.
+        This method uses positive elevations for those above the horizon.
 
     Args:
-        altitude:  Elevation in degrees above the horizon to calculate for.
+        elevation:  Elevation in degrees above the horizon to calculate for.
         observer:  Observer to calculate for
         date:      Date to calculate for. Default is today's date for the specified tzinfo.
         direction: Determines whether the calculated time is for the sun rising or setting.
@@ -321,23 +360,23 @@ def time_at_altitude(
         tzinfo:    Timezone to return times in. Default is UTC.
 
     Returns:
-        Date and time at which the sun is at the specified altitude.
+        Date and time at which the sun is at the specified elevation.
     """
 
-    if altitude > 90.0:
-        altitude = 180.0 - altitude
+    if elevation > 90.0:
+        elevation = 180.0 - elevation
         direction = SunDirection.SETTING
 
     if date is None:
         date = today(tzinfo)
 
-    depression = 90 - altitude
+    zenith = 90 - elevation
     try:
-        return time_of_transit(observer, date, depression, direction).astimezone(tzinfo)
+        return time_of_transit(observer, date, zenith, direction).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise AstralError(
-                f"Sun never reaches an altitude of {altitude} degrees"
+                f"Sun never reaches an elevation of {elevation} degrees"
                 "at this location."
             )
         else:
@@ -451,7 +490,11 @@ def midnight(
     return pytz.utc.localize(midnight).astimezone(tzinfo)  # pylint: disable=E1120
 
 
-def zenith_and_azimuth(observer: Observer, dateandtime: datetime.datetime) -> Tuple[float, float]:
+def zenith_and_azimuth(
+    observer: Observer,
+    dateandtime: datetime.datetime,
+    adjust_for_refraction: bool = False,
+) -> Tuple[float, float]:
     if observer.latitude > 89.8:
         latitude = 89.8
     elif observer.latitude < -89.8:
@@ -509,25 +552,28 @@ def zenith_and_azimuth(observer: Observer, dateandtime: datetime.datetime) -> Tu
 
     zenith = degrees(acos(csz))
 
-    # Correct for refraction
-    # exoatmElevation = 90.0 - zenith
+    if adjust_for_refraction:
+        # Correct for refraction
+        exoatmAltitude = 90.0 - zenith
+        refractionCorrection = adjust_refraction_for_zenith(exoatmAltitude)
+        zenith += refractionCorrection
 
-    # if exoatmElevation <= 85.0:
-    #     te = tan(radians(exoatmElevation))
-    #     if exoatmElevation > 5.0:
-    #         refractionCorrection = (
-    #             58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
-    #         )
-    #     elif exoatmElevation > -0.575:
-    #         step1 = -12.79 + exoatmElevation * 0.711
-    #         step2 = 103.4 + exoatmElevation * (step1)
-    #         step3 = -518.2 + exoatmElevation * (step2)
-    #         refractionCorrection = 1735.0 + exoatmElevation * (step3)
-    #     else:
-    #         refractionCorrection = -20.774 / te
+        # if exoatmAltitude <= 85.0:
+        #     te = tan(radians(exoatmAltitude))
+        #     if exoatmAltitude > 5.0:
+        #         refractionCorrection = (
+        #             58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
+        #         )
+        #     elif exoatmAltitude > -0.575:
+        #         step1 = -12.79 + exoatmAltitude * 0.711
+        #         step2 = 103.4 + exoatmAltitude * (step1)
+        #         step3 = -518.2 + exoatmAltitude * (step2)
+        #         refractionCorrection = 1735.0 + exoatmAltitude * (step3)
+        #     else:
+        #         refractionCorrection = -20.774 / te
 
-    #     refractionCorrection = refractionCorrection / 3600.0
-    #     zenith -= refractionCorrection
+        #     refractionCorrection = refractionCorrection / 3600.0
+        #     zenith -= refractionCorrection
 
     azDenom = cos(radians(latitude)) * sin(radians(zenith))
 
@@ -610,12 +656,12 @@ def azimuth(
     return zenith_and_azimuth(observer, dateandtime)[1]
 
 
-def altitude(
+def elevation(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> float:
-    """Calculate the altitude angle of the sun.
+    """Calculate the elevation angle of the sun.
 
     Args:
         observer:    Observer to calculate the solar elevation for
