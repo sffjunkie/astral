@@ -101,7 +101,7 @@ def latlng_to_float(dms: str) -> float:
     try:
         return float(dms)
     except ValueError:
-        _dms_re = r"(?P<deg>\d{1,3})[°](?P<min>\d{1,2})[′']((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])"
+        _dms_re = r"(?P<deg>\d{1,3})[°]((?P<min>\d{1,2})[′'])?((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])?"
         m = re.match(_dms_re, dms, flags=re.IGNORECASE)
         if m:
             deg = m.group("deg")
@@ -109,7 +109,9 @@ def latlng_to_float(dms: str) -> float:
             sec = m.group("sec")
             dir_ = m.group("dir")
 
-            res = float(deg) + (float(min_) / 60)
+            res = float(deg)
+            if min_:
+                res += (float(min_) / 60)
             if sec:
                 res += float(sec) / 3600
 
