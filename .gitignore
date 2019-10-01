@@ -9,6 +9,7 @@ _version.py
 .coveralls.yml
 .atom-build.yaml
 .atom-build.yml
+poetry.lock
 
 # Numerous always-ignore extensions
 *.diff
