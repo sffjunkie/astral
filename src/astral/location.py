@@ -14,7 +14,7 @@ class Location:
     """Provides access to information for single location."""
 
     def __init__(self, info: Optional[LocationInfo] = None):
-        """Initializes the object with a LocationInfo object.
+        """Initializes the Location with a LocationInfo object.
 
             The tuple should contain items in the following order
 
@@ -576,7 +576,7 @@ class Location:
         else:
             return astral.sun.twilight(observer, date, direction)
 
-    def time_at_altitude(
+    def time_at_elevation(
         self,
         altitude: float,
         date: datetime.date = None,
@@ -619,11 +619,11 @@ class Location:
         observer = Observer(self.latitude, self.longitude, altitude)
 
         if local:
-            return astral.sun.time_at_altitude(
+            return astral.sun.time_at_elevation(
                 observer, altitude, date, direction, self.tzinfo
             )
         else:
-            return astral.sun.time_at_altitude(observer, altitude, date, direction)
+            return astral.sun.time_at_elevation(observer, altitude, date, direction)
 
     def rahukaalam(
         self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
@@ -782,7 +782,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, self.elevation)
 
         dateandtime = dateandtime.astimezone(pytz.utc)  # type: ignore
-        return astral.sun.altitude(observer, dateandtime)
+        return astral.sun.elevation(observer, dateandtime)
 
     def solar_zenith(self, dateandtime: datetime.datetime) -> float:
         """Calculates the solar zenith angle for a specific time.
