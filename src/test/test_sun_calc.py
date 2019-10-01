@@ -207,7 +207,7 @@ def test_Azimuth(new_delhi):
     )
 
 
-def test_Altitude(new_delhi):
+def test_Azimuth(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert approx(
         sun.azimuth(new_delhi, d),
@@ -219,7 +219,7 @@ def test_Altitude_NonNaive(new_delhi):
     d = datetime.datetime(2001, 6, 21, 18, 41, 0)
     d = new_delhi.tz.localize(d)
     assert approx(
-        sun.altitude(new_delhi, d),
+        sun.elevation(new_delhi, d),
         7.41,
     )
 
@@ -231,4 +231,4 @@ def test_Azimuth_Above85Degrees():
 
 def test_Altitude_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert approx(sun.altitude(Observer(86, 77.2), d), 23.10)
+    assert approx(sun.elevation(Observer(86, 77.2), d), 23.10)

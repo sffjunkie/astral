@@ -273,13 +273,13 @@ def test_SolarAltitude(london):
     }
 
     for dt, angle1 in test_data.items():
-        angle2 = sun.altitude(london, dt)
+        angle2 = sun.elevation(london, dt)
         assert pytest.approx(angle1, angle2)
 
 
 @freezegun.freeze_time("2015-12-14 11:00:00", tz_offset=0)
 def test_SolarAltitude_NoDate(london):
-    assert pytest.approx(sun.altitude(london), 14.41614)
+    assert pytest.approx(sun.elevation(london), 14.41614)
 
 
 def test_SolarAzimuth(london):
@@ -315,7 +315,7 @@ def test_SolarZenith_NoDate(london):
 
 def test_TimeAtAltitude_SunRising(london):
     d = datetime.date(2016, 1, 4)
-    dt = sun.time_at_altitude(london, 6, d, SunDirection.RISING)
+    dt = sun.time_at_elevation(london, 6, d, SunDirection.RISING)
     cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=pytz.utc)
     # Use error of 5 minutes as website has a rather coarse accuracy
     assert datetime_almost_equal(dt, cdt, 300)
@@ -323,7 +323,7 @@ def test_TimeAtAltitude_SunRising(london):
 
 @freezegun.freeze_time("2016-1-4")
 def test_TimeAtAltitude_NoDate(london):
-    dt = sun.time_at_altitude(london, 6, direction=SunDirection.RISING)
+    dt = sun.time_at_elevation(london, 6, direction=SunDirection.RISING)
     cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=pytz.utc)
     # Use error of 5 minutes as website has a rather coarse accuracy
     assert datetime_almost_equal(dt, cdt, 300)
@@ -331,28 +331,28 @@ def test_TimeAtAltitude_NoDate(london):
 
 def test_TimeAtAltitude_SunSetting(london):
     d = datetime.date(2016, 1, 4)
-    dt = sun.time_at_altitude(london, 14, d, SunDirection.SETTING)
+    dt = sun.time_at_elevation(london, 14, d, SunDirection.SETTING)
     cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.utc)
     assert datetime_almost_equal(dt, cdt, 300)
 
 
 def test_TimeAtAltitude_GreaterThan90(london):
     d = datetime.date(2016, 1, 4)
-    dt = sun.time_at_altitude(london, 166, d, SunDirection.RISING)
+    dt = sun.time_at_elevation(london, 166, d, SunDirection.RISING)
     cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.utc)
     assert datetime_almost_equal(dt, cdt, 300)
 
 
 def test_TimeAtAltitude_GreaterThan180(london):
     d = datetime.date(2015, 12, 1)
-    dt = sun.time_at_altitude(london, 186, d, SunDirection.RISING)
+    dt = sun.time_at_elevation(london, 186, d, SunDirection.RISING)
     cdt = datetime.datetime(2015, 12, 1, 16, 34, tzinfo=pytz.utc)
     assert datetime_almost_equal(dt, cdt, 300)
 
 
 def test_TimeAtAltitude_SunRisingBelowHorizon(london):
     d = datetime.date(2016, 1, 4)
-    dt = sun.time_at_altitude(london, -18, d, SunDirection.RISING)
+    dt = sun.time_at_elevation(london, -18, d, SunDirection.RISING)
     cdt = datetime.datetime(2016, 1, 4, 6, 0, 0, tzinfo=pytz.utc)
     assert datetime_almost_equal(dt, cdt, 300)
 
@@ -360,7 +360,7 @@ def test_TimeAtAltitude_SunRisingBelowHorizon(london):
 def test_TimeAtAltitude_BadElevation(london):
     d = datetime.date(2016, 1, 4)
     with pytest.raises(AstralError):
-        sun.time_at_altitude(london, 20, d, SunDirection.RISING)
+        sun.time_at_elevation(london, 20, d, SunDirection.RISING)
 
 
 def test_Daylight(london):

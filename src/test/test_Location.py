@@ -135,7 +135,7 @@ def test_Location_TimeAtAltitude(new_delhi):
 
     for day, cdt in test_data.items():
         cdt = new_delhi.tz.localize(cdt)
-        dt = new_delhi.time_at_altitude(28, day)
+        dt = new_delhi.time_at_elevation(28, day)
         assert datetime_almost_equal(dt, cdt, seconds=600)
 
 
