@@ -18,7 +18,7 @@ from typing import Dict, Generator, List, Tuple, Union
 from astral import LocationInfo, latlng_to_float
 
 
-__all__ = ["all_locations", "database", "lookup"]
+__all__ = ["lookup", "database", "add_locations", "all_locations"]
 
 
 # region Location Info
