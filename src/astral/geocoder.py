@@ -1,9 +1,9 @@
-"""Astral geocoder is a local database of locations.
+"""Astral geocoder is a database of locations stored within the package.
 
 To get the :class:`~astral.LocationInfo` for a location use the lookup function e.g. ::
 
-    from astral.geocoder import lookup
-    l = lookup("London")
+    from astral.geocoder import lookup, database
+    l = lookup("London", database())
 
 All locations stored in the database can be accessed using the `all_locations` generator ::
 
@@ -496,7 +496,11 @@ def _add_locations_from_list(location_list: List[Tuple], db: LocationDatabase) -
 
 
 def add_locations(locations: Union[List, str], db: LocationDatabase) -> None:
-    """Add locations to the database"""
+    """Add locations to the database.
+
+    Locations can be added by passing either a string with one line per location or by passing
+    a list containing strings, lists or tuples (lists and tuples are passed directly to the
+    LocationInfo constructor)."""
     if isinstance(locations, str):
         _add_locations_from_str(locations, db)
     elif isinstance(locations, (list, tuple)):
