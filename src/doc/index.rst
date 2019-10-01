@@ -17,8 +17,8 @@ Astral v\ |release|
 
 |travis_status| |pypi_ver|
 
-Astral is a python module for calculating the times of various aspects of
-the sun and moon.
+Astral is a python package for calculating the times of various aspects of
+the sun and phases of the moon.
 
 It can calculate the following
 
@@ -31,7 +31,7 @@ Sunrise
     (asuming a location with no obscuring features.)
 
 Solar Noon
-    The time when the sun is at its highest point.
+    The time when the sun is at its highest point directly above the observer.
 
 Solar Midnight
     The time when the sun is at its lowest point.
@@ -59,14 +59,17 @@ The Golden Hour
 The Blue Hour
    The time when the sun is between 6 and 4 degrees below the horizon.
 
-Time At Elevation
+Time At Altitude
    the time when the sun is at a specific elevation for either a rising or a
    setting sun.
 
 Solar Azimuth
     The number of degrees clockwise from North at which the sun can be seen
 
-Solar Elevation / Altitude
+Solar Zenith
+    The angle of the sun down from directly above the observer
+
+Solar Altitude
     The number of degrees up from the horizon at which the sun can be seen
 
 `Rahukaalam`_
@@ -78,18 +81,18 @@ Moon Phase
     Calculates the phase of the moon for a specified date.
 
 Astral also comes with a geocoder containing a local database that allows you to look up
-information for a set of locations (`new locations can be added <additional_locations_>`__).
+information for a small set of locations (`new locations can be added <additional_locations_>`__).
 
 .. note::
 
-   The Google Geocoder has been removed. Instead you can use the
+   The Google Geocoder has been removed. Instead you should use the
    Google Client for Google Maps Services
    https://github.com/googlemaps/google-maps-services-python
 
 Examples
 ========
 
-The following examples demonstrate the functionality available in the module
+The following examples demonstrates some of the functionality available in the module
 
 Sun
 ----
@@ -113,14 +116,14 @@ Sun
     >>> from astral.sun import sun
     >>> s = sun(city, date=datetime.date(2009, 4, 22))
     >>> print(f'Dawn:    {sun['dawn']}')
-    >>> print(f'Sunrise: {sun['sunrise']}')
-    >>> print(f'Noon:    {sun['noon']}')
-    >>> print(f'Sunset:  {sun['sunset']}')
-    >>> print(f'Dusk:    {sun['dusk']}')
     Dawn:     2009-04-22 05:12:56+01:00
+    >>> print(f'Sunrise: {sun['sunrise']}')
     Sunrise:  2009-04-22 05:49:36+01:00
+    >>> print(f'Noon:    {sun['noon']}')
     Noon:     2009-04-22 12:58:48+01:00
+    >>> print(f'Sunset:  {sun['sunset']}')
     Sunset:   2009-04-22 20:09:07+01:00
+    >>> print(f'Dusk:    {sun['dusk']}')
     Dusk:     2009-04-22 20:45:52+01:00
 
 Moon
@@ -130,20 +133,21 @@ Moon
 
    >>> import datetime
    >>> from astral.moon import phase
-   >>> moon_phase = phase(date=datetime.date(2018, 1, 1))
-   >>> print(moon_phase)
+   >>> phase(date=datetime.date(2018, 1, 1))
    13
-   >>> moon_phase = phase(datetime.date(2018, 1, 1), float)
+   >>> phase(datetime.date(2018, 1, 1), float)
    13.255666666666668
 
 The moon phase method returns an number describing the phase, where the value is between 0 and 27
 (27.99 if you pass float as the return type).
 The following lists the mapping of various vales to the description of the phase of the moon.
 
-   | 0  = New Moon
-   | 7  = First Quarter
-   | 14 = Full Moon
-   | 21 = Last Quarter
+===  ==============
+0    New moon
+7    First quarter
+14   Full moon
+21   Last quarter
+===  ==============
 
 If for example the number returned was 27(.99) then the moon would be almost at the New Moon phase,
 and if it was 24 it would be half way between the Last Quarter and a New Moon.
@@ -170,11 +174,10 @@ Geocoder
 
 .. code-block::
 
-    >>> from astral.geocoder import lookup
-    >>> lookup("London")
-    LocationInfo(name='London', region='UK', latitude=51.5073509, longitude=-0.1277583,
-                 timezone='UTC', elevation=7)
-
+    >>> from astral.geocoder import database, lookup
+    >>> lookup("London", database())
+    LocationInfo(name='London', region='England', timezone='Europe/London',
+        latitude=51.473333333333336, longitude=-0.0008333333333333334, elevation=24.0)
 
 .. _additional_locations:
 
@@ -182,9 +185,25 @@ Additional Locations
 ~~~~~~~~~~~~~~~~~~~~
 
 You can add to the list of available locations
-using the :meth:`~astral.geocoder.add_locations` function and passing either a string with one
+using the :func:`~astral.geocoder.add_locations` function and passing either a string with one
 line per location or by passing a list containing strings, lists or tuples (lists and tuples are
 passed directly to the LocationInfo constructor).
+
+.. code-block::
+
+    >>> from astral.geocoder import database
+    >>> db = database()
+    >>> try:
+    ...     lookup("Somewhere", db)
+    ... except KeyError:
+    ...     print("Somewhere not found")
+    ...
+    Somewhere not found
+    >>> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E,631.0", db)
+    >>> lookup("Somewhere", db)
+    LocationInfo(name='Somewhere', region='Secret Location', timezone='UTC',
+        latitude=24.466666666666665, longitude=39.6, elevation=631.0)
+
 
 Custom Location
 ~~~~~~~~~~~~~~~
@@ -194,6 +213,7 @@ construct a :class:`~astral.LocationInfo` and fill in the values, either on init
 
 .. code-block::
 
+    from astral import LocationInfo
     from astral.utc import sun
     l = LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2, 0)
     sun(observer=l)
@@ -223,9 +243,8 @@ Timezone groups such as Europe can be accessed via the :func:`group` function in
 
     >>> from astral import geocoder
     >>> europe = geocoder.group('europe')["locations"]
-    >>> europe.sort()
-    >>> europe
-    ['Aberdeen', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Athens', ...]
+    >>> sorted(europe.keys())
+    ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
 
 
 Effect of Elevation
@@ -234,8 +253,8 @@ Effect of Elevation
 An attempt has been made to allow for the effect of elevation on the times for the sun.
 Higher elevations cause the sun to rise earlier and to set later for the observer.
 
-This is performed by calculating the angle α in the image below and adding this to the
-depression angle for the sun calculations.
+This is performed by calculating the angle α in the image below, the angle that an observer can
+see further around the earth, and adding this to the depression angle for the sun calculations.
 
 .. image:: elevation.svg
 
@@ -252,8 +271,7 @@ When creating a datetime object in a specific timezone do not use the
 :meth:`~pytz.tzinfo.localize` method provided by pytz on the correct pytz timezone::
 
    >>> dt = datetime.datetime(2015, 1, 1, 9, 0, 0)
-   >>> dt = pytz.timezone('Europe/London').localize(dt)
-   >>> dt
+   >>> pytz.timezone('Europe/London').localize(dt)
    datetime.datetime(2015, 1, 1, 9, 0, tzinfo=<DstTzInfo 'Europe/London' GMT0:00:00 STD>)
 
 
@@ -371,157 +389,188 @@ Simon Kennedy <sffjunkie+code@gmail.com>
 Version History
 ===============
 
-======== =======================================================================
-Version  Description
-======== =======================================================================
-2.0a1    * Code is now only compatible with Python 3.6 and greater due to the
+========== =======================================================================
+Version    Description
+========== =======================================================================
+2.0-alpha  Code is now only compatible with Python 3.6 and greater due to the
            use of data classes
-         * New :class:`~astral.Observer` class to store a latitude, longitude & elevation
-         * New :class:`~astral.LocationInfo` class to store a location name, region, timezone,
+
+           New :class:`~astral.Observer` class to store a latitude, longitude & elevation
+
+           New :class:`~astral.LocationInfo` class to store a location name, region, timezone,
            latitude, longitude & elevation
-         * Geocoder functions return a :class:`~astral.LocationInfo` instead of a Location
-         * `elevation` in function names renamed to `altitude`. Elevation now
-           refers to the observer's elevation above sea level
-         * The Google geocoder and Astral classes have been removed
--------- -----------------------------------------------------------------------
-1.10.1   Keyword args are now passed to the geocoder class from Astral __init__
-         in order to allow the Google Maps API key to be passed to the
-         GoogleGeocoder.
--------- -----------------------------------------------------------------------
-1.10     Added support to AstralGeocoder to add
-         `additional locations <additional_locations_>`__
-         to the database.
--------- -----------------------------------------------------------------------
-1.9.2    1.9 broke the sun_utc method. Sun UTC calculation passed incorrect
-         parameter to more specific methods e.g. sunrise, sunset etc.
--------- -----------------------------------------------------------------------
-1.9.1    Correct version number in astral.py
--------- -----------------------------------------------------------------------
-1.9      Now takes elevation into account.
--------- -----------------------------------------------------------------------
-1.8      * Location methods now allow the timezone to be None which returns all
+
+           Geocoder functions return a :class:`~astral.LocationInfo` instead of a
+           :class:`~astral.location.Location`
+
+           The solar_noon and solar_midnight functions have been renamed to noon and
+           midnight respsectively.
+
+           The Google geocoder and Astral classes have been removed
+---------- -----------------------------------------------------------------------
+1.10.1     Keyword args are now passed to the geocoder class from Astral __init__
+           in order to allow the Google Maps API key to be passed to the
+           GoogleGeocoder.
+---------- -----------------------------------------------------------------------
+1.10       Added support to AstralGeocoder to add
+           `additional locations <additional_locations_>`__
+           to the database.
+---------- -----------------------------------------------------------------------
+1.9.2      1.9 broke the sun_utc method. Sun UTC calculation passed incorrect
+           parameter to more specific methods e.g. sunrise, sunset etc.
+---------- -----------------------------------------------------------------------
+1.9.1      Correct version number in astral.py
+---------- -----------------------------------------------------------------------
+1.9        Now takes elevation into account.
+---------- -----------------------------------------------------------------------
+1.8        Location methods now allow the timezone to be None which returns all
            times as UTC.
-         * Added command line interface to return 'sun' values
--------- -----------------------------------------------------------------------
-1.7.1    * Changed GoogleGeocoder test to not use raise...from as this is not
+
+           Added command line interface to return 'sun' values
+---------- -----------------------------------------------------------------------
+1.7.1      Changed GoogleGeocoder test to not use raise...from as this is not
            valid for Python 2
--------- -----------------------------------------------------------------------
-1.7      * Requests is now only needed when using GoogleGeocoder
-         * GoogleGeocoder now requires the `api_key` parameter to be passed to
+---------- -----------------------------------------------------------------------
+1.7        Requests is now only needed when using GoogleGeocoder
+
+           GoogleGeocoder now requires the `api_key` parameter to be passed to
            the constructor as Google now require it for their API calls.
--------- -----------------------------------------------------------------------
-1.6.1    * Updates for Travis CI integration / Github signed release.
--------- -----------------------------------------------------------------------
-1.6      * Added api_key parameter to the GoogleGeocoder :meth:`__init__` method
--------- -----------------------------------------------------------------------
-1.5      * Added parameter `rtype` to :meth:`moon_phase` to determine the
+---------- -----------------------------------------------------------------------
+1.6.1      Updates for Travis CI integration / Github signed release.
+---------- -----------------------------------------------------------------------
+1.6        Added api_key parameter to the GoogleGeocoder :meth:`__init__` method
+---------- -----------------------------------------------------------------------
+1.5        Added parameter `rtype` to :meth:`moon_phase` to determine the
            return type of the method.
-         * Added example for calculating the phase of the moon.
--------- -----------------------------------------------------------------------
-1.4.1    * Using versioneer to manage version numbers
--------- -----------------------------------------------------------------------
-1.4      * Changed to use calculations from NOAA spreadsheets
-         * Changed some exception error messages for when sun does not reach
+
+           Added example for calculating the phase of the moon.
+---------- -----------------------------------------------------------------------
+1.4.1      Using versioneer to manage version numbers
+---------- -----------------------------------------------------------------------
+1.4        Changed to use calculations from NOAA spreadsheets
+
+           Changed some exception error messages for when sun does not reach
            a requested elevation.
-         * Added more tests
--------- -----------------------------------------------------------------------
-1.3.4    * Changes to project configuration files. No user facing changes.
--------- -----------------------------------------------------------------------
-1.3.3    * Fixed call to twilight_utc as date and direction parameters
+
+           Added more tests
+---------- -----------------------------------------------------------------------
+1.3.4      Changes to project configuration files. No user facing changes.
+---------- -----------------------------------------------------------------------
+1.3.3      Fixed call to twilight_utc as date and direction parameters
            were reversed.
--------- -----------------------------------------------------------------------
-1.3.2    * Updated URL to point to gitgub.com
-         * Added Apache 2.0 boilerplate to source file
--------- -----------------------------------------------------------------------
-1.3.1    * Added LICENSE file to sdist
--------- -----------------------------------------------------------------------
-1.3      * Corrected solar zenith to return the angle from the vertical.
-         * Added solar midnight calculation.
--------- -----------------------------------------------------------------------
-1.2      * Added handling for when unicode literals are used. This may possibly
+---------- -----------------------------------------------------------------------
+1.3.2      Updated URL to point to gitgub.com
+
+           Added Apache 2.0 boilerplate to source file
+---------- -----------------------------------------------------------------------
+1.3.1      Added LICENSE file to sdist
+---------- -----------------------------------------------------------------------
+1.3        Corrected solar zenith to return the angle from the vertical.
+
+           Added solar midnight calculation.
+---------- -----------------------------------------------------------------------
+1.2        Added handling for when unicode literals are used. This may possibly
            affect your code if you're using Python 2 (there are tests for this
            but they may not catch all uses.) (Bug `1588198`_\)
-         * Changed timezone for Phoenix, AZ to America/Phoenix (Bug `1561258`_\)
--------- -----------------------------------------------------------------------
-1.1      * Added methods to calculate Twilight, the Golden Hour and the Blue
+
+           Changed timezone for Phoenix, AZ to America/Phoenix (Bug `1561258`_\)
+---------- -----------------------------------------------------------------------
+1.1        Added methods to calculate Twilight, the Golden Hour and the Blue
            Hour.
--------- -----------------------------------------------------------------------
-1.0      * It's time for a version 1.0
-         * Added examples where the location you want is not in the Astral
+---------- -----------------------------------------------------------------------
+1.0        It's time for a version 1.0
+
+           Added examples where the location you want is not in the Astral
            geocoder.
--------- -----------------------------------------------------------------------
-0.9      * Added a method to calculate the date and time when the sun is at a
+---------- -----------------------------------------------------------------------
+0.9        Added a method to calculate the date and time when the sun is at a
            specific elevation, for either a rising or a setting sun.
-         * Added daylight and night methods to Location and Astral classes.
-         * Rahukaalam methods now return a tuple.
--------- -----------------------------------------------------------------------
-0.8.2    * Fix for moon phase calcualtions which were off by 1.
-         * Use pytz.timezone().localize method instead of passing tzinfo
+
+           Added daylight and night methods to Location and Astral classes.
+
+           Rahukaalam methods now return a tuple.
+---------- -----------------------------------------------------------------------
+0.8.2      Fix for moon phase calcualtions which were off by 1.
+
+           Use pytz.timezone().localize method instead of passing tzinfo
            parameter to datetime.datetime. See the `pytz docs`_ for info
--------- -----------------------------------------------------------------------
-0.8.1    * Fix for bug `1417641`_\: :meth:`~astral.Astral.solar_elevation` and
+---------- -----------------------------------------------------------------------
+0.8.1      Fix for bug `1417641`_\: :meth:`~astral.Astral.solar_elevation` and
            :meth:`~astral.Astral.solar_azimuth` fail when a naive
            :class:`~datetime.datetime` object is used.
-         * Added :meth:`solar_zenith` methods to :class:`~astral.Astral`
+
+           Added :meth:`solar_zenith` methods to :class:`~astral.Astral`
            and :class:`~astral.Location` as an
            alias for :meth:`solar_elevation`
-         * Added `tzinfo` as an alias for `tz`
--------- -----------------------------------------------------------------------
-0.8      Fix for bug `1407773`_\: Moon phase calculation changed to remove
-         time zone parameter (tz) as it is not required for the calculation.
--------- -----------------------------------------------------------------------
-0.7.5    Fix for bug `1402103`_\: Buenos Aires incorrect timezone
--------- -----------------------------------------------------------------------
-0.7.4    Added Canadian cities from Yip Shing Ho
--------- -----------------------------------------------------------------------
-0.7.3    Fix for bug `1239387`_ submitted by Torbjörn Lönnemark
--------- -----------------------------------------------------------------------
-0.7.2    Minor bug fix in :class:`~astral.GoogleGeocoder`. location name and
-         region are now stripped of whitespace
--------- -----------------------------------------------------------------------
-0.7.1    Bug fix. Missed a vital return statement in the
-         :class:`~astral.GoogleGeocoder`
--------- -----------------------------------------------------------------------
-0.7      * Added ability to lookup location information from
+
+           Added `tzinfo` as an alias for `tz`
+---------- -----------------------------------------------------------------------
+0.8        Fix for bug `1407773`_\: Moon phase calculation changed to remove
+           time zone parameter (tz) as it is not required for the calculation.
+---------- -----------------------------------------------------------------------
+0.7.5      Fix for bug `1402103`_\: Buenos Aires incorrect timezone
+---------- -----------------------------------------------------------------------
+0.7.4      Added Canadian cities from Yip Shing Ho
+---------- -----------------------------------------------------------------------
+0.7.3      Fix for bug `1239387`_ submitted by Torbjörn Lönnemark
+---------- -----------------------------------------------------------------------
+0.7.2      Minor bug fix in :class:`~astral.GoogleGeocoder`. location name and
+           region are now stripped of whitespace
+---------- -----------------------------------------------------------------------
+0.7.1      Bug fix. Missed a vital return statement in the
+           :class:`~astral.GoogleGeocoder`
+---------- -----------------------------------------------------------------------
+0.7        Added ability to lookup location information from
            Google's mapping APIs (see :class:`~astral.GoogleGeocoder`)
-         * Renamed :class:`City` class to :class:`~astral.Location`
-         * Renamed :class:`CityDB` to :class:`~astral.AstralGeocoder`
-         * Added elevations of cities to database and property to
+
+           Renamed :class:`City` class to :class:`~astral.Location`
+
+           Renamed :class:`CityDB` to :class:`~astral.AstralGeocoder`
+
+           Added elevations of cities to database and property to
            obtain elevation from :class:`~astral.Location` class
--------- -----------------------------------------------------------------------
-0.6.2    Added various cities to database as per
-         https://bugs.launchpad.net/astral/+bug/1040936
--------- -----------------------------------------------------------------------
-0.6.1    * Docstrings were not updated to match changes to code.
-         * Other minor docstring changes made
--------- -----------------------------------------------------------------------
-0.6      * Fix for bug `884716`_ submitted by Martin Heemskerk
+---------- -----------------------------------------------------------------------
+0.6.2      Added various cities to database as per
+           https://bugs.launchpad.net/astral/+bug/1040936
+---------- -----------------------------------------------------------------------
+0.6.1      Docstrings were not updated to match changes to code.
+
+           Other minor docstring changes made
+---------- -----------------------------------------------------------------------
+0.6        Fix for bug `884716`_ submitted by Martin Heemskerk
            regarding moon phase calculations
 
-         * Fixes for bug report `944754`_ submitted by Hajo Werder
+           Fixes for bug report `944754`_ submitted by Hajo Werder
 
            - Changed co-ordinate system so that eastern longitudes
              are now positive
            - Added solar_depression property to City class
--------- -----------------------------------------------------------------------
-0.5      * Changed :class:`City` to accept unicode name and country.
-         * Moved city information into a database class :class:`CityDB`
-         * Added attribute access to database for timezone groups
--------- -----------------------------------------------------------------------
-0.4      * Duplicate city names could not be accessed.
-         * Sun calculations for some cities failed with times
+---------- -----------------------------------------------------------------------
+0.5        Changed :class:`City` to accept unicode name and country.
+
+           Moved city information into a database class :class:`CityDB`
+
+           Added attribute access to database for timezone groups
+---------- -----------------------------------------------------------------------
+0.4        Duplicate city names could not be accessed.
+
+           Sun calculations for some cities failed with times
            outside valid ranges.
-         * Fixes for city data.
-         * Added calculation for moon phase.
--------- -----------------------------------------------------------------------
-0.3      * Changed to `Apache`_ V2.0 license.
-         * Fix for bug `555508`_ submitted by me.
-         * US state capitals and other cities added.
--------- -----------------------------------------------------------------------
-0.2      Fix for bug `554041`_ submitted by Derek\_ / John Dimatos
--------- -----------------------------------------------------------------------
-0.1      First release
-======== =======================================================================
+
+           Fixes for city data.
+
+           Added calculation for moon phase.
+---------- -----------------------------------------------------------------------
+0.3        Changed to `Apache`_ V2.0 license.
+
+           Fix for bug `555508`_ submitted by me.
+
+           US state capitals and other cities added.
+---------- -----------------------------------------------------------------------
+0.2        Fix for bug `554041`_ submitted by Derek\_ / John Dimatos
+---------- -----------------------------------------------------------------------
+0.1        First release
+========== =======================================================================
 
 .. _Rahukaalam: http://en.wikipedia.org/wiki/Rahukaalam
 .. _Sourceforge: http://pytz.sourceforge.net/

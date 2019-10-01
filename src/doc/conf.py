@@ -19,17 +19,17 @@ if MOCK_MODULES and on_rtd:
 
     sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
-# -- General configuration ----------------------------------------------------
+# region General configuration ----------------------------------------------------
 
 project = "Astral"
 author = "Simon Kennedy"
 copyright = "2009-2019, %s" % author
-version = "2.0a1"
-release = "2.0 alpha 1"
+version = "2.0-alpha"
+release = "2.0 alpha"
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.intersphinx"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.intersphinx", "sphinx.ext.napoleon"]
 
 # intersphinx_mapping = {"python": ("http://docs.python.org/3", None)}
 intersphinx_mapping = {"python": (".", "python3_intersphinx.inv")}
@@ -87,8 +87,9 @@ pygments_style = "sphinx"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["templates"]
+# endregion
 
-# -- Options for HTML output ---------------------------------------------------
+# region Options for HTML output ---------------------------------------------------
 
 if not on_rtd:
     project_home = os.environ.get("PROJECT_HOME", None)
@@ -100,18 +101,15 @@ if not on_rtd:
         project_home = os.path.expanduser(project_home)
 
     if project_home:
-        theme_root = os.path.join(project_home, "sphinx-theme", "sffjunkie", "trunk")
+        theme_root = os.path.join(project_home, "sphinx-theme")
         html_theme_path = [theme_root]
     else:
         raise OSError(
             "Unable to find theme root: Please set the PROJECT_HOME environment variable"
         )
-
-    html_theme = "press"
-    # html_theme = 'sffjunkie'
-    # html_theme_options = {'logo_shadow': True, 'fixed_header': False}
+    html_theme = "sffjunkie"
 else:
-    html_theme = "default"
+    html_theme = "basic"
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -127,8 +125,8 @@ html_logo = os.path.join("static", "earth_sun.png")
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-# if not on_rtd:
-#    html_favicon = os.path.join('_static', 'favicon.png')
+if not on_rtd:
+    html_favicon = os.path.join('static', 'weather-sunny.png')
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -169,14 +167,15 @@ html_domain_indices = False
 
 # If nonempty, this is the file name suffix for HTML files (e.g. ".xhtml").
 # html_file_suffix = ''
+# endregion
 
-# -- Options for HTML Help output --------------------------------------------------
+# region Options for HTML Help output --------------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = "AstralDoc"
+# endregion
 
-
-# -- Options for LaTeX output --------------------------------------------------
+# region Options for LaTeX output --------------------------------------------------
 
 # The paper size ('letter' or 'a4').
 # latex_paper_size = 'a4'
@@ -205,3 +204,4 @@ latex_documents = [("index", "Astral.tex", "Astral v%s" % release, author, "manu
 
 # If false, no module index is generated.
 # latex_use_modindex = True
+# endregion

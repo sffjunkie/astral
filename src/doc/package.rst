@@ -32,8 +32,14 @@ astral.moon
 .. automodule:: astral.moon
    :members:
 
+astral.geocoder
+~~~~~~~~~~~~~~~
+
+.. automodule:: astral.geocoder
+   :members:
+
 Location
---------
+~~~~~~~~
 
 .. autoclass:: astral.location.Location
    :members:
