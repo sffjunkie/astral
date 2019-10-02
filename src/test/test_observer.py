@@ -39,3 +39,15 @@ class TestObserver:
     def test_bad_elevaion(self):
         with pytest.raises(ValueError):
             Observer(1, 1, "o")
+
+    def test_latitude_outside_limits(self):
+        with pytest.raises(ValueError):
+            Observer(91, 0, 0)
+        with pytest.raises(ValueError):
+            Observer(-91, 0, 0)
+
+    def test_longitude_outside_limits(self):
+        with pytest.raises(ValueError):
+            Observer(181, 0, 0)
+        with pytest.raises(ValueError):
+            Observer(-180.1, 0, 0)

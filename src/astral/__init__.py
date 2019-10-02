@@ -56,6 +56,7 @@ import datetime
 import re
 from dataclasses import dataclass
 from enum import Enum
+from math import fabs
 from typing import Any
 
 try:
@@ -156,8 +157,14 @@ class Observer:
     elevation: float = 24.0
 
     def __setattr__(self, name: str, value: Any):
-        if name in ["latitude", "longitude"]:
+        if name == "latitude":
             value = latlng_to_float(value)
+            if fabs(value) > 90.0:
+                raise ValueError("Latitiudes must be between +90 and -90 degrees")
+        elif name == "longitude":
+            value = latlng_to_float(value)
+            if fabs(value) > 180.0:
+                raise ValueError("Longitiudes must be between +180 and -180 degrees")
         elif name == "elevation":
             value = float(value)
         super(Observer, self).__setattr__(name, value)
