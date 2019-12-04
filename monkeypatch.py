@@ -3,7 +3,7 @@
 import os
 import sys
 import distutils.dist
-from distutils.util import check_environ, convert_path
+from distutils.util import check_environ
 from distutils.debug import DEBUG
 import setuptools.command.sdist
 
