@@ -16,12 +16,25 @@
 
 """Calculations for the position of the sun and moon.
 
-The :mod:`astral` package provides the means to calculate dawn, sunrise,
-solar noon, sunset, dusk and rahukaalam times, plus solar azimuth and
-elevation, for specific locations or at a specific latitude/longitude. It can
-also calculate the moon phase for a specific date.
+The :mod:`astral` package provides the means to calculate the following times of the sun
 
-The package also provides a self contained geocoder to turn location names into
+* dawn
+* sunrise
+* solar noon
+* solar midnight
+* sunset
+* dusk
+* rahukaalam
+* daylight
+* night
+* twilight
+* blue hour
+* golden hour
+
+plus solar azimuth and elevation at a specific latitude/longitude.
+It can also calculate the moon phase for a specific date.
+
+The package also provides a self contained geocoder to turn a small set of location names into
 timezone, latitude, longitude and elevation. The lookups can be perfomed using the
 :func:`lookup` function defined in :mod:`astral.geocoder`
 
