@@ -461,6 +461,17 @@ def _add_location_to_db(location: LocationInfo, db: LocationDatabase) -> None:
         group["locations"][location_key].append(location)
 
 
+def _indexable_to_locationinfo(idxable) -> LocationInfo:
+    return LocationInfo(
+        name=idxable[0],
+        region=idxable[1],
+        timezone=idxable[2],
+        latitude=latlng_to_float(idxable[3], 90),
+        longitude=latlng_to_float(idxable[4], 180),
+        elevation=float(idxable[5]),
+    )
+
+
 def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
     """Add locations from a string."""
 
@@ -468,14 +479,7 @@ def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
         line = line.strip()
         if line != "" and line[0] != "#":
             info = line.split(",")
-            location = LocationInfo(
-                name=info[0],
-                region=info[1],
-                timezone=info[2],
-                latitude=latlng_to_float(info[3]),
-                longitude=latlng_to_float(info[4]),
-                elevation=float(info[5]),
-            )
+            location = _indexable_to_locationinfo(info)
             _add_location_to_db(location, db)
 
 
@@ -485,14 +489,7 @@ def _add_locations_from_list(location_list: List[Tuple], db: LocationDatabase) -
         if isinstance(info, str):
             _add_locations_from_str(info, db)
         elif isinstance(info, (list, tuple)):
-            location = LocationInfo(
-                name=info[0],
-                region=info[1],
-                timezone=info[2],
-                latitude=latlng_to_float(info[3]),
-                longitude=latlng_to_float(info[4]),
-                elevation=float(info[5]),
-            )
+            location = _indexable_to_locationinfo(info)
             _add_location_to_db(location, db)
 
 
