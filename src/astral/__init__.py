@@ -102,7 +102,7 @@ def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
     return now(tzinfo).date()
 
 
-def latlng_to_float(dms: str) -> float:
+def latlng_to_float(dms: str, limit: float) -> float:
     """Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`,
     or a float encoded as a string, to a float
 
@@ -114,7 +114,7 @@ def latlng_to_float(dms: str) -> float:
     """
 
     try:
-        return float(dms)
+        res = float(dms)
     except ValueError:
         _dms_re = r"(?P<deg>\d{1,3})[°]((?P<min>\d{1,2})[′'])?((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])?"
         m = re.match(_dms_re, dms, flags=re.IGNORECASE)
@@ -132,10 +132,13 @@ def latlng_to_float(dms: str) -> float:
 
             if dir_ == "S" or dir_ == "W":
                 res = -res
-
-            return res
         else:
-            raise ValueError
+            raise ValueError("Unable to convert degrees/minutes/seconds to float")
+
+    if fabs(res) > limit:
+        raise ValueError(f"Value outside limits of +/-{limit}")
+
+    return res
 
 
 class AstralError(Exception):
@@ -171,13 +174,9 @@ class Observer:
 
     def __setattr__(self, name: str, value: Any):
         if name == "latitude":
-            value = latlng_to_float(value)
-            if fabs(value) > 90.0:
-                raise ValueError("Latitiudes must be between +90 and -90 degrees")
+            value = latlng_to_float(value, 90)
         elif name == "longitude":
-            value = latlng_to_float(value)
-            if fabs(value) > 180.0:
-                raise ValueError("Longitiudes must be between +180 and -180 degrees")
+            value = latlng_to_float(value, 180)
         elif name == "elevation":
             value = float(value)
         super(Observer, self).__setattr__(name, value)
@@ -216,8 +215,10 @@ class LocationInfo:
     elevation: float = 24.0
 
     def __setattr__(self, name: str, value: Any):
-        if name in ["latitude", "longitude"]:
-            value = latlng_to_float(value)
+        if name == "latitude":
+            value = latlng_to_float(value, 90)
+        elif name == "longitude":
+            value = latlng_to_float(value, 180)
         elif name == "elevation":
             value = float(value)
         super(LocationInfo, self).__setattr__(name, value)

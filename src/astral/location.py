@@ -99,13 +99,8 @@ class Location:
 
     @latitude.setter
     def latitude(self, latitude: Union[float, str]) -> None:
-        if isinstance(latitude, str):
-            _latitude = latlng_to_float(latitude)
-        else:
-            _latitude = float(latitude)
-
         self._location_info = dataclasses.replace(
-            self._location_info, latitude=_latitude
+            self._location_info, latitude=latlng_to_float(latitude, 90)
         )
 
     @property
@@ -125,13 +120,8 @@ class Location:
 
     @longitude.setter
     def longitude(self, longitude: Union[float, str]) -> None:
-        if isinstance(longitude, str):
-            _longitude = latlng_to_float(longitude)
-        else:
-            _longitude = float(longitude)
-
         self._location_info = dataclasses.replace(
-            self._location_info, longitude=_longitude
+            self._location_info, longitude=latlng_to_float(longitude, 180)
         )
 
     @property
