@@ -1,6 +1,7 @@
 """Astral geocoder is a database of locations stored within the package.
 
-To get the :class:`~astral.LocationInfo` for a location use the lookup function e.g. ::
+To get the :class:`~astral.LocationInfo` for a location use the
+:func:`~astral.geocoder.lookup` function e.g. ::
 
     from astral.geocoder import lookup, database
     l = lookup("London", database())
