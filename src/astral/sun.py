@@ -1,5 +1,5 @@
 import datetime
-from math import acos, asin, atan2, ceil, cos, degrees, floor, radians, sin, sqrt, tan
+from math import fabs, acos, asin, atan2, ceil, cos, degrees, floor, radians, sin, sqrt, tan
 from typing import Dict, Optional, Tuple
 
 import pytz
@@ -32,7 +32,7 @@ def proper_angle(value: float) -> float:
         value /= 360.0
         return (value - floor(value)) * 360.0
     else:
-        tmp = ceil(abs(value / 360.0))
+        tmp = ceil(fabs(value / 360.0))
         return value + tmp * 360.0
 
 
