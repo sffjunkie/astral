@@ -5,7 +5,6 @@ import pytest
 import pytz
 import datetime
 import freezegun
-from astral import AstralError
 from astral import sun
 from astral.sun import SunDirection
 
@@ -359,7 +358,7 @@ def test_TimeAtAltitude_SunRisingBelowHorizon(london):
 
 def test_TimeAtAltitude_BadElevation(london):
     d = datetime.date(2016, 1, 4)
-    with pytest.raises(AstralError):
+    with pytest.raises(ValueError):
         sun.time_at_elevation(london, 20, d, SunDirection.RISING)
 
 

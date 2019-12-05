@@ -3,7 +3,7 @@ from almost_equal import datetime_almost_equal
 import freezegun
 import pytest
 
-from astral import AstralError, LocationInfo
+from astral import LocationInfo
 from astral.location import Location
 import dataclasses
 import datetime
@@ -231,5 +231,5 @@ def test_Location_BadTzinfo():
     loc = Location()
     loc._location_info = dataclasses.replace(loc._location_info, timezone="Bad/Timezone")
 
-    with pytest.raises(AstralError):
+    with pytest.raises(ValueError):
         loc.tzinfo

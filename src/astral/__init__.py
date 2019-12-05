@@ -79,7 +79,6 @@ except ImportError:
 
 
 __all__ = [
-    "AstralError",
     "LocationInfo",
     "Observer",
     "SunDirection",
@@ -139,10 +138,6 @@ def latlng_to_float(dms: str, limit: float) -> float:
         raise ValueError(f"Value outside limits of +/-{limit}")
 
     return res
-
-
-class AstralError(Exception):
-    """Astral base exception class"""
 
 
 class SunDirection(Enum):

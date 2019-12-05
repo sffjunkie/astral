@@ -4,7 +4,7 @@ from typing import Dict, Optional, Tuple
 
 import pytz
 
-from astral import AstralError, Observer, SunDirection, now, today
+from astral import Observer, SunDirection, now, today
 
 __all__ = [
     "sun",
@@ -332,7 +332,7 @@ def time_of_transit(
     timeUTC = 720 + timeDiff - eqtime
 
     if timeUTC < 0:
-        raise AstralError(f"Sun never transits at a zenith of {zenith} on {date}")
+        raise ValueError(f"Sun never transits at a zenith of {zenith} on {date}")
 
     td = minutes_to_timedelta(timeUTC)
     dt = datetime.datetime(date.year, date.month, date.day) + td
@@ -376,7 +376,7 @@ def time_at_elevation(
         return time_of_transit(observer, date, zenith, direction).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
-            raise AstralError(
+            raise ValueError(
                 f"Sun never reaches an elevation of {elevation} degrees"
                 "at this location."
             )
@@ -710,7 +710,7 @@ def dawn(
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
-            raise AstralError(
+            raise ValueError(
                 f"Sun never reaches {depression} degrees below the horizon, at this location."
             )
         else:
@@ -746,7 +746,7 @@ def sunrise(
                 msg = "Sun is always below the horizon on this day, at this location."
             else:
                 msg = "Sun is always above the horizon on this day, at this location."
-            raise AstralError(msg) from exc
+            raise ValueError(msg) from exc
         else:
             raise
 
@@ -781,7 +781,7 @@ def sunset(
                 msg = "Sun is always below the horizon on this day, at this location."
             else:
                 msg = "Sun is always above the horizon on this day, at this location."
-            raise AstralError(msg) from exc
+            raise ValueError(msg) from exc
         else:
             raise
 
@@ -813,7 +813,7 @@ def dusk(
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
-            raise AstralError(
+            raise ValueError(
                 f"Sun never reaches {depression} degrees below the horizon, at this location."
             )
         else:

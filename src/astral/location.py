@@ -6,7 +6,7 @@ import pytz
 
 import astral.moon
 import astral.sun
-from astral import (AstralError, LocationInfo, Observer, SunDirection,
+from astral import (LocationInfo, Observer, SunDirection,
                     latlng_to_float, today)
 
 
@@ -165,7 +165,7 @@ class Location:
             tz = pytz.timezone(self._location_info.timezone)
             return tz
         except pytz.UnknownTimeZoneError as exc:
-            raise AstralError("Unknown timezone '%s'" % self._location_info.timezone) from exc
+            raise ValueError("Unknown timezone '%s'" % self._location_info.timezone) from exc
 
     tz = tzinfo
 

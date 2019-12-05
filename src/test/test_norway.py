@@ -13,7 +13,7 @@ def _next_event(location, datetime, event):
         try:
             t = getattr(sun, event)(date=newdate, observer=location)
             return t
-        except Exception:
+        except ValueError:
             pass
     assert False, "Should be unreachable"  # pragma: no cover
 
@@ -23,9 +23,9 @@ def test_NorwaySunUp():
     june = datetime(2019, 6, 5, tzinfo=pytz.utc)
     location = astral.LocationInfo("Tisnes", "Norway", "UTC", 69.6, 18.8)
 
-    with pytest.raises(astral.AstralError):
+    with pytest.raises(ValueError):
         sun.sunrise(location, june)
-    with pytest.raises(astral.AstralError):
+    with pytest.raises(ValueError):
         sun.sunset(location, june)
 
     # Find the next sunset and sunrise:
