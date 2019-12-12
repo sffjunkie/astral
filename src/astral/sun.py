@@ -255,6 +255,7 @@ def adjust_refraction_for_zenith(zenith: float):
 
     Sun-Pointing Programs and Their Accuracy
     John C. Zimmerman Of Sandia National Laboratones
+    https://www.osti.gov/servlets/purl/6377969
 
     Which cites the following as the original source
 
