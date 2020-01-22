@@ -45,8 +45,7 @@ For example ::
     >>> location = lookup('London', db)
     >>> print(f"Information for {location.name}")
     Information for London
-    >>> timezone = location.timezone
-    >>> print('Timezone: %s' % timezone)
+    >>> print('Timezone: %s' % location.timezone)
     Timezone: Europe/London
     >>> print(f"Latitude: {location.latitude:.02f}; Longitude: {location.longitude:.02f}")
     Latitude: 51.47; Longitude: -0.00
@@ -54,10 +53,13 @@ For example ::
     >>> import astral.sun
     >>> d = date(2009,4,22)
     >>> import pytz
-    >>> tzinfo = pytz.timezone(timezone)
+    >>> tzinfo = pytz.timezone(location.timezone)
     >>> sun = astral.sun.sun(location, date=d, tzinfo=tzinfo)
     >>> print(f"Dawn:    {sun['dawn']}")
     Dawn:    2009-04-22 05:12:32.529612+01:00
+    >>> import astral.moon
+    >>> astral.moon.phase(d)
+    25
 
 .. note::
 
