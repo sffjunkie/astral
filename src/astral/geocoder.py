@@ -18,7 +18,6 @@ from typing import Dict, Generator, List, Tuple, Union
 
 from astral import LocationInfo, latlng_to_float
 
-
 __all__ = ["lookup", "database", "add_locations", "all_locations"]
 
 
@@ -159,6 +158,7 @@ Masqat,Oman,Asia/Muscat,23°37'N,58°36'E,8.0
 Mbabane,Swaziland,Africa/Mbabane,26°18'S,31°06'E,1243.0
 Mecca,Saudi Arabia,Asia/Riyadh,21°26'N,39°49'E,240.0
 Medina,Saudi Arabia,Asia/Riyadh,24°28'N,39°36'E,631.0
+Melbourne,Australia,-37°48'S,144°57'E,Australia/Melbourne,31
 Mexico,Mexico,America/Mexico_City,19°20'N,99°10'W,2254.0
 Minsk,Belarus,Europe/Minsk,53°52'N,27°30'E,231.0
 Mogadishu,Somalia,Africa/Mogadishu,02°02'N,45°25'E,9.0
