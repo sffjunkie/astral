@@ -6,8 +6,7 @@ import pytz
 
 import astral.moon
 import astral.sun
-from astral import (LocationInfo, Observer, SunDirection,
-                    latlng_to_float, today)
+from astral import LocationInfo, Observer, SunDirection, latlng_to_float, today
 
 
 class Location:
@@ -165,7 +164,9 @@ class Location:
             tz = pytz.timezone(self._location_info.timezone)
             return tz
         except pytz.UnknownTimeZoneError as exc:
-            raise ValueError("Unknown timezone '%s'" % self._location_info.timezone) from exc
+            raise ValueError(
+                "Unknown timezone '%s'" % self._location_info.timezone
+            ) from exc
 
     tz = tzinfo
 
@@ -322,9 +323,7 @@ class Location:
         else:
             return astral.sun.sunrise(observer, date)
 
-    def noon(
-        self, date: datetime.date = None, local: bool = True
-    ) -> datetime.datetime:
+    def noon(self, date: datetime.date = None, local: bool = True) -> datetime.datetime:
         """Calculates the solar noon (the time when the sun is at its highest
         point.)
 
