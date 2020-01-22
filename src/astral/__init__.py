@@ -70,7 +70,7 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 from math import fabs
-from typing import Any
+from typing import Any, Union
 
 try:
     import pytz
@@ -167,11 +167,11 @@ class Observer:
     longitude: float = -0.00088
     elevation: float = 24.0
 
-    def __setattr__(self, name: str, value: Any):
+    def __setattr__(self, name: str, value: Union[float, str]):
         if name == "latitude":
-            value = latlng_to_float(value, 90)
+            value = latlng_to_float(value, 90.0)
         elif name == "longitude":
-            value = latlng_to_float(value, 180)
+            value = latlng_to_float(value, 180.0)
         elif name == "elevation":
             value = float(value)
         super(Observer, self).__setattr__(name, value)
@@ -209,11 +209,11 @@ class LocationInfo:
     longitude: float = -0.00088
     elevation: float = 24.0
 
-    def __setattr__(self, name: str, value: Any):
+    def __setattr__(self, name: str, value: Union[float, str]):
         if name == "latitude":
-            value = latlng_to_float(value, 90)
+            value = latlng_to_float(value, 90.0)
         elif name == "longitude":
-            value = latlng_to_float(value, 180)
+            value = latlng_to_float(value, 180.0)
         elif name == "elevation":
             value = float(value)
         super(LocationInfo, self).__setattr__(name, value)
