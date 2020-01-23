@@ -235,7 +235,7 @@ def hour_angle(
     return HA
 
 
-def adjust_depression_for_elevation(elevation: float) -> float:
+def depression_at_elevation(elevation: float) -> float:
     """Calculate the extra degrees of depression that you can see round the earth
     due to the increase in elevation.
 
@@ -262,7 +262,7 @@ def adjust_depression_for_elevation(elevation: float) -> float:
     return degrees(alpha)
 
 
-def adjust_refraction_for_zenith(zenith: float):
+def refraction_at_zenith(zenith: float):
     """Calculate the degrees of refraction of the sun due to the sun's elevation.
     
     Refraction calculation taken from
@@ -278,8 +278,10 @@ def adjust_refraction_for_zenith(zenith: float):
     """
 
     elevation = 90 - zenith
-    refractionCorrection = 0.0
     if elevation <= 85.0:
+        return 0
+
+    refractionCorrection = 0.0
         te = tan(radians(elevation))
         if elevation > 5.0:
             refractionCorrection = (
@@ -321,7 +323,7 @@ def time_of_transit(
 
     adjustment_for_elevation = 0.0
     if observer.elevation > 0:
-        adjustment_for_elevation = adjust_depression_for_elevation(observer.elevation)
+        adjustment_for_elevation = depression_at_elevation(observer.elevation)
 
     adjustment_for_refraction = 0.0
     # elevation = 90.0 - zenith
@@ -582,7 +584,7 @@ def zenith_and_azimuth(
     if adjust_for_refraction:
         # Correct for refraction
         exoatmAltitude = 90.0 - zenith
-        refractionCorrection = adjust_refraction_for_zenith(exoatmAltitude)
+        refractionCorrection = refraction_at_zenith(exoatmAltitude)
         zenith += refractionCorrection
 
         # if exoatmAltitude <= 85.0:
