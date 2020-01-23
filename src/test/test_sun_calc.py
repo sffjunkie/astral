@@ -184,9 +184,7 @@ def test_HourAngle(london):
         decl = sun.sun_declination(jc)
 
         assert approx(
-            sun.hour_angle(
-                london.latitude, decl, 90.8333, sun.SunDirection.RISING
-            ),
+            sun.hour_angle(london.latitude, decl, 90.8333, sun.SunDirection.RISING),
             ha,
             abs=1e-6,
         )
@@ -201,27 +199,18 @@ def test_ProperAngle():
 
 def test_Azimuth(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert approx(
-        sun.azimuth(new_delhi, d),
-        292.77,
-    )
+    assert approx(sun.azimuth(new_delhi, d), 292.77,)
 
 
-def test_Azimuth(new_delhi):
+def test_Altitude(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert approx(
-        sun.azimuth(new_delhi, d),
-        7.41,
-    )
+    assert approx(sun.azimuth(new_delhi, d), 7.41,)
 
 
 def test_Altitude_NonNaive(new_delhi):
     d = datetime.datetime(2001, 6, 21, 18, 41, 0)
     d = new_delhi.tz.localize(d)
-    assert approx(
-        sun.elevation(new_delhi, d),
-        7.41,
-    )
+    assert approx(sun.elevation(new_delhi, d), 7.41,)
 
 
 def test_Azimuth_Above85Degrees():

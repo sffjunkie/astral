@@ -4,6 +4,9 @@ from pytest import raises, approx
 
 import astral.geocoder
 
+def location_count(name, locations):
+    return len(list(filter(lambda item: item.name == name, locations)))
+
 
 class TestDatabase:
     """Test database access functions"""
@@ -14,10 +17,8 @@ class TestDatabase:
 
         location_list = astral.geocoder.all_locations(astral_database)
         all_locations = list(location_list)
-        assert len(list(filter(lambda item: item.name == "London", all_locations))) == 1
-        assert (
-            len(list(filter(lambda item: item.name == "Abu Dhabi", all_locations))) == 2
-        )
+        assert location_count("London", all_locations) == 1
+        assert location_count("Abu Dhabi", all_locations) == 2
 
     def test_lookup(self, astral_database):
         loc = astral.geocoder.lookup("London", astral_database)

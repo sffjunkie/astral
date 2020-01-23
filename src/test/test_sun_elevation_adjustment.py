@@ -2,14 +2,14 @@
 
 import pytest
 
-from astral.sun import adjust_depression_for_elevation
+from astral.sun import depression_at_elevation
 
 
 def test_ElevationPositive():
-    adjustment = adjust_depression_for_elevation(12000)
+    adjustment = depression_at_elevation(12000)
     assert pytest.approx(adjustment, 1.75887208410509)
 
 
 def test_ElevationNegative():
-    adjustment = adjust_depression_for_elevation(-1)
+    adjustment = depression_at_elevation(-1)
     assert pytest.approx(adjustment, 0)

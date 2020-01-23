@@ -9,19 +9,20 @@ from astral import sun
 from astral.sun import SunDirection
 
 
-def test_Sun(london):
-    test_data = {
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 7, 4, 18),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 7, 5, 34),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 7, 6, 49),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 7, 16, 37),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 7, 25, 1),
-    }
-
-    for day, dawn in test_data.items():
-        dawn = pytz.utc.localize(dawn)
-        dawn_utc = sun.sun(london, day)["dawn"]
-        assert datetime_almost_equal(dawn, dawn_utc)
+@pytest.mark.parametrize(
+    "day,dawn",
+    [
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 7, 4, 18)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 7, 5, 34)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 7, 6, 49)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 7, 16, 37)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 7, 25, 1)),
+    ],
+)
+def test_Sun(day, dawn, london):
+    dawn = pytz.utc.localize(dawn)
+    dawn_utc = sun.sun(london, day)["dawn"]
+    assert datetime_almost_equal(dawn, dawn_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
@@ -30,19 +31,20 @@ def test_Sun_NoDate(london):
     assert datetime_almost_equal(sun.sun(london)["dawn"], ans)
 
 
-def test_Dawn_Civil(london):
-    test_data = {
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 7, 4, 18),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 7, 5, 34),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 7, 6, 49),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 7, 16, 37),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 7, 25, 1),
-    }
-
-    for day, dawn in test_data.items():
-        dawn = pytz.utc.localize(dawn)
-        dawn_utc = sun.dawn(london, day)
-        assert datetime_almost_equal(dawn, dawn_utc)
+@pytest.mark.parametrize(
+    "day,dawn",
+    [
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 7, 4, 18)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 7, 5, 34)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 7, 6, 49)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 7, 16, 37)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 7, 25, 1)),
+    ],
+)
+def test_Dawn_Civil(day, dawn, london):
+    dawn = pytz.utc.localize(dawn)
+    dawn_utc = sun.dawn(london, day, 6)
+    assert datetime_almost_equal(dawn, dawn_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
@@ -51,35 +53,53 @@ def test_Dawn_NoDate(london):
     assert datetime_almost_equal(sun.dawn(london), ans)
 
 
-def test_Dawn_Nautical(london):
-    test_data = {
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 6, 22, 5),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 6, 23, 17),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 6, 24, 27),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 6, 33, 40),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 6, 41, 51),
-    }
+@pytest.mark.parametrize(
+    "day,dawn",
+    [
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 6, 22, 5)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 6, 23, 17)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 6, 24, 27)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 6, 33, 40)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 6, 41, 51)),
+    ],
+)
+def test_Dawn_Nautical(day, dawn, london):
+    dawn = pytz.utc.localize(dawn)
+    dawn_utc = sun.dawn(london, day, 12)
+    assert datetime_almost_equal(dawn, dawn_utc)
 
-    for day, dawn in test_data.items():
-        dawn = pytz.utc.localize(dawn)
-        dawn_utc = sun.dawn(london, day, 12)
-        assert datetime_almost_equal(dawn, dawn_utc)
+
+@pytest.mark.parametrize(
+    "day,dawn",
+    [
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 5, 41)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 5, 42)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 5, 44)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 5, 52)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 6, 1)),
+    ],
+)
+def test_Dawn_Astronomical(day, dawn, london):
+    dawn = pytz.utc.localize(dawn)
+    dawn_utc = sun.dawn(london, day, 18)
+    assert datetime_almost_equal(dawn, dawn_utc)
 
 
-def test_Sunrise(london):
-    test_data = {
-        datetime.date(2015, 1, 1): datetime.datetime(2015, 1, 1, 8, 6, 11),
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 7, 43, 17),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 7, 44, 40),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 7, 46, 2),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 7, 56, 37),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 8, 5, 18),
-    }
-
-    for day, sunrise in test_data.items():
-        sunrise = pytz.utc.localize(sunrise)
-        sunrise_utc = sun.sunrise(london, day)
-        assert datetime_almost_equal(sunrise, sunrise_utc)
+@pytest.mark.parametrize(
+    "day,sunrise",
+    [
+        (datetime.date(2015, 1, 1), datetime.datetime(2015, 1, 1, 8, 6, 11)),
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 7, 43, 17)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 7, 44, 40)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 7, 46, 2)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 7, 56, 37)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 8, 5, 18)),
+    ],
+)
+def test_Sunrise(day, sunrise, london):
+    sunrise = pytz.utc.localize(sunrise)
+    sunrise_utc = sun.sunrise(london, day)
+    assert datetime_almost_equal(sunrise, sunrise_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
@@ -88,20 +108,21 @@ def test_Sunrise_NoDate(london):
     assert datetime_almost_equal(sun.sunrise(london), ans)
 
 
-def test_Sunset(london):
-    test_data = {
-        datetime.date(2015, 1, 1): datetime.datetime(2015, 1, 1, 16, 1, 52),
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 15, 55, 13),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 15, 54, 36),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 15, 54, 2),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 15, 51, 23),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 15, 55, 35),
-    }
-
-    for day, sunset in test_data.items():
-        sunset = pytz.utc.localize(sunset)
-        sunset_utc = sun.sunset(london, day)
-        assert datetime_almost_equal(sunset, sunset_utc)
+@pytest.mark.parametrize(
+    "day,sunset",
+    [
+        (datetime.date(2015, 1, 1), datetime.datetime(2015, 1, 1, 16, 1, 52)),
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 15, 55, 13)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 15, 54, 36)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 15, 54, 2)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 15, 51, 23)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 15, 55, 35)),
+    ],
+)
+def test_Sunset(day, sunset, london):
+    sunset = pytz.utc.localize(sunset)
+    sunset_utc = sun.sunset(london, day)
+    assert datetime_almost_equal(sunset, sunset_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
@@ -110,19 +131,20 @@ def test_Sunset_NoDate(london):
     assert datetime_almost_equal(sun.sunset(london), ans)
 
 
-def test_Dusk_Civil(london):
-    test_data = {
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 16, 34),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 16, 34),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 16, 33),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 16, 31),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 16, 36),
-    }
-
-    for day, dusk in test_data.items():
-        dusk = pytz.utc.localize(dusk)
-        dusk_utc = sun.dusk(london, day)
-        assert datetime_almost_equal(dusk, dusk_utc)
+@pytest.mark.parametrize(
+    "day,dusk",
+    [
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 16, 34)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 16, 34)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 16, 33)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 16, 31)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 16, 36)),
+    ],
+)
+def test_Dusk_Civil(day, dusk, london):
+    dusk = pytz.utc.localize(dusk)
+    dusk_utc = sun.dusk(london, day)
+    assert datetime_almost_equal(dusk, dusk_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
@@ -131,34 +153,36 @@ def test_Dusk_NoDate(london):
     assert datetime_almost_equal(sun.dusk(london), ans)
 
 
-def test_Dusk_Nautical(london):
-    test_data = {
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 17, 16),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 17, 16),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 17, 16),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 17, 14),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 17, 19),
-    }
+@pytest.mark.parametrize(
+    "day,dusk",
+    [
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 17, 16)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 17, 16)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 17, 16)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 17, 14)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 17, 19)),
+    ],
+)
+def test_Dusk_Nautical(day, dusk, london):
+    dusk = pytz.utc.localize(dusk)
+    dusk_utc = sun.dusk(london, day, 12)
+    assert datetime_almost_equal(dusk, dusk_utc)
 
-    for day, dusk in test_data.items():
-        dusk = pytz.utc.localize(dusk)
-        dusk_utc = sun.dusk(london, day, 12)
-        assert datetime_almost_equal(dusk, dusk_utc)
 
-
-def test_SolarNoon(london):
-    test_data = {
-        datetime.date(2015, 12, 1): datetime.datetime(2015, 12, 1, 11, 49),
-        datetime.date(2015, 12, 2): datetime.datetime(2015, 12, 2, 11, 50),
-        datetime.date(2015, 12, 3): datetime.datetime(2015, 12, 3, 11, 50),
-        datetime.date(2015, 12, 12): datetime.datetime(2015, 12, 12, 11, 54),
-        datetime.date(2015, 12, 25): datetime.datetime(2015, 12, 25, 12, 00),
-    }
-
-    for day, solar_noon in test_data.items():
-        solar_noon = pytz.utc.localize(solar_noon)
-        solar_noon_utc = sun.noon(london, day)
-        assert datetime_almost_equal(solar_noon, solar_noon_utc)
+@pytest.mark.parametrize(
+    "day,noon",
+    [
+        (datetime.date(2015, 12, 1), datetime.datetime(2015, 12, 1, 11, 49)),
+        (datetime.date(2015, 12, 2), datetime.datetime(2015, 12, 2, 11, 50)),
+        (datetime.date(2015, 12, 3), datetime.datetime(2015, 12, 3, 11, 50)),
+        (datetime.date(2015, 12, 12), datetime.datetime(2015, 12, 12, 11, 54)),
+        (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 12, 00)),
+    ],
+)
+def test_SolarNoon(day, noon, london):
+    noon = pytz.utc.localize(noon)
+    noon_utc = sun.noon(london, day)
+    assert datetime_almost_equal(noon, noon_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
@@ -167,16 +191,17 @@ def test_SolarNoon_NoDate(london):
     assert datetime_almost_equal(sun.noon(london), ans)
 
 
-def test_SolarMidnight(london):
-    test_data = {
-        datetime.date(2016, 2, 18): datetime.datetime(2016, 2, 18, 0, 14),
-        datetime.date(2016, 10, 26): datetime.datetime(2016, 10, 25, 23, 44),
-    }
-
-    for day, solar_midnight in test_data.items():
-        solar_midnight = pytz.utc.localize(solar_midnight)
-        solar_midnight_utc = sun.midnight(london, day)
-        assert datetime_almost_equal(solar_midnight, solar_midnight_utc)
+@pytest.mark.parametrize(
+    "day,midnight",
+    [
+        (datetime.date(2016, 2, 18), datetime.datetime(2016, 2, 18, 0, 14)),
+        (datetime.date(2016, 10, 26), datetime.datetime(2016, 10, 25, 23, 44)),
+    ],
+)
+def test_SolarMidnight(day, midnight, london):
+    solar_midnight = pytz.utc.localize(midnight)
+    solar_midnight_utc = sun.midnight(london, day)
+    assert datetime_almost_equal(solar_midnight, solar_midnight_utc)
 
 
 @freezegun.freeze_time("2016-2-18")
@@ -185,23 +210,28 @@ def test_SolarMidnight_NoDate(london):
     assert datetime_almost_equal(sun.midnight(london), ans)
 
 
-def test_Twilight_SunRising(london):
-    test_data = {
-        datetime.date(2019, 8, 29): (
-            datetime.datetime(2019, 8, 29, 4, 32),
-            datetime.datetime(2019, 8, 29, 5, 7),
+@pytest.mark.parametrize(
+    "day,twilight",
+    [
+        (
+            datetime.date(2019, 8, 29),
+            (
+                datetime.datetime(2019, 8, 29, 4, 32),
+                datetime.datetime(2019, 8, 29, 5, 7),
+            ),
         ),
-    }
+    ],
+)
+def test_Twilight_SunRising(day, twilight, london):
+    start, end = twilight
+    start = pytz.utc.localize(start)
+    end = pytz.utc.localize(end)
 
-    for day, (start, end) in test_data.items():
-        start = pytz.utc.localize(start)
-        end = pytz.utc.localize(end)
-
-        info = sun.twilight(london, day)
-        start_utc = info[0]
-        end_utc = info[1]
-        assert datetime_almost_equal(start, start_utc)
-        assert datetime_almost_equal(end, end_utc)
+    info = sun.twilight(london, day)
+    start_utc = info[0]
+    end_utc = info[1]
+    assert datetime_almost_equal(start, start_utc)
+    assert datetime_almost_equal(end, end_utc)
 
 
 def test_Twilight_SunSetting(london):
