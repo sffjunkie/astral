@@ -12,6 +12,14 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
+.. TODO: Spatial reference system - WGS-84?
+
+.. TODO: Add note about accuracy
+
+.. TODO: Add note that sunrise / sunset use refraction but not others.
+
+.. TODO: Add note that 0.833 is half sun's disc + refraction adjustment
+
 Astral v\ |release|
 ===================
 
