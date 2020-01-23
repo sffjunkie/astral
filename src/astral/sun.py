@@ -1,5 +1,18 @@
 import datetime
-from math import fabs, acos, asin, atan2, ceil, cos, degrees, floor, radians, sin, sqrt, tan
+from math import (
+    acos,
+    asin,
+    atan2,
+    ceil,
+    cos,
+    degrees,
+    fabs,
+    floor,
+    radians,
+    sin,
+    sqrt,
+    tan,
+)
 from typing import Dict, Optional, Tuple
 
 import pytz
