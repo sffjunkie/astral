@@ -222,12 +222,16 @@ def hour_angle(
 
     latitude_rad = radians(latitude)
     declination_rad = radians(declination)
-    depression_rad = radians(zenith)
+    zenith_rad = radians(zenith)
 
-    n = cos(depression_rad)
-    d = cos(latitude_rad) * cos(declination_rad)
-    t = tan(latitude_rad) * tan(declination_rad)
-    h = (n / d) - t
+    # n = cos(zenith_rad)
+    # d = cos(latitude_rad) * cos(declination_rad)
+    # t = tan(latitude_rad) * tan(declination_rad)
+    # h = (n / d) - t
+
+    h = (cos(zenith_rad) - sin(latitude_rad) * sin(declination_rad)) / (
+        cos(latitude_rad) * cos(declination_rad)
+    )
 
     HA = acos(h)
     if direction == SunDirection.SETTING:
@@ -331,7 +335,6 @@ def time_of_transit(
 
     jd = julianday(date)
     t = jday_to_jcentury(jd)
-    eqtime = eq_of_time(t)
     solarDec = sun_declination(t)
 
     hourangle = hour_angle(
@@ -343,10 +346,9 @@ def time_of_transit(
 
     delta = -observer.longitude - degrees(hourangle)
     timeDiff = 4.0 * delta
-    timeUTC = 720.0 + timeDiff - eqtime
+    timeUTC = 720.0 + timeDiff - eq_of_time(t)
 
     t = jday_to_jcentury(jcentury_to_jday(t) + timeUTC / 1440.0)
-    eqtime = eq_of_time(t)
     solarDec = sun_declination(t)
     hourangle = hour_angle(
         latitude,
@@ -357,7 +359,7 @@ def time_of_transit(
 
     delta = -observer.longitude - degrees(hourangle)
     timeDiff = 4.0 * delta
-    timeUTC = 720 + timeDiff - eqtime
+    timeUTC = 720 + timeDiff - eq_of_time(t)
 
     if timeUTC < 0:
         raise ValueError(f"Sun never transits at a zenith of {zenith} on {date}")
