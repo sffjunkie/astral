@@ -6,7 +6,7 @@ from astral.location import Location
 
 
 @pytest.fixture
-def astral_database() -> LocationDatabase:
+def test_database() -> LocationDatabase:
     return database()
 
 
