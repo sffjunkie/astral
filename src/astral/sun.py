@@ -206,6 +206,20 @@ def eq_of_time(juliancentury: float) -> float:
 def hour_angle(
     latitude: float, declination: float, zenith: float, direction: SunDirection
 ) -> float:
+    """Calculate the hour angle of the sun
+
+    See https://en.wikipedia.org/wiki/Hour_angle#Solar_hour_angle
+
+    Args:
+        latitude: The latitude of the obersver 
+        declination: The declination of the sun
+        zenith: The zenith angle of the sun
+        direction: The direction of traversal of the sun
+
+    Raises:
+        ValueError 
+    """
+
     latitude_rad = radians(latitude)
     declination_rad = radians(declination)
     depression_rad = radians(zenith)
@@ -229,7 +243,7 @@ def adjust_depression_for_elevation(elevation: float) -> float:
         elevation: Elevation above the earth in metres
 
     Returns:
-        A number of degrees to add to the adjust for the location of the observer
+        A number of degrees to add to adjust for the elevation of the observer
     """
 
     if elevation <= 0:
@@ -712,6 +726,9 @@ def dawn(
 
     Returns:
         Date and time at which dawn occurs.
+
+    Raises:
+        ValueError if dawn does not occur on the specified date
     """
     if date is None:
         date = today(tzinfo)
@@ -743,6 +760,9 @@ def sunrise(
 
     Returns:
         Date and time at which sunrise occurs.
+
+    Raises:
+        ValueError if the sun does not reach the horizon on the specified date
     """
     if date is None:
         date = today(tzinfo)
@@ -777,6 +797,9 @@ def sunset(
 
     Returns:
         Date and time at which sunset occurs.
+
+    Raises:
+        ValueError if the sun does not reach the horizon
     """
 
     if date is None:
@@ -814,6 +837,9 @@ def dusk(
 
     Returns:
         Date and time at which dusk occurs.
+
+    Raises:
+        ValueError if dusk does not occur on the specified date
     """
 
     if date is None:
@@ -846,6 +872,9 @@ def daylight(
 
     Returns:
         A tuple of the date and time at which daylight starts and ends.
+
+    Raises:
+        ValueError if the sun does not rise or does not set 
     """
     if date is None:
         date = today(tzinfo)
@@ -868,11 +897,16 @@ def night(
 
     Args:
         observer: Observer to calculate night for
-        date:     Date to calculate for. Default is today's date for the specified tzinfo.
+        date:     Date to calculate for. Default is today's date for the
+                  specified tzinfo.
         tzinfo:   Timezone to return times in. Default is UTC.
 
     Returns:
         A tuple of the date and time at which night starts and ends.
+
+    Raises:
+        ValueError if dawn does not occur on the specified date or
+        dusk on the following day
     """
     if date is None:
         date = today(tzinfo)
@@ -906,6 +940,9 @@ def twilight(
 
     Returns:
         A tuple of the date and time at which twilight starts and ends.
+
+    Raises:
+        ValueError if the sun does not rise or does not set 
     """
 
     if date is None:
@@ -946,6 +983,9 @@ def golden_hour(
 
     Returns:
         A tuple of the date and time at which the Golden Hour starts and ends.
+
+    Raises:
+        ValueError if the sun does not transit the elevations -4 & +6 degrees
     """
 
     if date is None:
@@ -982,6 +1022,9 @@ def blue_hour(
 
     Returns:
         A tuple of the date and time at which the Blue Hour starts and ends.
+
+    Raises:
+        ValueError if the sun does not transit the elevations -4 & -6 degrees
     """
 
     if date is None:
@@ -1012,6 +1055,9 @@ def rahukaalam(
 
     Returns:
         Tuple containing the start and end times for Rahukaalam.
+
+    Raises:
+        ValueError if the sun does not rise or does not set
     """
 
     if date is None:
@@ -1057,6 +1103,9 @@ def sun(
     Returns:
         Dictionary with keys ``dawn``, ``sunrise``, ``noon``, ``sunset`` and ``dusk``
         whose values are the results of the corresponding functions.
+
+    Raises:
+        ValueError is passed through from any of the functions
     """
 
     if date is None:
