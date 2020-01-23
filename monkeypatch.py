@@ -66,7 +66,7 @@ def check_readme(self):
     self.READMES += ("README.md",)
     for f in self.READMES:
         if os.path.exists(f):
-            return
+            break
     else:
         self.warn(
             "standard file not found: should have one of " + ", ".join(self.READMES)
