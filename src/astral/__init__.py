@@ -104,7 +104,7 @@ def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
     return now(tzinfo).date()
 
 
-def latlng_to_float(dms: str, limit: float) -> float:
+def dms_to_float(dms: str, limit: float) -> float:
     """Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`,
     or a float encoded as a string, to a float
 
@@ -172,9 +172,9 @@ class Observer:
 
     def __setattr__(self, name: str, value: Union[float, str]):
         if name == "latitude":
-            value = latlng_to_float(value, 90.0)
+            value = dms_to_float(value, 90.0)
         elif name == "longitude":
-            value = latlng_to_float(value, 180.0)
+            value = dms_to_float(value, 180.0)
         elif name == "elevation":
             value = float(value)
         super(Observer, self).__setattr__(name, value)
@@ -214,9 +214,9 @@ class LocationInfo:
 
     def __setattr__(self, name: str, value: Union[float, str]):
         if name == "latitude":
-            value = latlng_to_float(value, 90.0)
+            value = dms_to_float(value, 90.0)
         elif name == "longitude":
-            value = latlng_to_float(value, 180.0)
+            value = dms_to_float(value, 180.0)
         elif name == "elevation":
             value = float(value)
         super(LocationInfo, self).__setattr__(name, value)

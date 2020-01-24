@@ -4,7 +4,7 @@ import freezegun
 from pytest import approx, raises
 from pytz import timezone
 
-from astral import latlng_to_float, now, today
+from astral import dms_to_float, now, today
 from astral.sun import minutes_to_timedelta
 
 
@@ -19,33 +19,33 @@ class TestDMS:
     """Test degrees/minutes/seconds conversion functions"""
 
     def test_North(self):
-        assert approx(latlng_to_float("24°28'N", 90), 24.466666)
+        assert approx(dms_to_float("24°28'N", 90), 24.466666)
 
     def test_whole_number_of_degrees(self):
-        assert latlng_to_float("24°", 90) == 24
+        assert dms_to_float("24°", 90) == 24
 
     def test_East(self):
-        assert approx(latlng_to_float("54°22'E", 180), 54.366666)
+        assert approx(dms_to_float("54°22'E", 180), 54.366666)
 
     def test_South(self):
-        assert approx(latlng_to_float("37°58'S", 90), -37.966666)
+        assert approx(dms_to_float("37°58'S", 90), -37.966666)
 
     def test_West(self):
-        assert approx(latlng_to_float("171°50'W", 180), 171.833333)
+        assert approx(dms_to_float("171°50'W", 180), 171.833333)
 
     def test_WestLowercase(self):
-        assert approx(latlng_to_float("171°50'w", 180), -171.833333)
+        assert approx(dms_to_float("171°50'w", 180), -171.833333)
 
     def test_float(self):
-        assert latlng_to_float("0.2", 90) == 0.2
+        assert dms_to_float("0.2", 90) == 0.2
 
     def test_not_a_float(self):
         with raises(ValueError):
-            latlng_to_float("x", 90)
+            dms_to_float("x", 90)
 
     def test_latlng_outside_limit(self):
         with raises(ValueError):
-            latlng_to_float("180°50'w", 180)
+            dms_to_float("180°50'w", 180)
 
 
 class TestToday:

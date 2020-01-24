@@ -16,7 +16,7 @@ All locations stored in the database can be accessed using the `all_locations` g
 from functools import reduce
 from typing import Dict, Generator, List, Tuple, Union
 
-from astral import LocationInfo, latlng_to_float
+from astral import LocationInfo, dms_to_float
 
 __all__ = ["lookup", "database", "add_locations", "all_locations"]
 
@@ -466,8 +466,8 @@ def _indexable_to_locationinfo(idxable) -> LocationInfo:
         name=idxable[0],
         region=idxable[1],
         timezone=idxable[2],
-        latitude=latlng_to_float(idxable[3], 90),
-        longitude=latlng_to_float(idxable[4], 180),
+        latitude=dms_to_float(idxable[3], 90),
+        longitude=dms_to_float(idxable[4], 180),
         elevation=float(idxable[5]),
     )
 
