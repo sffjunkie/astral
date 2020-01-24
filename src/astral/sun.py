@@ -745,7 +745,7 @@ def dawn(
         Date and time at which dawn occurs.
 
     Raises:
-        ValueError if dawn does not occur on the specified date
+        ValueError: if dawn does not occur on the specified date
     """
     if date is None:
         date = today(tzinfo)
@@ -779,7 +779,7 @@ def sunrise(
         Date and time at which sunrise occurs.
 
     Raises:
-        ValueError if the sun does not reach the horizon on the specified date
+        ValueError: if the sun does not reach the horizon on the specified date
     """
     if date is None:
         date = today(tzinfo)
@@ -816,7 +816,7 @@ def sunset(
         Date and time at which sunset occurs.
 
     Raises:
-        ValueError if the sun does not reach the horizon
+        ValueError: if the sun does not reach the horizon
     """
 
     if date is None:
@@ -856,7 +856,7 @@ def dusk(
         Date and time at which dusk occurs.
 
     Raises:
-        ValueError if dusk does not occur on the specified date
+        ValueError: if dusk does not occur on the specified date
     """
 
     if date is None:
@@ -891,7 +891,7 @@ def daylight(
         A tuple of the date and time at which daylight starts and ends.
 
     Raises:
-        ValueError if the sun does not rise or does not set 
+        ValueError: if the sun does not rise or does not set 
     """
     if date is None:
         date = today(tzinfo)
@@ -922,8 +922,8 @@ def night(
         A tuple of the date and time at which night starts and ends.
 
     Raises:
-        ValueError if dawn does not occur on the specified date or
-        dusk on the following day
+        ValueError: if dawn does not occur on the specified date or
+                    dusk on the following day
     """
     if date is None:
         date = today(tzinfo)
@@ -959,7 +959,7 @@ def twilight(
         A tuple of the date and time at which twilight starts and ends.
 
     Raises:
-        ValueError if the sun does not rise or does not set 
+        ValueError: if the sun does not rise or does not set 
     """
 
     if date is None:
@@ -1002,7 +1002,7 @@ def golden_hour(
         A tuple of the date and time at which the Golden Hour starts and ends.
 
     Raises:
-        ValueError if the sun does not transit the elevations -4 & +6 degrees
+        ValueError: if the sun does not transit the elevations -4 & +6 degrees
     """
 
     if date is None:
@@ -1041,7 +1041,7 @@ def blue_hour(
         A tuple of the date and time at which the Blue Hour starts and ends.
 
     Raises:
-        ValueError if the sun does not transit the elevations -4 & -6 degrees
+        ValueError: if the sun does not transit the elevations -4 & -6 degrees
     """
 
     if date is None:
@@ -1074,7 +1074,7 @@ def rahukaalam(
         Tuple containing the start and end times for Rahukaalam.
 
     Raises:
-        ValueError if the sun does not rise or does not set
+        ValueError: if the sun does not rise or does not set
     """
 
     if date is None:
@@ -1122,7 +1122,7 @@ def sun(
         whose values are the results of the corresponding functions.
 
     Raises:
-        ValueError is passed through from any of the functions
+        ValueError: if passed through from any of the functions
     """
 
     if date is None:
