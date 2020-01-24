@@ -223,9 +223,7 @@ construct a :class:`~astral.LocationInfo` and fill in the values, either on init
 .. code-block::
 
     from astral import LocationInfo
-    from astral.utc import sun
     l = LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2, 0)
-    sun(observer=l)
 
 or set the attributes after initialization::
 
