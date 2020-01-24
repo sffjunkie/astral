@@ -148,7 +148,7 @@ Moon
    13.255666666666668
 
 The moon phase method returns an number describing the phase, where the value is between 0 and 27
-(27.99 if you pass float as the return type).
+(27.99 if you pass `float` as the return type).
 The following lists the mapping of various vales to the description of the phase of the moon.
 
 ===  ==============
