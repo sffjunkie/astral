@@ -38,8 +38,8 @@ astral.geocoder
 .. automodule:: astral.geocoder
    :members:
 
-Location
-~~~~~~~~
+astral.location
+~~~~~~~~~~~~~~~
 
 .. autoclass:: astral.location.Location
    :members:
