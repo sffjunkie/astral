@@ -108,30 +108,31 @@ Sun
 .. code-block::
 
     >>> from astral import LocationInfo
-    >>> import datetime
     >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116, 24)
-    >>> print(f'Information for {city.name}/{city.region}\n')
+    >>> print(
+        (
+            f"Information for {city.name}/{city.region}\n"
+            f"Timezone: {city.timezone}\n"
+            f"Latitude: {city.latitude:.02f}; Longitude: {city.longitude:.02f}\n"
+        )
+    )
+
     Information for London/England
-
-    >>> timezone = city.timezone
-    >>> print(f'Timezone: {timezone}\n')
     Timezone: Europe/London
-
-    >>> print('Latitude: %.02f; Longitude: %.02f\n' % \
-    >>>     (city.latitude, city.longitude))
     Latitude: 51.50; Longitude: -0.12
 
+    >>> import datetime
     >>> from astral.sun import sun
     >>> s = sun(city, date=datetime.date(2009, 4, 22))
-    >>> print(f'Dawn:    {sun['dawn']}')
+    >>> print(f"Dawn:    {sun["dawn"]}")
     Dawn:     2009-04-22 05:12:56+01:00
-    >>> print(f'Sunrise: {sun['sunrise']}')
+    >>> print(f"Sunrise: {sun["sunrise"]}")
     Sunrise:  2009-04-22 05:49:36+01:00
-    >>> print(f'Noon:    {sun['noon']}')
+    >>> print(f"Noon:    {sun["noon"]}")
     Noon:     2009-04-22 12:58:48+01:00
-    >>> print(f'Sunset:  {sun['sunset']}')
+    >>> print(f"Sunset:  {sun["sunset"]}")
     Sunset:   2009-04-22 20:09:07+01:00
-    >>> print(f'Dusk:    {sun['dusk']}')
+    >>> print(f"Dusk:    {sun["dusk"]}")
     Dusk:     2009-04-22 20:45:52+01:00
 
 Moon
