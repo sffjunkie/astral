@@ -188,32 +188,6 @@ Geocoder
     LocationInfo(name='London', region='England', timezone='Europe/London',
         latitude=51.473333333333336, longitude=-0.0008333333333333334, elevation=24.0)
 
-.. _additional_locations:
-
-Additional Locations
-~~~~~~~~~~~~~~~~~~~~
-
-You can add to the list of available locations
-using the :func:`~astral.geocoder.add_locations` function and passing either a string with one
-line per location or by passing a list containing strings, lists or tuples (lists and tuples are
-passed directly to the LocationInfo constructor).
-
-.. code-block::
-
-    >>> from astral.geocoder import database
-    >>> db = database()
-    >>> try:
-    ...     lookup("Somewhere", db)
-    ... except KeyError:
-    ...     print("Somewhere not found")
-    ...
-    Somewhere not found
-    >>> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E,631.0", db)
-    >>> lookup("Somewhere", db)
-    LocationInfo(name='Somewhere', region='Secret Location', timezone='UTC',
-        latitude=24.466666666666665, longitude=39.6, elevation=631.0)
-
-
 Custom Location
 ~~~~~~~~~~~~~~~
 
