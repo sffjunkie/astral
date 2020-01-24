@@ -429,9 +429,9 @@ Version    Description
 2.0-alpha  Code is now only compatible with Python 3.6 and greater due to the
            use of data classes
 
-           New :class:`~astral.Observer` class to store a latitude, longitude & elevation
+           New :class:`~astral.Observer` data class to store a latitude, longitude & elevation
 
-           New :class:`~astral.LocationInfo` class to store a location name, region, timezone,
+           New :class:`~astral.LocationInfo` data class to store a location name, region, timezone,
            latitude, longitude & elevation
 
            Geocoder functions return a :class:`~astral.LocationInfo` instead of a
