@@ -39,29 +39,6 @@ location names into timezone, latitude, longitude and elevation. The lookups
 can be perfomed using the :func:`lookup` function defined in
 :mod:`astral.geocoder`
 
-For example ::
-
-    >>> from astral.geocoder import database, lookup
-    >>> db = database()
-    >>> location = lookup('London', db)
-    >>> print(f"Information for {location.name}")
-    Information for London
-    >>> print('Timezone: %s' % location.timezone)
-    Timezone: Europe/London
-    >>> print(f"Latitude: {location.latitude:.02f}; Longitude: {location.longitude:.02f}")
-    Latitude: 51.47; Longitude: -0.00
-    >>> from datetime import date
-    >>> import astral.sun
-    >>> d = date(2009,4,22)
-    >>> import pytz
-    >>> tzinfo = pytz.timezone(location.timezone)
-    >>> sun = astral.sun.sun(location, date=d, tzinfo=tzinfo)
-    >>> print(f"Dawn:    {sun['dawn']}")
-    Dawn:    2009-04-22 05:12:32.529612+01:00
-    >>> import astral.moon
-    >>> astral.moon.phase(d)
-    25
-
 .. note::
 
    The `Astral` and `GoogleGeocoder` classes from earlier versions have been
@@ -113,6 +90,9 @@ def dms_to_float(dms: str, limit: float) -> float:
 
     Args:
         dms: string to convert
+
+    Returns:
+        The number of degrees as a float
     """
 
     try:
@@ -150,20 +130,19 @@ class SunDirection(Enum):
 
 @dataclass
 class Observer:
-    """Defines the location of an observer.
+    """Defines the location of an observer on Earth.
 
     Latitude and longitude can be set either as a float or as a string. For strings they must
     be of the form
 
         degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
 
+    `minutes’` & `seconds”` are optional.
+
     Args:
         latitude:   Latitude - Northern latitudes should be positive
         longitude:  Longitude - Eastern longitudes should be positive
         elevation:  Elevation in metres above sea level.
-
-    Returns:
-        The number of degrees as a float
     """
 
     latitude: float = 51.4733
@@ -190,6 +169,8 @@ class LocationInfo:
     be of the form
 
         degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
+
+    `minutes’` & `seconds”` are optional.
 
     Note:
         functions which are defined to take an Observer can also be passed a LocationInfo
