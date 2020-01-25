@@ -284,19 +284,7 @@ def depression_at_elevation(elevation: float) -> float:
 
 
 def refraction_at_zenith(zenith: float):
-    """Calculate the degrees of refraction of the sun due to the sun's elevation.
-    
-    Refraction calculation taken from
-
-    Sun-Pointing Programs and Their Accuracy
-    John C. Zimmerman Of Sandia National Laboratones
-    https://www.osti.gov/servlets/purl/6377969
-
-    Which cites the following as the original source
-
-    In Solar Energy Vol 20 No.5-C
-    Robert Walraven Of The University Of California, Davis
-    """
+    """Calculate the degrees of refraction of the sun due to the sun's elevation."""
 
     elevation = 90 - zenith
     if elevation >= 85.0:

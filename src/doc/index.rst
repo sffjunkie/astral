@@ -377,6 +377,17 @@ Thanks
 The sun calculations in this module were adapted, for Python, from the spreadsheets on the following page.
 
     https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
+    
+Refraction calculation is taken from
+
+Sun-Pointing Programs and Their Accuracy
+John C. Zimmerman Of Sandia National Laboratones
+https://www.osti.gov/servlets/purl/6377969
+
+Which cites the following as the original source
+
+In Solar Energy Vol 20 No.5-C
+Robert Walraven Of The University Of California, Davis
 
 The moon phase calculation is based on some `javascript`_ code
 from Sky and Telescope magazine
@@ -408,6 +419,8 @@ Version    Description
 
            Geocoder functions return a :class:`~astral.LocationInfo` instead of a
            :class:`~astral.location.Location`
+
+           All calculations now adjust for refraction.
 
            The solar_noon and solar_midnight functions have been renamed to noon and
            midnight respsectively.
