@@ -267,7 +267,7 @@ def test_Rahukaalam(new_delhi):
     test_data = {
         datetime.date(2015, 12, 1): (
             datetime.datetime(2015, 12, 1, 9, 17),
-            datetime.datetime(2015, 12, 1, 10, 36, 16),
+            datetime.datetime(2015, 12, 1, 10, 35),
         ),
         datetime.date(2015, 12, 2): (
             datetime.datetime(2015, 12, 2, 6, 40),
@@ -289,7 +289,7 @@ def test_Rahukaalam(new_delhi):
 @freezegun.freeze_time("2015-12-01")
 def test_Rahukaalam_NoDate(new_delhi):
     start = pytz.utc.localize(datetime.datetime(2015, 12, 1, 9, 17))
-    end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 10, 36, 16))
+    end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 10, 35))
     ans = sun.rahukaalam(new_delhi)
     assert datetime_almost_equal(ans[0], start)
     assert datetime_almost_equal(ans[1], end)
