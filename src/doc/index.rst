@@ -380,20 +380,21 @@ The sun calculations in this module were adapted, for Python, from the spreadshe
     
 Refraction calculation is taken from
 
-Sun-Pointing Programs and Their Accuracy
-John C. Zimmerman Of Sandia National Laboratones
-https://www.osti.gov/servlets/purl/6377969
+    | Sun-Pointing Programs and Their Accuracy
+    | John C. Zimmerman Of Sandia National Laboratones
+    | https://www.osti.gov/servlets/purl/6377969
 
 Which cites the following as the original source
 
-In Solar Energy Vol 20 No.5-C
-Robert Walraven Of The University Of California, Davis
+    | In Solar Energy Vol 20 No.5-C
+    | Robert Walraven Of The University Of California, Davis
 
-The moon phase calculation is based on some `javascript`_ code
+The moon phase calculation is based on some javascript code
 from Sky and Telescope magazine
 
     | Moon-phase calculation
     | Roger W. Sinnott, Sky & Telescope, June 16, 2006.
+    | http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
 
 Also to `Sphinx`_ for making doc generation an easy thing (not that the writing
 of the docs is any easier.)
@@ -606,7 +607,6 @@ Version    Description
 .. _1417641: https://bugs.launchpad.net/astral/+bug/1417641
 .. _1561258: https://bugs.launchpad.net/astral/+bug/1561258
 .. _1588198: https://bugs.launchpad.net/astral/+bug/1588198
-.. _javascript: http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
 .. _pytz docs: http://pytz.sourceforge.net/#localized-times-and-date-arithmetic
 .. _issue: https://github.com/sffjunkie/astral/issues
 
