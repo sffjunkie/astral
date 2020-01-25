@@ -299,7 +299,7 @@ def refraction_at_zenith(zenith: float):
     """
 
     elevation = 90 - zenith
-    if elevation <= 85.0:
+    if elevation >= 85.0:
         return 0
 
     refractionCorrection = 0.0
