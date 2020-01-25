@@ -40,6 +40,9 @@ __all__ = [
 ]
 
 
+SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
+
+
 def proper_angle(value: float) -> float:
     if value > 0.0:
         value /= 360.0
@@ -342,9 +345,7 @@ def time_of_transit(
     if observer.elevation > 0:
         adjustment_for_elevation = depression_at_elevation(observer.elevation)
 
-    adjustment_for_refraction = 0.0
-    # elevation = 90.0 - zenith
-    # adjustment_for_refraction = adjust_refraction_for_altitude(elevation)
+    adjustment_for_refraction = refraction_at_zenith(zenith)
 
     jd = julianday(date)
     t = jday_to_jcentury(jd)
@@ -786,7 +787,10 @@ def sunrise(
 
     try:
         return time_of_transit(
-            observer, date, 90 + 0.833, SunDirection.RISING
+            observer,
+            date,
+            90.0 + SUN_APPARENT_RADIUS,
+            SunDirection.RISING,
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
@@ -824,7 +828,10 @@ def sunset(
 
     try:
         return time_of_transit(
-            observer, date, 90 + 0.833, SunDirection.SETTING
+            observer,
+            date,
+            90.0 + SUN_APPARENT_RADIUS,
+            SunDirection.SETTING,
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
