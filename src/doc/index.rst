@@ -443,8 +443,8 @@ Version    Description
            The Google geocoder and Astral classes have been removed
 ---------- --------------------------------------------------------------------
 1.10.1     Keyword args are now passed to the geocoder class from Astral
-            __init__ in order to allow the Google Maps API key to be passed to
-            the GoogleGeocoder.
+           __init__ in order to allow the Google Maps API key to be passed to
+           the GoogleGeocoder.
 ---------- --------------------------------------------------------------------
 1.10       Added support to AstralGeocoder to add
            `additional locations <additional_locations_>`__
