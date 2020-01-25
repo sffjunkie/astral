@@ -100,14 +100,15 @@ if not on_rtd:
     else:
         project_home = os.path.expanduser(project_home)
 
+    html_theme = None
     if project_home:
-        theme_root = os.path.join(project_home, "sphinx-theme")
-        html_theme_path = [theme_root]
-    else:
-        raise OSError(
-            "Unable to find theme root: Please set the PROJECT_HOME environment variable"
-        )
-    html_theme = "sffjunkie"
+        theme_root = os.path.relpath(os.path.join(project_home, "themes", "sphinx"))
+        if os.path.exists(theme_root):
+            html_theme_path = [theme_root]
+            html_theme = "sffjunkie"
+
+    if not html_theme:
+        html_theme = "traditional"
 else:
     html_theme = "basic"
 
