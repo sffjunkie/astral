@@ -40,6 +40,7 @@ __all__ = [
 ]
 
 
+# Using 32 arc minutes as sun's apparent diameter
 SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
 
 
