@@ -343,8 +343,8 @@ def time_of_transit(
         latitude = observer.latitude
 
     adjustment_for_elevation = 0.0
-    if observer.elevation > 0:
-        adjustment_for_elevation = depression_at_elevation(observer.elevation)
+    # if observer.elevation > 0:
+    #     adjustment_for_elevation = depression_at_elevation(observer.elevation)
 
     adjustment_for_refraction = refraction_at_zenith(zenith)
 
