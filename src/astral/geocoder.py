@@ -423,7 +423,7 @@ GroupInfo = Dict
 LocationInfoList = List[LocationInfo]
 
 LocationDatabase = Dict[
-    GroupName, GroupInfo[str, Dict[str, LocationInfoList]]
+    GroupName, GroupInfo[str, LocationInfoList]
 ]
 
 
