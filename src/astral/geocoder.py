@@ -14,7 +14,7 @@ All locations stored in the database can be accessed using the `all_locations` g
 """
 
 from functools import reduce
-from typing import Dict, Generator, List, Tuple, Union
+from typing import Any, Dict, Generator, List, Optional, Tuple, Union
 
 from astral import LocationInfo, dms_to_float
 
@@ -418,9 +418,13 @@ Iqaluit,Canada,America/Iqaluit,63°44'N,68°31'W,3.0
 """
 # endregion
 
+GroupName = str
+GroupInfo = Dict
+LocationInfoList = List[LocationInfo]
 
-LocationGroup = Dict
-LocationDatabase = Dict[str, LocationGroup]
+LocationDatabase = Dict[
+    GroupName, GroupInfo[str, Dict[str, LocationInfoList]]
+]
 
 
 def database() -> LocationDatabase:
@@ -443,22 +447,26 @@ def _sanitize_key(key) -> str:
 
 def _location_count(db: LocationDatabase) -> int:
     """Returns the count of the locations currently in the database"""
-    return reduce(lambda count, group: count + len(group["locations"]), db.values(), 0)
+    return reduce(lambda count, group: count + len(group), db.values(), 0)
+
+
+def _get_group(name: str, db: LocationDatabase) -> Optional[GroupInfo]:
+    return db.get(name, None)
 
 
 def _add_location_to_db(location: LocationInfo, db: LocationDatabase) -> None:
     """Add a single location to a database"""
-    key = location.timezone_group.lower()
-    group = db.get(key, None)
+    key = _sanitize_key(location.timezone_group)
+    group = _get_group(key, db)
     if not group:
-        group = dict(name=location.timezone_group, locations={})
+        group = {}
         db[key] = group
 
     location_key = _sanitize_key(location.name)
-    if location_key not in group["locations"]:
-        group["locations"][location_key] = [location]
+    if location_key not in group:
+        group[location_key] = [location]
     else:
-        group["locations"][location_key].append(location)
+        group[location_key].append(location)
 
 
 def _indexable_to_locationinfo(idxable) -> LocationInfo:
@@ -483,7 +491,7 @@ def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
             _add_location_to_db(location, db)
 
 
-def _add_locations_from_list(location_list: List[Tuple], db: LocationDatabase) -> None:
+def _add_locations_from_list(location_list: List[Union[Tuple, str]], db: LocationDatabase) -> None:
     """Add locations from a list of either strings or lists of strings or tuples of strings."""
     for info in location_list:
         if isinstance(info, str):
@@ -505,7 +513,7 @@ def add_locations(locations: Union[List, str], db: LocationDatabase) -> None:
         _add_locations_from_list(locations, db)
 
 
-def group(region: str, db: LocationDatabase) -> LocationGroup:
+def group(region: str, db: LocationDatabase) -> GroupInfo:
     """Access to each timezone group. For example London is in timezone
     group Europe.
 
@@ -556,7 +564,7 @@ def lookup_in_group(location: str, group: Dict) -> LocationInfo:
     lookup_name = lookup_name.strip("\"'")
     lookup_region = lookup_region.strip("\"'")
 
-    for (location_name, location_list) in group["locations"].items():
+    for (location_name, location_list) in group.items():
         if location_name == lookup_name:
             if lookup_region == "":
                 return location_list[0]
@@ -599,7 +607,7 @@ def lookup(name: str, db: LocationDatabase) -> Union[Dict, LocationInfo]:
 def all_locations(db: LocationDatabase) -> Generator[LocationInfo, None, None]:
     """A generator that returns all the :class:`~astral.LocationInfo`\\s contained in the database
     """
-    for group in db.values():
-        for location_list in group["locations"].values():
+    for group_info in db.values():
+        for location_list in group_info.values():
             for location in location_list:
                 yield location
