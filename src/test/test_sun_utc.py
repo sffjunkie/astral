@@ -397,8 +397,8 @@ def test_Daylight(london):
     start, end = sun.daylight(london, d)
     cstart = datetime.datetime(2016, 1, 6, 8, 5, 0, tzinfo=pytz.utc)
     cend = datetime.datetime(2016, 1, 6, 16, 7, 0, tzinfo=pytz.utc)
-    assert datetime_almost_equal(start, cstart, 300)
-    assert datetime_almost_equal(end, cend, 300)
+    assert datetime_almost_equal(start, cstart, 120)
+    assert datetime_almost_equal(end, cend, 120)
 
 
 @freezegun.freeze_time("2016-1-06")
@@ -406,17 +406,15 @@ def test_Daylight_NoDate(london):
     start = pytz.utc.localize(datetime.datetime(2016, 1, 6, 8, 5, 0))
     end = pytz.utc.localize(datetime.datetime(2016, 1, 6, 16, 7, 0))
     ans = sun.daylight(london)
-    assert datetime_almost_equal(ans[0], start, 300)
-    assert datetime_almost_equal(ans[1], end, 300)
+    assert datetime_almost_equal(ans[0], start, 120)
+    assert datetime_almost_equal(ans[1], end, 120)
 
 
 def test_Nighttime(london):
     d = datetime.date(2016, 1, 6)
     start, end = sun.night(london, d)
-    cstart = datetime.datetime(2016, 1, 6, 16, 46, 52, tzinfo=pytz.utc)
-    cend = datetime.datetime(2016, 1, 7, 7, 25, 19, tzinfo=pytz.utc)
-    assert datetime_almost_equal(start, cstart, 300)
-    assert datetime_almost_equal(end, cend, 300)
+    assert datetime_almost_equal(start, cstart, 120)
+    assert datetime_almost_equal(end, cend, 120)
 
 
 @freezegun.freeze_time("2016-1-06")
