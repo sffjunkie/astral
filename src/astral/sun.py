@@ -776,10 +776,7 @@ def sunrise(
 
     try:
         return time_of_transit(
-            observer,
-            date,
-            90.0 + SUN_APPARENT_RADIUS,
-            SunDirection.RISING,
+            observer, date, 90.0 + SUN_APPARENT_RADIUS, SunDirection.RISING,
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
@@ -817,10 +814,7 @@ def sunset(
 
     try:
         return time_of_transit(
-            observer,
-            date,
-            90.0 + SUN_APPARENT_RADIUS,
-            SunDirection.SETTING,
+            observer, date, 90.0 + SUN_APPARENT_RADIUS, SunDirection.SETTING,
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
