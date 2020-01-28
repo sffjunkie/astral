@@ -99,7 +99,7 @@ class Location:
     @latitude.setter
     def latitude(self, latitude: Union[float, str]) -> None:
         self._location_info = dataclasses.replace(
-            self._location_info, latitude=dms_to_float(latitude, 90)
+            self._location_info, latitude=dms_to_float(latitude, 90.0)
         )
 
     @property
@@ -120,7 +120,7 @@ class Location:
     @longitude.setter
     def longitude(self, longitude: Union[float, str]) -> None:
         self._location_info = dataclasses.replace(
-            self._location_info, longitude=dms_to_float(longitude, 180)
+            self._location_info, longitude=dms_to_float(longitude, 180.0)
         )
 
     @property
