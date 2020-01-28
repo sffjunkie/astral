@@ -81,7 +81,7 @@ def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
     return now(tzinfo).date()
 
 
-def dms_to_float(dms: str, limit: float) -> float:
+def dms_to_float(dms: Union[str, float], limit: float) -> float:
     """Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`,
     or a float encoded as a string, to a float
 
