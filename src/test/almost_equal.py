@@ -2,6 +2,8 @@ from datetime import datetime
 
 import pytz
 
+
+def datetime_almost_equal(datetime1: datetime, datetime2: datetime, seconds: int = 60):
     if not (datetime1.tzinfo):
         datetime1 = pytz.utc.localize(datetime1)
     else:
