@@ -21,15 +21,15 @@ class TestGoldenHour:
             (
                 datetime.date(2015, 12, 1),
                 (
-                    datetime.datetime(2015, 12, 1, 1, 10, 10),
-                    datetime.datetime(2015, 12, 1, 2, 0, 43),
+                    datetime.datetime(2015, 12, 1, 1, 8, 32),
+                    datetime.datetime(2015, 12, 1, 1, 58, 44),
                 ),
             ),
             (
                 datetime.date(2016, 1, 1),
                 (
-                    datetime.datetime(2016, 1, 1, 1, 27, 46),
-                    datetime.datetime(2016, 1, 1, 2, 19, 1),
+                    datetime.datetime(2016, 1, 1, 1, 26, 7),
+                    datetime.datetime(2016, 1, 1, 2, 16, 59),
                 ),
             ),
         ],
@@ -60,8 +60,8 @@ class TestGoldenHour:
 
     @freezegun.freeze_time("2015-12-1")
     def test_no_date(self, new_delhi):
-        start = pytz.utc.localize(datetime.datetime(2015, 12, 1, 1, 10, 10))
-        end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 2, 0, 43))
+        start = pytz.utc.localize(datetime.datetime(2015, 12, 1, 1, 8, 32))
+        end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 1, 58, 44))
         ans = sun.golden_hour(new_delhi)
         assert datetime_almost_equal(ans[0], start, 90)
         assert datetime_almost_equal(ans[1], end, 90)
