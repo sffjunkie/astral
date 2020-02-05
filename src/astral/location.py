@@ -6,7 +6,7 @@ import pytz
 
 import astral.moon
 import astral.sun
-from astral import LocationInfo, Observer, SunDirection, dms_to_float, today
+    Depression,
 
 
 class Location:
@@ -32,7 +32,7 @@ class Location:
         """
 
         self._location_info: LocationInfo
-        self._solar_depression: float = 6.0
+        self._solar_depression: float = Depression.CIVIL
 
         if not info:
             self._location_info = LocationInfo(
@@ -175,7 +175,7 @@ class Location:
         return self._solar_depression
 
     @solar_depression.setter
-    def solar_depression(self, depression: Union[float, str]) -> None:
+    def solar_depression(self, depression: Union[float, str, Depression]) -> None:
         if isinstance(depression, str):
             try:
                 self._solar_depression = {
@@ -191,6 +191,8 @@ class Location:
                         "'astronomical'"
                     )
                 )
+        elif isinstance(depression, Depression):
+            self._solar_depression = depression.value
         else:
             self._solar_depression = float(depression)
 

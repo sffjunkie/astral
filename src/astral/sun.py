@@ -17,7 +17,7 @@ from typing import Dict, Optional, Tuple
 
 import pytz
 
-from astral import Observer, SunDirection, now, today
+from astral import Depression, Observer, SunDirection, now, today
 
 __all__ = [
     "sun",
@@ -720,7 +720,7 @@ def elevation(
 def dawn(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    depression: float = 6.0,
+    depression: Union[float, Depression] = Depression.CIVIL,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
     """Calculate dawn time.
@@ -739,6 +739,9 @@ def dawn(
     """
     if date is None:
         date = today(tzinfo)
+
+    if isinstance(depression, Depression):
+        depression = depression.value
 
     try:
         return time_of_transit(
@@ -831,7 +834,7 @@ def sunset(
 def dusk(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    depression: float = 6.0,
+    depression: Union[float, Depression] = Depression.CIVIL,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> datetime.datetime:
     """Calculate dusk time.
@@ -851,6 +854,9 @@ def dusk(
 
     if date is None:
         date = today(tzinfo)
+
+    if isinstance(depression, Depression):
+        depression = depression.value
 
     try:
         return time_of_transit(
@@ -1095,7 +1101,7 @@ def rahukaalam(
 def sun(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    dawn_dusk_depression: float = 6.0,
+    dawn_dusk_depression: Union[float, Depression] = Depression.CIVIL,
     tzinfo: datetime.tzinfo = pytz.utc,
 ) -> Dict:
     """Calculate all the info for the sun at once.

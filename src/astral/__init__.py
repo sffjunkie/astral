@@ -125,6 +125,14 @@ def dms_to_float(dms: Union[str, float], limit: float) -> float:
     return res
 
 
+class Depression(Enum):
+    """The depression angle in degrees for the dawn/dusk calculations"""
+
+    CIVIL: float = 6.0
+    NAUTICAL: float = 12.0
+    ASTRONOMICAL: float = 18.0
+
+
 class SunDirection(Enum):
     RISING = 1
     SETTING = -1
