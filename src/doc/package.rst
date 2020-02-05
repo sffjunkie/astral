@@ -16,9 +16,7 @@ The :mod:`astral` Package
 =========================
 
 .. automodule:: astral
-
-.. autoclass:: Observer
-.. autoclass:: LocationInfo
+   :members:
 
 astral.sun
 ~~~~~~~~~~~
