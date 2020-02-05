@@ -202,5 +202,10 @@ class LocationInfo:
         super().__setattr__(name, value)
 
     @property
+    def observer(self):
+        """Return an Observer at this location"""
+        return Observer(self.latitude, self.longitude, 0.0)
+
+    @property
     def timezone_group(self):
         return self.timezone.split("/")[0]
