@@ -145,8 +145,8 @@ class SunDirection(Enum):
 class Observer:
     """Defines the location of an observer on Earth.
 
-    Latitude and longitude can be set either as a float or as a string. For strings they must
-    be of the form
+    Latitude and longitude can be set either as a float or as a string.
+    For strings they must be of the form
 
         degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
 
