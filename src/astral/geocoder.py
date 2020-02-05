@@ -88,6 +88,7 @@ Cotonou,Benin,Africa/Porto-Novo,06°23'N,02°42'E
 Dakar,Senegal,Africa/Dakar,14°34'N,17°29'W
 Damascus,Syrian Arab Republic,Asia/Damascus,33°30'N,36°18'E
 Dammam,Saudi Arabia,Asia/Riyadh,26°30'N,50°12'E
+Darwin,Australia,Australia/Darwin,12°26'S,130°50'E
 Dhaka,Bangladesh,Asia/Dhaka,23°43'N,90°26'E
 Dili,East Timor,Asia/Dili,08°29'S,125°34'E
 Djibouti,Djibouti,Africa/Djibouti,11°08'N,42°20'E
