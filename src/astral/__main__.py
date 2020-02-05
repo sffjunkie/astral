@@ -5,7 +5,7 @@ from typing import Any, Dict
 
 import pytz
 
-from astral import LocationInfo, sun
+from astral import LocationInfo, Observer, sun
 
 options = argparse.ArgumentParser()
 options.add_argument(
@@ -30,11 +30,13 @@ options.add_argument(
 args = options.parse_args()
 
 loc = LocationInfo(
-    args.name, args.region, args.tzname, args.latitude, args.longitude, args.elevation
+    args.name, args.region, args.tzname, args.latitude, args.longitude
 )
 
+obs = Observer(args.latitude, args.longitude, args.elevation)
+
 kwargs: Dict[str, Any] = {}
-kwargs["observer"] = loc
+kwargs["observer"] = obs
 
 if args.date is not None:
     try:
