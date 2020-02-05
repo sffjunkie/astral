@@ -199,9 +199,7 @@ class LocationInfo:
             value = dms_to_float(value, 90.0)
         elif name == "longitude":
             value = dms_to_float(value, 180.0)
-        elif name == "elevation":
-            value = float(value)
-        super(LocationInfo, self).__setattr__(name, value)
+        super().__setattr__(name, value)
 
     @property
     def timezone_group(self):
