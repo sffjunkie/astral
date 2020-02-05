@@ -537,9 +537,7 @@ def midnight(
 
 
 def zenith_and_azimuth(
-    observer: Observer,
-    dateandtime: datetime.datetime,
-    adjust_for_refraction: bool = False,
+    observer: Observer, dateandtime: datetime.datetime, with_refraction: bool = False,
 ) -> Tuple[float, float]:
     if observer.latitude > 89.8:
         latitude = 89.8
@@ -598,29 +596,6 @@ def zenith_and_azimuth(
 
     zenith = degrees(acos(csz))
 
-    if adjust_for_refraction:
-        # Correct for refraction
-        exoatmAltitude = 90.0 - zenith
-        refractionCorrection = refraction_at_zenith(exoatmAltitude)
-        zenith += refractionCorrection
-
-        # if exoatmAltitude <= 85.0:
-        #     te = tan(radians(exoatmAltitude))
-        #     if exoatmAltitude > 5.0:
-        #         refractionCorrection = (
-        #             58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
-        #         )
-        #     elif exoatmAltitude > -0.575:
-        #         step1 = -12.79 + exoatmAltitude * 0.711
-        #         step2 = 103.4 + exoatmAltitude * (step1)
-        #         step3 = -518.2 + exoatmAltitude * (step2)
-        #         refractionCorrection = 1735.0 + exoatmAltitude * (step3)
-        #     else:
-        #         refractionCorrection = -20.774 / te
-
-        #     refractionCorrection = refractionCorrection / 3600.0
-        #     zenith -= refractionCorrection
-
     azDenom = cos(radians(latitude)) * sin(radians(zenith))
 
     if abs(azDenom) > 0.001:
@@ -647,6 +622,9 @@ def zenith_and_azimuth(
     if azimuth < 0.0:
         azimuth = azimuth + 360.0
 
+    if with_refraction:
+        zenith -= refraction_at_zenith(zenith)
+
     return zenith, azimuth
 
 
@@ -660,7 +638,7 @@ def zenith(
     Args:
         observer:    Observer to calculate the solar zenith for
         dateandtime: The date and time for which to calculate the angle.
-                     Default is the time now, for the specified tzinfo.
+        with_refraction: If True adjust zenith to take refraction into account
 
                      If `dateandtime` is a naive Python datetime then it is assumed to be
                      in the UTC timezone.
@@ -673,7 +651,7 @@ def zenith(
     if dateandtime is None:
         dateandtime = now(tzinfo)
 
-    return zenith_and_azimuth(observer, dateandtime)[0]
+    return zenith_and_azimuth(observer, dateandtime, with_refraction)[0]
 
 
 def azimuth(
@@ -705,7 +683,7 @@ def azimuth(
 def elevation(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
-    tzinfo: datetime.tzinfo = pytz.utc,
+    with_refraction: bool = False,
 ) -> float:
     """Calculate the elevation angle of the sun.
 
@@ -726,7 +704,7 @@ def elevation(
     if dateandtime is None:
         dateandtime = now(tzinfo)
 
-    return 90 - zenith(observer, dateandtime)
+    return 90.0 - zenith(observer, dateandtime, with_refraction)
 
 
 def dawn(
