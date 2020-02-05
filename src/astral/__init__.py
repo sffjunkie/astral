@@ -35,8 +35,7 @@ plus solar azimuth and elevation at a specific latitude/longitude.
 It can also calculate the moon phase for a specific date.
 
 The package also provides a self contained geocoder to turn a small set of
-location names into timezone, latitude, longitude and elevation. The lookups
-can be perfomed using the :func:`lookup` function defined in
+location names into timezone, latitude and longitude. The lookups
 :mod:`astral.geocoder`
 
 .. note::
