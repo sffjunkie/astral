@@ -112,7 +112,7 @@ def dms_to_float(dms: Union[str, float], limit: float) -> float:
             if sec:
                 res += float(sec) / 3600
 
-            if dir_ == "S" or dir_ == "W":
+            if dir_.upper() in ["S", "W"]:
                 res = -res
         else:
             raise ValueError("Unable to convert degrees/minutes/seconds to float")
