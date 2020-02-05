@@ -59,12 +59,13 @@ except ImportError:
 
 
 __all__ = [
-    "LocationInfo",
-    "Observer",
+    "Depression",
     "SunDirection",
-    "latlng_to_float",
+    "Observer",
+    "LocationInfo",
     "now",
     "today",
+    "dms_to_float",
 ]
 
 __version__ = "2.0-alpha"
