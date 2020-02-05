@@ -36,6 +36,7 @@ It can also calculate the moon phase for a specific date.
 
 The package also provides a self contained geocoder to turn a small set of
 location names into timezone, latitude and longitude. The lookups
+can be perfomed using the :func:`~astral.geocoder.lookup` function defined in
 :mod:`astral.geocoder`
 
 .. note::
