@@ -20,8 +20,8 @@ The :mod:`astral` package provides the means to calculate the following times of
 
 * dawn
 * sunrise
-* solar noon
-* solar midnight
+* noon
+* midnight
 * sunset
 * dusk
 * rahukaalam
