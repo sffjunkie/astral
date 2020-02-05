@@ -25,7 +25,6 @@ class Location:
             time zone name   Europe/London
             latitude         51.4733
             longitude        -0.00088
-            elevation        24
             ================ =============
 
             See :attr:`timezone` property for a method of obtaining time zone
@@ -37,7 +36,7 @@ class Location:
 
         if not info:
             self._location_info = LocationInfo(
-                "Greenwich", "England", "Europe/London", 51.4733, -0.00088, 24
+                "Greenwich", "England", "Europe/London", 51.4733, -0.0008333
             )
         else:
             self._location_info = info
@@ -57,12 +56,7 @@ class Location:
     @property
     def info(self) -> LocationInfo:
         return LocationInfo(
-            self.name,
-            self.region,
-            self.timezone,
-            self.latitude,
-            self.longitude,
-            self.elevation,
+            self.name, self.region, self.timezone, self.latitude, self.longitude,
         )
 
     @property
@@ -121,19 +115,6 @@ class Location:
     def longitude(self, longitude: Union[float, str]) -> None:
         self._location_info = dataclasses.replace(
             self._location_info, longitude=dms_to_float(longitude, 180.0)
-        )
-
-    @property
-    def elevation(self) -> float:
-        """The elevation in metres above sea level."""
-
-        return self._location_info.elevation
-
-    @elevation.setter
-    def elevation(self, elevation: float) -> None:
-        elevation = int(elevation)
-        self._location_info = dataclasses.replace(
-            self._location_info, elevation=elevation
         )
 
     @property
@@ -242,8 +223,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.sun(observer, date, self.solar_depression, self.tzinfo)

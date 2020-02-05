@@ -28,13 +28,6 @@ class TestLocation:
         c.region = "Australia"
         assert c.region == "Australia"
 
-    def test_Elevation(self):
-        """Test the default elevation and that the elevation is changeable"""
-        c = Location()
-        assert c.elevation == 24
-        c.elevation = 300
-        assert c.elevation == 300
-
     def test_TimezoneName(self):
         """Test the default timezone and that the timezone is changeable"""
         c = Location()

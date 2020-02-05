@@ -29,7 +29,6 @@ class TestDatabase:
         tz = pytz.timezone("Europe/London")
         tzl = pytz.timezone(loc.timezone)
         assert tz == tzl
-        assert loc.elevation == 24
 
     def test_city_in_db(self, test_database):
         astral.geocoder.lookup("london", test_database)
@@ -76,7 +75,6 @@ class TestBugReports:
 
     def test_CandianCities(self, test_database):
         city = astral.geocoder.lookup("Fredericton", test_database)
-        assert city.elevation == 8
 
 
 class TestDatabaseAddLocations:

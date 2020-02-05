@@ -476,7 +476,6 @@ def _indexable_to_locationinfo(idxable) -> LocationInfo:
         timezone=idxable[2],
         latitude=dms_to_float(idxable[3], 90.0),
         longitude=dms_to_float(idxable[4], 180.0),
-        elevation=float(idxable[5]),
     )
 
 
