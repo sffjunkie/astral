@@ -509,8 +509,8 @@ class Location:
 
     def twilight(
         self,
-        direction: SunDirection = SunDirection.RISING,
         date: datetime.date = None,
+        direction: SunDirection = SunDirection.RISING,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ):
