@@ -7,8 +7,8 @@ class TestObserver:
     def test_default(self):
         obs = Observer()
         assert obs.latitude == 51.4733
-        assert obs.longitude == -0.00088
-        assert obs.elevation == 24.0
+        assert obs.longitude == -0.0008333
+        assert obs.elevation == 0.0
 
     def test_from_float(self):
         obs = Observer(1, 1, 1)
@@ -41,13 +41,13 @@ class TestObserver:
             Observer(1, 1, "o")
 
     def test_latitude_outside_limits(self):
-        with pytest.raises(ValueError):
-            Observer(90.1, 0, 0)
-        with pytest.raises(ValueError):
-            Observer(-90.1, 0, 0)
+        obs = Observer(90.1, 0, 0)
+        assert obs.latitude == 90.0
+        obs = Observer(-90.1, 0, 0)
+        assert obs.latitude == -90.0
 
     def test_longitude_outside_limits(self):
-        with pytest.raises(ValueError):
-            Observer(180.1, 0, 0)
-        with pytest.raises(ValueError):
-            Observer(-180.1, 0, 0)
+        obs = Observer(0, 180.1, 0)
+        assert obs.longitude == 180.0
+        obs = Observer(0, -180.1, 0)
+        assert obs.longitude == -180.0

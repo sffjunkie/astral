@@ -21,15 +21,15 @@ class TestGoldenHour:
             (
                 datetime.date(2015, 12, 1),
                 (
-                    datetime.datetime(2015, 12, 1, 1, 8, 32),
-                    datetime.datetime(2015, 12, 1, 1, 58, 44),
+                    datetime.datetime(2015, 12, 1, 1, 10, 10),
+                    datetime.datetime(2015, 12, 1, 2, 0, 43),
                 ),
             ),
             (
                 datetime.date(2016, 1, 1),
                 (
-                    datetime.datetime(2016, 1, 1, 1, 26, 7),
-                    datetime.datetime(2016, 1, 1, 2, 16, 59),
+                    datetime.datetime(2016, 1, 1, 1, 27, 46),
+                    datetime.datetime(2016, 1, 1, 2, 19, 1),
                 ),
             ),
         ],
@@ -38,7 +38,7 @@ class TestGoldenHour:
         start1 = pytz.utc.localize(golden_hour[0])
         end1 = pytz.utc.localize(golden_hour[1])
 
-        start2, end2 = sun.golden_hour(new_delhi, day, SunDirection.RISING)
+        start2, end2 = sun.golden_hour(new_delhi.observer, day, SunDirection.RISING)
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -54,15 +54,15 @@ class TestGoldenHour:
             start1 = pytz.utc.localize(golden_hour[0])
             end1 = pytz.utc.localize(golden_hour[1])
 
-            start2, end2 = sun.golden_hour(london, day, SunDirection.SETTING)
+            start2, end2 = sun.golden_hour(london.observer, day, SunDirection.SETTING)
             assert datetime_almost_equal(end1, end2, seconds=60)
             assert datetime_almost_equal(start1, start2, seconds=60)
 
     @freezegun.freeze_time("2015-12-1")
     def test_no_date(self, new_delhi):
-        start = pytz.utc.localize(datetime.datetime(2015, 12, 1, 1, 8, 32))
-        end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 1, 58, 44))
-        ans = sun.golden_hour(new_delhi)
+        start = pytz.utc.localize(datetime.datetime(2015, 12, 1, 1, 10, 10))
+        end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 2, 0, 43))
+        ans = sun.golden_hour(new_delhi.observer)
         assert datetime_almost_equal(ans[0], start, 90)
         assert datetime_almost_equal(ans[1], end, 90)
 
@@ -82,7 +82,7 @@ class TestBlueHour:
             start1 = pytz.utc.localize(blue_hour[0])
             end1 = pytz.utc.localize(blue_hour[1])
 
-            start2, end2 = sun.blue_hour(london, day, SunDirection.RISING)
+            start2, end2 = sun.blue_hour(london.observer, day, SunDirection.RISING)
             assert datetime_almost_equal(end1, end2, seconds=90)
             assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -98,7 +98,7 @@ class TestBlueHour:
             start1 = pytz.utc.localize(blue_hour[0])
             end1 = pytz.utc.localize(blue_hour[1])
 
-            start2, end2 = sun.blue_hour(london, day, SunDirection.SETTING)
+            start2, end2 = sun.blue_hour(london.observer, day, SunDirection.SETTING)
             assert datetime_almost_equal(end1, end2, seconds=90)
             assert datetime_almost_equal(start1, start2, seconds=90)
 
@@ -106,6 +106,6 @@ class TestBlueHour:
     def test_no_date(self, london):
         start = pytz.utc.localize(datetime.datetime(2016, 5, 19, 20, 18))
         end = pytz.utc.localize(datetime.datetime(2016, 5, 19, 20, 35))
-        ans = sun.blue_hour(london, direction=SunDirection.SETTING)
+        ans = sun.blue_hour(london.observer, direction=SunDirection.SETTING)
         assert datetime_almost_equal(ans[0], start, 90)
         assert datetime_almost_equal(ans[1], end, 90)

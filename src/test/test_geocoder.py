@@ -4,6 +4,7 @@ from pytest import raises, approx
 
 import astral.geocoder
 
+
 def location_count(name, locations):
     return len(list(filter(lambda item: item.name == name, locations)))
 
@@ -24,8 +25,8 @@ class TestDatabase:
         loc = astral.geocoder.lookup("London", test_database)
         assert loc.name == "London"
         assert loc.region == "England"
-        assert approx(loc.latitude, 51.5)
-        assert approx(loc.longitude, -0.166)
+        assert loc.latitude == approx(51.4733, abs=0.001)
+        assert loc.longitude == approx(-0.0008333, abs=0.000001)
         tz = pytz.timezone("Europe/London")
         tzl = pytz.timezone(loc.timezone)
         assert tz == tzl

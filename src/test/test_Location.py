@@ -157,12 +157,12 @@ class TestLocation:
     def test_Moon(self):
         d = datetime.date(2017, 12, 1)
         c = Location()
-        assert c.moon_phase(date=d) == 11
+        assert c.moon_phase(date=d) == pytest.approx(11.62, abs=0.01)
 
     @freezegun.freeze_time("2015-12-01")
     def test_MoonNoDate(self):
         c = Location()
-        assert c.moon_phase() == 19
+        assert c.moon_phase() == pytest.approx(19.47, abs=0.01)
 
     def test_TzError(self):
         with pytest.raises(AttributeError):
@@ -177,7 +177,7 @@ class TestLocation:
     def test_LocationEquality_NotEqual(self, london_info):
         location1 = Location(london_info)
         location2 = Location(london_info)
-        location2.elevation = 23.0
+        location2.latitude = 23.0
 
         assert location2 != location1
 
@@ -198,7 +198,7 @@ class TestLocation:
         loc = Location()
         loc.latitude = "24°28'N"
 
-        assert pytest.approx(loc.latitude, 24.46666666666666)
+        assert loc.latitude == pytest.approx(24.46666666666666)
 
     def test_SetLongitudeFloat(self):
         loc = Location()
@@ -209,7 +209,7 @@ class TestLocation:
         loc = Location()
         loc.longitude = "24°28'S"
 
-        assert pytest.approx(loc.longitude, -24.46666666666666)
+        assert loc.longitude == pytest.approx(-24.46666666666666)
 
     def test_SetBadLongitudeString(self):
         loc = Location()

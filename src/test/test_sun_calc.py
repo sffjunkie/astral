@@ -30,7 +30,7 @@ def test_JulianDay(day: datetime.date, jd: float):
     ],
 )
 def test_JulianCentury(jd: float, jc: float):
-    assert pytest.approx(sun.jday_to_jcentury(jd), jc)
+    assert sun.jday_to_jcentury(jd) == pytest.approx(jc)
 
 
 @pytest.mark.parametrize(
@@ -44,7 +44,7 @@ def test_JulianCentury(jd: float, jc: float):
     ],
 )
 def test_JulianCenturyToJulianDay(jc: float, jd: float):
-    assert pytest.approx(sun.jcentury_to_jday(jc), jd)
+    assert sun.jcentury_to_jday(jc) == pytest.approx(jd)
 
 
 @pytest.mark.parametrize(
@@ -56,7 +56,7 @@ def test_JulianCenturyToJulianDay(jc: float, jd: float):
     ],
 )
 def test_GeomMeanLongSun(jc: float, gmls: float):
-    assert pytest.approx(sun.geom_mean_long_sun(jc), gmls)
+    assert sun.geom_mean_long_sun(jc) == pytest.approx(gmls)
 
 
 @pytest.mark.parametrize(
@@ -64,7 +64,7 @@ def test_GeomMeanLongSun(jc: float, gmls: float):
     [(0.119986311, 4676.922342), (12.00844627, 432650.1681), (0.184134155, 6986.1838),],
 )
 def test_GeomAnomolyLongSun(jc: float, gmas: float):
-    assert pytest.approx(sun.geom_mean_anomaly_sun(jc), gmas)
+    assert sun.geom_mean_anomaly_sun(jc) == pytest.approx(gmas)
 
 
 @pytest.mark.parametrize(
@@ -76,7 +76,7 @@ def test_GeomAnomolyLongSun(jc: float, gmas: float):
     ],
 )
 def test_EccentricityEarthOrbit(jc: float, eeo: float):
-    assert pytest.approx(sun.eccentric_location_earth_orbit(jc), eeo, abs=1e-6)
+    assert sun.eccentric_location_earth_orbit(jc) == pytest.approx(eeo, abs=1e-6)
 
 
 @pytest.mark.parametrize(
@@ -88,19 +88,19 @@ def test_EccentricityEarthOrbit(jc: float, eeo: float):
     ],
 )
 def test_SunEqOfCenter(jc: float, eos: float):
-    assert pytest.approx(sun.sun_eq_of_center(jc), eos, abs=1e-6)
+    assert sun.sun_eq_of_center(jc) == pytest.approx(eos, abs=1e-6)
 
 
 @pytest.mark.parametrize(
     "jc,stl",
     [
         (0.119986311, 279.9610686),
-        (12.00844627, 232.0673241),
-        (0.184134155, 70.48464338),
+        (12.00844627, 232.0673358),
+        (0.184134155, 70.48465428),
     ],
 )
 def test_SunTrueLong(jc: float, stl: float):
-    assert pytest.approx(sun.sun_true_long(jc), stl, abs=1e-6)
+    assert sun.sun_true_long(jc) == pytest.approx(stl, abs=0.001)
 
 
 @pytest.mark.parametrize(
@@ -108,11 +108,11 @@ def test_SunTrueLong(jc: float, stl: float):
     [
         (0.119986311, 4676.817391),
         (12.00844627, 432648.4151),
-        (0.184134155, 6987.230652),
+        (0.184134155, 6987.230663),
     ],
 )
 def test_SunTrueAnomaly(jc: float, sta: float):
-    assert pytest.approx(sun.sun_true_anomoly(jc), sta, abs=1e-3)
+    assert sun.sun_true_anomoly(jc) == pytest.approx(sta, abs=0.001)
 
 
 @pytest.mark.parametrize(
@@ -124,43 +124,43 @@ def test_SunTrueAnomaly(jc: float, sta: float):
     ],
 )
 def test_SunRadVector(jc: float, srv: float):
-    assert pytest.approx(sun.sun_rad_vector(jc), srv, abs=1e-6)
+    assert sun.sun_rad_vector(jc) == pytest.approx(srv, abs=0.001)
 
 
 @pytest.mark.parametrize(
     "jc,sal",
     [
-        (0.119986311, 279.959949),
-        (12.00844627, 232.0658118),
-        (0.184134155, 70.47523335),
+        (0.119986311, 279.95995849827),
+        (12.00844627, 232.065823531804),
+        (0.184134155, 70.475244256027),
     ],
 )
 def test_SunApparentLong(jc: float, sal: float):
-    assert pytest.approx(sun.sun_apparent_long(jc), sal, abs=1e-5)
+    assert sun.sun_apparent_long(jc) == pytest.approx(sal)
 
 
 @pytest.mark.parametrize(
     "jc,mooe",
     [
-        (0.119986311, 23.43773079),
-        (12.00844627, 23.28397972),
-        (0.184134155, 23.4368966),
+        (0.119986311, 23.4377307876356),
+        (12.00844627, 23.2839797200388),
+        (0.184134155, 23.4368965974579),
     ],
 )
 def test_MeanObliquityOfEcliptic(jc: float, mooe: float):
-    assert pytest.approx(sun.mean_obliquity_of_ecliptic(jc), mooe, abs=1e-6)
+    assert sun.mean_obliquity_of_ecliptic(jc) == pytest.approx(mooe)
 
 
 @pytest.mark.parametrize(
     "jc,oc",
     [
-        (0.119986311, 23.43773079),
-        (12.00844627, 23.28397972),
-        (0.184134155, 23.4368966),
+        (0.119986311, 23.4369810410121),
+        (12.00844627, 23.2852236361575),
+        (0.184134155, 23.4352890293474),
     ],
 )
 def test_ObliquityCorrection(jc: float, oc: float):
-    assert pytest.approx(sun.obliquity_correction(jc), oc, abs=1e-5)
+    assert sun.obliquity_correction(jc) == pytest.approx(oc, abs=0.001)
 
 
 @pytest.mark.parametrize(
@@ -172,7 +172,7 @@ def test_ObliquityCorrection(jc: float, oc: float):
     ],
 )
 def test_SunRtAscension(jc: float, sra: float):
-    assert pytest.approx(sun.sun_rt_ascension(jc), sra, abs=1e-7)
+    assert sun.sun_rt_ascension(jc) == pytest.approx(sra, abs=0.001)
 
 
 @pytest.mark.parametrize(
@@ -184,19 +184,19 @@ def test_SunRtAscension(jc: float, sra: float):
     ],
 )
 def test_SunDeclination(jc: float, sd: float):
-    assert pytest.approx(sun.sun_declination(jc), sd, abs=1e-6)
+    assert sun.sun_declination(jc) == pytest.approx(sd, abs=0.001)
 
 
 @pytest.mark.parametrize(
     "jc,eot",
     [
-        (0.119986311, -3.078190421),
+        (0.119986311, -3.078194825),
         (12.00844627, 16.58348133),
         (0.184134155, 2.232039737),
     ],
 )
 def test_EquationOfTime(jc: float, eot: float):
-    assert pytest.approx(sun.eq_of_time(jc), eot, abs=1e-6)
+    assert sun.eq_of_time(jc) == pytest.approx(eot)
 
 
 @pytest.mark.parametrize(
@@ -212,39 +212,44 @@ def test_HourAngle(d: datetime.date, ha: float, london):
     jc = sun.jday_to_jcentury(jd)
     decl = sun.sun_declination(jc)
 
-    assert pytest.approx(
-        sun.hour_angle(london.latitude, decl, 90.8333, sun.SunDirection.RISING),
-        ha,
-        abs=1e-6,
-    )
+    assert sun.hour_angle(
+        london.latitude, decl, 90.8333, sun.SunDirection.RISING
+    ) == pytest.approx(ha, abs=0.001)
 
 
 @pytest.mark.parametrize("in_,out", [(12, 12), (13.3, 13.3), (-3, 357), (363, 3)])
 def test_ProperAngle(in_, out):
-    assert pytest.approx(sun.proper_angle(in_), out)
+    assert sun.proper_angle(in_) == pytest.approx(out)
 
 
 def test_Azimuth(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert pytest.approx(sun.azimuth(new_delhi, d), 292.77,)
+    assert sun.azimuth(new_delhi, d) == pytest.approx(292.766381632981)
 
 
-def test_Altitude(new_delhi):
+def test_Elevation(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert pytest.approx(sun.azimuth(new_delhi, d), 7.41,)
+    assert sun.elevation(new_delhi, d) == pytest.approx(7.2934905573586)
 
 
-def test_Altitude_NonNaive(new_delhi):
+def test_Elevation_NonNaive(new_delhi):
     d = datetime.datetime(2001, 6, 21, 18, 41, 0)
     d = new_delhi.tz.localize(d)
-    assert pytest.approx(sun.elevation(new_delhi, d), 7.41,)
+    assert sun.elevation(new_delhi, d) == pytest.approx(7.2934905573586)
+
+
+def test_Elevation_WithRefraction(new_delhi):
+    d = datetime.datetime(2001, 6, 21, 13, 11, 0)
+    assert sun.elevation(new_delhi, d, with_refraction=True) == pytest.approx(
+        7.4110090037167
+    )
 
 
 def test_Azimuth_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert pytest.approx(sun.azimuth(Observer(86, 77.2), d), 276.23)
+    assert sun.azimuth(Observer(86, 77.2), d) == pytest.approx(276.2148, abs=0.001)
 
 
 def test_Altitude_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert pytest.approx(sun.elevation(Observer(86, 77.2), d), 23.10)
+    assert sun.elevation(Observer(86, 77.2), d) == pytest.approx(23.0648, abs=0.001)
