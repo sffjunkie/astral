@@ -203,7 +203,10 @@ class Location:
             return today()
 
     def sun(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> dict:
         """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
 
@@ -214,9 +217,8 @@ class Location:
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
             ``sunset`` and ``dusk`` whose values are the results of the
@@ -237,7 +239,10 @@ class Location:
             return astral.sun.sun(observer, date, self.solar_depression)
 
     def dawn(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
         """Calculates the time in the morning when the sun is a certain number
         of degrees below the horizon. By default this is 6 degrees but can be
@@ -250,9 +255,8 @@ class Location:
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :returns: The date and time at which dawn occurs.
         """
@@ -263,8 +267,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.dawn(observer, date, self.solar_depression, self.tzinfo)
@@ -272,7 +275,10 @@ class Location:
             return astral.sun.dawn(observer, date, self.solar_depression)
 
     def sunrise(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
         """Return sunrise time.
 
@@ -285,12 +291,9 @@ class Location:
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
-        :type local:  bool
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
-        :type use_elevation:  bool
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :returns: The date and time at which sunrise occurs.
         """
@@ -301,8 +304,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.sunrise(observer, date, self.tzinfo)
@@ -336,7 +338,10 @@ class Location:
             return astral.sun.noon(observer, date)
 
     def sunset(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
         """Calculates sunset time (the time in the evening when the sun is a
         0.833 degrees below the horizon. This is to account for refraction.)
@@ -347,12 +352,9 @@ class Location:
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
-        :type local:  bool
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
-        :type use_elevation:  bool
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :returns: The date and time at which sunset occurs.
         """
@@ -363,8 +365,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.sunset(observer, date, self.tzinfo)
@@ -372,7 +373,10 @@ class Location:
             return astral.sun.sunset(observer, date)
 
     def dusk(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
         """Calculates the dusk time (the time in the evening when the sun is a
         certain number of degrees below the horizon. By default this is 6
@@ -386,9 +390,8 @@ class Location:
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :returns: The date and time at which dusk occurs.
         """
@@ -399,8 +402,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.dusk(observer, date, self.solar_depression, self.tzinfo)
@@ -437,7 +439,10 @@ class Location:
             return astral.sun.midnight(observer, date)
 
     def daylight(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
         """Calculates the daylight time (the time between sunrise and sunset)
 
@@ -447,12 +452,9 @@ class Location:
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
-        :type local:  bool
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
-        :type use_elevation:  bool
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :returns: A tuple containing the start and end times
         """
@@ -463,8 +465,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.daylight(observer, date, self.tzinfo)
@@ -472,7 +473,10 @@ class Location:
             return astral.sun.daylight(observer, date)
 
     def night(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
         """Calculates the night time (the time between astronomical dusk and
         astronomical dawn of the next day)
@@ -484,9 +488,8 @@ class Location:
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :returns: A tuple containing the start and end times
         """
@@ -497,8 +500,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.night(observer, date, self.tzinfo)
@@ -510,7 +512,7 @@ class Location:
         direction: SunDirection = SunDirection.RISING,
         date: datetime.date = None,
         local: bool = True,
-        use_elevation: bool = True,
+        observer_elevation: Elevation = 0.0,
     ):
         """Returns the start and end times of Twilight in the UTC timezone when
         the sun is traversing in the specified direction.
@@ -527,12 +529,9 @@ class Location:
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
                       If not specified then the time will be returned in local time
-        :type local:  bool
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
-        :type use_elevation:  bool
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :return: A tuple of the UTC date and time at which twilight starts and ends.
         """
@@ -543,8 +542,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.twilight(observer, date, direction, self.tzinfo)
@@ -601,7 +599,10 @@ class Location:
             return astral.sun.time_at_elevation(observer, altitude, date, direction)
 
     def rahukaalam(
-        self, date: datetime.date = None, local: bool = True, use_elevation: bool = True
+        self,
+        date: datetime.date = None,
+        local: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
         """Calculates the period of rahukaalam.
 
@@ -610,12 +611,9 @@ class Location:
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
-        :type local:  bool
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
-        :type use_elevation:  bool
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :return: Tuple containing the start and end times for Rahukaalam.
         """
@@ -626,8 +624,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.rahukaalam(observer, date, self.tzinfo)
@@ -639,7 +636,7 @@ class Location:
         direction: SunDirection = SunDirection.RISING,
         date: datetime.date = None,
         local: bool = True,
-        use_elevation: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
         """Returns the start and end times of the Golden Hour when the sun is traversing
         in the specified direction.
@@ -658,9 +655,8 @@ class Location:
                       False = Times to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :return: A tuple of the date and time at which the Golden Hour starts and ends.
         """
@@ -671,8 +667,7 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.golden_hour(observer, date, direction, self.tzinfo)
@@ -684,7 +679,7 @@ class Location:
         direction: SunDirection = SunDirection.RISING,
         date: datetime.date = None,
         local: bool = True,
-        use_elevation: bool = True,
+        observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
         """Returns the start and end times of the Blue Hour when the sun is traversing
         in the specified direction.
@@ -703,9 +698,8 @@ class Location:
                       False = Times to be returned in UTC.
                       If not specified then the time will be returned in local time
 
-        :param use_elevation: True  = Return times that allow for the location's elevation;
-                              False = Return times that don't use elevation.
-                              If not specified then times will take elevation into account.
+        :param observer_elevation: Elevation of the observer in metres above
+                                   the location.
 
         :return: A tuple of the date and time at which the Blue Hour starts and ends.
         """
@@ -716,15 +710,18 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        elevation = self.elevation if use_elevation else 0
-        observer = Observer(self.latitude, self.longitude, elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
             return astral.sun.blue_hour(observer, date, direction, self.tzinfo)
         else:
             return astral.sun.blue_hour(observer, date, direction)
 
-    def solar_azimuth(self, dateandtime: datetime.datetime = None) -> float:
+    def solar_azimuth(
+        self,
+        dateandtime: datetime.datetime = None,
+        observer_elevation: Elevation = 0.0,
+    ) -> float:
         """Calculates the solar azimuth angle for a specific date/time.
 
         :param dateandtime: The date and time for which to calculate the angle.
@@ -736,12 +733,16 @@ class Location:
         elif not dateandtime.tzinfo:
             dateandtime = self.tzinfo.localize(dateandtime)
 
-        observer = Observer(self.latitude, self.longitude, self.elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         dateandtime = dateandtime.astimezone(pytz.utc)  # type: ignore
         return astral.sun.azimuth(observer, dateandtime)
 
-    def solar_elevation(self, dateandtime: datetime.datetime = None) -> float:
+    def solar_elevation(
+        self,
+        dateandtime: datetime.datetime = None,
+        observer_elevation: Elevation = 0.0,
+    ) -> float:
         """Calculates the solar elevation angle for a specific time.
 
         :param dateandtime: The date and time for which to calculate the angle.
@@ -754,19 +755,21 @@ class Location:
         elif not dateandtime.tzinfo:
             dateandtime = self.tzinfo.localize(dateandtime)
 
-        observer = Observer(self.latitude, self.longitude, self.elevation)
+        observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         dateandtime = dateandtime.astimezone(pytz.utc)  # type: ignore
         return astral.sun.elevation(observer, dateandtime)
 
-    def solar_zenith(self, dateandtime: datetime.datetime) -> float:
+    def solar_zenith(
+        self, dateandtime: datetime.datetime, observer_elevation: Elevation = 0.0,
+    ) -> float:
         """Calculates the solar zenith angle for a specific time.
 
         :param dateandtime: The date and time for which to calculate the angle.
         :returns: The zenith angle in degrees from vertical.
         """
 
-        return 90.0 - self.solar_elevation(dateandtime)
+        return 90.0 - self.solar_elevation(dateandtime, observer_elevation)
 
     def moon_phase(
         self, date: datetime.date = None, local: bool = True

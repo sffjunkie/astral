@@ -256,7 +256,7 @@ def hour_angle(
     return HA
 
 
-def depression_at_elevation(elevation: float) -> float:
+def adjust_to_horizon(elevation: float) -> float:
     """Calculate the extra degrees of depression that you can see round the earth
     due to the increase in elevation.
 
@@ -283,7 +283,17 @@ def depression_at_elevation(elevation: float) -> float:
     return degrees(alpha)
 
 
-def refraction_at_zenith(zenith: float):
+def adjust_to_obscuring_feature(elevation: Tuple[float, float]) -> float:
+    if elevation[0] == 0.0:
+        return 0.0
+
+    sign = -1 if elevation[0] < 0.0 else 1
+    return sign * degrees(
+        acos(fabs(elevation[0]) / sqrt(pow(elevation[0], 2) + pow(elevation[1], 2)))
+    )
+
+
+def refraction_at_zenith(zenith: float) -> float:
     """Calculate the degrees of refraction of the sun due to the sun's elevation."""
 
     elevation = 90 - zenith
@@ -331,10 +341,12 @@ def time_of_transit(
         latitude = observer.latitude
 
     adjustment_for_elevation = 0.0
-    if observer.elevation > 0:
-        adjustment_for_elevation = depression_at_elevation(observer.elevation)
+    if isinstance(observer.elevation, float) and observer.elevation > 0.0:
+        adjustment_for_elevation = adjust_to_horizon(observer.elevation)
+    elif isinstance(observer.elevation, tuple):
+        adjustment_for_elevation = adjust_to_obscuring_feature(observer.elevation)
 
-    adjustment_for_refraction = refraction_at_zenith(zenith)
+    adjustment_for_refraction = refraction_at_zenith(zenith + adjustment_for_elevation)
 
     jd = julianday(date)
     t = jday_to_jcentury(jd)

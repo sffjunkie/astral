@@ -152,6 +152,13 @@ class Observer:
 
     `minutes’` & `seconds”` are optional.
 
+    Elevations are either
+
+    * A float that is the elevation in metres above a location, if the nearest
+      obscuring feature is the horizon
+    * or a tuple of the elevation in metres and the distance in metres to the
+      nearest obscuring feature.
+
     Args:
         latitude:   Latitude - Northern latitudes should be positive
         longitude:  Longitude - Eastern longitudes should be positive
@@ -168,7 +175,10 @@ class Observer:
         elif name == "longitude":
             value = dms_to_float(value, 180.0)
         elif name == "elevation":
-            value = float(value)
+            if isinstance(value, tuple):
+                value = (float(value[0]), float(value[1]))
+            else:
+                value = float(value)
         super(Observer, self).__setattr__(name, value)
 
 
