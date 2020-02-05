@@ -12,7 +12,7 @@ def test_database() -> LocationDatabase:
 
 @pytest.fixture
 def london_info() -> LocationInfo:
-    return LocationInfo("London", "England", "Europe/London", 51.50853, -0.12574, 24)
+    return LocationInfo("London", "England", "Europe/London", 51.50853, -0.12574)
 
 
 @pytest.fixture
@@ -22,7 +22,7 @@ def london(london_info) -> Location:
 
 @pytest.fixture
 def new_delhi_info() -> LocationInfo:
-    return LocationInfo("New Delhi", "India", "Asia/Kolkata", 28.61, 77.22, 233)
+    return LocationInfo("New Delhi", "India", "Asia/Kolkata", 28.61, 77.22)
 
 
 @pytest.fixture
@@ -32,9 +32,7 @@ def new_delhi(new_delhi_info) -> Location:
 
 @pytest.fixture
 def riyadh_info() -> LocationInfo:
-    return LocationInfo(
-        "Riyadh", "Saudi Arabia", "Asia/Riyadh", 24.71355, 46.67530, 612
-    )
+    return LocationInfo("Riyadh", "Saudi Arabia", "Asia/Riyadh", 24.71355, 46.67530)
 
 
 @pytest.fixture
