@@ -421,10 +421,7 @@ Iqaluit,Canada,America/Iqaluit,63°44'N,68°31'W
 GroupName = str
 GroupInfo = Dict
 LocationInfoList = List[LocationInfo]
-
-LocationDatabase = Dict[
-    GroupName, GroupInfo[str, LocationInfoList]
-]
+LocationDatabase = Dict[GroupName, GroupInfo[str, LocationInfoList]]
 
 
 def database() -> LocationDatabase:
@@ -490,7 +487,9 @@ def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
             _add_location_to_db(location, db)
 
 
-def _add_locations_from_list(location_list: List[Union[Tuple, str]], db: LocationDatabase) -> None:
+def _add_locations_from_list(
+    location_list: List[Union[Tuple, str]], db: LocationDatabase
+) -> None:
     """Add locations from a list of either strings or lists of strings or tuples of strings."""
     for info in location_list:
         if isinstance(info, str):
