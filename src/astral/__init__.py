@@ -135,6 +135,8 @@ class Depression(Enum):
 
 
 class SunDirection(Enum):
+    """Direction of the sun either RISING or SETTING"""
+
     RISING = 1
     SETTING = -1
 
