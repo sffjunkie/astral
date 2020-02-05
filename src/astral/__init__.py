@@ -24,12 +24,12 @@ The :mod:`astral` package provides the means to calculate the following times of
 * midnight
 * sunset
 * dusk
-* rahukaalam
 * daylight
 * night
 * twilight
 * blue hour
 * golden hour
+* rahukaalam
 
 plus solar azimuth and elevation at a specific latitude/longitude.
 It can also calculate the moon phase for a specific date.
