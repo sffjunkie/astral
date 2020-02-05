@@ -769,7 +769,7 @@ class Location:
         return 90.0 - self.solar_elevation(dateandtime)
 
     def moon_phase(
-        self, date: datetime.date = None, local: bool = True, rtype: type = int
+        self, date: datetime.date = None, local: bool = True
     ):
         """Calculates the moon phase for a specific date.
 
@@ -778,13 +778,15 @@ class Location:
         :returns:
             A number designating the phase
 
-                | 0  = New moon
-                | 7  = First quarter
-                | 14 = Full moon
-                | 21 = Last quarter
+            ============  ==============
+            0 .. 6.99     New moon
+            7 .. 13.99    First quarter
+            14 .. 20.99   Full moon
+            21 .. 27.99   Last quarter
+            ============  ==============
         """
 
         if date is None:
             date = self.today(local)
 
-        return astral.moon.phase(date, rtype)
+        return astral.moon.phase(date)
