@@ -23,7 +23,7 @@
 Astral v\ |release|
 ===================
 
-|travis_status| |pypi_ver|
+| |travis_status| |pypi_ver|
 
 Astral is a python package for calculating the times of various aspects of
 the sun and phases of the moon.
@@ -38,10 +38,10 @@ Sunrise
     The time in the morning when the top of the sun breaks the horizon
     (asuming a location with no obscuring features.)
 
-Solar Noon
+Noon
     The time when the sun is at its highest point directly above the observer.
 
-Solar Midnight
+Midnight
     The time when the sun is at its lowest point.
 
 Sunset
@@ -69,7 +69,7 @@ The Golden Hour
 The Blue Hour
    The time when the sun is between 6 and 4 degrees below the horizon.
 
-Time At Altitude
+Time At Elevation
    the time when the sun is at a specific elevation for either a rising or a
    setting sun.
 
@@ -79,7 +79,7 @@ Solar Azimuth
 Solar Zenith
     The angle of the sun down from directly above the observer
 
-Solar Altitude
+Solar Elevation
     The number of degrees up from the horizon at which the sun can be seen
 
 `Rahukaalam`_
@@ -88,7 +88,7 @@ Solar Altitude
     Vedic astrology".
 
 Moon Phase
-    Calculates the phase of the moon for a specified date.
+    The phase of the moon for a specified date.
 
 Astral also comes with a geocoder containing a local database that allows you
 to look up information for a small set of locations (`new locations can be
@@ -112,14 +112,13 @@ Sun
 .. code-block::
 
     >>> from astral import LocationInfo
-    >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116, 24)
-    >>> print(
-        (
-            f"Information for {city.name}/{city.region}\n"
-            f"Timezone: {city.timezone}\n"
-            f"Latitude: {city.latitude:.02f}; Longitude: {city.longitude:.02f}\n"
-        )
-    )
+    >>> from astral.location import Location
+    >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+    >>> print((
+        f"Information for {city.name}/{city.region}\n"
+        f"Timezone: {city.timezone}\n"
+        f"Latitude: {city.latitude:.02f}; Longitude: {city.longitude:.02f}\n"
+    ))
 
     Information for London/England
     Timezone: Europe/London
@@ -127,17 +126,19 @@ Sun
 
     >>> import datetime
     >>> from astral.sun import sun
-    >>> s = sun(city, date=datetime.date(2009, 4, 22))
-    >>> print(f"Dawn:    {sun["dawn"]}")
-    Dawn:     2009-04-22 05:12:56+01:00
-    >>> print(f"Sunrise: {sun["sunrise"]}")
-    Sunrise:  2009-04-22 05:49:36+01:00
-    >>> print(f"Noon:    {sun["noon"]}")
-    Noon:     2009-04-22 12:58:48+01:00
-    >>> print(f"Sunset:  {sun["sunset"]}")
-    Sunset:   2009-04-22 20:09:07+01:00
-    >>> print(f"Dusk:    {sun["dusk"]}")
-    Dusk:     2009-04-22 20:45:52+01:00
+    >>> s = sun(city.observer, date=datetime.date(2009, 4, 22))
+    >>> print((
+        f'Dawn:    {s["dawn"]}\n'
+        f'Sunrise: {s["sunrise"]}\n'
+        f'Noon:    {s["noon"]}\n'
+        f'Sunset:  {s["sunset"]}\n'
+        f'Dusk:    {s["dusk"]}\n'
+    ))
+    Dawn:    2009-04-22 04:13:04.923309+00:00
+    Sunrise: 2009-04-22 04:50:16.515411+00:00
+    Noon:    2009-04-22 11:59:02+00:00
+    Sunset:  2009-04-22 19:08:41.215821+00:00
+    Dusk:    2009-04-22 19:46:06.362457+00:00
 
 Moon
 ----
@@ -145,31 +146,24 @@ Moon
 .. code-block::
 
    >>> import datetime
-   >>> from astral.moon import phase
-   >>> phase(date=datetime.date(2018, 1, 1))
-   13
-   >>> phase(datetime.date(2018, 1, 1), float)
+   >>> from astral import moon
+   >>> moon.phase(datetime.date(2018, 1, 1))
    13.255666666666668
 
 The moon phase method returns an number describing the phase, where the value
-is between 0 and 27 (27.99 if you pass `float` as the return type). The
-following lists the mapping of various vales to the description of the phase of
-the moon.
+is between 0 and 27.99. The following lists the mapping of various values to
+the description of the phase of the moon.
 
-===  ==============
-0    New moon
-7    First quarter
-14   Full moon
-21   Last quarter
-===  ==============
+        ============  ==============
+        0 .. 6.99     New moon
+        7 .. 13.99    First quarter
+        14 .. 20.99   Full moon
+        21 .. 27.99   Last quarter
+        ============  ==============
 
-If for example the number returned was 27(.99) then the moon would be almost at
-the New Moon phase, and if it was 24 it would be half way between the Last
+If for example the number returned was 27.99 then the moon would be almost at
+the New Moon phase, and if it was 24.00 it would be half way between the Last
 Quarter and a New Moon.
-
-The return value can be cast to either an int (the default) or a float by
-passing the type required as the `rtype` parameter to
-:meth:`~astral.moon.phase`
 
 .. note ::
 
@@ -180,8 +174,8 @@ passing the type required as the `rtype` parameter to
 
    See http://moongazer.x10.mx/website/astronomy/moon-phases/ for an example.
 
-   For an example of using this library to generate moon phases including the names in various
-   languages and the correct Unicode glyphs see the
+   For an example of using this library to generate moon phases including the
+   names in various languages and the correct Unicode glyphs see the
    `project by PanderMusubi <https://github.com/PanderMusubi/lunar-phase-calendar/>`_
    on Github.
 
@@ -193,19 +187,28 @@ Geocoder
     >>> from astral.geocoder import database, lookup
     >>> lookup("London", database())
     LocationInfo(name='London', region='England', timezone='Europe/London',
-        latitude=51.473333333333336, longitude=-0.0008333333333333334, elevation=24.0)
+        latitude=51.473333333333336, longitude=-0.0008333333333333334)
+
+.. note::
+
+   Location elevations have been removed from the database. These were added
+   due to a misunderstanding of the affect of elevation on the times of the
+   sun. These are not required for the calculations, only the elevation of the
+   observer above/below the location is needed.
+
+   See `Effect of Elevation`_ below.
 
 Custom Location
 ~~~~~~~~~~~~~~~
 
-If you only need a single location that is not in the geocoder then you can
+If you only need a single location that is not in the database then you can
 construct a :class:`~astral.LocationInfo` and fill in the values, either on
 initialization
 
 .. code-block::
 
     from astral import LocationInfo
-    l = LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2, 0)
+    l = LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2)
 
 or set the attributes after initialization::
 
@@ -216,7 +219,6 @@ or set the attributes after initialization::
     l.timezone = 'US/Central'
     l.latitude = 0.1
     l.longitude = 1.2
-    l.elevation = 0
 
 .. note::
 
@@ -245,7 +247,7 @@ tuples (lists and tuples are passed directly to the LocationInfo constructor).
     >>> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E,631.0", db)
     >>> lookup("Somewhere", db)
     LocationInfo(name='Somewhere', region='Secret Location', timezone='UTC',
-        latitude=24.466666666666665, longitude=39.6, elevation=631.0)
+        latitude=24.466666666666665, longitude=39.6)
 
 Timezone Groups
 ~~~~~~~~~~~~~~~
@@ -256,7 +258,7 @@ in the :mod:`~astral.geocoder` module
 .. code-block::
 
     >>> from astral import geocoder
-    >>> europe = geocoder.group('europe')["locations"]
+    >>> europe = geocoder.group("europe")["locations"]
     >>> sorted(europe.keys())
     ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
 
@@ -264,20 +266,34 @@ in the :mod:`~astral.geocoder` module
 Effect of Elevation
 ===================
 
-An attempt has been made to allow for the effect of elevation on the times for
-the sun. Higher elevations cause the sun to rise earlier and to set later for
-the observer.
+The times of the sun that you experience depend on what obscurs your view of
+it. It may either be obscured by the horizon or some other geographical
+feature (e.g. mountains)
 
-This is performed by calculating the angle α in the image below, the angle that
-an observer can see further around the earth, and adding this to the depression
-angle for the sun calculations.
+1. If what obscures you at ground level is the horizon and you are at a
+   elevation above ground level then the times of the sun depends on how far
+   further round the earth you can see due to your elevation (the sun rises
+   earlier and sets later).
 
-.. image:: elevation.svg
+   The extra angle you can see round the earth is determined by calculating the
+   angle α in the image below based on your elevation above ground level,
+   and adding this to the depression angle for the sun calculations.
 
-.. warning::
+   .. image:: elevation.svg
 
-   This may not be the correct calculation for the angle.
-   Please raise an `issue`_ if you know how it should be calculated.
+   .. warning::
+
+      This may not be the correct calculation for the angle round the earth.
+      Please raise an `issue`_ if you know how it should be calculated.
+
+2. If your view is obscured by some other geographical feature than the
+   horizon, then the adjustment angle is based on how far you are above or
+   below the feature and your distance to it.
+
+For the first case i.e. obscured by the horizon you need to pass a single float
+to the Observer as its elevation. For the second case pass a tuple of 2
+floats. The first being the vertical distance to the top of the feature and
+the second the horizontal distance to the feature.
 
 Note on Localized Timezones
 ===========================
@@ -423,7 +439,7 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
-2.0-alpha  Code is now only compatible with Python 3.6 and greater due to the
+2.0-beta   Code is now only compatible with Python 3.6 and greater due to the
            use of data classes
 
            New :class:`~astral.Observer` data class to store a latitude,
@@ -435,10 +451,12 @@ Version    Description
            Geocoder functions return a :class:`~astral.LocationInfo` instead
            of a :class:`~astral.location.Location`
 
-           All calculations now adjust for refraction.
+           All calculations except for azimuth and elevation
+           now adjust for refraction.
 
            The solar_noon and solar_midnight functions have been renamed to
-           noon and midnight respsectively.
+           :meth:`~astral.sun.noon` and :meth:`~astral.sun.midnight`
+           respectively.
 
            The Google geocoder and Astral classes have been removed
 ---------- --------------------------------------------------------------------
