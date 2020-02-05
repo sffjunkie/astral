@@ -32,7 +32,7 @@ class Location:
             region           England
             time zone name   Europe/London
             latitude         51.4733
-            longitude        -0.00088
+            longitude        -0.0008333
             ================ =============
 
             See the :attr:`timezone` property for a method of obtaining time zone
