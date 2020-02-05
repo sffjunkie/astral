@@ -732,7 +732,7 @@ def dawn(
 
     try:
         return time_of_transit(
-            observer, date, 90 + depression, SunDirection.RISING
+            observer, date, 90.0 + depression, SunDirection.RISING
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
@@ -847,7 +847,7 @@ def dusk(
 
     try:
         return time_of_transit(
-            observer, date, 90 + depression, SunDirection.SETTING
+            observer, date, 90.0 + depression, SunDirection.SETTING
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
