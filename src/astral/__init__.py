@@ -161,8 +161,6 @@ class Observer:
         super(Observer, self).__setattr__(name, value)
 
 
-# Note: we don't derive from Observer because dataclasses add fields of Observer
-# before LocationInfo's which puts the arguments in the wrong order for us.
 @dataclass
 class LocationInfo:
     """Defines a location on Earth.
@@ -173,10 +171,6 @@ class LocationInfo:
         degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
 
     `minutes’` & `seconds”` are optional.
-
-    Note:
-        functions which are defined to take an Observer can also be passed a LocationInfo
-        instance.
 
     Args:
         name:      Location name (can be any string)
