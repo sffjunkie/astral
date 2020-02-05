@@ -91,6 +91,7 @@ def dms_to_float(dms: Union[str, float], limit: float) -> float:
 
     Args:
         dms: string to convert
+        limit: Limit the value between 0 and this parameter
 
     Returns:
         The number of degrees as a float
