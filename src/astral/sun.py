@@ -631,41 +631,37 @@ def zenith_and_azimuth(
 def zenith(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
-    tzinfo: datetime.tzinfo = pytz.utc,
+    with_refraction: bool = False,
 ) -> float:
     """Calculate the zenith angle of the sun.
 
     Args:
         observer:    Observer to calculate the solar zenith for
         dateandtime: The date and time for which to calculate the angle.
+                     If `dateandtime` is None or is a naive Python datetime
+                     then it is assumed to be in the UTC timezone.
         with_refraction: If True adjust zenith to take refraction into account
-
-                     If `dateandtime` is a naive Python datetime then it is assumed to be
-                     in the UTC timezone.
-        tzinfo:      Timezone to return times in. Default is UTC.
 
     Returns:
         The zenith angle in degrees.
     """
 
     if dateandtime is None:
-        dateandtime = now(tzinfo)
+        dateandtime = now(pytz.UTC)
 
     return zenith_and_azimuth(observer, dateandtime, with_refraction)[0]
 
 
 def azimuth(
-    observer: Observer,
-    dateandtime: Optional[datetime.datetime] = None,
-    tzinfo: datetime.tzinfo = pytz.utc,
+    observer: Observer, dateandtime: Optional[datetime.datetime] = None,
 ) -> float:
     """Calculate the azimuth angle of the sun.
 
     Args:
         observer:    Observer to calculate the solar azimuth for
         dateandtime: The date and time for which to calculate the angle.
-                        Default is the time now, for the specified tzinfo.
-        tzinfo:      Timezone to return times in. Default is UTC.
+                     If `dateandtime` is None or is a naive Python datetime
+                     then it is assumed to be in the UTC timezone.
 
     Returns:
         The azimuth angle in degrees clockwise from North.
@@ -675,7 +671,7 @@ def azimuth(
     """
 
     if dateandtime is None:
-        dateandtime = now(tzinfo)
+        dateandtime = now(pytz.UTC)
 
     return zenith_and_azimuth(observer, dateandtime)[1]
 
@@ -690,8 +686,9 @@ def elevation(
     Args:
         observer:    Observer to calculate the solar elevation for
         dateandtime: The date and time for which to calculate the angle.
-                     Default is the time now, for the specified tzinfo.
-        tzinfo:      Timezone to return times in. Default is UTC.
+                     If `dateandtime` is None or is a naive Python datetime
+                     then it is assumed to be in the UTC timezone.
+        with_refraction: If True adjust elevation to take refraction into account
 
     Returns:
         The elevation angle in degrees above the horizon.
@@ -702,7 +699,7 @@ def elevation(
     """
 
     if dateandtime is None:
-        dateandtime = now(tzinfo)
+        dateandtime = now(pytz.UTC)
 
     return 90.0 - zenith(observer, dateandtime, with_refraction)
 
