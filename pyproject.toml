@@ -26,6 +26,7 @@ dataclasses = { version="*", python = "3.6"}
 freezegun = "*"
 pytest = "5.0.1"
 tox = "*"
+pylint = "^2.4.4"
 
 [build-system]
 requires = ["poetry>=1.0.0b1"]
