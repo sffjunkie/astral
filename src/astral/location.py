@@ -27,7 +27,7 @@ class Location:
             longitude        -0.00088
             ================ =============
 
-            See :attr:`timezone` property for a method of obtaining time zone
+            See the :attr:`timezone` property for a method of obtaining time zone
             names
         """
 
