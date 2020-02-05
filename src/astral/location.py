@@ -550,18 +550,21 @@ class Location:
 
     def time_at_elevation(
         self,
-        altitude: float,
+        elevation: float,
         date: datetime.date = None,
         direction: SunDirection = SunDirection.RISING,
         local: bool = True,
     ) -> datetime.datetime:
-        """Calculate the time when the sun is at the specified altitude.
+        """Calculate the time when the sun is at the specified elevation.
 
         Note:
             This method uses positive altitudes for those above the horizon.
 
             Elevations greater than 90 degrees are converted to a setting sun
-            i.e. an altitude of 110 will calculate a setting sun at 70 degrees.
+            i.e. an elevation of 110 will calculate a setting sun at 70 degrees.
+
+        :param elevation:  Elevation in degrees above the horizon to calculate for.
+
 
         :param altitude:  Elevation in degrees above the horizon to calculate for.
         :param direction:  Determines whether the time is for the sun rising or setting.
@@ -584,18 +587,18 @@ class Location:
         if date is None:
             date = self.today(local)
 
-        if altitude > 90.0:
-            altitude = 180.0 - altitude
+        if elevation > 90.0:
+            elevation = 180.0 - elevation
             direction = SunDirection.SETTING
 
-        observer = Observer(self.latitude, self.longitude, altitude)
+        observer = Observer(self.latitude, self.longitude, 0.0)
 
         if local:
             return astral.sun.time_at_elevation(
-                observer, altitude, date, direction, self.tzinfo
+                observer, elevation, date, direction, self.tzinfo
             )
         else:
-            return astral.sun.time_at_elevation(observer, altitude, date, direction)
+            return astral.sun.time_at_elevation(observer, elevation, date, direction)
 
     def rahukaalam(
         self,
