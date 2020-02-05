@@ -40,7 +40,7 @@ class Location:
         """
 
         self._location_info: LocationInfo
-        self._solar_depression: float = Depression.CIVIL
+        self._solar_depression: float = Depression.CIVIL.value
 
         if not info:
             self._location_info = LocationInfo(

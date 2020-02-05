@@ -727,17 +727,20 @@ def dawn(
     if date is None:
         date = today(tzinfo)
 
+    dep: float = 0.0
     if isinstance(depression, Depression):
-        depression = depression.value
+        dep = depression.value
+    else:
+        dep = depression
 
     try:
         return time_of_transit(
-            observer, date, 90.0 + depression, SunDirection.RISING
+            observer, date, 90.0 + dep, SunDirection.RISING
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
-                f"Sun never reaches {depression} degrees below the horizon, at this location."
+                f"Sun never reaches {dep} degrees below the horizon, at this location."
             ) from exc
         else:
             raise
@@ -842,17 +845,20 @@ def dusk(
     if date is None:
         date = today(tzinfo)
 
+    dep: float = 0.0
     if isinstance(depression, Depression):
-        depression = depression.value
+        dep = depression.value
+    else:
+        dep = depression
 
     try:
         return time_of_transit(
-            observer, date, 90.0 + depression, SunDirection.SETTING
+            observer, date, 90.0 + dep, SunDirection.SETTING
         ).astimezone(tzinfo)
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
-                f"Sun never reaches {depression} degrees below the horizon, at this location."
+                f"Sun never reaches {dep} degrees below the horizon, at this location."
             ) from exc
         else:
             raise
