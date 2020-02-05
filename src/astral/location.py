@@ -60,6 +60,10 @@ class Location:
         )
 
     @property
+    def observer(self) -> Observer:
+        return Observer(self.latitude, self.longitude, 0.0)
+
+    @property
     def name(self) -> str:
         return self._location_info.name
 
