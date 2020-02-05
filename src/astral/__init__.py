@@ -101,10 +101,10 @@ def dms_to_float(dms: Union[str, float], limit: float) -> float:
     except (ValueError, TypeError):
         m = re.match(_dms_re, str(dms), flags=re.IGNORECASE)
         if m:
-            deg = m.group("deg")
-            min_ = m.group("min")
-            sec = m.group("sec")
-            dir_ = m.group("dir")
+            deg = m.group("deg") or 0.0
+            min_ = m.group("min") or 0.0
+            sec = m.group("sec") or 0.0
+            dir_ = m.group("dir") or "E"
 
             res = float(deg)
             if min_:
