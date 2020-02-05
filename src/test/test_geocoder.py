@@ -75,7 +75,7 @@ class TestBugReports:
         astral.geocoder.lookup("Adelaide", test_database)
 
     def test_CandianCities(self, test_database):
-        city = astral.geocoder.lookup("Fredericton", test_database)
+        astral.geocoder.lookup("Fredericton", test_database)
 
 
 class TestDatabaseAddLocations:
