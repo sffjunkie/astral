@@ -681,7 +681,7 @@ def elevation(
     dateandtime: Optional[datetime.datetime] = None,
     with_refraction: bool = False,
 ) -> float:
-    """Calculate the elevation angle of the sun.
+    """Calculate the sun's angle of elevation.
 
     Args:
         observer:    Observer to calculate the solar elevation for
@@ -714,7 +714,7 @@ def dawn(
 
     Args:
         observer:   Observer to calculate dawn for
-        date:       Date to calculate for. Default is today's date for the specified tzinfo.
+        date:       Date to calculate for. Default is today's date in the timezone `tzinfo`.
         depression: Number of degrees below the horizon to use to calculate dawn. Default is 6.0
         tzinfo:     Timezone to return times in. Default is UTC.
 
