@@ -522,7 +522,6 @@ class Location:
 
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SunDirection.SETTING``.
-        :type direction:   int
 
         :param date: The date for which to calculate the times.
 
