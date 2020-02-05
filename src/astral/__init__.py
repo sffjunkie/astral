@@ -117,8 +117,10 @@ def dms_to_float(dms: Union[str, float], limit: float) -> float:
         else:
             raise ValueError("Unable to convert degrees/minutes/seconds to float")
 
-    if fabs(res) > limit:
-        raise ValueError(f"Value outside limits of +/-{limit}")
+    if res > limit:
+        res = limit
+    elif res < -limit:
+        res = -limit
 
     return res
 
