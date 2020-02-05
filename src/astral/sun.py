@@ -13,7 +13,7 @@ from math import (
     sqrt,
     tan,
 )
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Union
 
 import pytz
 
