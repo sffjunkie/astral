@@ -179,7 +179,7 @@ class Observer:
                 value = (float(value[0]), float(value[1]))
             else:
                 value = float(value)
-        super(Observer, self).__setattr__(name, value)
+        super().__setattr__(name, value)
 
 
 @dataclass
