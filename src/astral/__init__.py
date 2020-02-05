@@ -72,6 +72,9 @@ __version__ = "2.0-alpha"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 
+Elevation = Union[float, Tuple[float, float]]
+
+
 def now(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.datetime:
     """Returns the current time in the specified time zone"""
     return pytz.utc.localize(datetime.datetime.utcnow()).astimezone(tzinfo)
@@ -82,7 +85,7 @@ def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
     return now(tzinfo).date()
 
 
-def dms_to_float(dms: Union[str, float], limit: float) -> float:
+def dms_to_float(dms: Union[str, float, Elevation], limit: float = -1) -> float:
     """Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`,
     or a float encoded as a string, to a float
 
@@ -162,14 +165,15 @@ class Observer:
     Args:
         latitude:   Latitude - Northern latitudes should be positive
         longitude:  Longitude - Eastern longitudes should be positive
-        elevation:  Elevation in metres above sea level.
+        elevation:  Elevation and/or distance to nearest obscuring feature
+                    in metres above/below the location.
     """
 
     latitude: float = 51.4733
-    longitude: float = -0.00088
-    elevation: float = 24.0
+    longitude: float = -0.0008333
+    elevation: Elevation = 0.0
 
-    def __setattr__(self, name: str, value: Union[float, str]):
+    def __setattr__(self, name: str, value: Union[str, float, Elevation]):
         if name == "latitude":
             value = dms_to_float(value, 90.0)
         elif name == "longitude":
