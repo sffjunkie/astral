@@ -565,14 +565,12 @@ class Location:
 
         :param elevation:  Elevation in degrees above the horizon to calculate for.
 
+        :param date: The date for which to calculate the elevation time.
+                     If no date is specified then the current date will be used.
 
-        :param altitude:  Elevation in degrees above the horizon to calculate for.
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
                            Default is rising.
-
-        :param date: The date for which to calculate the altitude time.
-                     If no date is specified then the current date will be used.
 
         :param local: True  = Time to be returned in location's time zone;
                       False = Time to be returned in UTC.
