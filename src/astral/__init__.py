@@ -200,15 +200,13 @@ class LocationInfo:
                       `pytz.all_timezones`)
         latitude:  Latitude - Northern latitudes should be positive
         longitude: Longitude - Eastern longitudes should be positive
-        elevation: Elevation in metres above sea level.
     """
 
     name: str = "Greenwich"
     region: str = "England"
     timezone: str = "Europe/London"
     latitude: float = 51.4733
-    longitude: float = -0.00088
-    elevation: float = 24.0
+    longitude: float = -0.0008333
 
     def __setattr__(self, name: str, value: Union[float, str]):
         if name == "latitude":
