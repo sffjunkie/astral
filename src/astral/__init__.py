@@ -103,6 +103,7 @@ def dms_to_float(dms: Union[str, float, Elevation], limit: float = -1) -> float:
     try:
         res = float(dms)
     except (ValueError, TypeError):
+        _dms_re = r"(?P<deg>\d{1,3})[°]((?P<min>\d{1,2})[′'])?((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])?"
         m = re.match(_dms_re, str(dms), flags=re.IGNORECASE)
         if m:
             deg = m.group("deg") or 0.0
