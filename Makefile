@@ -23,7 +23,7 @@ report:
 	@COVERAGE_FILE=$(BUILDDIR)/.coverage coverage report
 
 docs:
-	sphinx-build -W -b html -d $(BUILDDIR)/doctrees ./src/doc ./doc
+	sphinx-build -a -W -b html -d $(BUILDDIR)/doctrees ./src/doc ./doc
 
 repl:
 	@PYTHONPATH=src winpty python
