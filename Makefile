@@ -1,11 +1,12 @@
-.PHONY: clean test test_docs test_all html report docs repl
+.PHONY: clean test test_docs test_all html report docs repl show_docs show_cov typecheck
 
 all: clean test report html
 
-BUILDDIR=$(DEV_HOME)/build/astral/master
+BUILDDIR=$(DEV_HOME)/build/astral
 
 clean:
 	@COVERAGE_FILE=$(BUILDDIR)/.coverage coverage erase
+	@rm -rf $(BUILDDIR)/doctrees
 
 test:
 	tox
@@ -28,3 +29,13 @@ docs:
 repl:
 	@PYTHONPATH=src winpty python
 
+show_docs:
+	/usr/bin/start ./doc/index.html
+
+show_cov:
+	/usr/bin/start $(BUILDDIR)/htmlcov/index.html
+
+typecheck:
+	@cd src
+	mypy astral
+	@cd ..
