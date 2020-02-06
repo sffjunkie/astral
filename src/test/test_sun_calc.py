@@ -238,10 +238,10 @@ def test_Elevation_NonNaive(new_delhi):
     assert sun.elevation(new_delhi, d) == pytest.approx(7.411009003716742)
 
 
-def test_Elevation_WithRefraction(new_delhi):
+def test_Elevation_WithoutRefraction(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.elevation(new_delhi, d, with_refraction=True) == pytest.approx(
-        7.4110090037167
+    assert sun.elevation(new_delhi, d, with_refraction=False) == pytest.approx(
+        7.293490557358638
     )
 
 
