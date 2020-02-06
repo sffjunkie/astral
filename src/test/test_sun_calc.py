@@ -250,7 +250,7 @@ def test_Azimuth_Above85Degrees():
     assert sun.azimuth(Observer(86, 77.2), d) == pytest.approx(276.2148, abs=0.001)
 
 
-def test_Altitude_Above85Degrees():
+def test_Elevation_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert sun.elevation(Observer(86, 77.2), d) == pytest.approx(
         23.102501151619506, abs=0.001
