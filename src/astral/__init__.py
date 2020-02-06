@@ -68,7 +68,7 @@ __all__ = [
     "dms_to_float",
 ]
 
-__version__ = "2.0-alpha"
+__version__ = "2.0-dev"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 

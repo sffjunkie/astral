@@ -437,7 +437,7 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
-2.0-beta   Code is now only compatible with Python 3.6 and greater due to the
+2.0-dev    Now only compatible with Python 3.6 and greater due to the
            use of data classes
 
            New :class:`~astral.Observer` data class to store a latitude,
