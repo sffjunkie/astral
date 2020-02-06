@@ -1,15 +1,12 @@
 # CHANGELOG
 
-## 2.0.0 alpha
+## 2.0 dev
 
--   Requires python 3.6+ for dataclasses support
--   New LocationInfo class to store a location name, region, timezone, latitude, longitude & elevation
--   New Observer class to store a latitude, longitude & elevation
--   GoogleGeocoder removed
--   AstralGeocoder returns a LocationInfo instead of a Location
--   elevation in functions renamed to altitude.
--   astral.local return times in a specific timezone
--   astral.utc returns times in the UTC timezone
+- Requires python 3.6+ due to the use of dataclasses
+- New LocationInfo class to store a location name, region, timezone, latitude & longitude
+- New Observer class to store a latitude, longitude & elevation
+- AstralGeocoder, GoogleGeocoder removed
+- Geocoder database now returns a LocationInfo instead of a Location
 
 ## 1.10.1 - 2019-02-06
 
@@ -60,34 +57,34 @@ Changed GoogleGeocoder test to not use raise...from as this is not valid for Pyt
 
 ### Changed
 
--   Requests is now only needed when using GoogleGeocoder
--   GoogleGeocoder now requires the `api_key` parameter to be passed to the constructor
+- Requests is now only needed when using GoogleGeocoder
+- GoogleGeocoder now requires the `api_key` parameter to be passed to the constructor
 
 ## 1.6.1 - 2018-05-02
 
 ### Changed
 
--   Updated Travis CI configuration
+- Updated Travis CI configuration
 
 ### Added
 
--   requirements-dev.txt
+- requirements-dev.txt
 
 ## 1.6 - 2018-02-22
 
 ### Changed
 
--   Added api_key parameter to GoogleGeocoder **init** method. Idea from
+- Added api_key parameter to GoogleGeocoder **init** method. Idea from
     wpietruszewski https://github.com/sffjunkie/astral/pull/12
 
 ## 1.5 - 2017-12-07
 
 ### Added
 
--   this file
+- this file
 
 ### Changed
 
--   dawn_utc, sunrise_utc, sunset_utc and dusk_utc now only raise AstralError for a math domain
+- dawn_utc, sunrise_utc, sunset_utc and dusk_utc now only raise AstralError for a math domain
     exception all other exceptions are passed through.
--   moon_phase now takes another parameter if the type to return either int (the default) or float
+- moon_phase now takes another parameter if the type to return either int (the default) or float
