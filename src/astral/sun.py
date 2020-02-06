@@ -422,7 +422,7 @@ def time_at_elevation(
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
-                f"Sun never reaches an elevation of {elevation} degrees"
+                f"Sun never reaches an elevation of {elevation} degrees "
                 "at this location."
             ) from exc
         else:
