@@ -234,7 +234,7 @@ tuples (lists and tuples are passed directly to the LocationInfo constructor).
 
 .. code-block::
 
-    >>> from astral.geocoder import database
+    >>> from astral.geocoder import add_locations, database, lookup
     >>> db = database()
     >>> try:
     ...     lookup("Somewhere", db)
@@ -242,7 +242,7 @@ tuples (lists and tuples are passed directly to the LocationInfo constructor).
     ...     print("Somewhere not found")
     ...
     Somewhere not found
-    >>> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E,631.0", db)
+    >>> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E", db)
     >>> lookup("Somewhere", db)
     LocationInfo(name='Somewhere', region='Secret Location', timezone='UTC',
         latitude=24.466666666666665, longitude=39.6)
@@ -255,8 +255,8 @@ in the :mod:`~astral.geocoder` module
 
 .. code-block::
 
-    >>> from astral import geocoder
-    >>> europe = geocoder.group("europe")["locations"]
+    >>> from astral.geocoder import group
+    >>> europe = group("europe")
     >>> sorted(europe.keys())
     ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
 
