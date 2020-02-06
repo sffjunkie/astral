@@ -26,4 +26,5 @@ docs:
 	sphinx-build -W -b html -d $(BUILDDIR)/doctrees ./src/doc ./doc
 
 repl:
-	@PYTHONPATH=src python
+	@PYTHONPATH=src winpty python
+
