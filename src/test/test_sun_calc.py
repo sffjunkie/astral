@@ -229,13 +229,13 @@ def test_Azimuth(new_delhi):
 
 def test_Elevation(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.elevation(new_delhi, d) == pytest.approx(7.2934905573586)
+    assert sun.elevation(new_delhi, d) == pytest.approx(7.411009003716742)
 
 
 def test_Elevation_NonNaive(new_delhi):
     d = datetime.datetime(2001, 6, 21, 18, 41, 0)
     d = new_delhi.tz.localize(d)
-    assert sun.elevation(new_delhi, d) == pytest.approx(7.2934905573586)
+    assert sun.elevation(new_delhi, d) == pytest.approx(7.411009003716742)
 
 
 def test_Elevation_WithRefraction(new_delhi):
@@ -252,4 +252,4 @@ def test_Azimuth_Above85Degrees():
 
 def test_Altitude_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.elevation(Observer(86, 77.2), d) == pytest.approx(23.0648, abs=0.001)
+    assert sun.elevation(Observer(86, 77.2), d) == pytest.approx(23.102501151619506, abs=0.001)

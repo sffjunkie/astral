@@ -537,7 +537,7 @@ def midnight(
 
 
 def zenith_and_azimuth(
-    observer: Observer, dateandtime: datetime.datetime, with_refraction: bool = False,
+    observer: Observer, dateandtime: datetime.datetime, with_refraction: bool = True,
 ) -> Tuple[float, float]:
     if observer.latitude > 89.8:
         latitude = 89.8
@@ -631,7 +631,7 @@ def zenith_and_azimuth(
 def zenith(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
-    with_refraction: bool = False,
+    with_refraction: bool = True,
 ) -> float:
     """Calculate the zenith angle of the sun.
 
@@ -679,7 +679,7 @@ def azimuth(
 def elevation(
     observer: Observer,
     dateandtime: Optional[datetime.datetime] = None,
-    with_refraction: bool = False,
+    with_refraction: bool = True,
 ) -> float:
     """Calculate the sun's angle of elevation.
 

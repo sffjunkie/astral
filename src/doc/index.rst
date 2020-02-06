@@ -451,8 +451,9 @@ Version    Description
            Geocoder functions return a :class:`~astral.LocationInfo` instead
            of a :class:`~astral.location.Location`
 
-           All calculations except for azimuth and elevation
-           now adjust for refraction.
+           All calculations now automatically adjust for refraction.
+           For elevation you can return the true angle by setting the
+           `with_refraction` parameter to False.
 
            The solar_noon and solar_midnight functions have been renamed to
            :meth:`~astral.sun.noon` and :meth:`~astral.sun.midnight`
