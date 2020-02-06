@@ -444,7 +444,7 @@ Version    Description
            longitude & elevation
 
            New :class:`~astral.LocationInfo` data class to store a location
-           name, region, timezone, latitude, longitude & elevation
+           name, region, timezone, latitude & longitude
 
            Geocoder functions return a :class:`~astral.LocationInfo` instead
            of a :class:`~astral.location.Location`
