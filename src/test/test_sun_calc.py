@@ -1,8 +1,8 @@
 import datetime
 
+import freezegun
 import pytest
-
-from astral import sun, Observer
+from astral import Observer, sun, today
 
 
 @pytest.mark.parametrize(
@@ -252,4 +252,15 @@ def test_Azimuth_Above85Degrees():
 
 def test_Altitude_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.elevation(Observer(86, 77.2), d) == pytest.approx(23.102501151619506, abs=0.001)
+    assert sun.elevation(Observer(86, 77.2), d) == pytest.approx(
+        23.102501151619506, abs=0.001
+    )
+
+
+@pytest.mark.parametrize("elevation", range(1,10))
+@freezegun.freeze_time("2020-02-06")
+def test_ElevationEqualsTimeAtElevation(elevation, london):
+    o = london.observer
+    td = today()
+    et = sun.time_at_elevation(o, elevation, td)
+    assert sun.elevation(o, et) == pytest.approx(elevation, abs=0.05)
