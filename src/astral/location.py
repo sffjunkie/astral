@@ -566,7 +566,7 @@ class Location:
         """Calculate the time when the sun is at the specified elevation.
 
         Note:
-            This method uses positive altitudes for those above the horizon.
+            This method uses positive elevations for those above the horizon.
 
             Elevations greater than 90 degrees are converted to a setting sun
             i.e. an elevation of 110 will calculate a setting sun at 70 degrees.
