@@ -488,7 +488,7 @@ def midnight(
     """Calculate solar midnight time.
 
     Note:
-        This claculates the solar midnight that is closest
+        This calculates the solar midnight that is closest
         to 00:00:00 of the specified date i.e. it may return a time that is on
         the previous day.
 
