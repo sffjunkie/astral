@@ -152,12 +152,12 @@ The moon phase method returns an number describing the phase, where the value
 is between 0 and 27.99. The following lists the mapping of various values to
 the description of the phase of the moon.
 
-        ============  ==============
-        0 .. 6.99     New moon
-        7 .. 13.99    First quarter
-        14 .. 20.99   Full moon
-        21 .. 27.99   Last quarter
-        ============  ==============
+============  ==============
+0 .. 6.99     New moon
+7 .. 13.99    First quarter
+14 .. 20.99   Full moon
+21 .. 27.99   Last quarter
+============  ==============
 
 If for example the number returned was 27.99 then the moon would be almost at
 the New Moon phase, and if it was 24.00 it would be half way between the Last
