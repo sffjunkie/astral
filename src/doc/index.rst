@@ -277,7 +277,8 @@ feature (e.g. mountains)
    angle α in the image below based on your elevation above ground level,
    and adding this to the depression angle for the sun calculations.
 
-   .. image:: elevation.svg
+   .. image:: static/elevation_horizon.svg
+      :class: adjustment
 
    .. warning::
 
