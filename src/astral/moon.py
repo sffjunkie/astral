@@ -35,6 +35,7 @@ def phase(date: Optional[datetime.date] = None) -> float:
 
     Args:
         date: The date to calculate the phase for. Dates are always in the UTC timezone.
+              If not specified then today's date is used.
 
     Returns:
         A number designating the phase.
