@@ -397,6 +397,9 @@ def time_at_elevation(
     Note:
         This method uses positive elevations for those above the horizon.
 
+        Elevations greater than 90 degrees are converted to a setting sun
+        i.e. an elevation of 110 will calculate a setting sun at 70 degrees.
+
     Args:
         elevation: Elevation of the sun in degrees above the horizon to calculate for.
         observer:  Observer to calculate for
