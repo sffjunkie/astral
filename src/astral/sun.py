@@ -692,10 +692,6 @@ def elevation(
 
     Returns:
         The elevation angle in degrees above the horizon.
-
-    Note:
-        If `dateandtime` is a naive Python datetime then it is assumed to be
-        in the UTC timezone.
     """
 
     if dateandtime is None:
