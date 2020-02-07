@@ -10,6 +10,7 @@ _version.py
 .atom-build.yaml
 .atom-build.yml
 poetry.lock
+poetry.toml
 
 # Numerous always-ignore extensions
 *.diff
