@@ -14,7 +14,9 @@ classifiers = [
 	"Programming Language :: Python :: 3.7",
 ]
 packages = [
-	{ include = "astral", from = "src"}
+	{ include = "astral", from = "src"},
+	{ include = "doc", from = "src", format = "sdist"},
+	{ include = "test", from = "src", format = "sdist"},
 ]
 
 [tool.poetry.dependencies]
