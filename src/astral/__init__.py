@@ -94,7 +94,7 @@ def dms_to_float(dms: Union[str, float, Elevation], limit: float = -1) -> float:
 
     Args:
         dms: string to convert
-        limit: Limit the value between 0 and this parameter
+        limit: Limit the value between ± `limit`
 
     Returns:
         The number of degrees as a float
