@@ -264,6 +264,9 @@ in the :mod:`~astral.geocoder` module
 Effect of Elevation
 ===================
 
+Times Of The Sun
+----------------
+
 The times of the sun that you experience depend on what obscurs your view of
 it. It may either be obscured by the horizon or some other geographical
 feature (e.g. mountains)
@@ -425,7 +428,7 @@ Thanks
 The sun calculations in this module were adapted, for Python, from the
 spreadsheets on the following page.
 
-    https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
+    | https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
 
 Refraction calculation is taken from
 
@@ -478,6 +481,8 @@ Version    Description
            The solar_noon and solar_midnight functions have been renamed to
            :meth:`~astral.sun.noon` and :meth:`~astral.sun.midnight`
            respectively.
+
+           Rahukaalam can now be calculated for night times.
 
            The Google geocoder and Astral classes have been removed
 ---------- --------------------------------------------------------------------
