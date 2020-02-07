@@ -711,7 +711,8 @@ def dawn(
     Args:
         observer:   Observer to calculate dawn for
         date:       Date to calculate for. Default is today's date in the timezone `tzinfo`.
-        depression: Number of degrees below the horizon to use to calculate dawn. Default is 6.0
+        depression: Number of degrees below the horizon to use to calculate dawn.
+                    Default is for Civil dawn i.e. 6.0
         tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
@@ -828,7 +829,8 @@ def dusk(
     Args:
         observer:   Observer to calculate dusk for
         date:       Date to calculate for. Default is today's date in the timezone `tzinfo`.
-        depression: Number of degrees below the horizon to use to calculate dusk
+        depression: Number of degrees below the horizon to use to calculate dusk.
+                    Default is for Civil dusk i.e. 6.0
         tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
@@ -1099,7 +1101,8 @@ def sun(
         observer:             Observer for which to calculate the times of the sun
         date:                 Date to calculate for.
                               Default is today's date in the timezone `tzinfo`.
-        dawn_dusk_depression: Depression to use to calculate dawn and dusk
+        dawn_dusk_depression: Depression to use to calculate dawn and dusk.
+                              Default is for Civil dusk i.e. 6.0
         tzinfo:               Timezone to return times in. Default is UTC.
 
     Returns:
