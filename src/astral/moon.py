@@ -1,7 +1,8 @@
 import datetime
 from math import degrees, radians, sin
-from typing import Union
+from typing import Optional, Union
 
+from astral import today
 from astral.sun import julianday, proper_angle
 
 __all__ = ["phase"]
@@ -29,11 +30,11 @@ def _phase_asfloat(date: datetime.date) -> float:
     return moon
 
 
-def phase(date: datetime.date) -> float:
+def phase(date: Optional[datetime.date] = None) -> float:
     """Calculates the phase of the moon on the specified date.
 
     Args:
-        date: The date to calculate the phase for.
+        date: The date to calculate the phase for. Dates are always in the UTC timezone.
 
     Returns:
         A number designating the phase.
@@ -45,6 +46,9 @@ def phase(date: datetime.date) -> float:
         21 .. 27.99   Last quarter
         ============  ==============
     """
+
+    if date is None:
+        date = today()
 
     moon = _phase_asfloat(date)
     if moon >= 28.0:
