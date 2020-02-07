@@ -293,6 +293,27 @@ to the Observer as its elevation. For the second case pass a tuple of 2
 floats. The first being the vertical distance to the top of the feature and
 the second the horizontal distance to the feature.
 
+Elevation Of The Sun
+--------------------
+
+Even though an observer's elevation can significantly affect the times of the
+sun the same is not true for the elevation angle from the observer to the sun.
+
+As an example the diagram below shows the difference in angle between an
+observer at ground level and one on the ISS orbiting 408 km above the earth.
+
+.. image:: static/elevation_sun.svg
+   :class: adjustment
+
+The largest difference between the two angles is when the angle at ground
+level is 1 degree. The difference then is approximately 0.15 degrees.
+
+At the summit of mount Everest (8,848 m) the maximum difference is
+0.00338821 degrees.
+
+Due to the very small difference the astral package does not currently adjust
+the solar elevation for changes in observer elevation.
+
 Note on Localized Timezones
 ===========================
 
