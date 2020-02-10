@@ -5,16 +5,17 @@ import sys
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 
 # http://read-the-docs.readthedocs.org/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
-MOCK_MODULES = ["pytz"]
-if MOCK_MODULES and on_rtd:
-    from unittest.mock import MagicMock
+autodoc_mock_imports = ["pytz"]
+# MOCK_MODULES = ["pytz"]
+# if MOCK_MODULES and on_rtd:
+#     from unittest.mock import MagicMock
 
-    class Mock(MagicMock):
-        @classmethod
-        def __getattr__(cls, name):
-            return Mock()
+#     class Mock(MagicMock):
+#         @classmethod
+#         def __getattr__(cls, name):
+#             return Mock()
 
-    sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+#     sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # region General configuration ----------------------------------------------------
 
