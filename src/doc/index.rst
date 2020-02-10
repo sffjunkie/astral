@@ -107,7 +107,7 @@ module
 Sun
 ----
 
-.. code-block::
+.. code-block:: python
 
     >>> from astral import LocationInfo
     >>> from astral.location import Location
@@ -141,7 +141,7 @@ Sun
 Moon
 ----
 
-.. code-block::
+.. code-block:: python
 
    >>> import datetime
    >>> from astral import moon
@@ -180,7 +180,7 @@ Quarter and a New Moon.
 Geocoder
 --------
 
-.. code-block::
+.. code-block:: python
 
     >>> from astral.geocoder import database, lookup
     >>> lookup("London", database())
@@ -203,7 +203,7 @@ If you only need a single location that is not in the database then you can
 construct a :class:`~astral.LocationInfo` and fill in the values, either on
 initialization
 
-.. code-block::
+.. code-block:: python
 
     from astral import LocationInfo
     l = LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2)
@@ -232,7 +232,7 @@ You can add to the list of available locations using the
 with one line per location or by passing a list containing strings, lists or
 tuples (lists and tuples are passed directly to the LocationInfo constructor).
 
-.. code-block::
+.. code-block:: python
 
     >>> from astral.geocoder import add_locations, database, lookup
     >>> db = database()
@@ -253,7 +253,7 @@ Timezone Groups
 Timezone groups such as Europe can be accessed via the :func:`group` function
 in the :mod:`~astral.geocoder` module
 
-.. code-block::
+.. code-block:: python
 
     >>> from astral.geocoder import group
     >>> europe = group("europe")
