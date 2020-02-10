@@ -107,8 +107,8 @@ if not on_rtd:
 
     if not html_theme:
         html_theme = "traditional"
-else:
-    html_theme = "basic"
+# else:
+#     html_theme = "basic"
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
