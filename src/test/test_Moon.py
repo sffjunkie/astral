@@ -1,48 +1,22 @@
 # -*- coding: utf-8 -*-
-import pytest
-
-from astral import Astral
-
 import datetime
 
-def test_Astral_Moon_PhaseNumber():
-    dates = {
-        datetime.date(2015, 12, 1): 19,
-        datetime.date(2015, 12, 2): 20,
-        datetime.date(2015, 12, 3): 21,
+import pytest
 
-        datetime.date(2014, 12, 1): 9,
-        datetime.date(2014, 12, 2): 10,
-        datetime.date(2014, 1, 1): 0,
-    }
-
-    a = Astral()
-
-    for date_, moon in dates.items():
-        assert a.moon_phase(date_) == moon
+from astral import moon
 
 
-def test_Location_Moon_PhaseNumber():
-    a = Astral()
-    d = datetime.date(2011, 1, 1)
-
-    l = a['London']
-    assert l.moon_phase(d) == 25
-
-
-def test_Location_Moon_PhaseNumberAsFloat():
-    a = Astral()
-    d = datetime.date(2011, 1, 1)
-
-    l = a['London']
-    p = l.moon_phase(d, float)
-    assert isinstance(p, float)
-    assert p == pytest.approx(25.3, abs=0.1)
-
-
-def test_Location_Moon_Phase_BadRType():
-    a = Astral()
-    d = datetime.date(2011, 1, 1)
-
-    l = a['London']
-    assert l.moon_phase(d, str) == 25
+@pytest.mark.parametrize(
+    "date_,phase",
+    [
+        (datetime.date(2015, 12, 1), 19.477889),
+        (datetime.date(2015, 12, 2), 20.411222),
+        (datetime.date(2015, 12, 3), 21.266777),
+        (datetime.date(2014, 12, 1), 9.0556666),
+        (datetime.date(2014, 12, 2), 10.066777),
+        (datetime.date(2014, 1, 1), 0.033444),
+    ],
+)
+def test_moon_phase(date_, phase):
+    """Test moon phase calculation"""
+    assert moon.phase(date_) == pytest.approx(phase, abs=0.01)

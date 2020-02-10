@@ -1,2 +1,4 @@
-pytest
+freezegun
+pytest==5.0.1
 pytest-cov
+tox

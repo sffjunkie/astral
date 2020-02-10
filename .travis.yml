@@ -1,12 +1,13 @@
 language: python
 python:
   - "3.6"
-  - "2.7"
+  - "3.7"
 script:
-  - pytest -m "not webtest"
+  - tox -c tox.travis.ini
 install:
   - pip install -r requirements.txt
-  - pip install pytest-cov
+  - pip install -r requirements-dev.txt
+  - pip install tox-travis
 env:
   global:
     secure: YMwnRT0ySBmEq2zFbsd341l+1l6Vm35buq2SqkZozPCkNLnJshfUltb3EevYEz/ICOIKraGkms4iIjTHuBeASlSj976qHzcupY7SupVVMonCqbE44gholPX1/wh/MRR8zKvj8kx+vHIREchQjD7EgTaHbYK77bBztgNl679setKrIWNIk5HxjpiskvD8BGRPl6q8X0GLav5K5Jl/zT0Dgc+XKWsmSIoUZcAE16GFjzqQOB+L5KZcF/eu5slNyUf07Rpun/BWQ/kVEC9h2SEl1XBxGRBYoVnVQuVB5A6NZKPATT4eJm0nFwrEjSHHnCrhbaFz7y0I7NsljKTAnFVoMvFUy7YByrcfid8CIvLgpfqdIVP6asn/rnXSuh+oxQ3qLn3aYzY9lXPsKqX7RnWdgmJhqEocHRj2TE6/8lMw3ucAb6HIs2Ol48lULP2RA1oaak6Mhu0ZZ71wcIhDF+e/vGKaUdikaP9ZBPfb9Vzr6CS/uarL9kFBOU2mX8/wKpMjv4PtESjOxv6/y/XziO4Jju6xMVxc1a66zoToJBTUM6UjJXmyMEDVulAEQ9NsUUSWc3zSd+jpGoBQF6Q0B2m/IWiYBZtCoPQX41LN7jEH99Co/5D2P5Y/BpNeWDVgaRMIwiF4jT/IrDp1ZeJCddHPGkgF6GGniP5WLh5yLnhSahE=

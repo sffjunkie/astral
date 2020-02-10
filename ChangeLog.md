@@ -1,10 +1,18 @@
 # CHANGELOG
 
+## 2.0 dev
+
+- Requires python 3.6+ due to the use of dataclasses
+- New LocationInfo class to store a location name, region, timezone, latitude & longitude
+- New Observer class to store a latitude, longitude & elevation
+- AstralGeocoder, GoogleGeocoder removed
+- Geocoder database now returns a LocationInfo instead of a Location
+
 ## 1.10.1 - 2019-02-06
 
 ### Changed
 
-Keywords arguments to Astral __init__ are now passed to the geocoder to allow for passing
+Keywords arguments to Astral **init** are now passed to the geocoder to allow for passing
 the `api_key` to GoogleGeocoder.
 
 ## 1.10 - 2019-02-04
@@ -66,8 +74,8 @@ Changed GoogleGeocoder test to not use raise...from as this is not valid for Pyt
 
 ### Changed
 
-- Added api_key parameter to GoogleGeocoder __init__ method. Idea from
-  wpietruszewski https://github.com/sffjunkie/astral/pull/12
+- Added api_key parameter to GoogleGeocoder **init** method. Idea from
+    wpietruszewski https://github.com/sffjunkie/astral/pull/12
 
 ## 1.5 - 2017-12-07
 
@@ -78,5 +86,5 @@ Changed GoogleGeocoder test to not use raise...from as this is not valid for Pyt
 ### Changed
 
 - dawn_utc, sunrise_utc, sunset_utc and dusk_utc now only raise AstralError for a math domain
-  exception all other exceptions are passed through.
+    exception all other exceptions are passed through.
 - moon_phase now takes another parameter if the type to return either int (the default) or float
