@@ -110,7 +110,6 @@ Sun
 .. code-block:: python
 
     >>> from astral import LocationInfo
-    >>> from astral.location import Location
     >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
     >>> print((
         f"Information for {city.name}/{city.region}\n"
