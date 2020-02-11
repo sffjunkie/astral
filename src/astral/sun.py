@@ -376,9 +376,6 @@ def time_of_transit(
     timeDiff = 4.0 * delta
     timeUTC = 720 + timeDiff - eq_of_time(t)
 
-    if timeUTC < 0:
-        raise ValueError(f"Sun never transits at a zenith of {zenith} on {date}")
-
     td = minutes_to_timedelta(timeUTC)
     dt = datetime.datetime(date.year, date.month, date.day) + td
     dt = pytz.utc.localize(dt)  # pylint: disable=E1120
