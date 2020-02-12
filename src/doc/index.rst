@@ -461,6 +461,10 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
+2.1        Fix for bug #44 - Incorrectly raised exception when UTC sun times
+           were on the day previous to the day asked for. Only manifested for
+           timezones with a large positive offset.
+---------- --------------------------------------------------------------------
 2.0        Now only compatible with Python 3.6 and greater due to the
            use of data classes
 
