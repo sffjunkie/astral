@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## 2.0 dev
+## 2.1
+
+- Fix for western latitudes.
+
+## 2.0
 
 - Requires python 3.6+ due to the use of dataclasses
 - New LocationInfo class to store a location name, region, timezone, latitude & longitude
