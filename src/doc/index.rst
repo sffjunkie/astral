@@ -343,9 +343,15 @@ Astral has one required external Python dependency on `pytz`.
 Installation
 ============
 
-To install Astral you should use the :command:`pip` tool::
+To install Astral you should use the `pip`_ tool::
 
-    pip install astral
+    pip3 install astral
+
+.. note::
+
+   Now that we are Python 3 only and pip provides a versioned executable on
+   Windows you should use the `pip3` command on all operating systems
+   to ensure you are targetting the right Python version.
 
 Cities
 ======
