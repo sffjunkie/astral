@@ -474,6 +474,8 @@ Version    Description
 2.0        This is a code refactor as well as an update so it is highly likely
            that you will need to adapt your code to suit.
 
+           Astral, AstralGeocoder & GoogleGeocoder classes removed
+
            Now only compatible with Python 3.6 and greater due to the
            use of data classes
 
@@ -495,8 +497,6 @@ Version    Description
            respectively.
 
            Rahukaalam can now be calculated for night times.
-
-           The Google geocoder and Astral classes have been removed
 ---------- --------------------------------------------------------------------
 1.10.1     Keyword args are now passed to the geocoder class from Astral
            __init__ in order to allow the Google Maps API key to be passed to
