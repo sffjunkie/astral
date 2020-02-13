@@ -471,7 +471,10 @@ Version    Description
            were on the day previous to the day asked for. Only manifested for
            timezones with a large positive offset.
 ---------- --------------------------------------------------------------------
-2.0        Now only compatible with Python 3.6 and greater due to the
+2.0        This is a code refactor as well as an update so it is highly likely
+           that you will need to adapt your code to suit.
+
+           Now only compatible with Python 3.6 and greater due to the
            use of data classes
 
            New :class:`~astral.Observer` data class to store a latitude,

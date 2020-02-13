@@ -1,15 +1,19 @@
 # CHANGELOG
 
-## 2.1
+## 2.1 - 2020-02-12
 
-- Fix for western latitudes.
+- Fix for bug #44 - Incorrectly raised exception when UTC sun times were on the day
+  previous to the day asked for. This only manifested itself for timezones with
+  a large positive offset.
 
-## 2.0
+## 2.0 - 2020-02-11
 
+- This is a code refactor as well as an update so it is highly likely that you will
+  need to adapt your code to suit.
+- Astral, AstralGeocoder & GoogleGeocoder classes removed
 - Requires python 3.6+ due to the use of dataclasses
 - New LocationInfo class to store a location name, region, timezone, latitude & longitude
 - New Observer class to store a latitude, longitude & elevation
-- AstralGeocoder, GoogleGeocoder removed
 - Geocoder database now returns a LocationInfo instead of a Location
 
 ## 1.10.1 - 2019-02-06
