@@ -85,7 +85,7 @@ def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
     return now(tzinfo).date()
 
 
-def dms_to_float(dms: Union[str, float, Elevation], limit: float = -1) -> float:
+def dms_to_float(dms: Union[str, float, Elevation], limit: Optional[float] = None) -> float:
     """Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`,
     or a float encoded as a string, to a float
 
@@ -122,10 +122,11 @@ def dms_to_float(dms: Union[str, float, Elevation], limit: float = -1) -> float:
         else:
             raise ValueError("Unable to convert degrees/minutes/seconds to float")
 
-    if res > limit:
-        res = limit
-    elif res < -limit:
-        res = -limit
+    if limit:
+        if res > limit:
+            res = limit
+        elif res < -limit:
+            res = -limit
 
     return res
 
