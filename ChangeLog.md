@@ -10,6 +10,8 @@
 
 ## 2.0 - 2020-02-11
 
+### Refactor
+
 - This is a code refactor as well as an update so it is highly likely that you will
   need to adapt your code to suit.
 - Astral, AstralGeocoder & GoogleGeocoder classes removed
