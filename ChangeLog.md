@@ -2,6 +2,8 @@
 
 ## 2.1 - 2020-02-12
 
+### Bug Fix
+
 - Fix for bug #44 - Incorrectly raised exception when UTC sun times were on the day
   previous to the day asked for. This only manifested itself for timezones with
   a large positive offset.
