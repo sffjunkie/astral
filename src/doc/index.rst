@@ -317,6 +317,24 @@ At the summit of mount Everest (8,848 m) the maximum difference is
 Due to the very small difference the astral package does not currently adjust
 the solar elevation for changes in observer elevation.
 
+Effect of Refraction
+====================
+
+When viewing the sun the position you see it at is different from its actual
+position due to the effect of atmospheric `refraction`_ which
+makes the sun appear to be higher in the sky. The calculations in the
+package take this refraction into account.
+
+The :func:`~astral.sun.sunrise` and :func:`~astral.sun.sunset` functions
+use the refraction at an angle when the sun is half of its apparent diameter
+below the horizon. This is between about 30 and 32 arcminutes and for the
+astral package a value of 32" is used.
+
+.. note::
+
+   The refraction calculation does not take into account
+   temperature and pressure which can affect the angle of refraction.
+
 Note on Localized Timezones
 ===========================
 
@@ -681,6 +699,8 @@ Version    Description
 .. _1588198: https://bugs.launchpad.net/astral/+bug/1588198
 .. _pytz docs: http://pytz.sourceforge.net/#localized-times-and-date-arithmetic
 .. _issue: https://github.com/sffjunkie/astral/issues
+.. _refraction: https://en.wikipedia.org/wiki/Refraction
+.. _pip: https://pip.pypa.io/en/stable/
 
 .. |travis_status| image:: https://travis-ci.org/sffjunkie/astral.svg?branch=master
     :target: https://travis-ci.org/sffjunkie/astral
