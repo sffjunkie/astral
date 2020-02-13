@@ -511,7 +511,7 @@ Version    Description
            `with_refraction` parameter to False.
 
            The solar_noon and solar_midnight functions have been renamed to
-           :meth:`~astral.sun.noon` and :meth:`~astral.sun.midnight`
+           :func:`~astral.sun.noon` and :func:`~astral.sun.midnight`
            respectively.
 
            Rahukaalam can now be calculated for night times.
