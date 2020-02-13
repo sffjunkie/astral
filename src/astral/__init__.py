@@ -50,7 +50,7 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 from math import fabs
-from typing import Any, Tuple, Union
+from typing import Any, Optional, Tuple, Union
 
 try:
     import pytz
