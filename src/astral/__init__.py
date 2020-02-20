@@ -227,5 +227,10 @@ class LocationInfo:
         return Observer(self.latitude, self.longitude, 0.0)
 
     @property
+    def tzinfo(self):
+        """Return a pytz timezone for this location"""
+        return pytz.timezone(self.timezone);
+
+    @property
     def timezone_group(self):
         return self.timezone.split("/")[0]
