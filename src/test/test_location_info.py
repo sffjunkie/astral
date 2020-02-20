@@ -24,5 +24,5 @@ class TestLocationInfo:
         li = LocationInfo()
         assert li.timezone_group == "Europe"
 
-    def test_tzinfo(self, new_delhi):
-        assert new_delhi.tzinfo == pytz.timezone("Asia/Kolkata")
+    def test_tzinfo(self, new_delhi_info):
+        assert new_delhi_info.tzinfo == pytz.timezone("Asia/Kolkata")
