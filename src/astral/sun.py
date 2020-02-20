@@ -284,6 +284,7 @@ def adjust_to_horizon(elevation: float) -> float:
 
 
 def adjust_to_obscuring_feature(elevation: Tuple[float, float]) -> float:
+    """Calculate the number of degrees to adjust for an obscuring feature"""
     if elevation[0] == 0.0:
         return 0.0
 
