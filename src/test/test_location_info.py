@@ -1,4 +1,5 @@
 import pytest
+import pytz
 from astral import LocationInfo
 
 
@@ -22,3 +23,6 @@ class TestLocationInfo:
     def test_timezone_group(self):
         li = LocationInfo()
         assert li.timezone_group == "Europe"
+
+    def test_tzinfo(self, new_delhi):
+        assert new_delhi.tzinfo == pytz.timezone("Asia/Kolkata")
