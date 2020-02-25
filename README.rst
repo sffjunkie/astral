@@ -15,10 +15,10 @@ This is 'astral' a Python module which calculates
     * Times for various positions of the sun: dawn, sunrise, solar noon,
       sunset, dusk and solar midnight.
     * Time for the specified elevation of the sun.
-    * Periods of the day: blue hour, golden hour, twilight, daylight, night and Rahukaalam
+    * Periods of the day: blue hour, golden hour, twilight, daylight, night and Rahukaalam.
     * The phase of the moon.
 
-It comes with a geocoder and a starter database of several cities worldwide but can also access Google Maps services for geocoding.
+It ships with a geocoder and a starter database of several cities worldwide but can also access Google Maps services for geocoding.
 
 For documentation see the https://astral.readthedocs.io/en/stable/index.html
 
