@@ -55,3 +55,47 @@ def phase(date: Optional[datetime.date] = None) -> float:
     if moon >= 28.0:
         moon -= 28.0
     return moon
+
+
+def next_full_moon(date: Optional[datetime.date] = None) -> datetime.date:
+    """Calculates the next full moon date after the specified date
+
+    Args:
+        date: Start date to calculate the next full moon from. Dates are always in the UTC timezone.
+              If not specified then today's date is used.
+
+    Returns:
+        The date of the next full moon.
+    """
+
+    if date is None:
+        date = today()
+
+    end = date + datetime.timedelta(days=31)
+    for i in range((end - today).days):
+        day = date + datetime.timedelta(days=i)
+        calculated_phase = round(phase(date=day, rtype=float), 0)
+        if calculated_phase == 14:
+            return day
+
+
+def next_new_moon(date: Optional[datetime.date] = None) -> datetime.date:
+    """Calculates the next new moon date after the specified date
+
+    Args:
+        date: Start date to calculate the next new moon from. Dates are always in the UTC timezone.
+              If not specified then today's date is used.
+
+    Returns:
+        The date of the next new moon.
+    """
+
+    if date is None:
+        date = today()
+
+    end = date + datetime.timedelta(days=31)
+    for i in range((end - today).days):
+        day = date + datetime.timedelta(days=i)
+        calculated_phase = round(phase(date=day, rtype=float), 0)
+        if calculated_phase == 0:
+            return day
