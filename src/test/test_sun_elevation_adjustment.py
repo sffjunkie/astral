@@ -13,7 +13,7 @@ from astral.sun import adjust_to_horizon, adjust_to_obscuring_feature, sunrise
 class TestElevationAdjustment:
     def test_Float_Positive(self):
         adjustment = adjust_to_horizon(12000)
-        assert adjustment == pytest.approx(1.75887208410509)
+        assert adjustment == pytest.approx(3.517744168209966)
 
     def test_Float_Negative(self):
         adjustment = adjust_to_horizon(-1)

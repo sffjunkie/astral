@@ -217,11 +217,6 @@ def test_HourAngle(d: datetime.date, ha: float, london):
     ) == pytest.approx(ha, abs=0.001)
 
 
-@pytest.mark.parametrize("in_,out", [(12, 12), (13.3, 13.3), (-3, 357), (363, 3)])
-def test_ProperAngle(in_, out):
-    assert sun.proper_angle(in_) == pytest.approx(out)
-
-
 def test_Azimuth(new_delhi):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert sun.azimuth(new_delhi, d) == pytest.approx(292.766381632981)

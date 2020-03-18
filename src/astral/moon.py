@@ -1,11 +1,20 @@
 import datetime
-from math import degrees, radians, sin
+from math import degrees, radians, sin, floor, ceil, fabs
 from typing import Optional, Union
 
 from astral import today
-from astral.sun import julianday, proper_angle
+from astral.sun import julianday
 
 __all__ = ["phase"]
+
+
+def proper_angle(value: float) -> float:
+    if value > 0.0:
+        value /= 360.0
+        return (value - floor(value)) * 360.0
+    else:
+        tmp = ceil(fabs(value / 360.0))
+        return value + tmp * 360.0
 
 
 def _phase_asfloat(date: datetime.date) -> float:

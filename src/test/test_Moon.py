@@ -6,6 +6,11 @@ import pytest
 from astral import moon
 
 
+@pytest.mark.parametrize("in_,out", [(12, 12), (13.3, 13.3), (-3, 357), (363, 3)])
+def test_ProperAngle(in_, out):
+    assert moon.proper_angle(in_) == pytest.approx(out)
+
+
 @pytest.mark.parametrize(
     "date_,phase",
     [

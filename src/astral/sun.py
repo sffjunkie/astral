@@ -44,15 +44,6 @@ __all__ = [
 SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
 
 
-def proper_angle(value: float) -> float:
-    if value > 0.0:
-        value /= 360.0
-        return (value - floor(value)) * 360.0
-    else:
-        tmp = ceil(fabs(value / 360.0))
-        return value + tmp * 360.0
-
-
 def julianday(date: datetime.date) -> float:
     """Calculate the Julian Day for the specified date"""
     y = date.year
@@ -274,13 +265,7 @@ def adjust_to_horizon(elevation: float) -> float:
     a1 = r
     h1 = r + elevation
     theta1 = acos(a1 / h1)
-
-    a2 = r * sin(theta1)
-    b2 = r - (r * cos(theta1))
-    h2 = sqrt(pow(a2, 2) + pow(b2, 2))
-    alpha = acos(a2 / h2)
-
-    return degrees(alpha)
+    return degrees(theta1)
 
 
 def adjust_to_obscuring_feature(elevation: Tuple[float, float]) -> float:
