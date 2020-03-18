@@ -1,0 +1,5 @@
+astral.location
+===============
+
+.. autoclass:: astral.location.Location
+   :members:
