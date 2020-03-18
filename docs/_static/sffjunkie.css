@@ -1,0 +1,906 @@
+﻿/*
+ * buildbot.css
+ * ~~~~~~~~~~~~~~~
+ *
+ * Sphinx stylesheet -- sphinxdoc theme.  Originally created by
+ * Armin Ronacher for Werkzeug.
+ *
+ * Customized for ReadTheDocs by Eric Pierce & Eric Holscher
+ *
+ * Tweaked once again by Simon Kennedy
+ *
+ * :copyright: Copyright 2007-2010 by the Sphinx team, see AUTHORS.
+ * :license: BSD, see LICENSE for details.
+ *
+ */
+
+@import url("basic.css");
+
+/* PAGE LAYOUT -------------------------------------------------------------- */
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font: sans-serif; 
+    color: black;
+    background-color: #465158;
+}
+
+div.related {
+	width: 100%;
+    height: 2.8rem;
+    font-size: 1rem;
+    background-color: #465158;
+}
+
+div.related img {
+    margin-top: 5px;
+}
+
+img.icon-home {
+    height: 1rem;
+    /* display: inline-block; */
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.document {
+	width: 100%;
+    text-align: left;
+    background-color: #e8ecef;
+}
+
+div.documentwrapper {
+    float: left;
+    width: 100%;
+    background-color: #e8ecef;
+}
+
+div.bodywrapper {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin: 0 0.2rem 0 21rem;
+}
+
+div.body {
+    margin: 0;
+    padding: 0.5rem;
+    max-width: 55rem;
+    min-width: 20rem;
+}
+
+
+/* HEADINGS --------------------------------------------------------------- */
+
+h1 {
+    margin: 0.3rem 0 0 0;
+    padding: 0 0 0.3rem 0.5rem;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    color: #111;
+    clear: both;
+    font: Garamond, ‘Hoefler Text’, ‘Times New Roman’, Times, serif;
+}
+
+h2 {
+    margin: 1em 0 0.2rem 0.5rem;
+    font-size: 1.35rem;
+    padding: 0;
+    color: #465158;
+    font: Garamond, ‘Hoefler Text’, ‘Times New Roman’, Times, serif;
+}
+
+h3 {
+    margin: 1rem 0 -0.3rem 0.5rem;
+    font-size: 1.2rem;
+    color: #6c818f;
+    font: Garamond, ‘Hoefler Text’, ‘Times New Roman’, Times, serif;
+}
+
+div.body h1 a, div.body h2 a, div.body h3 a, div.body h4 a, div.body h5 a, div.body h6 a {
+    color: black;
+}
+
+h1 a.anchor, h2 a.anchor, h3 a.anchor, h4 a.anchor, h5 a.anchor, h6 a.anchor {
+    display: none;
+    margin: 0 0 0 0.3rem;
+    padding: 0 0.2rem 0 0.2rem;
+    color: #aaa !important;
+}
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor,
+h5:hover a.anchor, h6:hover a.anchor {
+    display: inline;
+}
+
+h1 a.anchor:hover, h2 a.anchor:hover, h3 a.anchor:hover, h4 a.anchor:hover,
+h5 a.anchor:hover, h6 a.anchor:hover {
+    color: #777;
+    background-color: #eee;
+}
+
+
+/* LINKS ------------------------------------------------------------------ */
+
+/* Normal links get a pseudo-underline */
+a {
+    color: #444;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Links in sidebar, TOC, index trees and tables have no underline */
+.sphinxsidebar a,
+.toctree-wrapper a,
+.indextable a,
+#indices-and-tables a {
+    color: #444;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+/* Most links get an underline-effect when hovered */
+a:hover,
+div.toctree-wrapper a:hover,
+.indextable a:hover,
+#indices-and-tables a:hover {
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px solid #111;
+}
+
+/* Footer links */
+div.footer a {
+    color: #86989B;
+    text-decoration: none;
+    border: none;
+}
+div.footer a:hover {
+    color: #a6b8bb;
+    text-decoration: underline;
+    border: none;
+}
+
+/* Permalink anchor (subtle grey with a red hover) */
+div.body a.headerlink {
+    color: #ccc;
+    font-size: 1rem;
+    margin-left: 6px;
+    padding: 0 4px 0 4px;
+    text-decoration: none;
+    border: none;
+}
+div.body a.headerlink:hover {
+    color: #c60f0f;
+    border: none;
+}
+
+
+/* NAVIGATION BAR --------------------------------------------------------- */
+
+div.related ul {
+    height: 2.6rem;
+}
+
+div.related ul li {
+    margin: 0;
+    padding: 0.65rem 0;
+    float: left;
+    display: block;
+    color: white; /* For the >> separators */
+    font-size: 0.8rem;
+}
+
+div.related ul li.right {
+    float: right;
+    margin-right: 5px;
+    color: transparent; /* Hide the | separators */
+}
+
+/* "Breadcrumb" links in nav bar */
+div.related ul li a {
+    background-color: inherit;
+    font-weight: bold;
+    margin: 6px 0 6px 4px;
+    line-height: 1.75rem;
+    color: #ffffff;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 3px;
+}
+/* previous / next / modules / index links look more like buttons */
+div.related ul li.right a {
+    margin: 0.375em 0;
+    background-color: #697983;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+}
+/* All navbar links light up as buttons when hovered */
+div.related ul li a:hover {
+    background-color: #8ca1af;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 3px;
+}
+/* Take extra precautions for tt within links */
+a tt,
+div.related ul li a tt {
+    background: inherit !important;
+    color: inherit !important;
+}
+
+form.navbar-form {
+    margin-right: 0.25rem;
+}
+
+/* SIDEBAR ---------------------------------------------------------------- */
+
+div.sphinxsidebarwrapper {
+    padding: 0;
+}
+
+div.sphinxsidebar {
+    margin: 0.5rem 0 0 -100%;
+
+    padding: 0 1rem;
+    width: 19rem;
+    font-size: 1rem;
+    text-align: left;
+    background-color: #e8ecef;
+    float: left;
+}
+
+div.sphinxsidebar h3, div.sphinxsidebar h4 {
+    margin: 1.2rem 0 0.3rem 0;
+    font-size: 1rem;
+    padding: 0;
+    color: #222222;
+    font-family: "ff-meta-web-pro-1", "ff-meta-web-pro-2", "Arial", "Helvetica Neue", sans-serif;
+}
+
+div.sphinxsidebar h3 {
+    margin: 0.5rem 0 0.3rem 0;
+}
+
+div.sphinxsidebar h3 a {
+    color: #444444;
+}
+
+div.sphinxsidebar ul,
+div.sphinxsidebar p {
+    margin-top: 0;
+    padding-left: 0;
+    line-height: 130%;
+    background-color: #e8ecef;
+}
+
+/* No bullets for nested lists, but a little extra indentation */
+div.sphinxsidebar ul ul {
+    list-style-type: none;
+    margin-left: 1.5rem;
+    padding: 0;
+}
+
+/* A little top/bottom padding to prevent adjacent links' borders
+ * from overlapping each other */
+div.sphinxsidebar ul li {
+    margin-top: 0.1rem;
+    padding: 1px 0;
+}
+
+/* A little left-padding to make these align with the ULs */
+div.sphinxsidebar p.topless {
+    padding-left: 1rem;
+}
+
+div.sphinxsidebar a.logo img {
+    padding-top: 5px;
+}
+
+div.sphinxsidebar a.logo:hover {
+    border: none;
+}
+/* Make these into hidden one-liners */
+div.sphinxsidebar ul li,
+div.sphinxsidebar p.topless {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* ...which become visible when hovered */
+div.sphinxsidebar ul li:hover,
+div.sphinxsidebar p.topless:hover {
+    overflow: visible;
+}
+
+/* Search text box and "Go" button */
+#searchbox {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    background: #ddd;
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+#searchbox h3 {
+    margin-top: 0;
+}
+
+/* Make search box and button abut and have a border */
+input,
+div.sphinxsidebar input {
+    border: 1px solid #999;
+    float: left;
+}
+
+/* Search textbox */
+input[type="text"] {
+    margin: 0;
+    padding: 0 3px;
+    height: 20px;
+    width: 144px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+/* Search button */
+input[type="submit"] {
+    margin: 0 0 0 -1px; /* -1px prevents a double-border with textbox */
+    height: 22px;
+    color: #444;
+    background-color: #e8ecef;
+    padding: 1px 4px;
+    font-weight: bold;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+input[type="submit"]:hover {
+    color: #ffffff;
+    background-color: #8ecc4c;
+}
+
+div.sphinxsidebar p.searchtip {
+    clear: both;
+    padding: 0.5rem 0 0 0;
+    background: #ddd;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Sidebar links are unusual */
+div.sphinxsidebar li a,
+div.sphinxsidebar p a {
+    background: #e8ecef; /* In case links overlap main content */
+    border-radius: 3px;
+    border: 1px solid transparent; /* To prevent things jumping around on hover */
+    padding: 0 5px 0 5px;
+}
+div.sphinxsidebar li a:hover,
+div.sphinxsidebar p a:hover {
+    color: #111;
+    text-decoration: none;
+    border: 1px solid #888;
+}
+
+div.sphinxsidebar p.logo a img.logo {
+	margin: 5px auto 0px auto;
+	text-align: center;
+}
+
+/* Tweak any link appearing in a heading */
+div.sphinxsidebar h3 a {
+}
+
+div.sphinxsidebar p.logo img {
+	margin: 0;
+
+}
+
+
+.line-block:first-child {
+	margin-top: 0;
+}
+.line-block:last-child {
+	margin-bottom: 0;
+}
+
+
+/* OTHER STUFF ------------------------------------------------------------ */
+
+cite, code, tt {
+    font-family: "Roboto Mono", monospace;
+    letter-spacing: 0.01rem;
+}
+
+tt {
+/*    background-color: #f2f2f2;*/
+    color: #222;
+}
+
+tt.descname, tt.descclassname, tt.xref {
+    border: 0;
+}
+
+hr {
+    border: 1px solid #abc;
+    margin: 2rem;
+}
+
+pre, #_fontwidthtest {
+    font-family: "Roboto Mono", monospace;
+    margin: 1em 0 1rem 1.5rem;
+    /* letter-spacing: 0.015rem;
+    line-height: 120%; */
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    border-radius: 3px;
+}
+
+pre a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+td.linenos pre {
+    padding: 0.5rem 0;
+}
+
+div.quotebar {
+    background-color: #f8f8f8;
+    max-width: 250px;
+    float: right;
+    padding: 2px 7px;
+    border: 1px solid #ccc;
+}
+
+div.topic {
+    background-color: #f8f8f8;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 -0.5rem 0 -0.5rem;
+}
+
+table td, table th {
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
+
+
+/* ADMONITIONS AND WARNINGS ------------------------------------------------- */
+
+div.admonition {
+    font-size: 0.9rem;
+    margin: 1rem 0 0.5rem 1.5rem;
+    padding: 0;
+    min-height: 40px;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+div.admonition-todo {
+    border: 1px solid #B9C9B9;
+    background-color: #a3def8;
+}
+div.note {
+    border: 1px solid #B9C9B9;
+    background: url(info_32.png) #e9ffe9 no-repeat 0.25rem 3px;
+}
+div.warning {
+    border: 1px solid #C6B6B6;
+    background: url(warning_32.png) #ffe9e9 no-repeat 0.25rem 3px;
+}
+div.admonition p {
+    padding-left: 42px;
+}
+div.admonition table.docutils {
+    margin-left: 42px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+p.admonition-title {
+    margin: 0.25rem 0 !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+div.admonition pre {
+    margin: 0.4rem 1rem 0.4rem 42px;
+}
+div.admonition ul, div.admonition ol {
+    margin: 0.1rem 0.5rem 0.5rem 42px;
+    padding: 0;
+}
+
+div.versioninfo {
+    margin: 1rem 0 0 0;
+    border: 1px solid #ccc;
+    background-color: #DDEAF0;
+    padding: 8px;
+    line-height: 1.3rem;
+    font-size: 0.9rem;
+}
+
+#version-history table td>ul {
+	list-style-position: inside;
+	padding-left: 0;
+}
+
+.viewcode-back {
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva',
+                 'Verdana', sans-serif;
+}
+
+div.viewcode-block:target {
+    background-color: #f4debf;
+    border-top: 1px solid #ac9;
+    border-bottom: 1px solid #ac9;
+}
+
+dl {
+    margin: 1rem 0 1.5rem 0;
+    padding-left: 0.5rem;
+}
+
+/* Highlight target when you click an internal link */
+dt:target, dl.class>dt:target, dl.interface>dt:target {
+    background: #ffe080;
+}
+/* Don't highlight whole divs */
+div.highlight {
+    background: transparent;
+}
+/* But do highlight spans (so search results can be highlighted) */
+span.highlight {
+    background: #ffe080;
+}
+
+div.footer {
+    background-color: #465158;
+    color: #eeeeee;
+    padding: 0 2rem 0.5rem 2rem;
+    clear: both;
+    font-size: 0.8rem;
+    text-align: center;
+    height: 1.5rem;
+    line-height: 1.5;
+}
+
+p {
+    margin: 0.8rem 0 0.5rem;
+    padding-left: 0.5rem;
+}
+
+th p, td p {
+	margin-top: 0.25rem
+	margin-bottom: 0.25rem
+}
+
+.section p img {
+    margin: 1rem 2rem;
+}
+
+div.code.linenumbers pre {
+	counter-reset: linenumber 0;
+}
+
+div.code.linenumbers pre l {
+}
+
+div.code.linenumbers pre l:before {
+	display: inline-block;
+	min-width: 2rem;
+	padding-right: 1rem;
+	text-align: right;
+	counter-incrrement: linenumber 1;
+	content: counter(linenumber, decimal);
+}
+
+.lineno {
+    display: inline-block;
+	min-width: 2rem;
+	padding-right: 1rem;
+	text-align: right;
+}
+
+p.rubric {
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+pre {
+	position: relative;
+}
+
+dl.class, dl.function, dl.exception, dl.data, dl.interface {
+    margin-left: 0;
+}
+
+dl.class em, dl.function em, dl.exception em, dl.data em, dl.interface em {
+    font-style: normal;
+}
+
+dl.class pre, dl.class blockquote,
+dl.interface pre, dl.interface blockquote {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+
+dd .admonition {
+    margin-left: 0;
+}
+
+dl.class>dt, dl.interface>dt, dl.function>dt {
+    padding: 0 0.5rem;
+    border-radius: 5px;
+    font-family: monospace;
+}
+
+dl dl.field-list {
+    padding: 0 0.5rem;
+}
+
+dl.class>dd, dl.interface>dd, dl.function>dd {
+    margin-left: 1.5rem;
+}
+
+.toggle {
+	display: block;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+
+a.toggle:hover {
+	text-decoration: none;
+}
+
+.viewcode-link {
+    float: right;
+}
+
+table.docutils {
+    border: 0;
+    border-collapse: collapse;
+    border: 1px solid #d5d5d5;
+    margin: 0.25rem 1.5rem;
+}
+
+table.docutils td, table.docutils th {
+    vertical-align: top;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #d5d5d5;
+    text-align: left;
+}
+
+table.docutils th {
+    background-color: #f8f8f8;
+}
+
+table.docutils td {
+    background-color: white;
+}
+
+.toctree-wrapper {
+    border: 1px solid #eee;
+    float: right;
+	border-radius: 3px;
+	background-color: #fafafa;
+}
+
+.toctree-wrapper .caption {
+    margin: 0.5rem;
+    text-decoration: underline;
+}
+
+.toctree-wrapper ul {
+	padding: 0.5rem;
+	list-style-position: inside;
+	margin: 0;
+}
+
+.toctree-wrapper ul li {
+	list-style-type: disc;
+}
+
+.toctree-wrapper ul li ul li {
+	list-style-type: square;
+}
+
+ul.first.last {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+img.example {
+    margin: 0.5rem 0;
+    display: block;
+    clear: both;
+}
+
+/* MOBILE LAYOUT -------------------------------------------------------------- */
+
+@media screen and (max-width: 600px) {
+    
+    h1, h2, h3, h4, h5 {
+        position: relative;
+    }
+
+    ul {
+        padding-left: 1.75rem;
+    }
+
+    div.bodywrapper a.headerlink, #indices-and-tables h1 a {
+        color: #e6e6e6;
+        font-size: 80%;
+        float: right;
+        line-height: 1.8;
+        position: absolute;
+        right: -0.7rem;
+        visibility: inherit;
+    }
+
+    div.bodywrapper h1 a.headerlink, #indices-and-tables h1 a {
+        line-height: 1.5;
+    }
+
+    pre {
+        font-size: 0.7rem;
+        overflow: auto;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+    div.related ul {
+        height: 2.5rem;
+        padding: 0;
+        text-align: left;
+    }
+
+    div.related ul li {
+        clear: both;
+        color: #465158;
+        padding: 0.2rem 0;
+    }
+
+    div.related ul li:last-child {
+        border-bottom: 1px dotted #8ca1af;
+        padding-bottom: 0.4rem;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    div.related ul li a {
+        color: #465158;
+        padding-right: 0;
+    }
+
+    div.related ul li a:hover {
+        background: inherit;
+        color: inherit;
+    }
+
+    div.related ul li.right {
+        clear: none;
+        padding: 0.65rem 0;
+        margin-bottom: 0.5rem;
+    }
+
+    div.related ul li.right a {
+        color: #fff;
+        padding-right: 0.8rem;
+    }
+
+    div.related ul li.right a:hover {
+        background-color: #8ca1af;
+    }
+
+    div.body {
+        clear: both;
+        min-width: 0;
+        word-wrap: break-word;
+    }
+
+    div.bodywrapper {
+        margin: 0 0 0 0;
+    }
+
+    div.sphinxsidebar {
+        float: none;
+        margin: 0;
+        width: auto;
+    }
+
+    div.sphinxsidebar input[type="text"] {
+        height: 2rem;
+        line-height: 2rem;
+        width: 70%;
+    }
+
+    div.sphinxsidebar input[type="submit"] {
+        height: 2rem;
+        margin-left: 0.5rem;
+        width: 20%;
+    }
+
+    div.sphinxsidebar p.searchtip {
+        background: inherit;
+        margin-bottom: 1rem;
+    }
+
+    div.sphinxsidebar ul li, div.sphinxsidebar p.topless {
+        white-space: normal;
+    }
+
+    .bodywrapper img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+    }
+
+    div.documentwrapper {
+        float: none;
+    }
+
+    div.admonition, div.warning, pre, blockquote {
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+
+    #searchbox {
+        background: transparent;
+    }
+
+    .related:not(:first-child) li {
+        display: none;
+    }
+
+    .related:not(:first-child) li.right {
+        display: block;
+    }
+
+    div.footer {
+        padding: 1rem;
+    }
+
+    .rtd_doc_footer .badge {
+        float: none;
+        margin: 1rem auto;
+        position: static;
+    }
+
+    .rtd_doc_footer .badge.revsys-inline {
+        margin-right: auto;
+        margin-bottom: 2rem;
+    }
+
+    table.indextable {
+        display: block;
+        width: auto; 
+    }
+
+    .indextable tr {
+        display: block;
+    }
+
+    .indextable td {
+        display: block;
+        padding: 0;
+        width: auto !important;
+    }
+
+    .indextable td dt {
+        margin: 1rem 0;
+    }
+
+    ul.search {
+        margin-left: 0.25rem;
+    }
+
+    ul.search li div.context {
+        font-size: 90%;
+        line-height: 1.1;
+        margin-bottom: 1px;
+        margin-left: 0;
+    }
+
+}
