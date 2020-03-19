@@ -1,4 +1,4 @@
-.PHONY: clean test test_docs test_all html report docs repl show_docs show_cov typecheck
+.PHONY: clean test test-docs test-all html report build-docs repl show-docs show-cov typecheck
 
 all: clean test report html
 
@@ -11,10 +11,10 @@ clean:
 test:
 	tox
 
-test_docs:
+test-docs:
 	tox -e doc
 
-test_all:
+test-all:
 	tox -e py36,py37,nopytz,doc
 
 html:
@@ -23,16 +23,19 @@ html:
 report:
 	@COVERAGE_FILE=$(BUILDDIR)/.coverage coverage report
 
-docs:
-	sphinx-build -a -b html -d $(BUILDDIR)/doctrees ./src/doc ./doc
+build-docs:
+	sphinx-build -a -b html -d $(BUILDDIR)/doctrees ./src/doc ./docs
 
 repl:
 	@PYTHONPATH=src winpty python
 
-show_docs:
+show-docs:
 	/usr/bin/start ./doc/index.html
 
-show_cov:
+publish-docs:
+	git subtree push --prefix docs origin gh-pages
+
+show-cov:
 	/usr/bin/start $(BUILDDIR)/htmlcov/index.html
 
 typecheck:
