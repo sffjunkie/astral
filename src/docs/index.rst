@@ -282,11 +282,6 @@ feature (e.g. mountains)
    .. image:: static/elevation_horizon.svg
       :class: adjustment
 
-   .. warning::
-
-      This may not be the correct calculation for the angle round the earth.
-      Please raise an `issue`_ if you know how it should be calculated.
-
 2. If your view is obscured by some other geographical feature than the
    horizon, then the adjustment angle is based on how far you are above or
    below the feature and your distance to it.
@@ -485,6 +480,12 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
+2.2        Fix for `bug #48`_ - As per the bug report the angle to adjust for
+           the effect of elevation should have been θ (not α).
+
+           The sun functions can now be passed a timezone name as a string as
+           well as tzinfo.
+---------- --------------------------------------------------------------------
 2.1        Fix for bug #44 - Incorrectly raised exception when UTC sun times
            were on the day previous to the day asked for. Only manifested for
            timezones with a large positive offset.
@@ -701,6 +702,7 @@ Version    Description
 .. _issue: https://github.com/sffjunkie/astral/issues
 .. _refraction: https://en.wikipedia.org/wiki/Refraction
 .. _pip: https://pip.pypa.io/en/stable/
+.. _bug #48: https://github.com/sffjunkie/astral/issues/48
 
 .. |travis_status| image:: https://travis-ci.org/sffjunkie/astral.svg?branch=master
     :target: https://travis-ci.org/sffjunkie/astral
