@@ -14,7 +14,7 @@ All locations stored in the database can be accessed using the `all_locations` g
 """
 
 from functools import reduce
-from typing import Any, Dict, Generator, List, Optional, Tuple, Union
+from typing import Dict, Generator, List, Optional, Tuple, Union
 
 from astral import LocationInfo, dms_to_float
 
