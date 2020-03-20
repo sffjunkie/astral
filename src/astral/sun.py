@@ -316,6 +316,9 @@ def time_of_transit(
         zenith: The zenith angle for which to calculate the transit time
         direction: The direction that the sun is traversing
 
+    Raises:
+        ValueError if the zenith is not transitted by the sun
+
     Returns:
         the time when the sun transits the specificed zenith
     """
