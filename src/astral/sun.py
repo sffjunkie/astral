@@ -3,7 +3,6 @@ from math import (
     acos,
     asin,
     atan2,
-    ceil,
     cos,
     degrees,
     fabs,

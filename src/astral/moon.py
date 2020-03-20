@@ -1,6 +1,6 @@
 import datetime
 from math import degrees, radians, sin, floor, ceil, fabs
-from typing import Optional, Union
+from typing import Optional
 
 from astral import today
 from astral.sun import julianday
