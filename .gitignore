@@ -1,6 +1,5 @@
 .api_key
 
-/doc
 setup-dev.cfg
 tox.ini
 .tox
