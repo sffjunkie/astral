@@ -6,4 +6,4 @@ if [ "$branch" = "master" ]; then
   exit 1
 fi
 
-#flake8 --append-config=setup-dev.cfg src/astral
+flake8 --append-config=setup-dev.cfg src/astral
