@@ -218,13 +218,13 @@ def hour_angle(
     See https://en.wikipedia.org/wiki/Hour_angle#Solar_hour_angle
 
     Args:
-        latitude: The latitude of the obersver 
+        latitude: The latitude of the obersver
         declination: The declination of the sun
         zenith: The zenith angle of the sun
         direction: The direction of traversal of the sun
 
     Raises:
-        ValueError 
+        ValueError
     """
 
     latitude_rad = radians(latitude)
@@ -887,7 +887,7 @@ def daylight(
         A tuple of the date and time at which daylight starts and ends.
 
     Raises:
-        ValueError: if the sun does not rise or does not set 
+        ValueError: if the sun does not rise or does not set
     """
     if isinstance(tzinfo, str):
         tzinfo = pytz.timezone(tzinfo)
@@ -961,7 +961,7 @@ def twilight(
         A tuple of the date and time at which twilight starts and ends.
 
     Raises:
-        ValueError: if the sun does not rise or does not set 
+        ValueError: if the sun does not rise or does not set
     """
 
     if isinstance(tzinfo, str):
