@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "astral"
+version = "2.1"
+description = "Calculations for the position of the sun and moon."
+keywords = ["sun", "moon", "sunrise", "sunset", "dawn", "dusk"]
+authors = ["Simon Kennedy <sffjunkie+code@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.rst"
+documentation = "https://astral.readthedocs.io/en/stable/index.html"
+repository = "https://github.com/sffjunkie/astral"
+classifiers = [
+	"Intended Audience :: Developers",
+	"Programming Language :: Python",
+	"Programming Language :: Python :: 3.6",
+	"Programming Language :: Python :: 3.7",
+]
+packages = [
+	{ include = "astral", from = "src"},
+	{ include = "doc", from = "src", format = "sdist"},
+	{ include = "test", from = "src", format = "sdist"},
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+pytz = "*"
+dataclasses = { version="*", python = "3.6"}
+
+[tool.poetry.dev-dependencies]
+freezegun = "*"
+pytest = "5.0.1"
+tox = "*"
+pylint = "^2.4.4"
+
+[build-system]
+requires = ["poetry>=1.0.0b1"]
+build-backend = "poetry.masonry.api"
