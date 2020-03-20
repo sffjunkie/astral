@@ -1,5 +1,5 @@
 .api_key
-
+.venv
 setup.cfg
 setup-dev.cfg
 tox.ini
