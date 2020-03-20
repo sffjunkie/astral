@@ -228,7 +228,7 @@ class LocationInfo:
     @property
     def tzinfo(self):
         """Return a pytz timezone for this location"""
-        return pytz.timezone(self.timezone);
+        return pytz.timezone(self.timezone)
 
     @property
     def timezone_group(self):
