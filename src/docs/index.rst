@@ -137,6 +137,24 @@ Sun
     Sunset:  2009-04-22 19:08:41.215821+00:00
     Dusk:    2009-04-22 19:46:06.362457+00:00
 
+.. note::
+
+   The example above calculates the times of the sun in the UTC timezone.
+   If you want to return times in a different timezone you can pass the
+   tzinfo parameter to the function.
+
+   .. code-block:: python
+    
+      s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=city.timezone)
+
+   In versions prior to 2.2 you'll need a pytz timezone to pass as tzinfo e.g.
+
+   .. code-block:: python
+    
+      s = sun(city.observer,
+              date=datetime.date(2009, 4, 22),
+              tzinfo=pytz.timezone(city.timezone))
+
 Moon
 ----
 
