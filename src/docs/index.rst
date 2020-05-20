@@ -501,8 +501,8 @@ Version    Description
 2.2        Fix for `bug #48`_ - As per the bug report the angle to adjust for
            the effect of elevation should have been θ (not α).
 
-           The sun functions can now be passed a timezone name as a string as
-           well as tzinfo.
+           The sun functions can now also be passed a timezone name as a
+           string. Previously only a pytz timezone was accepted.
 ---------- --------------------------------------------------------------------
 2.1        Fix for bug #44 - Incorrectly raised exception when UTC sun times
            were on the day previous to the day asked for. Only manifested for
