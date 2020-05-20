@@ -147,7 +147,7 @@ Sun
     
       s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=city.timezone)
 
-   In versions prior to 2.2 you'll need a pytz timezone to pass as tzinfo e.g.
+   In versions prior to 2.2 you'll need to pass a pytz timezone as tzinfo e.g.
 
    .. code-block:: python
     
