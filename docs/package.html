@@ -95,21 +95,21 @@ can be perfomed using the <a class="reference internal" href="#astral.geocoder.l
 <p>The <cite>Astral</cite> and <cite>GoogleGeocoder</cite> classes from earlier versions have been
 removed.</p>
 </div>
-<dl class="class">
+<dl class="py class">
 <dt id="astral.Depression">
 <em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">Depression</code><a class="headerlink" href="#astral.Depression" title="Permalink to this definition">¶</a></dt>
 <dd><p>The depression angle in degrees for the dawn/dusk calculations</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="astral.SunDirection">
 <em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">SunDirection</code><a class="headerlink" href="#astral.SunDirection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direction of the sun either RISING or SETTING</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="astral.Observer">
-<em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">Observer</code><span class="sig-paren">(</span><em class="sig-param">latitude: float = 51.4733</em>, <em class="sig-param">longitude: float = -0.0008333</em>, <em class="sig-param">elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.Observer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">Observer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></span> <span class="o">=</span> <span class="default_value">51.4733</span></em>, <em class="sig-param"><span class="n">longitude</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></span> <span class="o">=</span> <span class="default_value">- 0.0008333</span></em>, <em class="sig-param"><span class="n">elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#astral.Observer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the location of an observer on Earth.</p>
 <p>Latitude and longitude can be set either as a float or as a string.
 For strings they must be of the form</p>
@@ -136,9 +136,9 @@ in metres above/below the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="astral.LocationInfo">
-<em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">LocationInfo</code><span class="sig-paren">(</span><em class="sig-param">name: str = 'Greenwich'</em>, <em class="sig-param">region: str = 'England'</em>, <em class="sig-param">timezone: str = 'Europe/London'</em>, <em class="sig-param">latitude: float = 51.4733</em>, <em class="sig-param">longitude: float = -0.0008333</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.LocationInfo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">astral.</code><code class="sig-name descname">LocationInfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'Greenwich'</span></em>, <em class="sig-param"><span class="n">region</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'England'</span></em>, <em class="sig-param"><span class="n">timezone</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'Europe/London'</span></em>, <em class="sig-param"><span class="n">latitude</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></span> <span class="o">=</span> <span class="default_value">51.4733</span></em>, <em class="sig-param"><span class="n">longitude</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></span> <span class="o">=</span> <span class="default_value">- 0.0008333</span></em><span class="sig-paren">)</span><a class="headerlink" href="#astral.LocationInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a location on Earth.</p>
 <p>Latitude and longitude can be set either as a float or as a string. For strings they must
 be of the form</p>
@@ -158,13 +158,13 @@ be of the form</p>
 </ul>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="astral.LocationInfo.observer">
 <em class="property">property </em><code class="sig-name descname">observer</code><a class="headerlink" href="#astral.LocationInfo.observer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an Observer at this location</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.LocationInfo.tzinfo">
 <em class="property">property </em><code class="sig-name descname">tzinfo</code><a class="headerlink" href="#astral.LocationInfo.tzinfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a pytz timezone for this location</p>
@@ -172,21 +172,21 @@ be of the form</p>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.now">
-<code class="sig-prename descclassname">astral.</code><code class="sig-name descname">now</code><span class="sig-paren">(</span><em class="sig-param">tzinfo: datetime.tzinfo = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.now" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.</code><code class="sig-name descname">now</code><span class="sig-paren">(</span><em class="sig-param">tzinfo: datetime.tzinfo = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.now" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current time in the specified time zone</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.today">
-<code class="sig-prename descclassname">astral.</code><code class="sig-name descname">today</code><span class="sig-paren">(</span><em class="sig-param">tzinfo: datetime.tzinfo = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.date<a class="headerlink" href="#astral.today" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.</code><code class="sig-name descname">today</code><span class="sig-paren">(</span><em class="sig-param">tzinfo: datetime.tzinfo = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a><a class="headerlink" href="#astral.today" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current date in the specified time zone</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.dms_to_float">
-<code class="sig-prename descclassname">astral.</code><code class="sig-name descname">dms_to_float</code><span class="sig-paren">(</span><em class="sig-param">dms: Union[str, float, Tuple[float, float]], limit: Optional[float] = None</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.dms_to_float" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.</code><code class="sig-name descname">dms_to_float</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">limit</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.dms_to_float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts as string of the form <cite>degrees°minutes’seconds”[N|S|E|W]</cite>,
 or a float encoded as a string, to a float</p>
 <p>N and E return positive values
@@ -206,7 +206,7 @@ S and W return negative values</p>
 
 <div class="section" id="module-astral.sun">
 <span id="astral-sun"></span><h2>astral.sun<a class="headerlink" href="#module-astral.sun" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.sun">
 <code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">sun</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">dawn_dusk_depression: Union[float</em>, <em class="sig-param">astral.Depression] = &lt;Depression.CIVIL: 6.0&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Dict<a class="headerlink" href="#astral.sun.sun" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate all the info for the sun at once.</p>
@@ -231,9 +231,9 @@ whose values are the results of the corresponding functions.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.dawn">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">dawn</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">depression: Union[float</em>, <em class="sig-param">astral.Depression] = &lt;Depression.CIVIL: 6.0&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.sun.dawn" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">dawn</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">depression: Union[float</em>, <em class="sig-param">astral.Depression] = &lt;Depression.CIVIL: 6.0&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.sun.dawn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate dawn time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,9 +254,9 @@ Default is for Civil dawn i.e. 6.0</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.sunrise">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">sunrise</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.sun.sunrise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">sunrise</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.sun.sunrise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate sunrise time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -275,9 +275,9 @@ Default is for Civil dawn i.e. 6.0</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.noon">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">noon</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.sun.noon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">noon</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.sun.noon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate solar noon time when the sun is at its highest point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -293,9 +293,9 @@ Default is for Civil dawn i.e. 6.0</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.midnight">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">midnight</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.sun.midnight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">midnight</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.sun.midnight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate solar midnight time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -317,9 +317,9 @@ the previous day.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.sunset">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">sunset</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.sun.sunset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">sunset</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.sun.sunset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate sunset time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -338,9 +338,9 @@ the previous day.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.dusk">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">dusk</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">depression: Union[float</em>, <em class="sig-param">astral.Depression] = &lt;Depression.CIVIL: 6.0&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.sun.dusk" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">dusk</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">depression: Union[float</em>, <em class="sig-param">astral.Depression] = &lt;Depression.CIVIL: 6.0&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.sun.dusk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate dusk time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -361,9 +361,9 @@ Default is for Civil dusk i.e. 6.0</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.daylight">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">daylight</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.sun.daylight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">daylight</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.sun.daylight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate daylight start and end times.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -382,9 +382,9 @@ Default is for Civil dusk i.e. 6.0</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.night">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">night</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.sun.night" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">night</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.sun.night" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate night start and end times.</p>
 <p>Night is calculated to be between astronomical dusk on the
 date specified and astronomical dawn of the next day.</p>
@@ -407,9 +407,9 @@ specified tzinfo.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.twilight">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">twilight</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.sun.twilight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">twilight</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.sun.twilight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the start and end times of Twilight
 when the sun is traversing in the specified direction.</p>
 <p>This method defines twilight as being between the time
@@ -434,9 +434,9 @@ Use <code class="docutils literal notranslate"><span class="pre">astral.SunDirec
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.blue_hour">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">blue_hour</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.sun.blue_hour" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">blue_hour</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.sun.blue_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the start and end times of the Blue Hour
 when the sun is traversing in the specified direction.</p>
 <p>This method uses the definition from PhotoPills i.e. the
@@ -461,9 +461,9 @@ Use <code class="docutils literal notranslate"><span class="pre">SunDirection.RI
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.golden_hour">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">golden_hour</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.sun.golden_hour" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">golden_hour</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.sun.golden_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the start and end times of the Golden Hour
 when the sun is traversing in the specified direction.</p>
 <p>This method uses the definition from PhotoPills i.e. the
@@ -489,9 +489,9 @@ Use <code class="docutils literal notranslate"><span class="pre">SunDirection.RI
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.rahukaalam">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">rahukaalam</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">daytime: bool = True</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.sun.rahukaalam" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">rahukaalam</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">daytime: bool = True</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.sun.rahukaalam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate ruhakaalam times.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -511,9 +511,9 @@ Use <code class="docutils literal notranslate"><span class="pre">SunDirection.RI
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.zenith">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">zenith</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">dateandtime: Optional[datetime.datetime] = None</em>, <em class="sig-param">with_refraction: bool = True</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.sun.zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">zenith</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">observer</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#astral.Observer" title="astral.Observer">astral.Observer</a></span></em>, <em class="sig-param"><span class="n">dateandtime</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">with_refraction</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.sun.zenith" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the zenith angle of the sun.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -531,9 +531,9 @@ then it is assumed to be in the UTC timezone.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.azimuth">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">azimuth</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">dateandtime: Optional[datetime.datetime] = None</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.sun.azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">azimuth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">observer</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#astral.Observer" title="astral.Observer">astral.Observer</a></span></em>, <em class="sig-param"><span class="n">dateandtime</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.sun.azimuth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the azimuth angle of the sun.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -552,9 +552,9 @@ then it is assumed to be in the UTC timezone.</p></li>
 in the UTC timezone.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.elevation">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">elevation</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">dateandtime: Optional[datetime.datetime] = None</em>, <em class="sig-param">with_refraction: bool = True</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.sun.elevation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">elevation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">observer</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#astral.Observer" title="astral.Observer">astral.Observer</a></span></em>, <em class="sig-param"><span class="n">dateandtime</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">with_refraction</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.sun.elevation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the sun’s angle of elevation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -572,9 +572,9 @@ then it is assumed to be in the UTC timezone.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.sun.time_at_elevation">
-<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">time_at_elevation</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">elevation: float</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.sun.time_at_elevation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.sun.</code><code class="sig-name descname">time_at_elevation</code><span class="sig-paren">(</span><em class="sig-param">observer: astral.Observer</em>, <em class="sig-param">elevation: float</em>, <em class="sig-param">date: Optional[datetime.date] = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">tzinfo: Union[str</em>, <em class="sig-param">datetime.tzinfo] = &lt;UTC&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.sun.time_at_elevation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the time when the sun is at the specified elevation on the specified date.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -602,9 +602,9 @@ Use <code class="docutils literal notranslate"><span class="pre">SunDirection.RI
 </div>
 <div class="section" id="module-astral.moon">
 <span id="astral-moon"></span><h2>astral.moon<a class="headerlink" href="#module-astral.moon" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="astral.moon.phase">
-<code class="sig-prename descclassname">astral.moon.</code><code class="sig-name descname">phase</code><span class="sig-paren">(</span><em class="sig-param">date: Optional[datetime.date] = None</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.moon.phase" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.moon.</code><code class="sig-name descname">phase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.moon.phase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the phase of the moon on the specified date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -654,9 +654,9 @@ If not specified then today’s date is used.</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="function">
+<dl class="py function">
 <dt id="astral.geocoder.lookup">
-<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param">name: str, db: Dict[str, Dict[str, List[astral.LocationInfo]]]</em><span class="sig-paren">)</span> &#x2192; Union[Dict, astral.LocationInfo]<a class="headerlink" href="#astral.geocoder.lookup" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em class="sig-param"><span class="n">db</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference internal" href="#astral.LocationInfo" title="astral.LocationInfo">astral.LocationInfo</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Dict<span class="p">, </span><a class="reference internal" href="#astral.LocationInfo" title="astral.LocationInfo">astral.LocationInfo</a><span class="p">]</span><a class="headerlink" href="#astral.geocoder.lookup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Look up a name in a database.</p>
 <p>If a group with the name specified is a group name then that will
 be returned. If no group is found a location with the name will be
@@ -674,38 +674,38 @@ looked up.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.geocoder.database">
-<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">database</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict[str, Dict[str, List[astral.LocationInfo]]]<a class="headerlink" href="#astral.geocoder.database" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">database</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference internal" href="#astral.LocationInfo" title="astral.LocationInfo">astral.LocationInfo</a><span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#astral.geocoder.database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a database populated with the inital set of locations stored
 in this module</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.geocoder.add_locations">
-<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">add_locations</code><span class="sig-paren">(</span><em class="sig-param">locations: Union[List, str], db: Dict[str, Dict[str, List[astral.LocationInfo]]]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#astral.geocoder.add_locations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">add_locations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">locations</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>List<span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">db</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference internal" href="#astral.LocationInfo" title="astral.LocationInfo">astral.LocationInfo</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a><a class="headerlink" href="#astral.geocoder.add_locations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add locations to the database.</p>
 <p>Locations can be added by passing either a string with one line per location or by passing
 a list containing strings, lists or tuples (lists and tuples are passed directly to the
 LocationInfo constructor).</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="astral.geocoder.all_locations">
-<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">all_locations</code><span class="sig-paren">(</span><em class="sig-param">db: Dict[str, Dict[str, List[astral.LocationInfo]]]</em><span class="sig-paren">)</span> &#x2192; Generator[astral.LocationInfo, None, None]<a class="headerlink" href="#astral.geocoder.all_locations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">astral.geocoder.</code><code class="sig-name descname">all_locations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">db</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference internal" href="#astral.LocationInfo" title="astral.LocationInfo">astral.LocationInfo</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Generator[astral.LocationInfo, None, None]<a class="headerlink" href="#astral.geocoder.all_locations" title="Permalink to this definition">¶</a></dt>
 <dd><p>A generator that returns all the <a class="reference internal" href="#astral.LocationInfo" title="astral.LocationInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocationInfo</span></code></a>s contained in the database</p>
 </dd></dl>
 
 </div>
 <div class="section" id="astral-location">
 <h2>astral.location<a class="headerlink" href="#astral-location" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="astral.location.Location">
-<em class="property">class </em><code class="sig-prename descclassname">astral.location.</code><code class="sig-name descname">Location</code><span class="sig-paren">(</span><em class="sig-param">info: Optional[astral.LocationInfo] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">astral.location.</code><code class="sig-name descname">Location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">info</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#astral.LocationInfo" title="astral.LocationInfo">astral.LocationInfo</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides access to information for single location.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.blue_hour">
-<code class="sig-name descname">blue_hour</code><span class="sig-paren">(</span><em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.location.Location.blue_hour" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">blue_hour</code><span class="sig-paren">(</span><em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.location.Location.blue_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the start and end times of the Blue Hour when the sun is traversing
 in the specified direction.</p>
 <p>This method uses the definition from PhotoPills i.e. the
@@ -731,9 +731,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.dawn">
-<code class="sig-name descname">dawn</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.dawn" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dawn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.location.Location.dawn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the time in the morning when the sun is a certain number
 of degrees below the horizon. By default this is 6 degrees but can be
 changed by setting the <code class="xref py py-attr docutils literal notranslate"><span class="pre">Astral.solar_depression</span></code> property.</p>
@@ -755,9 +755,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.daylight">
-<code class="sig-name descname">daylight</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.location.Location.daylight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">daylight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.location.Location.daylight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the daylight time (the time between sunrise and sunset)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -777,9 +777,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.dusk">
-<code class="sig-name descname">dusk</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.dusk" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dusk</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.location.Location.dusk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the dusk time (the time in the evening when the sun is a
 certain number of degrees below the horizon. By default this is 6
 degrees but can be changed by setting the
@@ -802,9 +802,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.golden_hour">
-<code class="sig-name descname">golden_hour</code><span class="sig-paren">(</span><em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.location.Location.golden_hour" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">golden_hour</code><span class="sig-paren">(</span><em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.location.Location.golden_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the start and end times of the Golden Hour when the sun is traversing
 in the specified direction.</p>
 <p>This method uses the definition from PhotoPills i.e. the
@@ -830,7 +830,7 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.latitude">
 <em class="property">property </em><code class="sig-name descname">latitude</code><a class="headerlink" href="#astral.location.Location.latitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>The location’s latitude</p>
@@ -842,7 +842,7 @@ the location.</p></li>
 <p>For numbers, positive numbers signify latitudes to the North.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.longitude">
 <em class="property">property </em><code class="sig-name descname">longitude</code><a class="headerlink" href="#astral.location.Location.longitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>The location’s longitude.</p>
@@ -854,9 +854,9 @@ the location.</p></li>
 <p>For numbers, positive numbers signify longitudes to the East.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.midnight">
-<code class="sig-name descname">midnight</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.midnight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">midnight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.location.Location.midnight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the solar midnight (the time when the sun is at its lowest
 point.)</p>
 <dl class="field-list simple">
@@ -875,9 +875,9 @@ If not specified then the time will be returned in local time</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.moon_phase">
-<code class="sig-name descname">moon_phase</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.moon_phase" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">moon_phase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.moon_phase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the moon phase for a specific date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -910,9 +910,9 @@ If not specified then the time will be returned in local time</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.night">
-<code class="sig-name descname">night</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.location.Location.night" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">night</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.location.Location.night" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the night time (the time between astronomical dusk and
 astronomical dawn of the next day)</p>
 <dl class="field-list simple">
@@ -933,9 +933,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.noon">
-<code class="sig-name descname">noon</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.noon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">noon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.location.Location.noon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the solar noon (the time when the sun is at its highest
 point.)</p>
 <dl class="field-list simple">
@@ -954,9 +954,9 @@ If not specified then the time will be returned in local time</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.rahukaalam">
-<code class="sig-name descname">rahukaalam</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; Tuple[datetime.datetime, datetime.datetime]<a class="headerlink" href="#astral.location.Location.rahukaalam" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rahukaalam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><span class="p">]</span><a class="headerlink" href="#astral.location.Location.rahukaalam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the period of rahukaalam.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -975,9 +975,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.solar_azimuth">
-<code class="sig-name descname">solar_azimuth</code><span class="sig-paren">(</span><em class="sig-param">dateandtime: datetime.datetime = None</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.location.Location.solar_azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">solar_azimuth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dateandtime</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.location.Location.solar_azimuth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the solar azimuth angle for a specific date/time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -989,7 +989,7 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.solar_depression">
 <em class="property">property </em><code class="sig-name descname">solar_depression</code><a class="headerlink" href="#astral.location.Location.solar_depression" title="Permalink to this definition">¶</a></dt>
 <dd><p>The number of degrees the sun must be below the horizon for the
@@ -1020,9 +1020,9 @@ one of the following strings</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.solar_elevation">
-<code class="sig-name descname">solar_elevation</code><span class="sig-paren">(</span><em class="sig-param">dateandtime: datetime.datetime = None</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.location.Location.solar_elevation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">solar_elevation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dateandtime</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.location.Location.solar_elevation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the solar elevation angle for a specific time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1034,9 +1034,9 @@ one of the following strings</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.solar_zenith">
-<code class="sig-name descname">solar_zenith</code><span class="sig-paren">(</span><em class="sig-param">dateandtime: datetime.datetime</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#astral.location.Location.solar_zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">solar_zenith</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dateandtime</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a></span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><a class="headerlink" href="#astral.location.Location.solar_zenith" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the solar zenith angle for a specific time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1048,9 +1048,9 @@ one of the following strings</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.sun">
-<code class="sig-name descname">sun</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#astral.location.Location.sun" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sun</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a><a class="headerlink" href="#astral.location.Location.sun" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns dawn, sunrise, noon, sunset and dusk as a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1072,9 +1072,9 @@ corresponding methods.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.sunrise">
-<code class="sig-name descname">sunrise</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.sunrise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sunrise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.location.Location.sunrise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return sunrise time.</p>
 <p>Calculates the time in the morning when the sun is a 0.833 degrees
 below the horizon. This is to account for refraction.</p>
@@ -1096,9 +1096,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.sunset">
-<code class="sig-name descname">sunset</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.sunset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sunset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)">datetime.date</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local</span><span class="p">:</span> <span class="n"><a class="reference external" href="http://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">observer_elevation</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">, </span><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.location.Location.sunset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates sunset time (the time in the evening when the sun is a
 0.833 degrees below the horizon. This is to account for refraction.)</p>
 <dl class="field-list simple">
@@ -1119,9 +1119,9 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.time_at_elevation">
-<code class="sig-name descname">time_at_elevation</code><span class="sig-paren">(</span><em class="sig-param">elevation: float</em>, <em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">local: bool = True</em><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#astral.location.Location.time_at_elevation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">time_at_elevation</code><span class="sig-paren">(</span><em class="sig-param">elevation: float</em>, <em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">local: bool = True</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime.datetime</a><a class="headerlink" href="#astral.location.Location.time_at_elevation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the time when the sun is at the specified elevation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1149,7 +1149,7 @@ If not specified then the time will be returned in local time</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.timezone">
 <em class="property">property </em><code class="sig-name descname">timezone</code><a class="headerlink" href="#astral.location.Location.timezone" title="Permalink to this definition">¶</a></dt>
 <dd><p>The name of the time zone for the location.</p>
@@ -1161,7 +1161,7 @@ If not specified then the time will be returned in local time</p></li>
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.twilight">
 <code class="sig-name descname">twilight</code><span class="sig-paren">(</span><em class="sig-param">date: datetime.date = None</em>, <em class="sig-param">direction: astral.SunDirection = &lt;SunDirection.RISING: 1&gt;</em>, <em class="sig-param">local: bool = True</em>, <em class="sig-param">observer_elevation: Union[float</em>, <em class="sig-param">Tuple[float</em>, <em class="sig-param">float]] = 0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#astral.location.Location.twilight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the start and end times of Twilight in the UTC timezone when
@@ -1187,13 +1187,13 @@ the location.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.tz">
 <em class="property">property </em><code class="sig-name descname">tz</code><a class="headerlink" href="#astral.location.Location.tz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time zone information.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="astral.location.Location.tzinfo">
 <em class="property">property </em><code class="sig-name descname">tzinfo</code><a class="headerlink" href="#astral.location.Location.tzinfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time zone information.</p>
@@ -1240,7 +1240,7 @@ the location.</p></li>
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1259,7 +1259,7 @@ the location.</p></li>
     </div>
     <div class="footer">
         &copy; Copyright 2009-2020, Simon Kennedy.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.3.
     </div>
   </body>
 </html>

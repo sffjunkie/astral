@@ -164,6 +164,21 @@ module</p>
 <span class="go">Dusk:    2009-04-22 19:46:06.362457+00:00</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The example above calculates the times of the sun in the UTC timezone.
+If you want to return times in a different timezone you can pass the
+tzinfo parameter to the function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">sun</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">city</span><span class="o">.</span><span class="n">timezone</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In versions prior to 2.2 you’ll need to pass a pytz timezone as tzinfo e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">sun</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span>
+        <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+        <span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">timezone</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="moon">
 <h2>Moon<a class="headerlink" href="#moon" title="Permalink to this headline">¶</a></h2>
@@ -501,8 +516,8 @@ of the docs is any easier.)</p>
 <tr class="row-even"><td><p>2.2</p></td>
 <td><p>Fix for <a class="reference external" href="https://github.com/sffjunkie/astral/issues/48">bug #48</a> - As per the bug report the angle to adjust for
 the effect of elevation should have been θ (not α).</p>
-<p>The sun functions can now be passed a timezone name as a string as
-well as tzinfo.</p>
+<p>The sun functions can now also be passed a timezone name as a
+string. Previously only a pytz timezone was accepted.</p>
 </td>
 </tr>
 <tr class="row-odd"><td><p>2.1</p></td>
@@ -791,7 +806,7 @@ outside valid ranges.</p>
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -810,7 +825,7 @@ outside valid ranges.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2009-2020, Simon Kennedy.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.3.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.3.
     </div>
   </body>
 </html>

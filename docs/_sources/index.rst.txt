@@ -137,6 +137,24 @@ Sun
     Sunset:  2009-04-22 19:08:41.215821+00:00
     Dusk:    2009-04-22 19:46:06.362457+00:00
 
+.. note::
+
+   The example above calculates the times of the sun in the UTC timezone.
+   If you want to return times in a different timezone you can pass the
+   tzinfo parameter to the function.
+
+   .. code-block:: python
+    
+      s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=city.timezone)
+
+   In versions prior to 2.2 you'll need to pass a pytz timezone as tzinfo e.g.
+
+   .. code-block:: python
+    
+      s = sun(city.observer,
+              date=datetime.date(2009, 4, 22),
+              tzinfo=pytz.timezone(city.timezone))
+
 Moon
 ----
 
@@ -483,8 +501,8 @@ Version    Description
 2.2        Fix for `bug #48`_ - As per the bug report the angle to adjust for
            the effect of elevation should have been θ (not α).
 
-           The sun functions can now be passed a timezone name as a string as
-           well as tzinfo.
+           The sun functions can now also be passed a timezone name as a
+           string. Previously only a pytz timezone was accepted.
 ---------- --------------------------------------------------------------------
 2.1        Fix for bug #44 - Incorrectly raised exception when UTC sun times
            were on the day previous to the day asked for. Only manifested for
