@@ -41,7 +41,7 @@ kwargs["observer"] = obs
 if args.date is not None:
     try:
         kwargs["date"] = datetime.datetime.strptime(args.date, "%Y-%m-%d").date()
-    except:  # noqa: E0722
+    except:  # noqa: E722
         kwargs["date"] = datetime.date.today()
 
 sun_as_str = {}
