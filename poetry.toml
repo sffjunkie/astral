@@ -1,2 +1,2 @@
 [virtualenvs]
-path = ".venv\\poetry"
+path = ".venv/poetry"
