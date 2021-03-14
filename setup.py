@@ -1,4 +1,4 @@
-# Copyright 2009-2019, Simon Kennedy, sffjunkie+code@gmail.com
+# Copyright 2009-2021, Simon Kennedy, sffjunkie+code@gmail.com
 
 import io
 import os
