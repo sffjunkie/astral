@@ -1,20 +1,11 @@
 import datetime
-from math import degrees, radians, sin, floor, ceil, fabs
+from math import degrees, radians, sin
 from typing import Optional
 
 from astral import today
 from astral.sun import julianday
 
 __all__ = ["phase"]
-
-
-def proper_angle(value: float) -> float:
-    if value > 0.0:
-        value /= 360.0
-        return (value - floor(value)) * 360.0
-    else:
-        tmp = ceil(fabs(value / 360.0))
-        return value + tmp * 360.0
 
 
 def _phase_asfloat(date: datetime.date) -> float:
@@ -24,17 +15,17 @@ def _phase_asfloat(date: datetime.date) -> float:
     T2 = pow(T, 2)
     T3 = pow(T, 3)
     D = 297.85 + (445267.1115 * T) - (0.0016300 * T2) + (T3 / 545868)
-    D = radians(proper_angle(D))
+    D = radians(D % 360.0)
     M = 357.53 + (35999.0503 * T)
-    M = radians(proper_angle(M))
+    M = radians(M % 360.0)
     M1 = 134.96 + (477198.8676 * T) + (0.0089970 * T2) + (T3 / 69699)
-    M1 = radians(proper_angle(M1))
+    M1 = radians(M1 % 360.0)
     elong = degrees(D) + 6.29 * sin(M1)
     elong -= 2.10 * sin(M)
     elong += 1.27 * sin(2 * D - M1)
     elong += 0.66 * sin(2 * D)
-    elong = proper_angle(elong)
-    elong = round(elong)
+    elong = elong % 360.0
+    elong = int(elong)
     moon = ((elong + 6.43) / 360) * 28
     return moon
 
