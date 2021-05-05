@@ -273,7 +273,7 @@ in the :mod:`~astral.geocoder` module
 .. code-block:: python
 
     >>> from astral.geocoder import group
-    >>> europe = group("europe")
+    >>> europe = group("europe",db)
     >>> sorted(europe.keys())
     ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
 
