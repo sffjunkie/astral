@@ -275,6 +275,7 @@ Yaounde,Cameroon,Africa/Douala,03°50'N,11°35'E
 Yaren,Nauru,Pacific/Nauru,0°32'S,166°55'E
 Yerevan,Armenia,Asia/Yerevan,40°10'N,44°31'E
 Zagreb,Croatia,Europe/Zagreb,45°50'N,15°58'E
+Zurich,Switzerland,Europe/Zurich,47°22'N,08°33'E
 
 # UK Cities
 Aberdeen,Scotland,Europe/London,57°08'N,02°06'W

@@ -144,13 +144,13 @@ Sun
    tzinfo parameter to the function.
 
    .. code-block:: python
-    
+
       s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=city.timezone)
 
    In versions prior to 2.2 you'll need to pass a pytz timezone as tzinfo e.g.
 
    .. code-block:: python
-    
+
       s = sun(city.observer,
               date=datetime.date(2009, 4, 22),
               tzinfo=pytz.timezone(city.timezone))
@@ -439,7 +439,7 @@ Tegucigalpa, Tehran, Thimphu, Tirana, Tirane, Tokyo, Toledo, Topeka, Torshavn,
 Trenton, Tripoli, Tunis, Ulaanbaatar, Ulan Bator, Vaduz, Valletta, Vienna,
 Vientiane, Vilnius, Virginia Beach, W. Indies, Warsaw, Washington DC,
 Wellington, Wichita, Willemstad, Wilmington, Windhoek, Wolverhampton,
-Yamoussoukro, Yangon, Yaounde, Yaren, Yerevan, Zagreb
+Yamoussoukro, Yangon, Yaounde, Yaren, Yerevan, Zagreb, Zurich
 
 US Cities
 ---------
