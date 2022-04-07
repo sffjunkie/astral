@@ -17,7 +17,7 @@ classifiers = [
 ]
 packages = [
 	{ include = "astral", from = "src"},
-	{ include = "doc", from = "src", format = "sdist"},
+	{ include = "docs", from = "src", format = "sdist"},
 	{ include = "test", from = "src", format = "sdist"},
 ]
 
