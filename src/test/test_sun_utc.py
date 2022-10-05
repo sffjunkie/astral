@@ -2,11 +2,11 @@
 
 from almost_equal import datetime_almost_equal
 import pytest
-import pytz
 import datetime
 import freezegun
-from astral import sun
+from astral import sun, LocationInfo, TimePeriod
 from astral.sun import Depression, SunDirection
+from typing import Tuple
 
 
 @pytest.mark.parametrize(
@@ -19,15 +19,15 @@ from astral.sun import Depression, SunDirection
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 7, 25)),
     ],
 )
-def test_Sun(day, dawn, london):
-    dawn = pytz.utc.localize(dawn)
+def test_Sun(day: datetime.date, dawn: datetime.datetime, london: LocationInfo):
+    dawn = dawn.replace(tzinfo=datetime.timezone.utc)
     dawn_utc = sun.sun(london.observer, day)["dawn"]
     assert datetime_almost_equal(dawn, dawn_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
-def test_Sun_NoDate(london):
-    ans = pytz.utc.localize(datetime.datetime(2015, 12, 1, 7, 4))
+def test_Sun_NoDate(london: LocationInfo):
+    ans = datetime.datetime(2015, 12, 1, 7, 4, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(sun.sun(london.observer)["dawn"], ans)
 
 
@@ -41,15 +41,15 @@ def test_Sun_NoDate(london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 7, 25)),
     ],
 )
-def test_Dawn_Civil(day, dawn, london):
-    dawn = pytz.utc.localize(dawn)
+def test_Dawn_Civil(day: datetime.date, dawn: datetime.datetime, london: LocationInfo):
+    dawn = dawn.replace(tzinfo=datetime.timezone.utc)
     dawn_utc = sun.dawn(london.observer, day, Depression.CIVIL)
     assert datetime_almost_equal(dawn, dawn_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
-def test_Dawn_NoDate(london):
-    ans = pytz.utc.localize(datetime.datetime(2015, 12, 1, 7, 4))
+def test_Dawn_NoDate(london: LocationInfo):
+    ans = datetime.datetime(2015, 12, 1, 7, 4, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(sun.dawn(london.observer), ans)
 
 
@@ -63,8 +63,10 @@ def test_Dawn_NoDate(london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 6, 41)),
     ],
 )
-def test_Dawn_Nautical(day, dawn, london):
-    dawn = pytz.utc.localize(dawn)
+def test_Dawn_Nautical(
+    day: datetime.date, dawn: datetime.datetime, london: LocationInfo
+):
+    dawn = dawn.replace(tzinfo=datetime.timezone.utc)
     dawn_utc = sun.dawn(london.observer, day, 12)
     assert datetime_almost_equal(dawn, dawn_utc)
 
@@ -79,8 +81,10 @@ def test_Dawn_Nautical(day, dawn, london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 6, 1)),
     ],
 )
-def test_Dawn_Astronomical(day, dawn, london):
-    dawn = pytz.utc.localize(dawn)
+def test_Dawn_Astronomical(
+    day: datetime.date, dawn: datetime.datetime, london: LocationInfo
+):
+    dawn = dawn.replace(tzinfo=datetime.timezone.utc)
     dawn_utc = sun.dawn(london.observer, day, 18)
     assert datetime_almost_equal(dawn, dawn_utc)
 
@@ -96,15 +100,15 @@ def test_Dawn_Astronomical(day, dawn, london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 8, 5)),
     ],
 )
-def test_Sunrise(day, sunrise, london):
-    sunrise = pytz.utc.localize(sunrise)
+def test_Sunrise(day: datetime.date, sunrise: datetime.datetime, london: LocationInfo):
+    sunrise = sunrise.replace(tzinfo=datetime.timezone.utc)
     sunrise_utc = sun.sunrise(london.observer, day)
     assert datetime_almost_equal(sunrise, sunrise_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
-def test_Sunrise_NoDate(london):
-    ans = pytz.utc.localize(datetime.datetime(2015, 12, 1, 7, 43))
+def test_Sunrise_NoDate(london: LocationInfo):
+    ans = datetime.datetime(2015, 12, 1, 7, 43, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(sun.sunrise(london.observer), ans)
 
 
@@ -119,15 +123,15 @@ def test_Sunrise_NoDate(london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 15, 55)),
     ],
 )
-def test_Sunset(day, sunset, london):
-    sunset = pytz.utc.localize(sunset)
+def test_Sunset(day: datetime.date, sunset: datetime.datetime, london: LocationInfo):
+    sunset = sunset.replace(tzinfo=datetime.timezone.utc)
     sunset_utc = sun.sunset(london.observer, day)
     assert datetime_almost_equal(sunset, sunset_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
-def test_Sunset_NoDate(london):
-    ans = pytz.utc.localize(datetime.datetime(2015, 12, 1, 15, 55))
+def test_Sunset_NoDate(london: LocationInfo):
+    ans = datetime.datetime(2015, 12, 1, 15, 55, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(sun.sunset(london.observer), ans)
 
 
@@ -141,15 +145,15 @@ def test_Sunset_NoDate(london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 16, 36)),
     ],
 )
-def test_Dusk_Civil(day, dusk, london):
-    dusk = pytz.utc.localize(dusk)
+def test_Dusk_Civil(day: datetime.date, dusk: datetime.datetime, london: LocationInfo):
+    dusk = dusk.replace(tzinfo=datetime.timezone.utc)
     dusk_utc = sun.dusk(london.observer, day)
     assert datetime_almost_equal(dusk, dusk_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
-def test_Dusk_NoDate(london):
-    ans = pytz.utc.localize(datetime.datetime(2015, 12, 1, 16, 34))
+def test_Dusk_NoDate(london: LocationInfo):
+    ans = datetime.datetime(2015, 12, 1, 16, 34, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(sun.dusk(london.observer), ans)
 
 
@@ -163,8 +167,10 @@ def test_Dusk_NoDate(london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 17, 19)),
     ],
 )
-def test_Dusk_Nautical(day, dusk, london):
-    dusk = pytz.utc.localize(dusk)
+def test_Dusk_Nautical(
+    day: datetime.date, dusk: datetime.datetime, london: LocationInfo
+):
+    dusk = dusk.replace(tzinfo=datetime.timezone.utc)
     dusk_utc = sun.dusk(london.observer, day, 12)
     assert datetime_almost_equal(dusk, dusk_utc)
 
@@ -179,16 +185,16 @@ def test_Dusk_Nautical(day, dusk, london):
         (datetime.date(2015, 12, 25), datetime.datetime(2015, 12, 25, 12, 00)),
     ],
 )
-def test_SolarNoon(day, noon, london):
-    noon = pytz.utc.localize(noon)
+def test_SolarNoon(day: datetime.date, noon: datetime.datetime, london: LocationInfo):
+    noon = noon.replace(tzinfo=datetime.timezone.utc)
     noon_utc = sun.noon(london.observer, day)
     assert datetime_almost_equal(noon, noon_utc)
 
 
 @freezegun.freeze_time("2015-12-01")
-def test_SolarNoon_NoDate(london):
-    ans = pytz.utc.localize(datetime.datetime(2015, 12, 1, 11, 49))
-    assert datetime_almost_equal(sun.noon(london), ans)
+def test_SolarNoon_NoDate(london: LocationInfo):
+    ans = datetime.datetime(2015, 12, 1, 11, 49, tzinfo=datetime.timezone.utc)
+    assert datetime_almost_equal(sun.noon(london.observer), ans)
 
 
 @pytest.mark.parametrize(
@@ -198,16 +204,18 @@ def test_SolarNoon_NoDate(london):
         (datetime.date(2016, 10, 26), datetime.datetime(2016, 10, 25, 23, 44)),
     ],
 )
-def test_SolarMidnight(day, midnight, london):
-    solar_midnight = pytz.utc.localize(midnight)
+def test_SolarMidnight(
+    day: datetime.date, midnight: datetime.datetime, london: LocationInfo
+):
+    solar_midnight = midnight.replace(tzinfo=datetime.timezone.utc)
     solar_midnight_utc = sun.midnight(london.observer, day)
     assert datetime_almost_equal(solar_midnight, solar_midnight_utc)
 
 
 @freezegun.freeze_time("2016-2-18")
-def test_SolarMidnight_NoDate(london):
-    ans = pytz.utc.localize(datetime.datetime(2016, 2, 18, 0, 14))
-    assert datetime_almost_equal(sun.midnight(london), ans)
+def test_SolarMidnight_NoDate(london: LocationInfo):
+    ans = datetime.datetime(2016, 2, 18, 0, 14, tzinfo=datetime.timezone.utc)
+    assert datetime_almost_equal(sun.midnight(london.observer), ans)
 
 
 @pytest.mark.parametrize(
@@ -217,15 +225,19 @@ def test_SolarMidnight_NoDate(london):
             datetime.date(2019, 8, 29),
             (
                 datetime.datetime(2019, 8, 29, 4, 32),
-                datetime.datetime(2019, 8, 29, 5, 7),
+                datetime.datetime(2019, 8, 29, 5, 8),
             ),
         ),
     ],
 )
-def test_Twilight_SunRising(day, twilight, london):
+def test_Twilight_SunRising(
+    day: datetime.date,
+    twilight: Tuple[datetime.datetime, datetime.datetime],
+    london: LocationInfo,
+):
     start, end = twilight
-    start = pytz.utc.localize(start)
-    end = pytz.utc.localize(end)
+    start = start.replace(tzinfo=datetime.timezone.utc)
+    end = end.replace(tzinfo=datetime.timezone.utc)
 
     info = sun.twilight(london.observer, day)
     start_utc = info[0]
@@ -246,10 +258,12 @@ def test_Twilight_SunRising(day, twilight, london):
         )
     ],
 )
-def test_Twilight_SunSetting(day, twilight, london):
+def test_Twilight_SunSetting(
+    day: datetime.date, twilight: TimePeriod, london: LocationInfo
+):
     start, end = twilight
-    start = pytz.utc.localize(start)
-    end = pytz.utc.localize(end)
+    start = start.replace(tzinfo=datetime.timezone.utc)
+    end = end.replace(tzinfo=datetime.timezone.utc)
 
     info = sun.twilight(london.observer, day, direction=SunDirection.SETTING)
     start_utc = info[0]
@@ -259,9 +273,9 @@ def test_Twilight_SunSetting(day, twilight, london):
 
 
 @freezegun.freeze_time("2019-8-29")
-def test_Twilight_NoDate(london):
-    start = pytz.utc.localize(datetime.datetime(2019, 8, 29, 18, 54))
-    end = pytz.utc.localize(datetime.datetime(2019, 8, 29, 19, 30))
+def test_Twilight_NoDate(london: LocationInfo):
+    start = datetime.datetime(2019, 8, 29, 18, 54, tzinfo=datetime.timezone.utc)
+    end = datetime.datetime(2019, 8, 29, 19, 30, tzinfo=datetime.timezone.utc)
     ans = sun.twilight(london.observer, direction=SunDirection.SETTING)
     assert datetime_almost_equal(ans[0], start)
     assert datetime_almost_equal(ans[1], end)
@@ -287,10 +301,10 @@ def test_Twilight_NoDate(london):
         ),
     ],
 )
-def test_Rahukaalam(day, rahu, new_delhi):
+def test_Rahukaalam(day: datetime.date, rahu: TimePeriod, new_delhi: LocationInfo):
     start, end = rahu
-    start = pytz.utc.localize(start)
-    end = pytz.utc.localize(end)
+    start = start.replace(tzinfo=datetime.timezone.utc)
+    end = end.replace(tzinfo=datetime.timezone.utc)
 
     info = sun.rahukaalam(new_delhi.observer, day)
     start_utc = info[0]
@@ -300,9 +314,9 @@ def test_Rahukaalam(day, rahu, new_delhi):
 
 
 @freezegun.freeze_time("2015-12-01")
-def test_Rahukaalam_NoDate(new_delhi):
-    start = pytz.utc.localize(datetime.datetime(2015, 12, 1, 9, 17))
-    end = pytz.utc.localize(datetime.datetime(2015, 12, 1, 10, 35))
+def test_Rahukaalam_NoDate(new_delhi: LocationInfo):
+    start = datetime.datetime(2015, 12, 1, 9, 17, tzinfo=datetime.timezone.utc)
+    end = datetime.datetime(2015, 12, 1, 10, 35, tzinfo=datetime.timezone.utc)
     ans = sun.rahukaalam(new_delhi.observer)
     assert datetime_almost_equal(ans[0], start)
     assert datetime_almost_equal(ans[1], end)
@@ -315,29 +329,29 @@ def test_Rahukaalam_NoDate(new_delhi):
         (datetime.datetime(2015, 12, 14, 20, 1, 0), -37.3710156),
     ],
 )
-def test_SolarAltitude(dt, angle, london):
-    assert sun.elevation(london.observer, dt) == pytest.approx(angle, abs=0.001)
+def test_SolarAltitude(dt: datetime.datetime, angle: float, london: LocationInfo):
+    assert sun.elevation(london.observer, dt) == pytest.approx(angle, abs=0.5)
 
 
 @freezegun.freeze_time("2015-12-14 11:00:00", tz_offset=0)
-def test_SolarAltitude_NoDate(london):
-    assert sun.elevation(london) == pytest.approx(14.381311, abs=0.001)
+def test_SolarAltitude_NoDate(london: LocationInfo):
+    assert sun.elevation(london.observer) == pytest.approx(14.381311, abs=0.5)
 
 
 @pytest.mark.parametrize(
     "dt,angle",
     [
         (datetime.datetime(2015, 12, 14, 11, 0, 0), 166.9676),
-        (datetime.datetime(2015, 12, 14, 20, 1, 0), 279.4093),
+        (datetime.datetime(2015, 12, 14, 20, 1, 0), 279.39927311745),
     ],
 )
-def test_SolarAzimuth(dt, angle, london):
-    assert sun.azimuth(london.observer, dt) == pytest.approx(angle, abs=0.001)
+def test_SolarAzimuth(dt: datetime.datetime, angle: float, london: LocationInfo):
+    assert sun.azimuth(london.observer, dt) == pytest.approx(angle, abs=0.5)
 
 
 @freezegun.freeze_time("2015-12-14 11:00:00", tz_offset=0)
-def test_SolarAzimuth_NoDate(london):
-    assert sun.azimuth(london) == pytest.approx(166.9676, abs=0.001)
+def test_SolarAzimuth_NoDate(london: LocationInfo):
+    assert sun.azimuth(london.observer) == pytest.approx(166.9676, abs=0.5)
 
 
 @pytest.mark.parametrize(
@@ -347,97 +361,109 @@ def test_SolarAzimuth_NoDate(london):
         (datetime.datetime(2020, 2, 3, 10, 37, 0), 71),
     ],
 )
-def test_SolarZenith(dt, angle, london):
-    dt = london.tzinfo.localize(dt)
+def test_SolarZenith_London(dt: datetime.datetime, angle: float, london: LocationInfo):
+    dt = dt.replace(tzinfo=london.tzinfo)
     assert sun.zenith(london.observer, dt) == pytest.approx(angle, abs=0.5)
 
 
-@freezegun.freeze_time("2019-08-29 14:34:00", tz_offset=1)
-def test_SolarZenith_NoDate(london):
-    assert sun.zenith(london) == pytest.approx(52.41, abs=0.5)
+@pytest.mark.parametrize(
+    "dt,angle",
+    [
+        (datetime.datetime(2022, 5, 1, 14, 0, 0), 32),
+        (datetime.datetime(2022, 5, 1, 21, 20, 0), 126),
+    ],
+)
+def test_SolarZenith_Riyadh(dt: datetime.datetime, angle: float, riyadh: LocationInfo):
+    dt = dt.replace(tzinfo=riyadh.tzinfo)
+    assert sun.zenith(riyadh.observer, dt) == pytest.approx(angle, abs=0.5)
 
 
-def test_TimeAtElevation_SunRising(london):
+@freezegun.freeze_time("2019-08-29 14:34:00")
+def test_SolarZenith_NoDate(london: LocationInfo):
+    assert sun.zenith(london.observer) == pytest.approx(52.41, abs=0.5)
+
+
+def test_TimeAtElevation_SunRising(london: LocationInfo):
     d = datetime.date(2016, 1, 4)
     dt = sun.time_at_elevation(london.observer, 6, d, SunDirection.RISING)
-    cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=pytz.utc)
+    cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=datetime.timezone.utc)
     # Use error of 5 minutes as website has a rather coarse accuracy
-    assert datetime_almost_equal(dt, cdt, 300)
+    assert datetime_almost_equal(dt, cdt, seconds=300)
 
 
 @freezegun.freeze_time("2016-1-4")
-def test_TimeAtElevation_NoDate(london):
+def test_TimeAtElevation_NoDate(london: LocationInfo):
     dt = sun.time_at_elevation(london.observer, 6, direction=SunDirection.RISING)
-    cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=pytz.utc)
+    cdt = datetime.datetime(2016, 1, 4, 9, 5, 0, tzinfo=datetime.timezone.utc)
     # Use error of 5 minutes as website has a rather coarse accuracy
-    assert datetime_almost_equal(dt, cdt, 300)
+    assert datetime_almost_equal(dt, cdt, seconds=300)
 
 
-def test_TimeAtElevation_SunSetting(london):
+def test_TimeAtElevation_SunSetting(london: LocationInfo):
     d = datetime.date(2016, 1, 4)
     dt = sun.time_at_elevation(london.observer, 14, d, SunDirection.SETTING)
-    cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.utc)
-    assert datetime_almost_equal(dt, cdt, 300)
+    cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=datetime.timezone.utc)
+    assert datetime_almost_equal(dt, cdt, seconds=300)
 
 
-def test_TimeAtElevation_GreaterThan90(london):
+def test_TimeAtElevation_GreaterThan90(london: LocationInfo):
     d = datetime.date(2016, 1, 4)
     dt = sun.time_at_elevation(london.observer, 166, d, SunDirection.RISING)
-    cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=pytz.utc)
-    assert datetime_almost_equal(dt, cdt, 300)
+    cdt = datetime.datetime(2016, 1, 4, 13, 20, 0, tzinfo=datetime.timezone.utc)
+    assert datetime_almost_equal(dt, cdt, seconds=300)
 
 
-def test_TimeAtElevation_GreaterThan180(london):
+def test_TimeAtElevation_GreaterThan180(london: LocationInfo):
     d = datetime.date(2015, 12, 1)
     dt = sun.time_at_elevation(london.observer, 186, d, SunDirection.RISING)
-    cdt = datetime.datetime(2015, 12, 1, 16, 34, tzinfo=pytz.utc)
-    assert datetime_almost_equal(dt, cdt, 300)
+    cdt = datetime.datetime(2015, 12, 1, 16, 34, tzinfo=datetime.timezone.utc)
+    assert datetime_almost_equal(dt, cdt, seconds=300)
 
 
-def test_TimeAtElevation_SunRisingBelowHorizon(london):
+def test_TimeAtElevation_SunRisingBelowHorizon(london: LocationInfo):
     d = datetime.date(2016, 1, 4)
     dt = sun.time_at_elevation(london.observer, -18, d, SunDirection.RISING)
-    cdt = datetime.datetime(2016, 1, 4, 6, 0, 0, tzinfo=pytz.utc)
-    assert datetime_almost_equal(dt, cdt, 300)
+    cdt = datetime.datetime(2016, 1, 4, 6, 0, 0, tzinfo=datetime.timezone.utc)
+    assert datetime_almost_equal(dt, cdt, seconds=300)
 
 
-def test_TimeAtElevation_BadElevation(london):
+def test_TimeAtElevation_BadElevation(london: LocationInfo):
     d = datetime.date(2016, 1, 4)
     with pytest.raises(ValueError):
         sun.time_at_elevation(london.observer, 20, d, SunDirection.RISING)
 
 
-def test_Daylight(london):
+def test_Daylight(london: LocationInfo):
     d = datetime.date(2016, 1, 6)
     start, end = sun.daylight(london.observer, d)
-    cstart = datetime.datetime(2016, 1, 6, 8, 5, 0, tzinfo=pytz.utc)
-    cend = datetime.datetime(2016, 1, 6, 16, 7, 0, tzinfo=pytz.utc)
+    cstart = datetime.datetime(2016, 1, 6, 8, 5, 0, tzinfo=datetime.timezone.utc)
+    cend = datetime.datetime(2016, 1, 6, 16, 7, 0, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(start, cstart, 120)
     assert datetime_almost_equal(end, cend, 120)
 
 
 @freezegun.freeze_time("2016-1-06")
-def test_Daylight_NoDate(london):
-    start = pytz.utc.localize(datetime.datetime(2016, 1, 6, 8, 5, 0))
-    end = pytz.utc.localize(datetime.datetime(2016, 1, 6, 16, 7, 0))
+def test_Daylight_NoDate(london: LocationInfo):
+    start = datetime.datetime(2016, 1, 6, 8, 5, 0, tzinfo=datetime.timezone.utc)
+    end = datetime.datetime(2016, 1, 6, 16, 7, 0, tzinfo=datetime.timezone.utc)
     ans = sun.daylight(london.observer)
     assert datetime_almost_equal(ans[0], start, 120)
     assert datetime_almost_equal(ans[1], end, 120)
 
 
-def test_Nighttime(london):
+def test_Nighttime(london: LocationInfo):
     d = datetime.date(2016, 1, 6)
     start, end = sun.night(london.observer, d)
-    cstart = datetime.datetime(2016, 1, 6, 16, 46, tzinfo=pytz.utc)
-    cend = datetime.datetime(2016, 1, 7, 7, 25, tzinfo=pytz.utc)
+    cstart = datetime.datetime(2016, 1, 6, 16, 46, tzinfo=datetime.timezone.utc)
+    cend = datetime.datetime(2016, 1, 7, 7, 25, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(start, cstart, 120)
     assert datetime_almost_equal(end, cend, 120)
 
 
 @freezegun.freeze_time("2016-1-06")
-def test_Nighttime_NoDate(london):
-    start = pytz.utc.localize(datetime.datetime(2016, 1, 6, 16, 46))
-    end = pytz.utc.localize(datetime.datetime(2016, 1, 7, 7, 25))
+def test_Nighttime_NoDate(london: LocationInfo):
+    start = datetime.datetime(2016, 1, 6, 16, 46, tzinfo=datetime.timezone.utc)
+    end = datetime.datetime(2016, 1, 7, 7, 25, tzinfo=datetime.timezone.utc)
     ans = sun.night(london.observer)
-    assert datetime_almost_equal(ans[0], start, 300)
-    assert datetime_almost_equal(ans[1], end, 300)
+    assert datetime_almost_equal(ans[0], start, seconds=300)
+    assert datetime_almost_equal(ans[1], end, seconds=300)

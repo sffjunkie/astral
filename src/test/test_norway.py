@@ -2,8 +2,7 @@ from __future__ import unicode_literals
 
 import pytest
 import astral
-from datetime import datetime, timedelta
-import pytz
+from datetime import datetime, timedelta, timezone
 from astral import sun
 
 
@@ -20,7 +19,7 @@ def _next_event(obs: astral.Observer, dt: datetime, event: str):
 
 def test_NorwaySunUp():
     """Test location in Norway where the sun doesn't set in summer."""
-    june = datetime(2019, 6, 5, tzinfo=pytz.utc)
+    june = datetime(2019, 6, 5, tzinfo=timezone.utc)
     obs = astral.Observer(69.6, 18.8, 0.0)
 
     with pytest.raises(ValueError):

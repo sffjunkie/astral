@@ -1,8 +1,11 @@
 from datetime import timedelta
+try:
+    import zoneinfo
+except ImportError:
+    from backports import zoneinfo
 
 import freezegun
 from pytest import approx, raises
-from pytz import timezone
 
 from astral import dms_to_float, now, today
 from astral.sun import minutes_to_timedelta
@@ -57,11 +60,11 @@ class TestToday:
 
     @freezegun.freeze_time("2020-01-01 14:00:00")
     def test_australia(self):
-        assert today(timezone("Australia/Melbourne")).day == 2
+        assert today(zoneinfo.ZoneInfo("Australia/Melbourne")).day == 2
 
     @freezegun.freeze_time("2020-01-02 05:00:00")
     def test_adak(self):
-        assert today(timezone("America/Adak")).day == 1
+        assert today(zoneinfo.ZoneInfo("America/Adak")).day == 1
 
 
 class TestNow:
@@ -74,6 +77,6 @@ class TestNow:
 
     @freezegun.freeze_time("2020-01-01 14:20:00")
     def test_australia(self):
-        td = now(timezone("Australia/Melbourne"))
+        td = now(zoneinfo.ZoneInfo("Australia/Melbourne"))
         assert td.hour == 1
         assert td.minute == 20

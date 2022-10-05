@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 import dataclasses
 import datetime
+try:
+    import zoneinfo
+except ImportError:
+    from backports import zoneinfo
 
 import freezegun
 import pytest
-import pytz
 
 from almost_equal import datetime_almost_equal
 from astral import LocationInfo
@@ -44,98 +47,96 @@ class TestLocation:
     def test_TimezoneLookup(self):
         """Test that tz refers to a timezone object"""
         c = Location()
-        assert c.tz == pytz.timezone("Europe/London")
+        assert c.tz == zoneinfo.ZoneInfo("Europe/London")
         c.timezone = "Europe/Stockholm"
-        assert c.tz == pytz.timezone("Europe/Stockholm")
+        assert c.tz == zoneinfo.ZoneInfo("Europe/Stockholm")
 
-    def test_Info(self, london, london_info):
+    def test_Info(self, london: Location, london_info:LocationInfo):
         assert london_info == london.info
 
-    def test_Sun(self, london):
+    def test_Sun(self, london:Location):
         """Test Location's version of the sun calculation"""
-        ldt = london.tz.localize(datetime.datetime(2015, 8, 1, 5, 23, 20))
+        ldt = datetime.datetime(2015, 8, 1, 5, 23, 20, tzinfo=london.tz)
         sunrise = london.sun(datetime.date(2015, 8, 1))["sunrise"]
         assert datetime_almost_equal(sunrise, ldt)
 
-    def test_Dawn(self, london):
+    def test_Dawn(self, london:Location):
         """Test Location returns dawn times in the local timezone"""
-        ldt = london.tz.localize(datetime.datetime(2015, 8, 1, 4, 41, 44))
+        ldt = datetime.datetime(2015, 8, 1, 4, 41, 44, tzinfo=london.tz)
         dawn = london.dawn(datetime.date(2015, 8, 1))
         assert datetime_almost_equal(dawn, ldt)
-        assert dawn.tzinfo.zone == london.tzinfo.zone
+        # assert dawn.tzinfo.zone == london.tzinfo.zone
 
-    def test_DawnUTC(self, london):
+    def test_DawnUTC(self, london:Location):
         """Test Location returns dawn times in the UTC timezone"""
-        udt = datetime.datetime(2015, 8, 1, 3, 41, 44, tzinfo=pytz.utc)
+        udt = datetime.datetime(2015, 8, 1, 3, 41, 44, tzinfo=datetime.timezone.utc)
         dawn = london.dawn(datetime.date(2015, 8, 1), local=False)
         assert datetime_almost_equal(dawn, udt)
-        assert dawn.tzinfo.zone == pytz.utc.zone
+        # assert dawn.tzinfo.zone == datetime.timezone.utc.zone
 
-    def test_Sunrise(self, london):
-        ldt = london.tz.localize(datetime.datetime(2015, 8, 1, 5, 23, 20))
+    def test_Sunrise(self, london:Location):
+        ldt = datetime.datetime(2015, 8, 1, 5, 23, 20, tzinfo=london.tz)
         sunrise = london.sunrise(datetime.date(2015, 8, 1))
         assert datetime_almost_equal(sunrise, ldt)
-        assert sunrise.tzinfo.zone == london.tzinfo.zone
+        # assert sunrise.tzinfo.zone == london.tzinfo.zone
 
-    def test_SunriseUTC(self, london):
-        udt = datetime.datetime(2015, 8, 1, 4, 23, 20, tzinfo=pytz.utc)
+    def test_SunriseUTC(self, london:Location):
+        udt = datetime.datetime(2015, 8, 1, 4, 23, 20, tzinfo=datetime.timezone.utc)
         sunrise = london.sunrise(datetime.date(2015, 8, 1), local=False)
         assert datetime_almost_equal(sunrise, udt)
-        assert sunrise.tzinfo.zone == pytz.utc.zone
+        # assert sunrise.tzinfo.zone == datetime.timezone.utc.zone
 
-    def test_SolarNoon(self, london):
-        ldt = london.tz.localize(datetime.datetime(2015, 8, 1, 13, 6, 53))
+    def test_SolarNoon(self, london:Location):
+        ldt = datetime.datetime(2015, 8, 1, 13, 6, 53, tzinfo=london.tz)
         noon = london.noon(datetime.date(2015, 8, 1))
         assert datetime_almost_equal(noon, ldt)
-        assert noon.tzinfo.zone == london.tzinfo.zone
+        # assert noon.tzinfo.zone == london.tzinfo.zone
 
-    def test_SolarNoonUTC(self, london):
-        udt = datetime.datetime(2015, 8, 1, 12, 6, 53, tzinfo=pytz.utc)
+    def test_SolarNoonUTC(self, london:Location):
+        udt = datetime.datetime(2015, 8, 1, 12, 6, 53, tzinfo=datetime.timezone.utc)
         noon = london.noon(datetime.date(2015, 8, 1), local=False)
         assert datetime_almost_equal(noon, udt)
-        assert noon.tzinfo.zone == pytz.utc.zone
+        # assert noon.tzinfo.zone == datetime.timezone.utc.zone
 
-    def test_Dusk(self, london):
-        ldt = london.tz.localize(datetime.datetime(2015, 12, 1, 16, 35, 11))
+    def test_Dusk(self, london:Location):
+        ldt = datetime.datetime(2015, 12, 1, 16, 35, 11, tzinfo=london.tz)
         dusk = london.dusk(datetime.date(2015, 12, 1))
         assert datetime_almost_equal(dusk, ldt)
-        assert dusk.tzinfo.zone == london.tzinfo.zone
+        # assert dusk.tzinfo.zone == london.tzinfo.zone
 
-    def test_DuskUTC(self, london):
-        udt = datetime.datetime(2015, 12, 1, 16, 35, 11, tzinfo=pytz.utc)
+    def test_DuskUTC(self, london:Location):
+        udt = datetime.datetime(2015, 12, 1, 16, 35, 11, tzinfo=datetime.timezone.utc)
         dusk = london.dusk(datetime.date(2015, 12, 1), local=False)
         assert datetime_almost_equal(dusk, udt)
-        assert dusk.tzinfo.zone == pytz.utc.zone
+        # assert dusk.tzinfo.zone == datetime.timezone.utc.zone
 
-    def test_Sunset(self, london):
-        ldt = london.tz.localize(datetime.datetime(2015, 12, 1, 15, 55, 29))
+    def test_Sunset(self, london:Location):
+        ldt = datetime.datetime(2015, 12, 1, 15, 55, 29, tzinfo=london.tz)
         sunset = london.sunset(datetime.date(2015, 12, 1))
         assert datetime_almost_equal(sunset, ldt)
-        assert sunset.tzinfo.zone == london.tzinfo.zone
+        # assert sunset.tzinfo.zone == london.tzinfo.zone
 
-    def test_SunsetUTC(self, london):
-        udt = datetime.datetime(2015, 12, 1, 15, 55, 29, tzinfo=pytz.utc)
+    def test_SunsetUTC(self, london:Location):
+        udt = datetime.datetime(2015, 12, 1, 15, 55, 29, tzinfo=datetime.timezone.utc)
         sunset = london.sunset(datetime.date(2015, 12, 1), local=False)
         assert datetime_almost_equal(sunset, udt)
-        assert sunset.tzinfo.zone == pytz.utc.zone
+        # assert sunset.tzinfo.zone == datetime.timezone.utc.zone
 
-    def test_SolarElevation(self, riyadh):
-        dt = datetime.datetime(2015, 12, 14, 8, 0, 0)
-        dt = riyadh.tz.localize(dt)
+    def test_SolarElevation(self, riyadh:Location):
+        dt = datetime.datetime(2015, 12, 14, 8, 0, 0, tzinfo=riyadh.tz)
         elevation = riyadh.solar_elevation(dt)
         assert abs(elevation - 17) < 0.5
 
-    def test_SolarAzimuth(self, riyadh):
-        dt = datetime.datetime(2015, 12, 14, 8, 0, 0)
-        dt = riyadh.tz.localize(dt)
+    def test_SolarAzimuth(self, riyadh:Location):
+        dt = datetime.datetime(2015, 12, 14, 8, 0, 0, tzinfo=riyadh.tz)
         azimuth = riyadh.solar_azimuth(dt)
         assert abs(azimuth - 126) < 0.5
 
-    def test_TimeAtAltitude(self, new_delhi):
+    def test_TimeAtAltitude(self, new_delhi:Location):
         test_data = {datetime.date(2016, 1, 5): datetime.datetime(2016, 1, 5, 10, 0)}
 
         for day, cdt in test_data.items():
-            cdt = new_delhi.tz.localize(cdt)
+            cdt = cdt.replace(tzinfo=new_delhi.tz)
             dt = new_delhi.time_at_elevation(28, day)
             assert datetime_almost_equal(dt, cdt, seconds=600)
 
@@ -174,14 +175,14 @@ class TestLocation:
         c2 = Location()
         assert c1 == c2
 
-    def test_LocationEquality_NotEqual(self, london_info):
+    def test_LocationEquality_NotEqual(self, london_info:LocationInfo):
         location1 = Location(london_info)
         location2 = Location(london_info)
         location2.latitude = 23.0
 
         assert location2 != location1
 
-    def test_LocationEquality_NotALocation(self, london_info):
+    def test_LocationEquality_NotALocation(self, london_info:LocationInfo):
         location = Location(london_info)
 
         class NotALocation:

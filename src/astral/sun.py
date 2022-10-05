@@ -334,7 +334,7 @@ def time_of_transit(
 
     td = minutes_to_timedelta(timeUTC)
     dt = datetime.datetime(date.year, date.month, date.day) + td
-    dt = pytz.utc.localize(dt)  # pylint: disable=E1120
+    dt = dt.replace(tzinfo=datetime.timezone.utc)  # pylint: disable=E1120
     return dt
 
 
