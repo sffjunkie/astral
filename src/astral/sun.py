@@ -452,8 +452,7 @@ def midnight(
     if date is None:
         date = today(tzinfo)  # type: ignore
 
-    jd = julianday(date)
-    newt = jday_to_jcentury(jd + 0.5 + -observer.longitude / 360.0)
+    newt = julianday_to_juliancentury(jd + 0.5 + -observer.longitude / 360.0)
 
     eqtime = eq_of_time(newt)
     timeUTC = (-observer.longitude * 4.0) - eqtime
@@ -601,7 +600,8 @@ def zenith(
 
 
 def azimuth(
-    observer: Observer, dateandtime: Optional[datetime.datetime] = None,
+    observer: Observer,
+    dateandtime: Optional[datetime.datetime] = None,
 ) -> float:
     """Calculate the azimuth angle of the sun.
 
