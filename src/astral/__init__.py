@@ -66,6 +66,7 @@ __all__ = [
     "now",
     "today",
     "dms_to_float",
+    "refraction_at_zenith",
 ]
 
 __version__ = "2.2"
