@@ -1138,7 +1138,7 @@ def sun(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     return {
         "dawn": dawn(observer, date, dawn_dusk_depression, tzinfo),
