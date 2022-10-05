@@ -421,9 +421,9 @@ Iqaluit,Canada,America/Iqaluit,63°44'N,68°31'W
 # endregion
 
 GroupName = str
-GroupInfo = Dict
-LocationInfoList = List[LocationInfo]
-LocationDatabase = Dict[GroupName, GroupInfo[str, LocationInfoList]]
+LocationName = str
+GroupInfo = Dict[LocationName, List[LocationInfo]]
+LocationDatabase = Dict[GroupName, GroupInfo]
 
 
 def database() -> LocationDatabase:
@@ -468,7 +468,10 @@ def _add_location_to_db(location: LocationInfo, db: LocationDatabase) -> None:
         group[location_key].append(location)
 
 
-def _indexable_to_locationinfo(idxable) -> LocationInfo:
+
+def _locationinfo_from_indexable(
+    idxable: Union[Tuple[str, ...], List[str]]
+) -> LocationInfo:
     return LocationInfo(
         name=idxable[0],
         region=idxable[1],
@@ -490,7 +493,8 @@ def _add_locations_from_str(location_string: str, db: LocationDatabase) -> None:
 
 
 def _add_locations_from_list(
-    location_list: List[Union[Tuple, str]], db: LocationDatabase
+    location_list: Union[List[str], List[List[str]], List[Tuple[str, ...]]],
+    db: LocationDatabase,
 ) -> None:
     """Add locations from a list of either strings or lists of strings or tuples of strings."""
     for info in location_list:
@@ -501,7 +505,10 @@ def _add_locations_from_list(
             _add_location_to_db(location, db)
 
 
-def add_locations(locations: Union[List, str], db: LocationDatabase) -> None:
+def add_locations(
+    locations: Union[str, List[str], List[List[str]], List[Tuple[str, ...]]],
+    db: LocationDatabase,
+) -> None:
     """Add locations to the database.
 
     Locations can be added by passing either a string with one line per location or by passing
@@ -533,7 +540,9 @@ def group(region: str, db: LocationDatabase) -> GroupInfo:
     raise KeyError(f"Unrecognised Group - {region}")
 
 
-def lookup_in_group(location: str, group: Dict) -> LocationInfo:
+def lookup_in_group(
+    location: str, group: Dict[str, List[LocationInfo]]
+) -> LocationInfo:
     """Looks up the location within a group dictionary
 
     You can supply an optional region name by adding a comma
@@ -576,7 +585,7 @@ def lookup_in_group(location: str, group: Dict) -> LocationInfo:
     raise KeyError(f"Unrecognised location name - {key}")
 
 
-def lookup(name: str, db: LocationDatabase) -> Union[Dict, LocationInfo]:
+def lookup(name: str, db: LocationDatabase) -> Union[GroupInfo, LocationInfo]:
     """Look up a name in a database.
 
     If a group with the name specified is a group name then that will
