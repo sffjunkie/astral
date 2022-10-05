@@ -1086,7 +1086,7 @@ def rahukaalam(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     if daytime:
         start = sunrise(observer, date, tzinfo)
