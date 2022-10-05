@@ -379,7 +379,9 @@ def time_at_elevation(
 
     zenith = 90 - elevation
     try:
-        return time_of_transit(observer, date, zenith, direction).astimezone(tzinfo)
+        return time_of_transit(observer, date, zenith, direction,).astimezone(
+            tzinfo  # type: ignore
+        )
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
@@ -406,10 +408,10 @@ def noon(
         Date and time at which noon occurs.
     """
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     jc = jday_to_jcentury(julianday(date))
     eqtime = eq_of_time(jc)
@@ -440,8 +442,7 @@ def noon(
         hour += 24
         date -= datetime.timedelta(days=1)
 
-    noon = datetime.datetime(date.year, date.month, date.day, hour, minute, second)
-    return pytz.utc.localize(noon).astimezone(tzinfo)  # pylint: disable=E1120
+    return noon.astimezone(tzinfo)  # type: ignore pylint: disable=E1120
 
 
 def midnight(
@@ -468,7 +469,7 @@ def midnight(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     jd = julianday(date)
     newt = jday_to_jcentury(jd + 0.5 + -observer.longitude / 360.0)
@@ -499,8 +500,7 @@ def midnight(
         hour += 24
         date -= datetime.timedelta(days=1)
 
-    midnight = datetime.datetime(date.year, date.month, date.day, hour, minute, second)
-    return pytz.utc.localize(midnight).astimezone(tzinfo)  # pylint: disable=E1120
+    return midnight.astimezone(tzinfo)  # type: ignore
 
 
 def zenith_and_azimuth(
@@ -692,7 +692,7 @@ def dawn(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     dep: float = 0.0
     if isinstance(depression, Depression):
@@ -703,7 +703,9 @@ def dawn(
     try:
         return time_of_transit(
             observer, date, 90.0 + dep, SunDirection.RISING
-        ).astimezone(tzinfo)
+        ).astimezone(
+            tzinfo  # type: ignore
+        )
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
@@ -739,8 +741,13 @@ def sunrise(
 
     try:
         return time_of_transit(
-            observer, date, 90.0 + SUN_APPARENT_RADIUS, SunDirection.RISING,
-        ).astimezone(tzinfo)
+            observer,
+            date,
+            90.0 + SUN_APPARENT_RADIUS,
+            SunDirection.RISING,
+        ).astimezone(
+            tzinfo  # type: ignore
+        )
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
@@ -776,12 +783,17 @@ def sunset(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     try:
         return time_of_transit(
-            observer, date, 90.0 + SUN_APPARENT_RADIUS, SunDirection.SETTING,
-        ).astimezone(tzinfo)
+            observer,
+            date,
+            90.0 + SUN_APPARENT_RADIUS,
+            SunDirection.SETTING,
+        ).astimezone(
+            tzinfo  # type: ignore
+        )
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
@@ -820,7 +832,7 @@ def dusk(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     dep: float = 0.0
     if isinstance(depression, Depression):
@@ -831,7 +843,9 @@ def dusk(
     try:
         return time_of_transit(
             observer, date, 90.0 + dep, SunDirection.SETTING
-        ).astimezone(tzinfo)
+        ).astimezone(
+            tzinfo  # type: ignore
+        )
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
@@ -898,7 +912,7 @@ def night(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     start = dusk(observer, date, 6, tzinfo)
     tomorrow = date + datetime.timedelta(days=1)
@@ -938,13 +952,15 @@ def twilight(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
-    start = time_of_transit(observer, date, 90 + 6, direction).astimezone(tzinfo)
+    start = time_of_transit(observer, date, 90 + 6, direction,).astimezone(
+        tzinfo  # type: ignore
+    )
     if direction == SunDirection.RISING:
-        end = sunrise(observer, date, tzinfo).astimezone(tzinfo)
+        end = sunrise(observer, date, tzinfo).astimezone(tzinfo)  # type: ignore
     else:
-        end = sunset(observer, date, tzinfo).astimezone(tzinfo)
+        end = sunset(observer, date, tzinfo).astimezone(tzinfo)  # type: ignore
 
     if direction == SunDirection.RISING:
         return start, end
@@ -984,10 +1000,14 @@ def golden_hour(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
-    start = time_of_transit(observer, date, 90 + 4, direction).astimezone(tzinfo)
-    end = time_of_transit(observer, date, 90 - 6, direction).astimezone(tzinfo)
+    start = time_of_transit(observer, date, 90 + 4, direction,).astimezone(
+        tzinfo  # type: ignore
+    )
+    end = time_of_transit(observer, date, 90 - 6, direction,).astimezone(
+        tzinfo  # type: ignore
+    )
 
     if direction == SunDirection.RISING:
         return start, end
@@ -1026,10 +1046,14 @@ def blue_hour(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
-    start = time_of_transit(observer, date, 90 + 6, direction).astimezone(tzinfo)
-    end = time_of_transit(observer, date, 90 + 4, direction).astimezone(tzinfo)
+    start = time_of_transit(observer, date, 90 + 6, direction,).astimezone(
+        tzinfo  # type: ignore
+    )
+    end = time_of_transit(observer, date, 90 + 4, direction,).astimezone(
+        tzinfo  # type: ignore
+    )
 
     if direction == SunDirection.RISING:
         return start, end
