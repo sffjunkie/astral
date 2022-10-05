@@ -754,11 +754,11 @@ class Location:
         if dateandtime is None:
             dateandtime = astral.sun.now(self.tzinfo)
         elif not dateandtime.tzinfo:
-            dateandtime = self.tzinfo.localize(dateandtime)
+            dateandtime = dateandtime.replace(tzinfo=self.tzinfo)
 
         observer = Observer(self.latitude, self.longitude, observer_elevation)
 
-        dateandtime = dateandtime.astimezone(pytz.utc)  # type: ignore
+        dateandtime = dateandtime.astimezone(datetime.timezone.utc)  # type: ignore
         return astral.sun.azimuth(observer, dateandtime)
 
     def solar_elevation(
@@ -776,11 +776,11 @@ class Location:
         if dateandtime is None:
             dateandtime = astral.sun.now(self.tzinfo)
         elif not dateandtime.tzinfo:
-            dateandtime = self.tzinfo.localize(dateandtime)
+            dateandtime = dateandtime.replace(tzinfo=self.tzinfo)
 
         observer = Observer(self.latitude, self.longitude, observer_elevation)
 
-        dateandtime = dateandtime.astimezone(pytz.utc)  # type: ignore
+        dateandtime = dateandtime.astimezone(datetime.timezone.utc)  # type: ignore
         return astral.sun.elevation(observer, dateandtime)
 
     def solar_zenith(
