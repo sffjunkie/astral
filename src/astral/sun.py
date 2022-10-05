@@ -422,6 +422,15 @@ def noon(
         hour += 24
         date -= datetime.timedelta(days=1)
 
+    noon = datetime.datetime(
+        date.year,
+        date.month,
+        date.day,
+        hour,
+        minute,
+        second,
+        tzinfo=datetime.timezone.utc,
+    )
     return noon.astimezone(tzinfo)  # type: ignore pylint: disable=E1120
 
 
