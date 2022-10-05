@@ -1,2 +1,0 @@
-pytz
-dataclasses; python_version == '3.6'

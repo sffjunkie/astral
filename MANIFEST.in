@@ -1,6 +1,0 @@
-global-exclude *.pyc
-include setup.cfg
-include monkeypatch.py
-include LICENSE
-recursive-include docs *
-recursive-include src/test *.py
