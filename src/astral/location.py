@@ -27,20 +27,20 @@ class Location:
     def __init__(self, info: Optional[LocationInfo] = None):
         """Initializes the Location with a LocationInfo object.
 
-            The tuple should contain items in the following order
+        The tuple should contain items in the following order
 
-            ================ =============
-            Field            Default
-            ================ =============
-            name             Greenwich
-            region           England
-            time zone name   Europe/London
-            latitude         51.4733
-            longitude        -0.0008333
-            ================ =============
+        ================ =============
+        Field            Default
+        ================ =============
+        name             Greenwich
+        region           England
+        time zone name   Europe/London
+        latitude         51.4733
+        longitude        -0.0008333
+        ================ =============
 
-            See the :attr:`timezone` property for a method of obtaining time zone
-            names
+        See the :attr:`timezone` property for a method of obtaining time zone
+        names
         """
 
         self._location_info: LocationInfo
@@ -244,7 +244,7 @@ class Location:
         :returns: Dictionary with keys ``dawn``, ``sunrise``, ``noon``,
             ``sunset`` and ``dusk`` whose values are the results of the
             corresponding methods.
-         """
+        """
 
         if local and self.timezone is None:
             raise ValueError("Local time requested but Location has no timezone set.")
@@ -570,6 +570,66 @@ class Location:
             return astral.sun.twilight(observer, date, direction, self.tzinfo)
         else:
             return astral.sun.twilight(observer, date, direction)
+
+    def moonrise(
+        self,
+        date: Optional[datetime.date] = None,
+        local: bool = True,
+    ) -> Optional[datetime.datetime]:
+        """Calculates the time when the moon rises.
+
+        :param date: The date for which to calculate the moonrise time.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Time to be returned in location's time zone;
+                      False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: The date and time at which moonrise occurs.
+        """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
+        if date is None:
+            date = self.today(local)
+
+        observer = Observer(self.latitude, self.longitude, 0)
+
+        if local:
+            return astral.moon.moonrise(observer, date, self.tzinfo)
+        else:
+            return astral.moon.moonrise(observer, date)
+
+    def moonset(
+        self,
+        date: Optional[datetime.date] = None,
+        local: bool = True,
+    ) -> Optional[datetime.datetime]:
+        """Calculates the time when the moon sets.
+
+        :param date: The date for which to calculate the moonset time.
+                     If no date is specified then the current date will be used.
+
+        :param local: True  = Time to be returned in location's time zone;
+                      False = Time to be returned in UTC.
+                      If not specified then the time will be returned in local time
+
+        :returns: The date and time at which moonset occurs.
+        """
+
+        if local and self.timezone is None:
+            raise ValueError("Local time requested but Location has no timezone set.")
+
+        if date is None:
+            date = self.today(local)
+
+        observer = Observer(self.latitude, self.longitude, 0)
+
+        if local:
+            return astral.moon.moonset(observer, date, self.tzinfo)
+        else:
+            return astral.moon.moonset(observer, date)
 
     def time_at_elevation(
         self,
