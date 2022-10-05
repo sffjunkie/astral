@@ -226,20 +226,20 @@ class Observer:
 class LocationInfo:
     """Defines a location on Earth.
 
-    Latitude and longitude can be set either as a float or as a string. For strings they must
-    be of the form
+    Latitude and longitude can be set either as a float or as a string.
+    For strings they must be of the form
 
         degrees°minutes'seconds"[N|S|E|W] e.g. 51°31'N
 
     `minutes’` & `seconds”` are optional.
 
     Args:
-        name:      Location name (can be any string)
-        region:    Region location is in (can be any string)
-        timezone:  The location's time zone (a list of time zone names can be obtained from
-                      `pytz.all_timezones`)
-        latitude:  Latitude - Northern latitudes should be positive
-        longitude: Longitude - Eastern longitudes should be positive
+        name:       Location name (can be any string)
+        region:     Region location is in (can be any string)
+        timezone:   The location's time zone (a list of time zone names can be
+                    obtained from `zoneinfo.available_timezones`)
+        latitude:   Latitude - Northern latitudes should be positive
+        longitude:  Longitude - Eastern longitudes should be positive
     """
 
     name: str = "Greenwich"
