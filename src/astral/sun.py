@@ -201,11 +201,6 @@ def hour_angle(
     declination_rad = radians(declination)
     zenith_rad = radians(zenith)
 
-    # n = cos(zenith_rad)
-    # d = cos(latitude_rad) * cos(declination_rad)
-    # t = tan(latitude_rad) * tan(declination_rad)
-    # h = (n / d) - t
-
     h = (cos(zenith_rad) - sin(latitude_rad) * sin(declination_rad)) / (
         cos(latitude_rad) * cos(declination_rad)
     )
