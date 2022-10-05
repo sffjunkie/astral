@@ -798,7 +798,8 @@ class Location:
     def moon_phase(self, date: Optional[datetime.date] = None, local: bool = True):
         """Calculates the moon phase for a specific date.
 
-        :param date: The date to calculate the phase for. If ommitted the current date is used.
+        :param date:    The date to calculate the phase for. If ommitted the
+                        current date is used.
 
         :returns:
             A number designating the phase
