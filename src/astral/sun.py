@@ -504,7 +504,9 @@ def midnight(
 
 
 def zenith_and_azimuth(
-    observer: Observer, dateandtime: datetime.datetime, with_refraction: bool = True,
+    observer: Observer,
+    dateandtime: datetime.datetime,
+    with_refraction: bool = True,
 ) -> Tuple[float, float]:
     if observer.latitude > 89.8:
         latitude = 89.8
