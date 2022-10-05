@@ -1,6 +1,6 @@
+import argparse
 import datetime
 import json
-import argparse
 from typing import Any, Dict
 
 from astral import LocationInfo, Observer, sun
