@@ -374,7 +374,7 @@ def time_at_elevation(
 def noon(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
     """Calculate solar noon time when the sun is at its highest point.
 
@@ -428,7 +428,7 @@ def noon(
 def midnight(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
     """Calculate solar midnight time.
 
@@ -843,7 +843,7 @@ def dusk(
 def daylight(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> TimePeriod:
     """Calculate daylight start and end times.
 
