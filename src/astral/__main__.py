@@ -33,7 +33,11 @@ options.add_argument(
 args = options.parse_args()
 
 loc = LocationInfo(
-    args.name, args.region, args.tzname, args.latitude, args.longitude
+    args.name,
+    args.region,
+    args.tzname,
+    args.latitude,
+    args.longitude,
 )
 
 obs = Observer(args.latitude, args.longitude, args.elevation)
