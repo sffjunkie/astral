@@ -1111,7 +1111,7 @@ def sun(
     date: Optional[datetime.date] = None,
     dawn_dusk_depression: Union[float, Depression] = Depression.CIVIL,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
-) -> Dict:
+) -> Dict[str, datetime.datetime]:
     """Calculate all the info for the sun at once.
 
     Args:
