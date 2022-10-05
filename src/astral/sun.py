@@ -301,9 +301,8 @@ def time_of_transit(
 
     adjustment_for_refraction = refraction_at_zenith(zenith + adjustment_for_elevation)
 
-    jd = julianday(date)
-    t = jday_to_jcentury(jd)
-    solarDec = sun_declination(t)
+    midday = datetime.time(12, 0, 0)
+    jd = julianday(datetime.datetime.combine(date, midday))
 
     hourangle = hour_angle(
         latitude,
