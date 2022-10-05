@@ -1,11 +1,12 @@
 import dataclasses
 import datetime
-from typing import Optional, Tuple, Union
 
 try:
     import zoneinfo
 except ImportError:
     from backports import zoneinfo
+
+from typing import Any, Dict, Optional, Tuple, Union
 
 import astral.moon
 import astral.sun
