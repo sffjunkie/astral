@@ -210,10 +210,10 @@ def hour_angle(
         cos(latitude_rad) * cos(declination_rad)
     )
 
-    HA = acos(h)
+    hour_angle = acos(h)
     if direction == SunDirection.SETTING:
-        HA = -HA
-    return HA
+        hour_angle = -hour_angle
+    return hour_angle
 
 
 def adjust_to_horizon(elevation: float) -> float:
