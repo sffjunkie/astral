@@ -461,6 +461,8 @@ def midnight(
     if date is None:
         date = today(tzinfo)  # type: ignore
 
+    midday = datetime.time(12, 0, 0)
+    jd = julianday(datetime.datetime.combine(date, midday))
     newt = julianday_to_juliancentury(jd + 0.5 + -observer.longitude / 360.0)
 
     eqtime = eq_of_time(newt)
