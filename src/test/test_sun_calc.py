@@ -3,48 +3,7 @@ import datetime
 import freezegun
 import pytest
 from astral import Observer, sun, today
-
-
-@pytest.mark.parametrize(
-    "day,jd",
-    [
-        (datetime.date(2012, 1, 1), 2455927.5),
-        (datetime.date(2013, 1, 1), 2456293.5),
-        (datetime.date(2013, 6, 1), 2456444.5),
-        (datetime.date(1867, 2, 1), 2402998.5),
-        (datetime.date(3200, 11, 14), 2890153.5),
-    ],
-)
-def test_JulianDay(day: datetime.date, jd: float):
-    assert sun.julianday(day) == jd
-
-
-@pytest.mark.parametrize(
-    "jd,jc",
-    [
-        (2455927.5, 0.119986311),
-        (2456293.5, 0.130006845),
-        (2456444.5, 0.134140999),
-        (2402998.5, -1.329130732),
-        (2890153.5, 12.00844627),
-    ],
-)
-def test_JulianCentury(jd: float, jc: float):
-    assert sun.jday_to_jcentury(jd) == pytest.approx(jc)
-
-
-@pytest.mark.parametrize(
-    "jc,jd",
-    [
-        (0.119986311, 2455927.5),
-        (0.130006845, 2456293.5),
-        (0.134140999, 2456444.5),
-        (-1.329130732, 2402998.5),
-        (12.00844627, 2890153.5),
-    ],
-)
-def test_JulianCenturyToJulianDay(jc: float, jd: float):
-    assert sun.jcentury_to_jday(jc) == pytest.approx(jd)
+from astral.location import Location
 
 
 @pytest.mark.parametrize(
