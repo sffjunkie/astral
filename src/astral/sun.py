@@ -1,22 +1,14 @@
 import datetime
-from math import (
-    acos,
-    asin,
-    atan2,
-    cos,
-    degrees,
-    fabs,
-    floor,
-    radians,
-    sin,
-    sqrt,
-    tan,
-)
+from math import acos, asin, atan2, cos, degrees, fabs, radians, sin, sqrt, tan
 from typing import Dict, Optional, Tuple, Union
 
 import pytz
 
-from astral import Depression, Observer, SunDirection, now, today
+from astral.julian import (
+    juliancentury_to_julianday,
+    julianday,
+    julianday_to_juliancentury,
+)
 
 __all__ = [
     "sun",
@@ -43,23 +35,7 @@ __all__ = [
 SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
 
 
-def julianday(date: datetime.date) -> float:
-    """Calculate the Julian Day for the specified date"""
-    y = date.year
-    m = date.month
-    d = date.day
-
-    if m <= 2:
-        y -= 1
-        m += 12
-
-    a = floor(y / 100)
-    b = 2 - a + floor(a / 4)
-    jd = floor(365.25 * (y + 4716)) + floor(30.6001 * (m + 1)) + d + b - 1524.5
-
-    return jd
-
-
+# region Backend
 def minutes_to_timedelta(minutes: float) -> datetime.timedelta:
     """Convert a floating point number of minutes to a :class:`~datetime.timedelta`"""
     d = int(minutes / 1440)
@@ -70,16 +46,6 @@ def minutes_to_timedelta(minutes: float) -> datetime.timedelta:
     us = int(sfrac * 1_000_000)
 
     return datetime.timedelta(days=d, seconds=s, microseconds=us)
-
-
-def jday_to_jcentury(julianday: float) -> float:
-    """Convert a Julian Day number to a Julian Century"""
-    return (julianday - 2451545.0) / 36525.0
-
-
-def jcentury_to_jday(juliancentury: float) -> float:
-    """Convert a Julian Century number to a Julian Day"""
-    return (juliancentury * 36525.0) + 2451545.0
 
 
 def geom_mean_long_sun(juliancentury: float) -> float:
