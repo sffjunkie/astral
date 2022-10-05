@@ -6,7 +6,8 @@ To get the :class:`~astral.LocationInfo` for a location use the
     from astral.geocoder import lookup, database
     l = lookup("London", database())
 
-All locations stored in the database can be accessed using the `all_locations` generator ::
+All locations stored in the database can be accessed using the `all_locations`
+generator ::
 
     from astral.geocoder import all_locations
     for location in all_locations:
