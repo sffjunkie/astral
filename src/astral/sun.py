@@ -7,8 +7,15 @@ try:
 except ImportError:
     from backports import zoneinfo
 
+from astral import (
+    Depression,
+    Observer,
+    SunDirection,
     TimePeriod,
+    now,
     refraction_at_zenith,
+    today,
+)
 from astral.julian import (
     juliancentury_to_julianday,
     julianday,
