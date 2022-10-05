@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from functools import reduce
+
 try:
     import zoneinfo
 except ImportError:
@@ -8,8 +10,9 @@ from pytest import raises, approx
 import astral.geocoder
 
 
-def location_count(name:str, locations:astral.geocoder.LocationDatabase):
-    return len(list(filter(lambda item: item.name == name, locations)))
+def _location_count(db: LocationDatabase) -> int:  # type: ignore
+    """Returns the count of the locations currently in the database"""
+    return reduce(lambda count, group: count + len(group), db.values(), 0)
 
 
 class TestDatabase:

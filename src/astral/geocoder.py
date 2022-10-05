@@ -444,7 +444,7 @@ def _sanitize_key(key: str) -> str:
     return str(key).lower().replace(" ", "_")
 
 
-def _location_count(db: LocationDatabase) -> int:
+def _location_count(db: LocationDatabase) -> int:  # type: ignore
     """Returns the count of the locations currently in the database"""
     return reduce(lambda count, group: count + len(group), db.values(), 0)
 
