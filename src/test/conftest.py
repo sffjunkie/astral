@@ -1,4 +1,3 @@
-import datetime
 import pytest
 from astral import LocationInfo
 from astral.geocoder import LocationDatabase, database
@@ -12,11 +11,12 @@ def test_database() -> LocationDatabase:
 
 @pytest.fixture
 def london_info() -> LocationInfo:
-    return LocationInfo("London", "England", "Europe/London", 51.50853, -0.12574)
+    # return LocationInfo("London", "England", "Europe/London", 51.50853, -0.12574)
+    return LocationInfo("London", "England", "Europe/London", 51.5, -0.1333333)
 
 
 @pytest.fixture
-def london(london_info) -> Location:
+def london(london_info: LocationInfo) -> Location:
     return Location(london_info)
 
 
@@ -26,7 +26,7 @@ def new_delhi_info() -> LocationInfo:
 
 
 @pytest.fixture
-def new_delhi(new_delhi_info) -> Location:
+def new_delhi(new_delhi_info: LocationInfo) -> Location:
     return Location(new_delhi_info)
 
 
@@ -36,5 +36,15 @@ def riyadh_info() -> LocationInfo:
 
 
 @pytest.fixture
-def riyadh(riyadh_info) -> Location:
+def riyadh(riyadh_info: LocationInfo) -> Location:
     return Location(riyadh_info)
+
+
+@pytest.fixture
+def wellington_info() -> LocationInfo:
+    return LocationInfo("Wellington","New Zealand","Pacific/Auckland",-41.33,174.766666)
+
+
+@pytest.fixture
+def wellington(wellington_info: LocationInfo) -> Location:
+    return Location(wellington_info)
