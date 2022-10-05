@@ -527,7 +527,7 @@ def add_locations(
     passed directly to the LocationInfo constructor)."""
     if isinstance(locations, str):
         _add_locations_from_str(locations, db)
-    elif isinstance(locations, (list, tuple)):
+    else:
         _add_locations_from_list(locations, db)
 
 
