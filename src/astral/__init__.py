@@ -47,8 +47,9 @@ can be perfomed using the :func:`~astral.geocoder.lookup` function defined in
 
 import datetime
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
+from math import radians, tan
 from typing import Optional, Tuple, Union
 
 try:
