@@ -650,7 +650,7 @@ class Location:
         observer = Observer(self.latitude, self.longitude, observer_elevation)
 
         if local:
-            return astral.sun.rahukaalam(observer, date, self.tzinfo)
+            return astral.sun.rahukaalam(observer, date, tzinfo=self.tzinfo)
         else:
             return astral.sun.rahukaalam(observer, date)
 
