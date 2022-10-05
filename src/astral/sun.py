@@ -368,10 +368,10 @@ def time_at_elevation(
         direction = SunDirection.SETTING
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     zenith = 90 - elevation
     try:
@@ -733,7 +733,7 @@ def sunrise(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     try:
         return time_of_transit(
@@ -873,7 +873,7 @@ def daylight(
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
-        date = today(tzinfo)
+        date = today(tzinfo)  # type: ignore
 
     start = sunrise(observer, date, tzinfo)
     end = sunset(observer, date, tzinfo)
