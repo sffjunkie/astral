@@ -491,6 +491,15 @@ def midnight(
         hour += 24
         date -= datetime.timedelta(days=1)
 
+    midnight = datetime.datetime(
+        date.year,
+        date.month,
+        date.day,
+        hour,
+        minute,
+        second,
+        tzinfo=datetime.timezone.utc,
+    )
     return midnight.astimezone(tzinfo)  # type: ignore
 
 
