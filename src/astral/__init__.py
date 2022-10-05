@@ -142,6 +142,41 @@ def dms_to_float(
     return res
 
 
+def hours_to_time(value: float) -> datetime.time:
+    """Convert a floating point number of hours to a datetime.time"""
+
+    hour = int(value)
+    value -= hour
+    value *= 60
+    minute = int(value)
+    value -= minute
+    value *= 60
+    second = int(value)
+    value -= second
+    microsecond = int(value * 1000000)
+
+    return datetime.time(hour, minute, second, microsecond)
+
+
+def time_to_hours(value: datetime.time) -> float:
+    """Convert a datetime.time to a floating point number of hours"""
+
+    hours = 0.0
+    hours += value.hour
+    hours += value.minute / 60
+    hours += value.second / 3600
+    hours += value.microsecond / 1000000
+
+    return hours
+
+
+def time_to_seconds(value: datetime.time) -> float:
+    """Convert a datetime.time to a floating point number of seconds"""
+
+    hours = time_to_hours(value)
+    return hours * 3600
+
+
 def refraction_at_zenith(zenith: float) -> float:
     """Calculate the degrees of refraction of the sun due to the sun's elevation."""
 
