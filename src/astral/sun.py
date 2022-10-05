@@ -916,7 +916,7 @@ def night(
     Args:
         observer:   Observer to calculate night for
         date:       Date to calculate for. Default is today's date for the
-                  specified tzinfo.
+                    specified tzinfo.
         tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
@@ -954,7 +954,7 @@ def twilight(
     Args:
         observer:   Observer to calculate twilight for
         date:       Date for which to calculate the times.
-                      Default is today's date in the timezone `tzinfo`.
+                    Default is today's date in the timezone `tzinfo`.
         direction:  Determines whether the time is for the sun rising or setting.
                     Use ``astral.SunDirection.RISING`` or
                     ``astral.SunDirection.SETTING``.
@@ -1003,9 +1003,9 @@ def golden_hour(
     Args:
         observer:   Observer to calculate the golden hour for
         date:       Date for which to calculate the times.
-                      Default is today's date in the timezone `tzinfo`.
+                    Default is today's date in the timezone `tzinfo`.
         direction:  Determines whether the time is for the sun rising or setting.
-                      Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
+                    Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
         tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
@@ -1049,9 +1049,9 @@ def blue_hour(
     Args:
         observer:   Observer to calculate the blue hour for
         date:       Date for which to calculate the times.
-                      Default is today's date in the timezone `tzinfo`.
+                    Default is today's date in the timezone `tzinfo`.
         direction:  Determines whether the time is for the sun rising or setting.
-                      Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
+                    Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
         tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
