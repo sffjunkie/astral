@@ -496,7 +496,9 @@ def _add_locations_from_list(
     location_list: Union[List[str], List[List[str]], List[Tuple[str, ...]]],
     db: LocationDatabase,
 ) -> None:
-    """Add locations from a list of either strings or lists of strings or tuples of strings."""
+    """Add locations from a list of either strings or lists of strings
+    or tuples of strings.
+    """
     for info in location_list:
         if isinstance(info, str):
             _add_locations_from_str(info, db)
@@ -511,9 +513,9 @@ def add_locations(
 ) -> None:
     """Add locations to the database.
 
-    Locations can be added by passing either a string with one line per location or by passing
-    a list containing strings, lists or tuples (lists and tuples are passed directly to the
-    LocationInfo constructor)."""
+    Locations can be added by passing either a string with one line per location or
+    by passing a list containing strings, lists or tuples (lists and tuples are
+    passed directly to the LocationInfo constructor)."""
     if isinstance(locations, str):
         _add_locations_from_str(locations, db)
     elif isinstance(locations, (list, tuple)):
@@ -614,7 +616,8 @@ def lookup(name: str, db: LocationDatabase) -> Union[GroupInfo, LocationInfo]:
 
 
 def all_locations(db: LocationDatabase) -> Generator[LocationInfo, None, None]:
-    """A generator that returns all the :class:`~astral.LocationInfo`\\s contained in the database
+    """A generator that returns all the :class:`~astral.LocationInfo`\\s
+    contained in the database
     """
     for group_info in db.values():
         for location_list in group_info.values():
