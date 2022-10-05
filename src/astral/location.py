@@ -224,10 +224,10 @@ class Location:
 
     def sun(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
-    ) -> dict:
+    ) -> Dict[str, Any]:
         """Returns dawn, sunrise, noon, sunset and dusk as a dictionary.
 
         :param date: The date for which to calculate the times.
@@ -260,7 +260,7 @@ class Location:
 
     def dawn(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
@@ -296,7 +296,7 @@ class Location:
 
     def sunrise(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
@@ -331,7 +331,9 @@ class Location:
         else:
             return astral.sun.sunrise(observer, date)
 
-    def noon(self, date: datetime.date = None, local: bool = True) -> datetime.datetime:
+    def noon(
+        self, date: Optional[datetime.date] = None, local: bool = True
+    ) -> datetime.datetime:
         """Calculates the solar noon (the time when the sun is at its highest
         point.)
 
@@ -359,7 +361,7 @@ class Location:
 
     def sunset(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
@@ -394,7 +396,7 @@ class Location:
 
     def dusk(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> datetime.datetime:
@@ -430,7 +432,7 @@ class Location:
             return astral.sun.dusk(observer, date, self.solar_depression)
 
     def midnight(
-        self, date: datetime.date = None, local: bool = True
+        self, date: Optional[datetime.date] = None, local: bool = True
     ) -> datetime.datetime:
         """Calculates the solar midnight (the time when the sun is at its lowest
         point.)
@@ -460,7 +462,7 @@ class Location:
 
     def daylight(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
@@ -494,7 +496,7 @@ class Location:
 
     def night(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
@@ -529,7 +531,7 @@ class Location:
 
     def twilight(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         direction: SunDirection = SunDirection.RISING,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
@@ -571,7 +573,7 @@ class Location:
     def time_at_elevation(
         self,
         elevation: float,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         direction: SunDirection = SunDirection.RISING,
         local: bool = True,
     ) -> datetime.datetime:
@@ -620,7 +622,7 @@ class Location:
 
     def rahukaalam(
         self,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
@@ -654,7 +656,7 @@ class Location:
     def golden_hour(
         self,
         direction: SunDirection = SunDirection.RISING,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
@@ -697,7 +699,7 @@ class Location:
     def blue_hour(
         self,
         direction: SunDirection = SunDirection.RISING,
-        date: datetime.date = None,
+        date: Optional[datetime.date] = None,
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
@@ -739,7 +741,7 @@ class Location:
 
     def solar_azimuth(
         self,
-        dateandtime: datetime.datetime = None,
+        dateandtime: Optional[datetime.datetime] = None,
         observer_elevation: Elevation = 0.0,
     ) -> float:
         """Calculates the solar azimuth angle for a specific date/time.
@@ -760,7 +762,7 @@ class Location:
 
     def solar_elevation(
         self,
-        dateandtime: datetime.datetime = None,
+        dateandtime: Optional[datetime.datetime] = None,
         observer_elevation: Elevation = 0.0,
     ) -> float:
         """Calculates the solar elevation angle for a specific time.
@@ -781,7 +783,9 @@ class Location:
         return astral.sun.elevation(observer, dateandtime)
 
     def solar_zenith(
-        self, dateandtime: datetime.datetime, observer_elevation: Elevation = 0.0,
+        self,
+        dateandtime: Optional[datetime.datetime] = None,
+        observer_elevation: Elevation = 0.0,
     ) -> float:
         """Calculates the solar zenith angle for a specific time.
 
@@ -791,9 +795,7 @@ class Location:
 
         return 90.0 - self.solar_elevation(dateandtime, observer_elevation)
 
-    def moon_phase(
-        self, date: datetime.date = None, local: bool = True
-    ):
+    def moon_phase(self, date: Optional[datetime.date] = None, local: bool = True):
         """Calculates the moon phase for a specific date.
 
         :param date: The date to calculate the phase for. If ommitted the current date is used.
