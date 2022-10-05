@@ -74,17 +74,23 @@ __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 Elevation = Union[float, Tuple[float, float]]
 
 
-def now(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.datetime:
+def now(tz: Optional[datetime.tzinfo] = None) -> datetime.datetime:
     """Returns the current time in the specified time zone"""
-    return pytz.utc.localize(datetime.datetime.utcnow()).astimezone(tzinfo)
+    now_utc = datetime.datetime.now(datetime.timezone.utc)
+    if tz is None:
+        return now_utc
+    else:
+        return now_utc.astimezone(tz)
 
 
-def today(tzinfo: datetime.tzinfo = pytz.utc) -> datetime.date:
+def today(tz: Optional[datetime.tzinfo] = None) -> datetime.date:
     """Returns the current date in the specified time zone"""
-    return now(tzinfo).date()
+    return now(tz).date()
 
 
-def dms_to_float(dms: Union[str, float, Elevation], limit: Optional[float] = None) -> float:
+def dms_to_float(
+    dms: Union[str, float, Elevation], limit: Optional[float] = None
+) -> float:
     """Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`,
     or a float encoded as a string, to a float
 
