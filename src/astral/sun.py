@@ -7,6 +7,7 @@ try:
 except ImportError:
     from backports import zoneinfo
 
+    TimePeriod,
 from astral.julian import (
     juliancentury_to_julianday,
     julianday,

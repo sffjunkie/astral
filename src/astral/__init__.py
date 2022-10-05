@@ -71,7 +71,10 @@ __version__ = "2.2"
 __author__ = "Simon Kennedy <sffjunkie+code@gmail.com>"
 
 
+TimePeriod = Tuple[datetime.datetime, datetime.datetime]
 Elevation = Union[float, Tuple[float, float]]
+Degrees = float
+Radians = float
 
 
 def now(tz: Optional[datetime.tzinfo] = None) -> datetime.datetime:
@@ -176,8 +179,8 @@ class Observer:
                     in metres above/below the location.
     """
 
-    latitude: float = 51.4733
-    longitude: float = -0.0008333
+    latitude: Degrees = 51.4733
+    longitude: Degrees = -0.0008333
     elevation: Elevation = 0.0
 
     def __setattr__(self, name: str, value: Union[str, float, Elevation]):
