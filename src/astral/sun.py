@@ -303,6 +303,8 @@ def time_of_transit(
 
     midday = datetime.time(12, 0, 0)
     jd = julianday(datetime.datetime.combine(date, midday))
+    jc = julianday_to_juliancentury(jd)
+    solarDec = sun_declination(jc)
 
     hourangle = hour_angle(
         latitude,
@@ -313,10 +315,10 @@ def time_of_transit(
 
     delta = -observer.longitude - degrees(hourangle)
     timeDiff = 4.0 * delta
-    timeUTC = 720.0 + timeDiff - eq_of_time(t)
+    timeUTC = 720.0 + timeDiff - eq_of_time(jc)
 
-    t = jday_to_jcentury(jcentury_to_jday(t) + timeUTC / 1440.0)
-    solarDec = sun_declination(t)
+    jc = julianday_to_juliancentury(juliancentury_to_julianday(jc) + timeUTC / 1440.0)
+    solarDec = sun_declination(jc)
     hourangle = hour_angle(
         latitude,
         solarDec,
@@ -326,7 +328,7 @@ def time_of_transit(
 
     delta = -observer.longitude - degrees(hourangle)
     timeDiff = 4.0 * delta
-    timeUTC = 720 + timeDiff - eq_of_time(t)
+    timeUTC = 720 + timeDiff - eq_of_time(jc)
 
     td = minutes_to_timedelta(timeUTC)
     dt = datetime.datetime(date.year, date.month, date.day) + td
