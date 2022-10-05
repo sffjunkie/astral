@@ -219,10 +219,10 @@ class LocationInfo:
     name: str = "Greenwich"
     region: str = "England"
     timezone: str = "Europe/London"
-    latitude: float = 51.4733
-    longitude: float = -0.0008333
+    latitude: Degrees = 51.4733
+    longitude: Degrees = -0.0008333
 
-    def __setattr__(self, name: str, value: Union[float, str]):
+    def __setattr__(self, name: str, value: Union[Degrees, str]):
         if name == "latitude":
             value = dms_to_float(value, 90.0)
         elif name == "longitude":
