@@ -859,7 +859,7 @@ def daylight(
     observer: Observer,
     date: Optional[datetime.date] = None,
     tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
-) -> Tuple[datetime.datetime, datetime.datetime]:
+) -> TimePeriod:
     """Calculate daylight start and end times.
 
     Args:
@@ -889,7 +889,7 @@ def night(
     observer: Observer,
     date: Optional[datetime.date] = None,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
-) -> Tuple[datetime.datetime, datetime.datetime]:
+) -> TimePeriod:
     """Calculate night start and end times.
 
     Night is calculated to be between astronomical dusk on the
@@ -926,7 +926,7 @@ def twilight(
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
-) -> Tuple[datetime.datetime, datetime.datetime]:
+) -> TimePeriod:
     """Returns the start and end times of Twilight
     when the sun is traversing in the specified direction.
 
@@ -973,7 +973,7 @@ def golden_hour(
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
-) -> Tuple[datetime.datetime, datetime.datetime]:
+) -> TimePeriod:
     """Returns the start and end times of the Golden Hour
     when the sun is traversing in the specified direction.
 
@@ -1020,7 +1020,7 @@ def blue_hour(
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
-) -> Tuple[datetime.datetime, datetime.datetime]:
+) -> TimePeriod:
     """Returns the start and end times of the Blue Hour
     when the sun is traversing in the specified direction.
 
@@ -1066,7 +1066,7 @@ def rahukaalam(
     date: Optional[datetime.date] = None,
     daytime: bool = True,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
-) -> Tuple[datetime.datetime, datetime.datetime]:
+) -> TimePeriod:
     """Calculate ruhakaalam times.
 
     Args:
