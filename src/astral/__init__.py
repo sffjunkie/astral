@@ -62,6 +62,7 @@ __all__ = [
     "SunDirection",
     "Observer",
     "LocationInfo",
+    "AstralBodyPosition",
     "now",
     "today",
     "dms_to_float",
@@ -178,6 +179,15 @@ class SunDirection(Enum):
 
     RISING = 1
     SETTING = -1
+
+
+@dataclass
+class AstralBodyPosition:
+    """The position of an astral body as seen from earth"""
+
+    right_ascension: Radians = field(default_factory=float)
+    declination: Radians = field(default_factory=float)
+    distance: Radians = field(default_factory=float)
 
 
 @dataclass
