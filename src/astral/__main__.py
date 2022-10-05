@@ -3,9 +3,12 @@ import json
 import argparse
 from typing import Any, Dict
 
-import pytz
-
 from astral import LocationInfo, Observer, sun
+
+try:
+    import zoneinfo
+except ImportError:
+    from backports import zoneinfo
 
 options = argparse.ArgumentParser()
 options.add_argument(
@@ -47,10 +50,10 @@ if args.date is not None:
 sun_as_str = {}
 format_str = "%Y-%m-%dT%H:%M:%S"
 if args.tzname is None:
-    tzinfo = pytz.utc
+    tzinfo = datetime.timezone.utc
     format_str += "Z"
 else:
-    tzinfo = pytz.timezone(loc.timezone)  # type: ignore
+    tzinfo = zoneinfo.ZoneInfo(loc.timezone)
     format_str += "%z"
 
 kwargs["tzinfo"] = tzinfo
@@ -60,7 +63,7 @@ s = sun.sun(**kwargs)
 for key, value in s.items():
     sun_as_str[key] = s[key].strftime(format_str)
 
-sun_as_str["timezone"] = tzinfo.zone
+sun_as_str["timezone"] = tzinfo.tzname
 sun_as_str["location"] = f"{loc.name}, {loc.region}"
 
 print(json.dumps(sun_as_str))

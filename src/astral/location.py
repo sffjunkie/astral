@@ -2,7 +2,10 @@ import dataclasses
 import datetime
 from typing import Optional, Tuple, Union
 
-import pytz
+try:
+    import zoneinfo
+except ImportError:
+    from backports import zoneinfo
 
 import astral.moon
 import astral.sun
@@ -133,10 +136,11 @@ class Location:
     def timezone(self) -> str:
         """The name of the time zone for the location.
 
-        A list of time zone names can be obtained from pytz. For example.
+        A list of time zone names can be obtained from the zoneinfo module.
+        For example.
 
-        >>> from pytz import all_timezones
-        >>> for timezone in all_timezones:
+        >>> import zoneinfo
+        >>> for timezone in zoneinfo.available_timezones:
         ...     print(timezone)
         """
 
@@ -144,19 +148,19 @@ class Location:
 
     @timezone.setter
     def timezone(self, name: str) -> None:
-        if name not in pytz.all_timezones:
+        if name not in zoneinfo.available_timezones():  # type: ignore
             raise ValueError("Timezone '%s' not recognized" % name)
 
         self._location_info = dataclasses.replace(self._location_info, timezone=name)
 
     @property
-    def tzinfo(self) -> pytz.tzinfo:  # type: ignore
+    def tzinfo(self) -> zoneinfo.ZoneInfo:  # type: ignore
         """Time zone information."""
 
         try:
-            tz = pytz.timezone(self._location_info.timezone)
-            return tz
-        except pytz.UnknownTimeZoneError as exc:
+            tz = zoneinfo.ZoneInfo(self._location_info.timezone)  # type: ignore
+            return tz  # type: ignore
+        except zoneinfo.ZoneInfoNotFoundError as exc:  # type: ignore
             raise ValueError(
                 "Unknown timezone '%s'" % self._location_info.timezone
             ) from exc

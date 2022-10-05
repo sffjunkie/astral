@@ -2,7 +2,10 @@ import datetime
 from math import acos, asin, atan2, cos, degrees, fabs, radians, sin, sqrt, tan
 from typing import Dict, Optional, Tuple, Union
 
-import pytz
+try:
+    import zoneinfo
+except ImportError:
+    from backports import zoneinfo
 
 from astral.julian import (
     juliancentury_to_julianday,
@@ -341,7 +344,7 @@ def time_at_elevation(
     elevation: float,
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
     """Calculates the time when the sun is at the specified elevation on the specified date.
 
@@ -461,7 +464,7 @@ def midnight(
         Date and time at which midnight occurs.
     """
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -516,7 +519,7 @@ def zenith_and_azimuth(
         utc_datetime = dateandtime
     else:
         zone = -dateandtime.utcoffset().total_seconds() / 3600.0  # type: ignore
-        utc_datetime = dateandtime.astimezone(pytz.utc)
+        utc_datetime = dateandtime.astimezone(datetime.timezone.utc)
 
     timenow = (
         utc_datetime.hour
@@ -610,7 +613,7 @@ def zenith(
     """
 
     if dateandtime is None:
-        dateandtime = now(pytz.UTC)
+        dateandtime = now(datetime.timezone.utc)
 
     return zenith_and_azimuth(observer, dateandtime, with_refraction)[0]
 
@@ -634,7 +637,7 @@ def azimuth(
     """
 
     if dateandtime is None:
-        dateandtime = now(pytz.UTC)
+        dateandtime = now(datetime.timezone.utc)
 
     return zenith_and_azimuth(observer, dateandtime)[1]
 
@@ -658,7 +661,7 @@ def elevation(
     """
 
     if dateandtime is None:
-        dateandtime = now(pytz.UTC)
+        dateandtime = now(datetime.timezone.utc)
 
     return 90.0 - zenith(observer, dateandtime, with_refraction)
 
@@ -667,7 +670,7 @@ def dawn(
     observer: Observer,
     date: Optional[datetime.date] = None,
     depression: Union[float, Depression] = Depression.CIVIL,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
     """Calculate dawn time.
 
@@ -685,7 +688,7 @@ def dawn(
         ValueError: if dawn does not occur on the specified date
     """
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -712,7 +715,7 @@ def dawn(
 def sunrise(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
     """Calculate sunrise time.
 
@@ -728,7 +731,7 @@ def sunrise(
         ValueError: if the sun does not reach the horizon on the specified date
     """
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -752,7 +755,7 @@ def sunrise(
 def sunset(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
     """Calculate sunset time.
 
@@ -769,7 +772,7 @@ def sunset(
     """
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -794,7 +797,7 @@ def dusk(
     observer: Observer,
     date: Optional[datetime.date] = None,
     depression: Union[float, Depression] = Depression.CIVIL,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
     """Calculate dusk time.
 
@@ -813,7 +816,7 @@ def dusk(
     """
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -856,7 +859,7 @@ def daylight(
         ValueError: if the sun does not rise or does not set
     """
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -870,7 +873,7 @@ def daylight(
 def night(
     observer: Observer,
     date: Optional[datetime.date] = None,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
     """Calculate night start and end times.
 
@@ -891,7 +894,7 @@ def night(
                     dusk on the following day
     """
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -907,7 +910,7 @@ def twilight(
     observer: Observer,
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
     """Returns the start and end times of Twilight
     when the sun is traversing in the specified direction.
@@ -931,7 +934,7 @@ def twilight(
     """
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -952,7 +955,7 @@ def golden_hour(
     observer: Observer,
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
     """Returns the start and end times of the Golden Hour
     when the sun is traversing in the specified direction.
@@ -977,7 +980,7 @@ def golden_hour(
     """
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -995,7 +998,7 @@ def blue_hour(
     observer: Observer,
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
     """Returns the start and end times of the Blue Hour
     when the sun is traversing in the specified direction.
@@ -1019,7 +1022,7 @@ def blue_hour(
     """
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -1037,7 +1040,7 @@ def rahukaalam(
     observer: Observer,
     date: Optional[datetime.date] = None,
     daytime: bool = True,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Tuple[datetime.datetime, datetime.datetime]:
     """Calculate ruhakaalam times.
 
@@ -1055,7 +1058,7 @@ def rahukaalam(
     """
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)
@@ -1086,7 +1089,7 @@ def sun(
     observer: Observer,
     date: Optional[datetime.date] = None,
     dawn_dusk_depression: Union[float, Depression] = Depression.CIVIL,
-    tzinfo: Union[str, datetime.tzinfo] = pytz.utc,
+    tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Dict:
     """Calculate all the info for the sun at once.
 
@@ -1107,7 +1110,7 @@ def sun(
     """
 
     if isinstance(tzinfo, str):
-        tzinfo = pytz.timezone(tzinfo)
+        tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
     if date is None:
         date = today(tzinfo)

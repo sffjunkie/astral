@@ -52,9 +52,9 @@ from enum import Enum
 from typing import Optional, Tuple, Union
 
 try:
-    import pytz
+    import zoneinfo
 except ImportError:
-    raise ImportError(("The astral module requires the pytz module to be available."))
+    from backports import zoneinfo
 
 
 __all__ = [
@@ -226,9 +226,9 @@ class LocationInfo:
         return Observer(self.latitude, self.longitude, 0.0)
 
     @property
-    def tzinfo(self):
-        """Return a pytz timezone for this location"""
-        return pytz.timezone(self.timezone)
+    def tzinfo(self):  # type: ignore
+        """Return a zoneinfo.ZoneInfo for this location"""
+        return zoneinfo.ZoneInfo(self.timezone)  # type: ignore
 
     @property
     def timezone_group(self):
