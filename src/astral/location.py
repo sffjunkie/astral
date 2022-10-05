@@ -62,12 +62,20 @@ class Location:
             _repr = "%s/%s" % (self.name, self.region)
         else:
             _repr = self.name
-        return f"{_repr}, tz={self.timezone}, lat={self.latitude:0.02f}, lon={self.longitude:0.02f}"
+        return (
+            f"{_repr}, tz={self.timezone}, "
+            f"lat={self.latitude:0.02f}, "
+            f"lon={self.longitude:0.02f}"
+        )
 
     @property
     def info(self) -> LocationInfo:
         return LocationInfo(
-            self.name, self.region, self.timezone, self.latitude, self.longitude,
+            self.name,
+            self.region,
+            self.timezone,
+            self.latitude,
+            self.longitude,
         )
 
     @property
