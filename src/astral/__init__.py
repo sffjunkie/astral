@@ -168,9 +168,9 @@ def refraction_at_zenith(zenith: float) -> float:
 class Depression(Enum):
     """The depression angle in degrees for the dawn/dusk calculations"""
 
-    CIVIL: float = 6.0
-    NAUTICAL: float = 12.0
-    ASTRONOMICAL: float = 18.0
+    CIVIL = 6
+    NAUTICAL = 12
+    ASTRONOMICAL = 18
 
 
 class SunDirection(Enum):
