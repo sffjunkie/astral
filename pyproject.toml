@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "astral"
-version = "2.2"
+version = "2.3"
 description = "Calculations for the position of the sun and moon."
 keywords = ["sun", "moon", "sunrise", "sunset", "dawn", "dusk"]
 authors = ["Simon Kennedy <sffjunkie+code@gmail.com>"]
@@ -17,14 +17,14 @@ classifiers = [
 ]
 packages = [
 	{ include = "astral", from = "src"},
-	{ include = "doc", from = "src", format = "sdist"},
-	{ include = "test", from = "src", format = "sdist"},
 ]
+include = ["src/doc", "src/test"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
-pytz = "*"
 dataclasses = { version="*", python = "3.6"}
+"backports.zoneinfo" = { version = "*", markers = "python_version < '3.9'" }
+tzdata = { version = "*", markers = "sys_platform == 'win32'" }
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
@@ -33,6 +33,30 @@ tox = "*"
 pylint = "^2.4.4"
 flake8 = "*"
 
+[tool.pytest.ini_options]
+pythonpath = [
+    "src"
+]
+junit_family="xunit2"
+cache_dir = "~/.cache/pytest"
+norecursedirs = [
+    "__pycache__",
+    ".cache",
+    ".mypy_cache",
+    ".pytest_cache",
+	".eggs",
+    ".git",
+    ".settings",
+    ".venv",
+    ".vscode",
+    "dist",
+    "build"
+]
+
+
+[tool.mypy]
+cache_dir = "~/.cache/mypy"
+
 [build-system]
-requires = ["poetry>=1.0.0b1"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
