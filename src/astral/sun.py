@@ -272,10 +272,12 @@ def refraction_at_zenith(zenith: float) -> float:
 def time_of_transit(
     observer: Observer, date: datetime.date, zenith: float, direction: SunDirection
 ) -> datetime.datetime:
-    """Calculate the time in the UTC timezone when the sun transits the specificed zenith
+    """Calculate the time in the UTC timezone when the sun transits the
+    specificed zenith
 
     Args:
-        observer: An observer viewing the sun at a specific, latitude, longitude and elevation
+        observer: An observer viewing the sun at a specific, latitude, longitude
+            and elevation
         date: The date to calculate for
         zenith: The zenith angle for which to calculate the transit time
         direction: The direction that the sun is traversing
@@ -343,7 +345,8 @@ def time_at_elevation(
     direction: SunDirection = SunDirection.RISING,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> datetime.datetime:
-    """Calculates the time when the sun is at the specified elevation on the specified date.
+    """Calculates the time when the sun is at the specified elevation on the
+    specified date.
 
     Note:
         This method uses positive elevations for those above the horizon.
@@ -354,9 +357,12 @@ def time_at_elevation(
     Args:
         elevation: Elevation of the sun in degrees above the horizon to calculate for.
         observer:  Observer to calculate for
-        date:      Date to calculate for. Default is today's date in the timezone `tzinfo`.
-        direction: Determines whether the calculated time is for the sun rising or setting.
-                   Use ``SunDirection.RISING`` or ``SunDirection.SETTING``. Default is rising.
+        date:      Date to calculate for. Default is today's date in the timezone
+                   `tzinfo`.
+        direction: Determines whether the calculated time is for the sun rising
+                   or setting.
+                   Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
+                   Default is rising.
         tzinfo:    Timezone to return times in. Default is UTC.
 
     Returns:
@@ -396,7 +402,8 @@ def noon(
     """Calculate solar noon time when the sun is at its highest point.
 
     Args:
-        observer: An observer viewing the sun at a specific, latitude, longitude and elevation
+        observer: An observer viewing the sun at a specific, latitude, longitude
+                  and elevation
         date:     Date to calculate for. Default is today for the specified tzinfo.
         tzinfo:   Timezone to return times in. Default is UTC.
 
@@ -454,7 +461,8 @@ def midnight(
         the previous day.
 
     Args:
-        observer: An observer viewing the sun at a specific, latitude, longitude and elevation
+        observer: An observer viewing the sun at a specific, latitude, longitude
+                  and elevation
         date:     Date to calculate for. Default is today for the specified tzinfo.
         tzinfo:   Timezone to return times in. Default is UTC.
 
@@ -673,7 +681,8 @@ def dawn(
 
     Args:
         observer:   Observer to calculate dawn for
-        date:       Date to calculate for. Default is today's date in the timezone `tzinfo`.
+        date:       Date to calculate for. Default is today's date in the
+                    timezone `tzinfo`.
         depression: Number of degrees below the horizon to use to calculate dawn.
                     Default is for Civil dawn i.e. 6.0
         tzinfo:     Timezone to return times in. Default is UTC.
@@ -720,7 +729,8 @@ def sunrise(
 
     Args:
         observer: Observer to calculate sunrise for
-        date:     Date to calculate for. Default is today's date in the timezone `tzinfo`.
+        date:     Date to calculate for. Default is today's date in the
+                  timezone `tzinfo`.
         tzinfo:   Timezone to return times in. Default is UTC.
 
     Returns:
@@ -765,7 +775,8 @@ def sunset(
 
     Args:
         observer: Observer to calculate sunset for
-        date:     Date to calculate for. Default is today's date in the timezone `tzinfo`.
+        date:     Date to calculate for. Default is today's date in the
+                  timezone `tzinfo`.
         tzinfo:   Timezone to return times in. Default is UTC.
 
     Returns:
@@ -812,7 +823,8 @@ def dusk(
 
     Args:
         observer:   Observer to calculate dusk for
-        date:       Date to calculate for. Default is today's date in the timezone `tzinfo`.
+        date:       Date to calculate for. Default is today's date in the
+                    timezone `tzinfo`.
         depression: Number of degrees below the horizon to use to calculate dusk.
                     Default is for Civil dusk i.e. 6.0
         tzinfo:     Timezone to return times in. Default is UTC.
@@ -859,9 +871,10 @@ def daylight(
     """Calculate daylight start and end times.
 
     Args:
-        observer: Observer to calculate daylight for
-        date:     Date to calculate for. Default is today's date in the timezone `tzinfo`.
-        tzinfo:   Timezone to return times in. Default is UTC.
+        observer:   Observer to calculate daylight for
+        date:       Date to calculate for. Default is today's date in the
+                    timezone `tzinfo`.
+        tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
         A tuple of the date and time at which daylight starts and ends.
@@ -892,10 +905,10 @@ def night(
     date specified and astronomical dawn of the next day.
 
     Args:
-        observer: Observer to calculate night for
-        date:     Date to calculate for. Default is today's date for the
+        observer:   Observer to calculate night for
+        date:       Date to calculate for. Default is today's date for the
                   specified tzinfo.
-        tzinfo:   Timezone to return times in. Default is UTC.
+        tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
         A tuple of the date and time at which night starts and ends.
@@ -930,12 +943,13 @@ def twilight(
     when the sun is at -6 degrees and sunrise/sunset.
 
     Args:
-        observer:  Observer to calculate twilight for
-        date:      Date for which to calculate the times.
+        observer:   Observer to calculate twilight for
+        date:       Date for which to calculate the times.
                       Default is today's date in the timezone `tzinfo`.
-        direction: Determines whether the time is for the sun rising or setting.
-                      Use ``astral.SunDirection.RISING`` or ``astral.SunDirection.SETTING``.
-        tzinfo:    Timezone to return times in. Default is UTC.
+        direction:  Determines whether the time is for the sun rising or setting.
+                    Use ``astral.SunDirection.RISING`` or
+                    ``astral.SunDirection.SETTING``.
+        tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
         A tuple of the date and time at which twilight starts and ends.
@@ -978,12 +992,12 @@ def golden_hour(
     and 6 degrees above.
 
     Args:
-        observer:  Observer to calculate the golden hour for
-        date:      Date for which to calculate the times.
+        observer:   Observer to calculate the golden hour for
+        date:       Date for which to calculate the times.
                       Default is today's date in the timezone `tzinfo`.
-        direction: Determines whether the time is for the sun rising or setting.
+        direction:  Determines whether the time is for the sun rising or setting.
                       Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
-        tzinfo:    Timezone to return times in. Default is UTC.
+        tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
         A tuple of the date and time at which the Golden Hour starts and ends.
@@ -1024,12 +1038,12 @@ def blue_hour(
     blue hour is when the sun is between 6 and 4 degrees below the horizon.
 
     Args:
-        observer:  Observer to calculate the blue hour for
-        date:      Date for which to calculate the times.
+        observer:   Observer to calculate the blue hour for
+        date:       Date for which to calculate the times.
                       Default is today's date in the timezone `tzinfo`.
-        direction: Determines whether the time is for the sun rising or setting.
+        direction:  Determines whether the time is for the sun rising or setting.
                       Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
-        tzinfo:    Timezone to return times in. Default is UTC.
+        tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
         A tuple of the date and time at which the Blue Hour starts and ends.
@@ -1066,10 +1080,12 @@ def rahukaalam(
     """Calculate ruhakaalam times.
 
     Args:
-        observer: Observer to calculate rahukaalam for
-        date:     Date to calculate for. Default is today's date in the timezone `tzinfo`.
-        daytime:  If True calculate for the day time else calculate for the night time.
-        tzinfo:   Timezone to return times in. Default is UTC.
+        observer:   Observer to calculate rahukaalam for
+        date:       Date to calculate for. Default is today's date in the
+                    timezone `tzinfo`.
+        daytime:    If True calculate for the day time else calculate for the
+                    night time.
+        tzinfo:     Timezone to return times in. Default is UTC.
 
     Returns:
         Tuple containing the start and end times for Rahukaalam.
