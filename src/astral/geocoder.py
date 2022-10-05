@@ -435,7 +435,7 @@ def database() -> LocationDatabase:
     return db
 
 
-def _sanitize_key(key) -> str:
+def _sanitize_key(key: str) -> str:
     """Sanitize the location or group key to look up
 
     Args:
