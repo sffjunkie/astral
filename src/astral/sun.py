@@ -41,7 +41,9 @@ SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
 
 # region Backend
 def minutes_to_timedelta(minutes: float) -> datetime.timedelta:
-    """Convert a floating point number of minutes to a :class:`~datetime.timedelta`"""
+    """Convert a floating point number of minutes to a
+    :class:`~datetime.timedelta`
+    """
     d = int(minutes / 1440)
     minutes = minutes - (d * 1440)
     minutes = minutes * 60
