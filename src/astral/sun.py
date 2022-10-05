@@ -393,7 +393,7 @@ def noon(
     if date is None:
         date = today(tzinfo)  # type: ignore
 
-    jc = jday_to_jcentury(julianday(date))
+    jc = julianday_to_juliancentury(julianday(date))
     eqtime = eq_of_time(jc)
     timeUTC = (720.0 - (4 * observer.longitude) - eqtime) / 60.0
 
@@ -510,7 +510,7 @@ def zenith_and_azimuth(
     )
 
     JD = julianday(dateandtime)
-    t = jday_to_jcentury(JD + timenow / 24.0)
+    t = julianday_to_juliancentury(JD + timenow / 24.0)
     solarDec = sun_declination(t)
     eqtime = eq_of_time(t)
 
