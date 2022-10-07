@@ -540,7 +540,8 @@ def zenith_and_azimuth(
     declination = sun_declination(t)
     eqtime = eq_of_time(t)
 
-    solarTimeFix = eqtime - (4.0 * -longitude) + (60 * zone)
+    # 360deg * 4 == 1440 minutes, 60*24 = 1440 minutes == 1 rotation
+    solarTimeFix = eqtime + (4.0 * longitude) + (60 * zone)
     trueSolarTime = (
         dateandtime.hour * 60.0
         + dateandtime.minute
@@ -557,11 +558,14 @@ def zenith_and_azimuth(
     if hourangle < -180:
         hourangle = hourangle + 360.0
 
-    harad = radians(hourangle)
+    ch = cos(radians(hourangle))
+    # sh = sin(radians(hourangle))
+    cl = cos(radians(latitude))
+    sl = sin(radians(latitude))
+    sd = sin(radians(declination))
+    cd = cos(radians(declination))
 
-    csz = sin(radians(latitude)) * sin(radians(solarDec)) + cos(
-        radians(latitude)
-    ) * cos(radians(solarDec)) * cos(harad)
+    csz = cl * cd * ch + sl * sd
 
     if csz > 1.0:
         csz = 1.0
@@ -570,12 +574,10 @@ def zenith_and_azimuth(
 
     zenith = degrees(acos(csz))
 
-    azDenom = cos(radians(latitude)) * sin(radians(zenith))
+    azDenom = cl * sin(radians(zenith))
 
     if abs(azDenom) > 0.001:
-        azRad = (
-            (sin(radians(latitude)) * cos(radians(zenith))) - sin(radians(solarDec))
-        ) / azDenom
+        azRad = ((sl * cos(radians(zenith))) - sd) / azDenom
 
         if abs(azRad) > 1.0:
             if azRad < 0:
@@ -598,6 +600,7 @@ def zenith_and_azimuth(
 
     if with_refraction:
         zenith -= refraction_at_zenith(zenith)
+        # elevation = 90 - zenith
 
     return zenith, azimuth
 
