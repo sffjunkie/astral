@@ -86,8 +86,8 @@ def now(tz: Optional[datetime.tzinfo] = None) -> datetime.datetime:
     now_utc = datetime.datetime.now(datetime.timezone.utc)
     if tz is None:
         return now_utc
-    else:
-        return now_utc.astimezone(tz)
+
+    return now_utc.astimezone(tz)
 
 
 def today(tz: Optional[datetime.tzinfo] = None) -> datetime.date:
