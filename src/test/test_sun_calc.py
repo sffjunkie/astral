@@ -213,7 +213,7 @@ def test_Elevation_Above85Degrees():
     )
 
 
-@pytest.mark.parametrize("elevation", range(1,10))
+@pytest.mark.parametrize("elevation", range(1, 20))
 @freezegun.freeze_time("2020-02-06")
 def test_ElevationEqualsTimeAtElevation(elevation: float, london: Location):
     o = london.observer
