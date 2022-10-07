@@ -511,7 +511,17 @@ Which cites the following as the original source
     | In Solar Energy Vol 20 No.5-C
     | Robert Walraven Of The University Of California, Davis
 
-The moon phase calculation is based on some javascript code
+Moon position calculations from
+
+   | LOW-PRECISION FORMULAE FOR PLANETARY POSITIONS
+   | T. C. Van Flandern and K. F. Pulkkinen
+
+And from
+
+   | Astronomical Algorithms
+   | Jean Meeus
+
+The moon phase calculation is based on javascript code
 from Sky and Telescope magazine
 
     | Moon-phase calculation
