@@ -92,12 +92,6 @@ Astral also comes with a geocoder containing a local database that allows you
 to look up information for a small set of locations (`new locations can be
 added <additional_locations_>`__).
 
-.. note::
-
-   The Google Geocoder has been removed. Instead you should use the
-   Google Client for Google Maps Services
-   https://github.com/googlemaps/google-maps-services-python
-
 Examples
 ========
 
