@@ -298,32 +298,24 @@ def time_of_transit(
         adjustment_for_refraction = 0.0
 
     jd = julianday(date)
-    jc = julianday_to_juliancentury(jd)
-    solarDec = sun_declination(jc)
+    adjustment = 0.0
+    timeUTC = 0.0
 
-    hourangle = hour_angle(
-        latitude,
-        solarDec,
-        zenith + adjustment_for_elevation - adjustment_for_refraction,
-        direction,
-    )
+    for _ in range(2):
+        jc = julianday_to_juliancentury(jd + adjustment)
+        declination = sun_declination(jc)
 
-    delta = -observer.longitude - degrees(hourangle)
-    timeDiff = 4.0 * delta
-    timeUTC = 720.0 + timeDiff - eq_of_time(jc)
+        hourangle = hour_angle(
+            latitude,
+            declination,
+            zenith + adjustment_for_elevation + adjustment_for_refraction,
+            direction,
+        )
 
-    jc = julianday_to_juliancentury(juliancentury_to_julianday(jc) + timeUTC / 1440.0)
-    solarDec = sun_declination(jc)
-    hourangle = hour_angle(
-        latitude,
-        solarDec,
-        zenith + adjustment_for_elevation + adjustment_for_refraction,
-        direction,
-    )
-
-    delta = -observer.longitude - degrees(hourangle)
-    timeDiff = 4.0 * delta
-    timeUTC = 720 + timeDiff - eq_of_time(jc)
+        delta = -observer.longitude - degrees(hourangle)
+        eqtime = eq_of_time(jc)
+        timeUTC = 720.0 + delta * 4.0 - eqtime
+        adjustment = timeUTC / 1440.0
 
     td = minutes_to_timedelta(timeUTC)
     dt = datetime.datetime(date.year, date.month, date.day) + td
