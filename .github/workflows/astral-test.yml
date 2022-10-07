@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install flake8 pytest tox poetry tox-gh-actions
+          python -m pip install flake8 pytest poetry
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
@@ -36,6 +36,6 @@ jobs:
       - name: Install poetry
         run: |
           poetry install
-      - name: Test with tox
+      - name: Test with pytest
         run: |
-          poetry run tox
+          poetry run pytest
