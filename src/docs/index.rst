@@ -34,7 +34,7 @@ Dawn
 
 Sunrise
     The time in the morning when the top of the sun breaks the horizon
-    (asuming a location with no obscuring features.)
+    (assuming a location with no obscuring features.)
 
 Noon
     The time when the sun is at its highest point directly above the observer.
