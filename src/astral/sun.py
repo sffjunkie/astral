@@ -9,6 +9,7 @@ except ImportError:
 
 from astral import (
     Depression,
+    Minutes,
     Observer,
     SunDirection,
     TimePeriod,
@@ -166,7 +167,7 @@ def var_y(juliancentury: float) -> float:
     return y * y
 
 
-def eq_of_time(juliancentury: float) -> float:
+def eq_of_time(juliancentury: float) -> Minutes:
     l0 = geom_mean_long_sun(juliancentury)
     e = eccentric_location_earth_orbit(juliancentury)
     m = geom_mean_anomaly_sun(juliancentury)
