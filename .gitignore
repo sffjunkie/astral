@@ -2,7 +2,6 @@
 .venv
 setup.cfg
 setup-dev.cfg
-tox.ini
 .tox
 _version.py
 .coveragerc
