@@ -486,20 +486,44 @@ def azimuth(
 
     x = -ch * cd * sl + sd * cl
     y = -sh * cd
-    azimuth = degrees(atan2(y, x))
-    if azimuth < 0:
-        azimuth += 360
-    if azimuth > 360:
-        azimuth -= 360
-
-    # z = ch * cd * cl + sd * sl
-    # r = sqrt(x * x + y * y)
-    # elevation = degrees(atan2(z, r))
-
+    azimuth = degrees(atan2(y, x)) % 360
     return azimuth
 
 
-# def elevation():
+def elevation(
+    observer: Observer,
+    at: Optional[datetime.datetime] = None,
+):
+    if at is None:
+        at = now()
+
+    jd2000 = julianday_2000(at)
+    position = moon_position(jd2000)
+    lst0: Radians = radians(lmst(at, observer.longitude))
+    hourangle: Radians = lst0 - position.right_ascension
+
+    sh = sin(hourangle)
+    ch = cos(hourangle)
+    sd = sin(position.declination)
+    cd = cos(position.declination)
+    sl = sin(radians(observer.latitude))
+    cl = cos(radians(observer.latitude))
+
+    x = -ch * cd * sl + sd * cl
+    y = -sh * cd
+
+    z = ch * cd * cl + sd * sl
+    r = sqrt(x * x + y * y)
+    elevation = degrees(atan2(z, r))
+
+    return elevation
+
+
+def zenith(
+    observer: Observer,
+    at: Optional[datetime.datetime] = None,
+):
+    return 90 - elevation(observer, at)
 
 
 def _phase_asfloat(date: datetime.date) -> float:
