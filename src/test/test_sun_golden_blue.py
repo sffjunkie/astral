@@ -34,7 +34,9 @@ class TestGoldenHour:
             ),
         ],
     )
-    def test_morning(self, day:datetime.date, golden_hour:TimePeriod, new_delhi:Location):
+    def test_morning(
+        self, day: datetime.date, golden_hour: TimePeriod, new_delhi: Location
+    ):
         start1 = golden_hour[0].replace(tzinfo=datetime.timezone.utc)
         end1 = golden_hour[1].replace(tzinfo=datetime.timezone.utc)
 
@@ -42,10 +44,10 @@ class TestGoldenHour:
         assert datetime_almost_equal(end1, end2, seconds=90)
         assert datetime_almost_equal(start1, start2, seconds=90)
 
-    def test_evening(self, london:Location):
+    def test_evening(self, london: Location):
         test_data = {
             datetime.date(2016, 5, 18): (
-                datetime.datetime(2016, 5, 18, 19, 1),
+                datetime.datetime(2016, 5, 18, 19, 2),
                 datetime.datetime(2016, 5, 18, 20, 17),
             )
         }
@@ -59,7 +61,7 @@ class TestGoldenHour:
             assert datetime_almost_equal(start1, start2, seconds=60)
 
     @freezegun.freeze_time("2015-12-1")
-    def test_no_date(self, new_delhi:Location):
+    def test_no_date(self, new_delhi: Location):
         start = datetime.datetime(2015, 12, 1, 1, 10, 10, tzinfo=datetime.timezone.utc)
         end = datetime.datetime(2015, 12, 1, 2, 0, 43, tzinfo=datetime.timezone.utc)
         ans = sun.golden_hour(new_delhi.observer)
@@ -70,7 +72,7 @@ class TestGoldenHour:
 class TestBlueHour:
     """Tests for the blue_hour function"""
 
-    def test_morning(self, london:Location):
+    def test_morning(self, london: Location):
         test_data = {
             datetime.date(2016, 5, 19): (
                 datetime.datetime(2016, 5, 19, 3, 19),
@@ -86,7 +88,7 @@ class TestBlueHour:
             assert datetime_almost_equal(end1, end2, seconds=90)
             assert datetime_almost_equal(start1, start2, seconds=90)
 
-    def test_evening(self, london:Location):
+    def test_evening(self, london: Location):
         test_data = {
             datetime.date(2016, 5, 19): (
                 datetime.datetime(2016, 5, 19, 20, 18),
@@ -103,7 +105,7 @@ class TestBlueHour:
             assert datetime_almost_equal(start1, start2, seconds=90)
 
     @freezegun.freeze_time("2016-5-19")
-    def test_no_date(self, london:Location):
+    def test_no_date(self, london: Location):
         start = datetime.datetime(2016, 5, 19, 20, 18, tzinfo=datetime.timezone.utc)
         end = datetime.datetime(2016, 5, 19, 20, 35, tzinfo=datetime.timezone.utc)
         ans = sun.blue_hour(london.observer, direction=SunDirection.SETTING)
