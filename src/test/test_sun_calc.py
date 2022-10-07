@@ -171,6 +171,9 @@ def test_EquationOfTime(jc: float, eot: float):
     ],
 )
 def test_HourAngle(d: datetime.date, ha: float, london: Location):
+    midday = datetime.time(12, 0, 0)
+    jd = sun.julianday(datetime.datetime.combine(d, midday))
+    jc = sun.julianday_to_juliancentury(jd)
     decl = sun.sun_declination(jc)
 
     assert sun.hour_angle(
