@@ -187,23 +187,23 @@ def refraction_at_zenith(zenith: float) -> float:
     if elevation >= 85.0:
         return 0
 
-    refractionCorrection = 0.0
+    refraction_correction = 0.0
     te = tan(radians(elevation))
     if elevation > 5.0:
-        refractionCorrection = (
+        refraction_correction = (
             58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
         )
     elif elevation > -0.575:
         step1 = -12.79 + elevation * 0.711
         step2 = 103.4 + elevation * step1
         step3 = -518.2 + elevation * step2
-        refractionCorrection = 1735.0 + elevation * step3
+        refraction_correction = 1735.0 + elevation * step3
     else:
-        refractionCorrection = -20.774 / te
+        refraction_correction = -20.774 / te
 
-    refractionCorrection = refractionCorrection / 3600.0
+    refraction_correction = refraction_correction / 3600.0
 
-    return refractionCorrection
+    return refraction_correction
 
 
 class Depression(Enum):
