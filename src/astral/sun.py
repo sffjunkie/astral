@@ -979,10 +979,10 @@ def daylight(
     if date is None:
         date = today(tzinfo)  # type: ignore
 
-    start = sunrise(observer, date, tzinfo)
-    end = sunset(observer, date, tzinfo)
+    sr = sunrise(observer, date, tzinfo)
+    ss = sunset(observer, date, tzinfo)
 
-    return start, end
+    return sr, ss
 
 
 def night(
