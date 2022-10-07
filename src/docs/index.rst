@@ -161,8 +161,41 @@ Sun
 Moon
 ----
 
-.. code-block:: python
+The moon rise/set times can be obtained like the sun's functions
 
+.. testcode::
+
+    from astral import LocationInfo
+    city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+
+    import datetime
+    from astral.moon import moonrise
+    from astral.location import Location
+    dt = datetime.date(2021, 10, 28)
+    london = Location(city)
+    rise = moonrise(city.observer, dt)  # returns a UTC time
+    print(rise)
+
+.. testoutput::
+
+    2021-10-28 22:02:00+00:00
+
+And for a local time
+
+.. testsetup::
+
+    import datetime
+    from astral import LocationInfo
+    from astral.moon import moonrise
+    from astral.location import Location
+
+    city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+    dt = datetime.date(2021, 10, 28)
+    london = Location(city)
+
+.. testcode::
+
+    rise = moonrise(city.observer, dt, city.tzinfo)
 
 
 Phase
