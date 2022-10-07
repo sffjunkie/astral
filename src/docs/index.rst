@@ -554,7 +554,7 @@ Version    Description
            `backports.zoneinfo` for older versions.
 
            In some circumstances the result of the calculation of rise and
-           set times would return information for a diffrerent date. This
+           set times would return information for a different date. This
            has now been fixed.
 ---------- --------------------------------------------------------------------
 2.2        Fix for `bug #48`_ - As per the bug report the angle to adjust for
