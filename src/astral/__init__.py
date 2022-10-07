@@ -78,6 +78,7 @@ TimePeriod = Tuple[datetime.datetime, datetime.datetime]
 Elevation = Union[float, Tuple[float, float]]
 Degrees = float
 Radians = float
+Minutes = float
 
 
 def now(tz: Optional[datetime.tzinfo] = None) -> datetime.datetime:
