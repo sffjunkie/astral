@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "astral"
-version = "2.3"
+version = "3.0"
 description = "Calculations for the position of the sun and moon."
 keywords = ["sun", "moon", "sunrise", "sunset", "dawn", "dusk"]
 authors = ["Simon Kennedy <sffjunkie+code@gmail.com>"]
@@ -30,7 +30,10 @@ tzdata = { version = "*", markers = "sys_platform == 'win32'" }
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
-pytest = "5.0.1"
+pytest = [
+    { version = "5.0.1", python = "<3.7"},
+    { version = "*", python = ">=3.7"},
+]
 tox = "*"
 pylint = "^2.4.4"
 flake8 = "*"
