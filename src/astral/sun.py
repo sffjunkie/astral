@@ -255,7 +255,11 @@ def adjust_to_obscuring_feature(elevation: Tuple[float, float]) -> float:
 
 
 def time_of_transit(
-    observer: Observer, date: datetime.date, zenith: float, direction: SunDirection
+    observer: Observer,
+    date: datetime.date,
+    zenith: float,
+    direction: SunDirection,
+    with_refraction: bool = True,
 ) -> datetime.datetime:
     """Calculate the time in the UTC timezone when the sun transits the
     specificed zenith
@@ -286,7 +290,12 @@ def time_of_transit(
     elif isinstance(observer.elevation, tuple):
         adjustment_for_elevation = adjust_to_obscuring_feature(observer.elevation)
 
-    adjustment_for_refraction = refraction_at_zenith(zenith + adjustment_for_elevation)
+    if with_refraction:
+        adjustment_for_refraction = refraction_at_zenith(
+            zenith + adjustment_for_elevation
+        )
+    else:
+        adjustment_for_refraction = 0.0
 
     jd = julianday(date)
     jc = julianday_to_juliancentury(jd)
@@ -328,6 +337,7 @@ def time_at_elevation(
     date: Optional[datetime.date] = None,
     direction: SunDirection = SunDirection.RISING,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
+    with_refraction: bool = True,
 ) -> datetime.datetime:
     """Calculates the time when the sun is at the specified elevation on the
     specified date.
@@ -365,7 +375,9 @@ def time_at_elevation(
 
     zenith = 90 - elevation
     try:
-        return time_of_transit(observer, date, zenith, direction,).astimezone(
+        return time_of_transit(
+            observer, date, zenith, direction, with_refraction
+        ).astimezone(
             tzinfo  # type: ignore
         )
     except ValueError as exc:
