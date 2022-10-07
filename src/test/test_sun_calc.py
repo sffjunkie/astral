@@ -15,7 +15,7 @@ from astral.location import Location
     ],
 )
 def test_GeomMeanLongSun(jc: float, gmls: float):
-    assert sun.geom_mean_long_sun(jc) == pytest.approx(gmls)
+    assert sun.geom_mean_long_sun(jc) == pytest.approx(gmls)  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -23,7 +23,7 @@ def test_GeomMeanLongSun(jc: float, gmls: float):
     [(0.119986311, 4676.922342), (12.00844627, 432650.1681), (0.184134155, 6986.1838),],
 )
 def test_GeomAnomolyLongSun(jc: float, gmas: float):
-    assert sun.geom_mean_anomaly_sun(jc) == pytest.approx(gmas)
+    assert sun.geom_mean_anomaly_sun(jc) == pytest.approx(gmas)  # type: ignore
 
 
 @pytest.mark.parametrize(
