@@ -14,7 +14,6 @@ generator ::
         print(location)
 """
 
-from functools import reduce
 from typing import Dict, Generator, List, Optional, Tuple, Union
 
 from astral import LocationInfo, dms_to_float
@@ -442,11 +441,6 @@ def _sanitize_key(key: str) -> str:
         key: The key to sanitize
     """
     return str(key).lower().replace(" ", "_")
-
-
-def _location_count(db: LocationDatabase) -> int:  # type: ignore
-    """Returns the count of the locations currently in the database"""
-    return reduce(lambda count, group: count + len(group), db.values(), 0)
 
 
 def _get_group(name: str, db: LocationDatabase) -> Optional[GroupInfo]:

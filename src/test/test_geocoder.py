@@ -10,7 +10,11 @@ from pytest import raises, approx
 import astral.geocoder
 
 
-def _location_count(db: LocationDatabase) -> int:  # type: ignore
+def location_count(name: str, locations: List[LocationInfo]):
+    return len(list(filter(lambda item: item.name == name, locations)))
+
+
+def db_location_count(db: LocationDatabase) -> int:  # type: ignore
     """Returns the count of the locations currently in the database"""
     return reduce(lambda count, group: count + len(group), db.values(), 0)
 
