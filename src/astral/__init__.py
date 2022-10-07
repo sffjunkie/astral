@@ -116,12 +116,12 @@ def dms_to_float(
         res = float(dms)  # type: ignore
     except (ValueError, TypeError):
         _dms_re = r"(?P<deg>\d{1,3})[°]((?P<min>\d{1,2})[′'])?((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])?"  # noqa
-        m = re.match(_dms_re, str(dms), flags=re.IGNORECASE)
-        if m:
-            deg = m.group("deg") or 0.0
-            min_ = m.group("min") or 0.0
-            sec = m.group("sec") or 0.0
-            dir_ = m.group("dir") or "E"
+        dms_match = re.match(_dms_re, str(dms), flags=re.IGNORECASE)
+        if dms_match:
+            deg = dms_match.group("deg") or 0.0
+            min_ = dms_match.group("min") or 0.0
+            sec = dms_match.group("sec") or 0.0
+            dir_ = dms_match.group("dir") or "E"
 
             res = float(deg)
             if min_:
