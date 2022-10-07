@@ -109,7 +109,8 @@ def test_Sunrise(day: datetime.date, sunrise: datetime.datetime, london: Locatio
 @freezegun.freeze_time("2015-12-01")
 def test_Sunrise_NoDate(london: LocationInfo):
     ans = datetime.datetime(2015, 12, 1, 7, 43, tzinfo=datetime.timezone.utc)
-    assert datetime_almost_equal(sun.sunrise(london.observer), ans)
+    sunrise = sun.sunrise(london.observer)
+    assert datetime_almost_equal(sunrise, ans)
 
 
 @pytest.mark.parametrize(
@@ -132,7 +133,8 @@ def test_Sunset(day: datetime.date, sunset: datetime.datetime, london: LocationI
 @freezegun.freeze_time("2015-12-01")
 def test_Sunset_NoDate(london: LocationInfo):
     ans = datetime.datetime(2015, 12, 1, 15, 55, tzinfo=datetime.timezone.utc)
-    assert datetime_almost_equal(sun.sunset(london.observer), ans)
+    sunset = sun.sunset(london.observer)
+    assert datetime_almost_equal(sunset, ans)
 
 
 @pytest.mark.parametrize(
@@ -154,7 +156,8 @@ def test_Dusk_Civil(day: datetime.date, dusk: datetime.datetime, london: Locatio
 @freezegun.freeze_time("2015-12-01")
 def test_Dusk_NoDate(london: LocationInfo):
     ans = datetime.datetime(2015, 12, 1, 16, 34, tzinfo=datetime.timezone.utc)
-    assert datetime_almost_equal(sun.dusk(london.observer), ans)
+    dusk = sun.dusk(london.observer)
+    assert datetime_almost_equal(dusk, ans)
 
 
 @pytest.mark.parametrize(
@@ -194,7 +197,8 @@ def test_SolarNoon(day: datetime.date, noon: datetime.datetime, london: Location
 @freezegun.freeze_time("2015-12-01")
 def test_SolarNoon_NoDate(london: LocationInfo):
     ans = datetime.datetime(2015, 12, 1, 11, 49, tzinfo=datetime.timezone.utc)
-    assert datetime_almost_equal(sun.noon(london.observer), ans)
+    noon = sun.noon(london.observer)
+    assert datetime_almost_equal(noon, ans)
 
 
 @pytest.mark.parametrize(
@@ -215,7 +219,8 @@ def test_SolarMidnight(
 @freezegun.freeze_time("2016-2-18")
 def test_SolarMidnight_NoDate(london: LocationInfo):
     ans = datetime.datetime(2016, 2, 18, 0, 14, tzinfo=datetime.timezone.utc)
-    assert datetime_almost_equal(sun.midnight(london.observer), ans)
+    midnight = sun.midnight(london.observer)
+    assert datetime_almost_equal(midnight, ans)
 
 
 @pytest.mark.parametrize(
@@ -330,11 +335,13 @@ def test_Rahukaalam_NoDate(new_delhi: LocationInfo):
     ],
 )
 def test_SolarAltitude(dt: datetime.datetime, angle: float, london: LocationInfo):
+    elevation = sun.elevation(london.observer, dt)
     assert elevation == pytest.approx(angle, abs=0.5)  # type: ignore
 
 
 @freezegun.freeze_time("2015-12-14 11:00:00", tz_offset=0)
 def test_SolarAltitude_NoDate(london: LocationInfo):
+    elevation = sun.elevation(london.observer)
     assert elevation == pytest.approx(14.381311, abs=0.5)  # type: ignore
 
 
@@ -346,6 +353,7 @@ def test_SolarAltitude_NoDate(london: LocationInfo):
     ],
 )
 def test_SolarAzimuth(dt: datetime.datetime, angle: float, london: LocationInfo):
+    azimuth = sun.azimuth(london.observer, dt)
     assert azimuth == pytest.approx(angle, abs=0.5)  # type: ignore
 
 
@@ -357,13 +365,17 @@ def test_SolarAzimuth_NoDate(london: LocationInfo):
 @pytest.mark.parametrize(
     "dt,angle",
     [
+        (datetime.datetime(2021, 10, 10, 6, 0, 0), 102.6),
+        (datetime.datetime(2021, 10, 10, 7, 0, 0), 93.3),
+        (datetime.datetime(2021, 10, 10, 18, 0, 0), 87.8),
         (datetime.datetime(2019, 8, 29, 14, 34, 0), 46),
         (datetime.datetime(2020, 2, 3, 10, 37, 0), 71),
     ],
 )
 def test_SolarZenith_London(dt: datetime.datetime, angle: float, london: LocationInfo):
-    dt = dt.replace(tzinfo=london.tzinfo)
-    assert sun.zenith(london.observer, dt) == pytest.approx(angle, abs=0.5)
+    dt = dt.replace(tzinfo=london.tzinfo)  # type: ignore
+    zenith = sun.zenith(london.observer, dt)
+    assert zenith == pytest.approx(angle, abs=0.5)  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -374,13 +386,15 @@ def test_SolarZenith_London(dt: datetime.datetime, angle: float, london: Locatio
     ],
 )
 def test_SolarZenith_Riyadh(dt: datetime.datetime, angle: float, riyadh: LocationInfo):
-    dt = dt.replace(tzinfo=riyadh.tzinfo)
-    assert sun.zenith(riyadh.observer, dt) == pytest.approx(angle, abs=0.5)
+    dt = dt.replace(tzinfo=riyadh.tzinfo)  # type: ignore
+    zenith = sun.zenith(riyadh.observer, dt)
+    assert zenith == pytest.approx(angle, abs=0.5)  # type: ignore
 
 
 @freezegun.freeze_time("2019-08-29 14:34:00")
 def test_SolarZenith_NoDate(london: LocationInfo):
-    assert sun.zenith(london.observer) == pytest.approx(52.41, abs=0.5)
+    zenith = sun.zenith(london.observer)
+    assert zenith == pytest.approx(52.41, abs=0.5)  # type: ignore
 
 
 def test_TimeAtElevation_SunRising(london: LocationInfo):
@@ -444,9 +458,10 @@ def test_Daylight(london: LocationInfo):
 
 @freezegun.freeze_time("2016-1-06")
 def test_Daylight_NoDate(london: LocationInfo):
+    ans = sun.daylight(london.observer)
+
     start = datetime.datetime(2016, 1, 6, 8, 5, 0, tzinfo=datetime.timezone.utc)
     end = datetime.datetime(2016, 1, 6, 16, 7, 0, tzinfo=datetime.timezone.utc)
-    ans = sun.daylight(london.observer)
     assert datetime_almost_equal(ans[0], start, 120)
     assert datetime_almost_equal(ans[1], end, 120)
 

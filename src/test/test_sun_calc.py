@@ -214,4 +214,6 @@ def test_Elevation_Above85Degrees():
 def test_ElevationEqualsTimeAtElevation(elevation: float, london: Location):
     o = london.observer
     td = today()
+    et = sun.time_at_elevation(o, elevation, td, with_refraction=True)
+    sun_elevation = sun.elevation(o, et, with_refraction=True)
     assert sun_elevation == pytest.approx(elevation, abs=0.1)  # type: ignore
