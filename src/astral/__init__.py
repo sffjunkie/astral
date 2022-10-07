@@ -317,4 +317,5 @@ class LocationInfo:
 
     @property
     def timezone_group(self):
-        return self.timezone.split("/")[0]
+        """Return the group a timezone is in"""
+        return self.timezone.split("/", maxsplit=1)[0]
