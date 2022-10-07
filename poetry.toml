@@ -1,2 +1,2 @@
 [virtualenvs]
-path = ".venv/poetry"
+in-project = true
