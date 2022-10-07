@@ -535,15 +535,9 @@ def zenith_and_azimuth(
         zone = -dateandtime.utcoffset().total_seconds() / 3600.0  # type: ignore
         utc_datetime = dateandtime.astimezone(datetime.timezone.utc)
 
-    timenow = (
-        utc_datetime.hour
-        + (utc_datetime.minute / 60.0)
-        + (utc_datetime.second / 3600.0)
-    )
-
-    JD = julianday(dateandtime)
-    t = julianday_to_juliancentury(JD + timenow / 24.0)
-    solarDec = sun_declination(t)
+    jd = julianday(utc_datetime)
+    t = julianday_to_juliancentury(jd)
+    declination = sun_declination(t)
     eqtime = eq_of_time(t)
 
     solarTimeFix = eqtime - (4.0 * -longitude) + (60 * zone)
