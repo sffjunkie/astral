@@ -348,28 +348,11 @@ astral package a value of 32" is used.
    The refraction calculation does not take into account
    temperature and pressure which can affect the angle of refraction.
 
-Note on Localized Timezones
-===========================
-
-When creating a datetime object in a specific timezone do not use the
-`tzinfo` parameter to the datetime constructor. Instead use the
-:meth:`~pytz.tzinfo.localize` method provided by pytz on the correct pytz
-timezone::
-
-   >>> dt = datetime.datetime(2015, 1, 1, 9, 0, 0)
-   >>> pytz.timezone('Europe/London').localize(dt)
-   datetime.datetime(2015, 1, 1, 9, 0, tzinfo=<DstTzInfo 'Europe/London' GMT0:00:00 STD>)
-
 
 License
 =======
 
 This module is licensed under the terms of the `Apache`_ V2.0 license.
-
-Dependencies
-============
-
-Astral has one required external Python dependency on `pytz`.
 
 Installation
 ============
