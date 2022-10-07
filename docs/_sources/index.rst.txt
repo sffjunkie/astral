@@ -1,4 +1,4 @@
-.. Copyright 2009-2019, Simon Kennedy, sffjunkie+code@gmail.com
+.. Copyright 2009-2021, Simon Kennedy, sffjunkie+code@gmail.com
 
 .. Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@
 Astral v\ |release|
 ===================
 
-| |travis_status| |pypi_ver|
+| |ghaction_status| |pypi_ver|
 
 Astral is a python package for calculating the times of various aspects of
-the sun and phases of the moon.
+the sun and moon.
 
 It can calculate the following
 
@@ -34,7 +34,7 @@ Dawn
 
 Sunrise
     The time in the morning when the top of the sun breaks the horizon
-    (asuming a location with no obscuring features.)
+    (assuming a location with no obscuring features.)
 
 Noon
     The time when the sun is at its highest point directly above the observer.
@@ -85,18 +85,18 @@ Solar Elevation
     that is considered inauspicious for any new venture according to Indian
     Vedic astrology".
 
+Moonrise and Moonset
+   Like the Sun but for the moon
+
+Moon Azimuth and Zenith
+   Also like the Sun but for the moon
+
 Moon Phase
     The phase of the moon for a specified date.
 
 Astral also comes with a geocoder containing a local database that allows you
 to look up information for a small set of locations (`new locations can be
 added <additional_locations_>`__).
-
-.. note::
-
-   The Google Geocoder has been removed. Instead you should use the
-   Google Client for Google Maps Services
-   https://github.com/googlemaps/google-maps-services-python
 
 Examples
 ========
@@ -107,62 +107,115 @@ module
 Sun
 ----
 
-.. code-block:: python
+.. testcode::
 
-    >>> from astral import LocationInfo
-    >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
-    >>> print((
+    from astral import LocationInfo
+    city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+    print((
         f"Information for {city.name}/{city.region}\n"
         f"Timezone: {city.timezone}\n"
         f"Latitude: {city.latitude:.02f}; Longitude: {city.longitude:.02f}\n"
     ))
 
+.. testoutput::
+
     Information for London/England
     Timezone: Europe/London
     Latitude: 51.50; Longitude: -0.12
 
-    >>> import datetime
-    >>> from astral.sun import sun
-    >>> s = sun(city.observer, date=datetime.date(2009, 4, 22))
-    >>> print((
+.. testcode::
+
+    import datetime
+    from astral.sun import sun
+    s = sun(city.observer, date=datetime.date(2009, 4, 22))
+    print((
         f'Dawn:    {s["dawn"]}\n'
         f'Sunrise: {s["sunrise"]}\n'
         f'Noon:    {s["noon"]}\n'
         f'Sunset:  {s["sunset"]}\n'
         f'Dusk:    {s["dusk"]}\n'
     ))
-    Dawn:    2009-04-22 04:13:04.923309+00:00
-    Sunrise: 2009-04-22 04:50:16.515411+00:00
+
+.. testoutput::
+
+    Dawn:    2009-04-22 04:13:04.997608+00:00
+    Sunrise: 2009-04-22 04:50:17.127004+00:00
     Noon:    2009-04-22 11:59:02+00:00
-    Sunset:  2009-04-22 19:08:41.215821+00:00
-    Dusk:    2009-04-22 19:46:06.362457+00:00
+    Sunset:  2009-04-22 19:08:41.711407+00:00
+    Dusk:    2009-04-22 19:46:06.423846+00:00
 
 .. note::
 
    The example above calculates the times of the sun in the UTC timezone.
    If you want to return times in a different timezone you can pass the
-   tzinfo parameter to the function.
+   `tzinfo` parameter to the function.
 
    .. code-block:: python
 
-      s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=city.timezone)
+       >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+       >>> london = Location(city)
+       >>> s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=london.timezone)
 
-   In versions prior to 2.2 you'll need to pass a pytz timezone as tzinfo e.g.
+   or
 
    .. code-block:: python
 
-      s = sun(city.observer,
-              date=datetime.date(2009, 4, 22),
-              tzinfo=pytz.timezone(city.timezone))
+       >>> timezone = zoneinfo.ZoneInfo("Europe/London")
+       >>> s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=timezone)
+
 
 Moon
 ----
 
-.. code-block:: python
+The moon rise/set times can be obtained like the sun's functions
 
-   >>> import datetime
-   >>> from astral import moon
-   >>> moon.phase(datetime.date(2018, 1, 1))
+.. testcode::
+
+    from astral import LocationInfo
+    city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+
+    import datetime
+    from astral.moon import moonrise
+    from astral.location import Location
+    dt = datetime.date(2021, 10, 28)
+    london = Location(city)
+    rise = moonrise(city.observer, dt)  # returns a UTC time
+    print(rise)
+
+.. testoutput::
+
+    2021-10-28 22:02:00+00:00
+
+And for a local time
+
+.. testsetup::
+
+    import datetime
+    from astral import LocationInfo
+    from astral.moon import moonrise
+    from astral.location import Location
+
+    city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+    dt = datetime.date(2021, 10, 28)
+    london = Location(city)
+
+.. testcode::
+
+    rise = moonrise(city.observer, dt, city.tzinfo)
+
+
+Phase
+~~~~~~
+
+.. testcode::
+
+   import datetime
+   from astral import moon
+   phase = moon.phase(datetime.date(2018, 1, 1))
+   print(phase)
+
+.. testoutput::
+
    13.255666666666668
 
 The moon phase method returns an number describing the phase, where the value
@@ -270,12 +323,16 @@ Timezone Groups
 Timezone groups such as Europe can be accessed via the :func:`group` function
 in the :mod:`~astral.geocoder` module
 
-.. code-block:: python
+.. testcode::
 
-    >>> from astral.geocoder import group
-    >>> europe = group("europe")
-    >>> sorted(europe.keys())
-    ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
+    from astral.geocoder import group, database
+    db = database()
+    europe = group("europe", db)
+    print(sorted(europe.keys())[:4])
+
+.. testoutput::
+
+    ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara']
 
 
 Effect of Elevation
@@ -348,28 +405,11 @@ astral package a value of 32" is used.
    The refraction calculation does not take into account
    temperature and pressure which can affect the angle of refraction.
 
-Note on Localized Timezones
-===========================
-
-When creating a datetime object in a specific timezone do not use the
-`tzinfo` parameter to the datetime constructor. Instead use the
-:meth:`~pytz.tzinfo.localize` method provided by pytz on the correct pytz
-timezone::
-
-   >>> dt = datetime.datetime(2015, 1, 1, 9, 0, 0)
-   >>> pytz.timezone('Europe/London').localize(dt)
-   datetime.datetime(2015, 1, 1, 9, 0, tzinfo=<DstTzInfo 'Europe/London' GMT0:00:00 STD>)
-
 
 License
 =======
 
 This module is licensed under the terms of the `Apache`_ V2.0 license.
-
-Dependencies
-============
-
-Astral has one required external Python dependency on `pytz`.
 
 Installation
 ============
@@ -477,12 +517,22 @@ Which cites the following as the original source
     | In Solar Energy Vol 20 No.5-C
     | Robert Walraven Of The University Of California, Davis
 
-The moon phase calculation is based on some javascript code
+Moon position calculations from
+
+   | LOW-PRECISION FORMULAE FOR PLANETARY POSITIONS
+   | T. C. Van Flandern and K. F. Pulkkinen
+
+And from
+
+   | Astronomical Algorithms
+   | Jean Meeus
+
+The moon phase calculation is based on javascript code
 from Sky and Telescope magazine
 
     | Moon-phase calculation
     | Roger W. Sinnott, Sky & Telescope, June 16, 2006.
-    | http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
+    | https://skyandtelescope.org/observing/the-phase-of-the-moon/
 
 Also to `Sphinx`_ for making doc generation an easy thing (not that the writing
 of the docs is any easier.)
@@ -498,6 +548,15 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
+3.0        Added moon rise, set, azimuth and zenith functions.
+
+           Switched from pytz to `zoneinfo` provided as part of Python >= 3.9 or
+           `backports.zoneinfo` for older versions.
+
+           In some circumstances the result of the calculation of rise and
+           set times would return information for a diffrerent date. This
+           has now been fixed.
+---------- --------------------------------------------------------------------
 2.2        Fix for `bug #48`_ - As per the bug report the angle to adjust for
            the effect of elevation should have been θ (not α).
 
@@ -705,7 +764,7 @@ Version    Description
 .. _Sourceforge: http://pytz.sourceforge.net/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _Apache: http://www.opensource.org/licenses/apache2.0.php
-.. _Sphinx: http://sphinx.pocoo.org/
+.. _Sphinx: https://www.sphinx-doc.org/
 .. _554041: https://bugs.launchpad.net/astral/+bug/554041
 .. _555508: https://bugs.launchpad.net/astral/+bug/555508
 .. _884716: https://bugs.launchpad.net/astral/+bug/884716
@@ -722,8 +781,8 @@ Version    Description
 .. _pip: https://pip.pypa.io/en/stable/
 .. _bug #48: https://github.com/sffjunkie/astral/issues/48
 
-.. |travis_status| image:: https://travis-ci.org/sffjunkie/astral.svg?branch=master
-    :target: https://travis-ci.org/sffjunkie/astral
+.. |ghaction_status| image:: https://img.shields.io/github/workflow/status/sffjunkie/astral/astral-test
+    :target: https://img.shields.io/github/workflow/status/sffjunkie/astral/
 
 .. |pypi_ver| image:: https://img.shields.io/pypi/v/astral.svg
     :target: https://pypi.org/project/astral/
