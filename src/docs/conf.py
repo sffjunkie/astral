@@ -27,7 +27,12 @@ release = "2.2"
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.intersphinx", "sphinx.ext.napoleon"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.doctest",
+]
 
 # intersphinx_mapping = {"python": ("http://docs.python.org/3", None)}
 intersphinx_mapping = {"python": ("http://docs.python.org/3", "python3_intersphinx.inv")}
