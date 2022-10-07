@@ -411,10 +411,25 @@ def moonrise(
 
     if date is None:
         date = today(tzinfo)  # type: ignore
+    elif isinstance(date, datetime.datetime):
+        date = date.date()
 
     info = riseset(date, observer)
     if info[0]:
         rise = info[0].astimezone(tzinfo)  # type: ignore
+        rd = rise.date()
+        if rd != date:
+            if rd > date:
+                delta = datetime.timedelta(days=-1)
+            else:
+                delta = datetime.timedelta(days=1)
+            new_date = date + delta
+            info = riseset(new_date, observer)
+            if info[0]:
+                rise = info[0].astimezone(tzinfo)  # type: ignore
+                rd = rise.date()
+                if rd != date:
+                    rise = None
         return rise
     else:
         raise ValueError("Moon never rises on this date, at this location")
@@ -430,10 +445,25 @@ def moonset(
 
     if date is None:
         date = today(tzinfo)  # type: ignore
+    elif isinstance(date, datetime.datetime):
+        date = date.date()
 
     info = riseset(date, observer)
     if info[1]:
         set = info[1].astimezone(tzinfo)  # type: ignore
+        sd = set.date()
+        if sd != date:
+            if sd > date:
+                delta = datetime.timedelta(days=-1)
+            else:
+                delta = datetime.timedelta(days=1)
+            new_date = date + delta
+            info = riseset(new_date, observer)
+            if info[1]:
+                set = info[1].astimezone(tzinfo)  # type: ignore
+                sd = set.date()
+                if sd != date:
+                    set = None
         return set
     else:
         raise ValueError("Moon never sets on this date, at this location")
@@ -455,8 +485,8 @@ def azimuth(
     ch = cos(hourangle)
     sd = sin(position.declination)
     cd = cos(position.declination)
-    sl = sin(observer.latitude)
-    cl = cos(observer.latitude)
+    sl = sin(radians(observer.latitude))
+    cl = cos(radians(observer.latitude))
 
     x = -ch * cd * sl + sd * cl
     y = -sh * cd
