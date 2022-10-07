@@ -1,7 +1,6 @@
-from __future__ import unicode_literals
-
 import pytest
 import astral
+from astral.location import Location
 from datetime import datetime, timedelta, timezone
 from astral import sun
 
@@ -17,18 +16,17 @@ def _next_event(obs: astral.Observer, dt: datetime, event: str):
     assert False, "Should be unreachable"  # pragma: no cover
 
 
-def test_NorwaySunUp():
+def test_NorwaySunUp(tromso: Location):
     """Test location in Norway where the sun doesn't set in summer."""
     june = datetime(2019, 6, 5, tzinfo=timezone.utc)
-    obs = astral.Observer(69.6, 18.8, 0.0)
 
     with pytest.raises(ValueError):
-        sun.sunrise(obs, june)
+        sun.sunrise(tromso.observer, june)
     with pytest.raises(ValueError):
-        sun.sunset(obs, june)
+        sun.sunset(tromso.observer, june)
 
     # Find the next sunset and sunrise:
-    next_sunrise = _next_event(obs, june, "sunrise")
-    next_sunset = _next_event(obs, june, "sunset")
+    next_sunrise = _next_event(tromso.observer, june, "sunrise")
+    next_sunset = _next_event(tromso.observer, june, "sunset")
 
     assert next_sunset < next_sunrise
