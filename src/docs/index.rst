@@ -21,7 +21,7 @@
 Astral v\ |release|
 ===================
 
-| |travis_status| |pypi_ver|
+| |ghaction_status| |pypi_ver|
 
 Astral is a python package for calculating the times of various aspects of
 the sun and phases of the moon.
@@ -722,8 +722,8 @@ Version    Description
 .. _pip: https://pip.pypa.io/en/stable/
 .. _bug #48: https://github.com/sffjunkie/astral/issues/48
 
-.. |travis_status| image:: https://travis-ci.org/sffjunkie/astral.svg?branch=master
-    :target: https://travis-ci.org/sffjunkie/astral
+.. |ghaction_status| image:: https://img.shields.io/github/workflow/status/sffjunkie/astral/astral-test
+    :target: https://img.shields.io/github/workflow/status/sffjunkie/astral/
 
 .. |pypi_ver| image:: https://img.shields.io/pypi/v/astral.svg
     :target: https://pypi.org/project/astral/
