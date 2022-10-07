@@ -256,10 +256,6 @@ def moon_transit_event(
     x = cl * sd - sl * cd * ch
     y = -cd * sh
 
-    # r = sqrt(x * x + y * y)
-    # z = ch * cd * cl + sd * sl
-    # elevation = degrees(atan2(z, r))
-
     az = degrees(atan2(y, x))
     if az < 0:
         az += 360

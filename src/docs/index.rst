@@ -24,7 +24,7 @@ Astral v\ |release|
 | |ghaction_status| |pypi_ver|
 
 Astral is a python package for calculating the times of various aspects of
-the sun and phases of the moon.
+the sun and moon.
 
 It can calculate the following
 
@@ -84,6 +84,12 @@ Solar Elevation
     "Rahukaalam or the period of Rahu is a certain amount of time every day
     that is considered inauspicious for any new venture according to Indian
     Vedic astrology".
+
+Moonrise and Moonset
+   Like the Sun but for the moon
+
+Moon Azimuth and Zenith
+   Also like the Sun but for the moon
 
 Moon Phase
     The phase of the moon for a specified date.
@@ -542,6 +548,15 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
+3.0        Added moon rise, set, azimuth and zenith functions.
+
+           Switched from pytz to `zoneinfo` provided as part of Python >= 3.9 or
+           `backports.zoneinfo` for older versions.
+
+           In some circumstances the result of the calculation of rise and
+           set times would return information for a diffrerent date. This
+           has now been fixed.
+---------- --------------------------------------------------------------------
 2.2        Fix for `bug #48`_ - As per the bug report the angle to adjust for
            the effect of elevation should have been θ (not α).
 
