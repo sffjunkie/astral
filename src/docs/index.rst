@@ -101,35 +101,42 @@ module
 Sun
 ----
 
-.. code-block:: python
+.. testcode::
 
-    >>> from astral import LocationInfo
-    >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
-    >>> print((
+    from astral import LocationInfo
+    city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+    print((
         f"Information for {city.name}/{city.region}\n"
         f"Timezone: {city.timezone}\n"
         f"Latitude: {city.latitude:.02f}; Longitude: {city.longitude:.02f}\n"
     ))
 
+.. testoutput::
+
     Information for London/England
     Timezone: Europe/London
     Latitude: 51.50; Longitude: -0.12
 
-    >>> import datetime
-    >>> from astral.sun import sun
-    >>> s = sun(city.observer, date=datetime.date(2009, 4, 22))
-    >>> print((
+.. testcode::
+
+    import datetime
+    from astral.sun import sun
+    s = sun(city.observer, date=datetime.date(2009, 4, 22))
+    print((
         f'Dawn:    {s["dawn"]}\n'
         f'Sunrise: {s["sunrise"]}\n'
         f'Noon:    {s["noon"]}\n'
         f'Sunset:  {s["sunset"]}\n'
         f'Dusk:    {s["dusk"]}\n'
     ))
-    Dawn:    2009-04-22 04:13:04.923309+00:00
-    Sunrise: 2009-04-22 04:50:16.515411+00:00
+
+.. testoutput::
+
+    Dawn:    2009-04-22 04:13:04.997608+00:00
+    Sunrise: 2009-04-22 04:50:17.127004+00:00
     Noon:    2009-04-22 11:59:02+00:00
-    Sunset:  2009-04-22 19:08:41.215821+00:00
-    Dusk:    2009-04-22 19:46:06.362457+00:00
+    Sunset:  2009-04-22 19:08:41.711407+00:00
+    Dusk:    2009-04-22 19:46:06.423846+00:00
 
 .. note::
 
@@ -154,9 +161,20 @@ Moon
 
 .. code-block:: python
 
-   >>> import datetime
-   >>> from astral import moon
-   >>> moon.phase(datetime.date(2018, 1, 1))
+
+
+Phase
+~~~~~~
+
+.. testcode::
+
+   import datetime
+   from astral import moon
+   phase = moon.phase(datetime.date(2018, 1, 1))
+   print(phase)
+
+.. testoutput::
+
    13.255666666666668
 
 The moon phase method returns an number describing the phase, where the value
@@ -264,12 +282,16 @@ Timezone Groups
 Timezone groups such as Europe can be accessed via the :func:`group` function
 in the :mod:`~astral.geocoder` module
 
-.. code-block:: python
+.. testcode::
 
-    >>> from astral.geocoder import group
-    >>> europe = group("europe")
-    >>> sorted(europe.keys())
-    ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
+    from astral.geocoder import group, database
+    db = database()
+    europe = group("europe", db)
+    print(sorted(europe.keys())[:4])
+
+.. testoutput::
+
+    ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara']
 
 
 Effect of Elevation
