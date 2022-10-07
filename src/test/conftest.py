@@ -48,3 +48,13 @@ def wellington_info() -> LocationInfo:
 @pytest.fixture
 def wellington(wellington_info: LocationInfo) -> Location:
     return Location(wellington_info)
+
+
+@pytest.fixture
+def tromso_info() -> LocationInfo:
+    return LocationInfo("Tromso", "Norway", "CET", 69.6, 18.95)
+
+
+@pytest.fixture
+def tromso(tromso_info: LocationInfo) -> Location:
+    return Location(tromso_info)
