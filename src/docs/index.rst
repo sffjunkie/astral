@@ -481,7 +481,7 @@ from Sky and Telescope magazine
 
     | Moon-phase calculation
     | Roger W. Sinnott, Sky & Telescope, June 16, 2006.
-    | http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
+    | https://skyandtelescope.org/observing/the-phase-of-the-moon/
 
 Also to `Sphinx`_ for making doc generation an easy thing (not that the writing
 of the docs is any easier.)
