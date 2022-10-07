@@ -705,7 +705,7 @@ Version    Description
 .. _Sourceforge: http://pytz.sourceforge.net/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _Apache: http://www.opensource.org/licenses/apache2.0.php
-.. _Sphinx: http://sphinx.pocoo.org/
+.. _Sphinx: https://www.sphinx-doc.org/
 .. _554041: https://bugs.launchpad.net/astral/+bug/554041
 .. _555508: https://bugs.launchpad.net/astral/+bug/555508
 .. _884716: https://bugs.launchpad.net/astral/+bug/884716
