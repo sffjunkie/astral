@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 3.0 2022-10-07
+
+### Added
+
+- Added support for moon rise and set times and azimuth / zentih calculations.
+
+- Dropped dependency on  `pytz` and switched to using `zoneinfo` provided as
+  part of Python 3.9 or the `backports.zoneinfo` package.
+
 ## 2.2 - 2020-05-20
 
 ### Changed
@@ -91,7 +100,7 @@ Changed GoogleGeocoder test to not use raise...from as this is not valid for Pyt
 ### Changed
 
 - Added api_key parameter to GoogleGeocoder **init** method. Idea from
-    wpietruszewski https://github.com/sffjunkie/astral/pull/12
+    wpietruszewski <https://github.com/sffjunkie/astral/pull/12>
 
 ## 1.5 - 2017-12-07
 
