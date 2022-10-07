@@ -149,8 +149,7 @@ class Location:
         For example.
 
         >>> import zoneinfo
-        >>> for timezone in zoneinfo.available_timezones:
-        ...     print(timezone)
+        >>> assert "CET" in zoneinfo.available_timezones()
         """
 
         return self._location_info.timezone
