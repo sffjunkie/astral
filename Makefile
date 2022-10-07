@@ -2,6 +2,7 @@
 
 all: clean test report html
 
+SPHINXBUILD=sphinx-build
 BUILDDIR=$(DEVELOPMENT_HOME)/build/astral
 
 clean:
@@ -24,9 +25,10 @@ report:
 	@COVERAGE_FILE=$(BUILDDIR)/.coverage coverage report
 
 build-docs:
+	$(SPHINXBUILD) -a -b html -d $(BUILDDIR)/doctrees ./src/docs ./docs
 
 doctest:
-	sphinx-build -a -b doctest ./src/docs $(BUILDDIR)/doctest
+	$(SPHINXBUILD) -a -b doctest ./src/docs $(BUILDDIR)/doctest
 
 repl:
 	@PYTHONPATH=src python
