@@ -704,6 +704,8 @@ def dawn(
 
     if date is None:
         date = today(tzinfo)  # type: ignore
+    elif isinstance(date, datetime.datetime):
+        date = date.date()
 
     dep: float = 0.0
     if isinstance(depression, Depression):
@@ -773,6 +775,8 @@ def sunrise(
 
     if date is None:
         date = today(tzinfo)  # type: ignore
+    elif isinstance(date, datetime.datetime):
+        date = date.date()
 
     try:
         tot = time_of_transit(
@@ -841,6 +845,8 @@ def sunset(
 
     if date is None:
         date = today(tzinfo)  # type: ignore
+    elif isinstance(date, datetime.datetime):
+        date = date.date()
 
     try:
         tot = time_of_transit(
@@ -911,6 +917,8 @@ def dusk(
 
     if date is None:
         date = today(tzinfo)  # type: ignore
+    elif isinstance(date, datetime.datetime):
+        date = date.date()
 
     dep: float = 0.0
     if isinstance(depression, Depression):
