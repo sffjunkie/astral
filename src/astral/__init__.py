@@ -136,7 +136,7 @@ def dms_to_float(
                 "Unable to convert degrees/minutes/seconds to float"
             ) from exc
 
-    if limit:
+    if limit is not None:
         if res > limit:
             res = limit
         elif res < -limit:
