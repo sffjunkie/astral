@@ -1,4 +1,4 @@
-.PHONY: clean test test-docs test-all html report build-docs repl show-docs show-cov typecheck
+.PHONY: clean test test-docs test-all html report build-docs repl show-docs show-cov typecheck doctest
 
 all: clean test report html
 
@@ -24,7 +24,9 @@ report:
 	@COVERAGE_FILE=$(BUILDDIR)/.coverage coverage report
 
 build-docs:
-	sphinx-build -a -b html -d $(BUILDDIR)/doctrees ./src/docs ./docs
+
+doctest:
+	sphinx-build -a -b doctest ./src/docs $(BUILDDIR)/doctest
 
 repl:
 	@PYTHONPATH=src python
