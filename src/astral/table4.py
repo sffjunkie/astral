@@ -1,12 +1,12 @@
-from math import sin, cos
-from typing import Callable, NamedTuple
+from math import cos, sin
+from typing import Callable, Dict, NamedTuple, List
 
 
 class Table4Row(NamedTuple):
     coefficient: float
     t: bool
     sincos: Callable[[float], float]
-    argument_multiplers: dict[int, int]
+    argument_multiplers: Dict[int, int]
 
 
 Gm = 2  # Moon mean anomoly
@@ -17,7 +17,7 @@ Ls = 7  # Sun mean longitude
 Gs = 8  # Sun mean anomoly
 L2 = 12  # Venus mean longitude
 
-table4_v: list[Table4Row] = [
+table4_v: List[Table4Row] = [
     Table4Row(0.39558, False, sin, {Gm: 0, Fm: 1, D: 0, Om: 1, Ls: 0, Gs: 0, L2: 0}),
     Table4Row(0.08200, False, sin, {Gm: 0, Fm: 1, D: 0, Om: 0, Ls: 0, Gs: 0, L2: 0}),
     Table4Row(0.03257, False, sin, {Gm: 1, Fm: -1, D: 0, Om: -1, Ls: 0, Gs: 0, L2: 0}),
@@ -96,7 +96,7 @@ table4_v: list[Table4Row] = [
     Table4Row(0.00002, False, sin, {Gm: 1, Fm: 1, D: 0, Om: 0, Ls: 0, Gs: -1, L2: 0}),
 ]
 
-table4_u: list[Table4Row] = [
+table4_u: List[Table4Row] = [
     Table4Row(1, False, cos, {Gm: 0, Fm: 0, D: 0, Om: 0, Ls: 0, Gs: 0, L2: 0}),
     Table4Row(-0.10828, False, cos, {Gm: 1, Fm: 0, D: 0, Om: 0, Ls: 0, Gs: 0, L2: 0}),
     Table4Row(-0.01880, False, cos, {Gm: 1, Fm: 0, D: -2, Om: 0, Ls: 0, Gs: 0, L2: 0}),
@@ -130,7 +130,7 @@ table4_u: list[Table4Row] = [
 ]
 
 
-table4_w: list[Table4Row] = [
+table4_w: List[Table4Row] = [
     Table4Row(0.10478, False, sin, {Gm: 1, Fm: 0, D: 0, Om: 0, Ls: 0, Gs: 0, L2: 0}),
     Table4Row(-0.04105, False, sin, {Gm: 0, Fm: 2, D: 0, Om: 2, Ls: 0, Gs: 0, L2: 0}),
     Table4Row(-0.02130, False, sin, {Gm: 1, Fm: 0, D: -2, Om: 0, Ls: 0, Gs: 0, L2: 0}),

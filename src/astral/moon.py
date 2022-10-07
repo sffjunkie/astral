@@ -121,7 +121,7 @@ def venus_mean_longitude(jd2000: float) -> Revolutions:
 def moon_position(jd2000: float) -> AstralBodyPosition:
     """Calculate right ascension, declination and geocentric distance for the moon"""
 
-    argument_values: list[Union[float, None]] = [
+    argument_values: List[Union[float, None]] = [
         moon_mean_longitude(jd2000),  # 1 = Lm
         moon_mean_anomoly(jd2000),  # 2 = Gm
         moon_argument_of_latitude(jd2000),  # 3 = Fm
@@ -138,7 +138,7 @@ def moon_position(jd2000: float) -> AstralBodyPosition:
 
     T = jd2000 / 36525 + 1
 
-    def _calc_value(table: list[Table4Row]) -> float:
+    def _calc_value(table: List[Table4Row]) -> float:
         result = 0.0
         for row in table:
             revolutions: float = 0.0
