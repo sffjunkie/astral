@@ -114,7 +114,7 @@ def dms_to_float(
 
     try:
         res = float(dms)  # type: ignore
-    except (ValueError, TypeError):
+    except (ValueError, TypeError) as exc:
         _dms_re = r"(?P<deg>\d{1,3})[°]((?P<min>\d{1,2})[′'])?((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])?"  # noqa
         dms_match = re.match(_dms_re, str(dms), flags=re.IGNORECASE)
         if dms_match:
@@ -132,7 +132,9 @@ def dms_to_float(
             if dir_.upper() in ["S", "W"]:
                 res = -res
         else:
-            raise ValueError("Unable to convert degrees/minutes/seconds to float")
+            raise ValueError(
+                "Unable to convert degrees/minutes/seconds to float"
+            ) from exc
 
     if limit:
         if res > limit:
