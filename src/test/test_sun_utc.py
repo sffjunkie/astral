@@ -330,12 +330,12 @@ def test_Rahukaalam_NoDate(new_delhi: LocationInfo):
     ],
 )
 def test_SolarAltitude(dt: datetime.datetime, angle: float, london: LocationInfo):
-    assert sun.elevation(london.observer, dt) == pytest.approx(angle, abs=0.5)
+    assert elevation == pytest.approx(angle, abs=0.5)  # type: ignore
 
 
 @freezegun.freeze_time("2015-12-14 11:00:00", tz_offset=0)
 def test_SolarAltitude_NoDate(london: LocationInfo):
-    assert sun.elevation(london.observer) == pytest.approx(14.381311, abs=0.5)
+    assert elevation == pytest.approx(14.381311, abs=0.5)  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -346,12 +346,12 @@ def test_SolarAltitude_NoDate(london: LocationInfo):
     ],
 )
 def test_SolarAzimuth(dt: datetime.datetime, angle: float, london: LocationInfo):
-    assert sun.azimuth(london.observer, dt) == pytest.approx(angle, abs=0.5)
+    assert azimuth == pytest.approx(angle, abs=0.5)  # type: ignore
 
 
 @freezegun.freeze_time("2015-12-14 11:00:00", tz_offset=0)
 def test_SolarAzimuth_NoDate(london: LocationInfo):
-    assert sun.azimuth(london.observer) == pytest.approx(166.9676, abs=0.5)
+    assert sun.azimuth(london.observer) == pytest.approx(166.9676, abs=0.5)  # type: ignore
 
 
 @pytest.mark.parametrize(

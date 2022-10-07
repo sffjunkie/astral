@@ -5,7 +5,7 @@ try:
     import zoneinfo
 except ImportError:
     from backports import zoneinfo
-from pytest import raises, approx
+from pytest import raises, approx  # type: ignore
 
 import astral.geocoder
 
@@ -37,8 +37,8 @@ class TestDatabase:
         assert loc.region == "England"
         assert loc.latitude == approx(51.4733, abs=0.001)
         assert loc.longitude == approx(-0.0008333, abs=0.000001)
-        tz = zoneinfo.ZoneInfo("Europe/London")
-        tzl = zoneinfo.ZoneInfo(loc.timezone)
+        tz = zoneinfo.ZoneInfo("Europe/London")  # type: ignore
+        tzl = zoneinfo.ZoneInfo(loc.timezone)  # type: ignore
         assert tz == tzl
 
     def test_city_in_db(self, test_database:astral.geocoder.LocationDatabase):
@@ -129,4 +129,4 @@ class TestDatabaseAddLocations:
 
 
 def test_SanitizeKey():
-    assert astral.geocoder._sanitize_key("Los Angeles") == "los_angeles"
+    assert astral.geocoder._sanitize_key("Los Angeles") == "los_angeles"  # type: ignore

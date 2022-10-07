@@ -47,9 +47,9 @@ class TestLocation:
     def test_TimezoneLookup(self):
         """Test that tz refers to a timezone object"""
         c = Location()
-        assert c.tz == zoneinfo.ZoneInfo("Europe/London")
+        assert c.tz == zoneinfo.ZoneInfo("Europe/London")  # type: ignore
         c.timezone = "Europe/Stockholm"
-        assert c.tz == zoneinfo.ZoneInfo("Europe/Stockholm")
+        assert c.tz == zoneinfo.ZoneInfo("Europe/Stockholm")  # type: ignore
 
     def test_Info(self, london: Location, london_info:LocationInfo):
         assert london_info == london.info
@@ -158,17 +158,17 @@ class TestLocation:
     def test_Moon(self):
         d = datetime.date(2017, 12, 1)
         c = Location()
-        assert c.moon_phase(date=d) == pytest.approx(11.62, abs=0.01)
+        assert c.moon_phase(date=d) == pytest.approx(11.62, abs=0.01)  # type: ignore
 
     @freezegun.freeze_time("2015-12-01")
     def test_MoonNoDate(self):
         c = Location()
-        assert c.moon_phase() == pytest.approx(19.47, abs=0.01)
+        assert c.moon_phase() == pytest.approx(19.47, abs=0.01)  # type: ignore
 
     def test_TzError(self):
         with pytest.raises(AttributeError):
             c = Location()
-            c.tz = 1
+            c.tz = 1  # type: ignore
 
     def test_Equality(self):
         c1 = Location()
@@ -199,7 +199,7 @@ class TestLocation:
         loc = Location()
         loc.latitude = "24°28'N"
 
-        assert loc.latitude == pytest.approx(24.46666666666666)
+        assert loc.latitude == pytest.approx(24.46666666666666)  # type: ignore
 
     def test_SetLongitudeFloat(self):
         loc = Location()
@@ -210,7 +210,7 @@ class TestLocation:
         loc = Location()
         loc.longitude = "24°28'S"
 
-        assert loc.longitude == pytest.approx(-24.46666666666666)
+        assert loc.longitude == pytest.approx(-24.46666666666666)  # type: ignore
 
     def test_SetBadLongitudeString(self):
         loc = Location()
@@ -219,8 +219,8 @@ class TestLocation:
 
     def test_BadTzinfo(self):
         loc = Location()
-        loc._location_info = dataclasses.replace(
-            loc._location_info, timezone="Bad/Timezone"
+        loc._location_info = dataclasses.replace(  # type: ignore
+            loc._location_info, timezone="Bad/Timezone"  # type: ignore
         )
 
         with pytest.raises(ValueError):
