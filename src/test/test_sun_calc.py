@@ -166,9 +166,7 @@ def test_EquationOfTime(jc: float, eot: float):
         (datetime.date(2018, 6, 1), 2.133712555),
     ],
 )
-def test_HourAngle(d: datetime.date, ha: float, london):
-    jd = sun.julianday(d)
-    jc = sun.jday_to_jcentury(jd)
+def test_HourAngle(d: datetime.date, ha: float, london: Location):
     decl = sun.sun_declination(jc)
 
     assert sun.hour_angle(
@@ -178,20 +176,21 @@ def test_HourAngle(d: datetime.date, ha: float, london):
     )
 
 
-def test_Azimuth(new_delhi):
+def test_Azimuth(new_delhi: Location):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert sun.azimuth(new_delhi.observer, d) == pytest.approx(292.76, abs=0.1)  # type: ignore
 
 
-def test_Elevation(new_delhi):
+def test_Elevation(new_delhi: Location):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert sun.elevation(new_delhi.observer, d) == pytest.approx(7.41, abs=0.1)  # type: ignore
 
 
+def test_Elevation_NonNaive(new_delhi: Location):
     assert sun.elevation(new_delhi.observer, d) == pytest.approx(7.41, abs=0.1)  # type: ignore
 
 
-def test_Elevation_WithoutRefraction(new_delhi):
+def test_Elevation_WithoutRefraction(new_delhi: Location):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
     assert sun.elevation(new_delhi.observer, d, with_refraction=False) == pytest.approx(  # type: ignore
         7.293490557358638
@@ -212,7 +211,7 @@ def test_Elevation_Above85Degrees():
 
 @pytest.mark.parametrize("elevation", range(1,10))
 @freezegun.freeze_time("2020-02-06")
-def test_ElevationEqualsTimeAtElevation(elevation, london):
+def test_ElevationEqualsTimeAtElevation(elevation: float, london: Location):
     o = london.observer
     td = today()
     assert sun_elevation == pytest.approx(elevation, abs=0.1)  # type: ignore
