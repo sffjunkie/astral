@@ -142,7 +142,7 @@ Sun
 
    The example above calculates the times of the sun in the UTC timezone.
    If you want to return times in a different timezone you can pass the
-   tzinfo parameter to the function.
+   `tzinfo` parameter to the function.
 
    .. code-block:: python
 
