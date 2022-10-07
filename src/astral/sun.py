@@ -190,9 +190,6 @@ def eq_of_time(juliancentury: float) -> float:
     return degrees(Etime) * 4.0
 
 
-# endregion
-
-
 def hour_angle(
     latitude: float, declination: float, zenith: float, direction: SunDirection
 ) -> float:
