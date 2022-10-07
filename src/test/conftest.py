@@ -42,7 +42,9 @@ def riyadh(riyadh_info: LocationInfo) -> Location:
 
 @pytest.fixture
 def wellington_info() -> LocationInfo:
-    return LocationInfo("Wellington","New Zealand","Pacific/Auckland",-41.33,174.766666)
+    return LocationInfo(
+        "Wellington", "New Zealand", "Pacific/Auckland", -41.33, 174.766666
+    )
 
 
 @pytest.fixture
