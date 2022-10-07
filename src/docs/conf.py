@@ -8,7 +8,7 @@ on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 
 project = "Astral"
 author = "Simon Kennedy"
-copyright = "2009-2020, %s" % author
+copyright = "2009-2022, %s" % author
 version = "2.2"
 release = "2.2"
 
