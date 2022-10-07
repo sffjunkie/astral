@@ -724,11 +724,34 @@ def dawn(
         dep = depression
 
     try:
-        return time_of_transit(
+        tot = time_of_transit(
             observer, date, 90.0 + dep, SunDirection.RISING
         ).astimezone(
             tzinfo  # type: ignore
         )
+
+        # If the dates don't match search on either the next or previous day.
+        tot_date = tot.date()
+        if tot_date != date:
+            if tot_date < date:
+                delta = datetime.timedelta(days=1)
+            else:
+                delta = datetime.timedelta(days=-1)
+            new_date = date + delta
+
+            tot = time_of_transit(
+                observer,
+                new_date,
+                90.0 + dep,
+                SunDirection.RISING,
+            ).astimezone(
+                tzinfo  # type: ignore
+            )
+            # Still can't get a time then raise the error
+            tot_date = tot.date()
+            if tot_date != date:
+                raise ValueError
+        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
@@ -764,7 +787,7 @@ def sunrise(
         date = today(tzinfo)  # type: ignore
 
     try:
-        return time_of_transit(
+        tot = time_of_transit(
             observer,
             date,
             90.0 + SUN_APPARENT_RADIUS,
@@ -772,6 +795,27 @@ def sunrise(
         ).astimezone(
             tzinfo  # type: ignore
         )
+
+        tot_date = tot.date()
+        if tot_date != date:
+            if tot_date < date:
+                delta = datetime.timedelta(days=1)
+            else:
+                delta = datetime.timedelta(days=-1)
+            new_date = date + delta
+
+            tot = time_of_transit(
+                observer,
+                new_date,
+                90.0 + SUN_APPARENT_RADIUS,
+                SunDirection.RISING,
+            ).astimezone(
+                tzinfo  # type: ignore
+            )
+            tot_date = tot.date()
+            if tot_date != date:
+                raise ValueError
+        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
@@ -811,7 +855,7 @@ def sunset(
         date = today(tzinfo)  # type: ignore
 
     try:
-        return time_of_transit(
+        tot = time_of_transit(
             observer,
             date,
             90.0 + SUN_APPARENT_RADIUS,
@@ -819,6 +863,26 @@ def sunset(
         ).astimezone(
             tzinfo  # type: ignore
         )
+        tot_date = tot.date()
+        if tot_date != date:
+            if tot_date < date:
+                delta = datetime.timedelta(days=1)
+            else:
+                delta = datetime.timedelta(days=-1)
+            new_date = date + delta
+
+            tot = time_of_transit(
+                observer,
+                new_date,
+                90.0 + SUN_APPARENT_RADIUS,
+                SunDirection.SETTING,
+            ).astimezone(
+                tzinfo  # type: ignore
+            )
+            tot_date = tot.date()
+            if tot_date != date:
+                raise ValueError
+        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
@@ -867,11 +931,31 @@ def dusk(
         dep = depression
 
     try:
-        return time_of_transit(
+        tot = time_of_transit(
             observer, date, 90.0 + dep, SunDirection.SETTING
         ).astimezone(
             tzinfo  # type: ignore
         )
+        tot_date = tot.date()
+        if tot_date != date:
+            if tot_date < date:
+                delta = datetime.timedelta(days=1)
+            else:
+                delta = datetime.timedelta(days=-1)
+            new_date = date + delta
+
+            tot = time_of_transit(
+                observer,
+                new_date,
+                90.0 + dep,
+                SunDirection.SETTING,
+            ).astimezone(
+                tzinfo  # type: ignore
+            )
+            tot_date = tot.date()
+            if tot_date != date:
+                raise ValueError
+        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
