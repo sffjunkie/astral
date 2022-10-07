@@ -20,7 +20,11 @@ def test_GeomMeanLongSun(jc: float, gmls: float):
 
 @pytest.mark.parametrize(
     "jc,gmas",
-    [(0.119986311, 4676.922342), (12.00844627, 432650.1681), (0.184134155, 6986.1838),],
+    [
+        (0.119986311, 4676.922342),
+        (12.00844627, 432650.1681),
+        (0.184134155, 6986.1838),
+    ],
 )
 def test_GeomAnomolyLongSun(jc: float, gmas: float):
     assert sun.geom_mean_anomaly_sun(jc) == pytest.approx(gmas)  # type: ignore
