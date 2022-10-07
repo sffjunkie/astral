@@ -22,7 +22,9 @@ extensions = [
 ]
 
 # intersphinx_mapping = {"python": ("http://docs.python.org/3", None)}
-intersphinx_mapping = {"python": ("http://docs.python.org/3", "python3_intersphinx.inv")}
+intersphinx_mapping = {
+    "python": ("http://docs.python.org/3", "python3_intersphinx.inv")
+}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
