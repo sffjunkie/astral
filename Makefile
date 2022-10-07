@@ -2,7 +2,7 @@
 
 all: clean test report html
 
-BUILDDIR=$(DEV_HOME)/build/astral
+BUILDDIR=$(DEVELOPMENT_HOME)/build/astral
 
 clean:
 	@COVERAGE_FILE=$(BUILDDIR)/.coverage coverage erase
