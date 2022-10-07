@@ -146,15 +146,17 @@ Sun
 
    .. code-block:: python
 
-      s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=city.timezone)
+       >>> city = LocationInfo("London", "England", "Europe/London", 51.5, -0.116)
+       >>> london = Location(city)
+       >>> s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=london.timezone)
 
-   In versions prior to 2.2 you'll need to pass a pytz timezone as tzinfo e.g.
+   or
 
    .. code-block:: python
 
-      s = sun(city.observer,
-              date=datetime.date(2009, 4, 22),
-              tzinfo=pytz.timezone(city.timezone))
+       >>> timezone = zoneinfo.ZoneInfo("Europe/London")
+       >>> s = sun(city.observer, date=datetime.date(2009, 4, 22), tzinfo=timezone)
+
 
 Moon
 ----
