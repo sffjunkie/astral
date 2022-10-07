@@ -30,6 +30,7 @@ The :mod:`astral` package provides the means to calculate the following times of
 * blue hour
 * golden hour
 * rahukaalam
+* moon rise, set, azimuth and zenith
 
 plus solar azimuth and elevation at a specific latitude/longitude.
 It can also calculate the moon phase for a specific date.
