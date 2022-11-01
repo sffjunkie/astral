@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "astral"
-version = "3.1"
+version = "3.2"
 description = "Calculations for the position of the sun and moon."
 keywords = ["sun", "moon", "sunrise", "sunset", "dawn", "dusk"]
 authors = ["Simon Kennedy <sffjunkie+code@gmail.com>"]
@@ -12,7 +12,6 @@ repository = "https://github.com/sffjunkie/astral"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -24,20 +23,19 @@ packages = [{ include = "astral", from = "src" }]
 include = ["src/doc", "src/test"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
-dataclasses = { version = "*", python = "<3.7" }
+python = "^3.7"
 "backports.zoneinfo" = { version = "*", markers = "python_version < '3.9'" }
 tzdata = { version = "*", markers = "sys_platform == 'win32'" }
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
-pytest = [
-    { version = "5.0.1", python = "<3.7" },
-    { version = "*", python = ">=3.7" },
-]
+pytest = "*"
 tox = "*"
 pylint = "^2.4.4"
 flake8 = "*"
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^5.3.0"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
