@@ -1,4 +1,4 @@
-"""Moon rise and set times
+"""Moon phase, rise and set times
 
 Right ascension, declination and distance of moon calcaulation
 from
@@ -402,6 +402,17 @@ def moonrise(
     date: Optional[datetime.date] = None,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Optional[datetime.datetime]:
+    """Calculate the moon rise time
+
+    Args:
+        observer: Observer to calculate moonrise for
+        date:     Date to calculate for. Default is today's date in the
+                  timezone `tzinfo`.
+        tzinfo:   Timezone to return times in. Default is UTC.
+
+    Returns:
+        Date and time at which moonrise occurs.
+    """
     if isinstance(tzinfo, str):
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 
@@ -436,6 +447,17 @@ def moonset(
     date: Optional[datetime.date] = None,
     tzinfo: Union[str, datetime.tzinfo] = datetime.timezone.utc,
 ) -> Optional[datetime.datetime]:
+    """Calculate the moon set time
+
+    Args:
+        observer: Observer to calculate moonset for
+        date:     Date to calculate for. Default is today's date in the
+                  timezone `tzinfo`.
+        tzinfo:   Timezone to return times in. Default is UTC.
+
+    Returns:
+        Date and time at which moonset occurs.
+    """
     if isinstance(tzinfo, str):
         tzinfo = zoneinfo.ZoneInfo(tzinfo)  # type: ignore
 

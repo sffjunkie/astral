@@ -864,11 +864,49 @@ then it is assumed to be in the UTC timezone.</p></li>
 </section>
 <section id="module-astral.moon">
 <span id="astral-moon"></span><h2>astral.moon<a class="headerlink" href="#module-astral.moon" title="Permalink to this headline">#</a></h2>
-<p>Moon rise and set times</p>
+<p>Moon phase, rise and set times</p>
 <p>Right ascension, declination and distance of moon calcaulation
 from</p>
 <p>LOW-PRECISION FORMULAE FOR PLANETARY POSITIONS
 <a class="reference external" href="http://articles.adsabs.harvard.edu/pdf/1979ApJS...41..391V">http://articles.adsabs.harvard.edu/pdf/1979ApJS…41..391V</a></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="astral.moon.moonrise">
+<span class="sig-prename descclassname"><span class="pre">astral.moon.</span></span><span class="sig-name descname"><span class="pre">moonrise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#astral.Observer" title="astral.Observer"><span class="pre">astral.Observer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="http://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.7)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><span class="pre">datetime.date</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tzinfo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="http://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.7)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.tzinfo" title="(in Python v3.7)"><span class="pre">datetime.tzinfo</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timezone.utc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="http://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.7)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#astral.moon.moonrise" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate the moon rise time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observer</strong> – Observer to calculate moonrise for</p></li>
+<li><p><strong>date</strong> – Date to calculate for. Default is today’s date in the
+timezone <cite>tzinfo</cite>.</p></li>
+<li><p><strong>tzinfo</strong> – Timezone to return times in. Default is UTC.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Date and time at which moonrise occurs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="astral.moon.moonset">
+<span class="sig-prename descclassname"><span class="pre">astral.moon.</span></span><span class="sig-name descname"><span class="pre">moonset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#astral.Observer" title="astral.Observer"><span class="pre">astral.Observer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="http://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.7)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><span class="pre">datetime.date</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tzinfo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="http://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.7)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.tzinfo" title="(in Python v3.7)"><span class="pre">datetime.tzinfo</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timezone.utc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="http://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.7)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#astral.moon.moonset" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate the moon set time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observer</strong> – Observer to calculate moonset for</p></li>
+<li><p><strong>date</strong> – Date to calculate for. Default is today’s date in the
+timezone <cite>tzinfo</cite>.</p></li>
+<li><p><strong>tzinfo</strong> – Timezone to return times in. Default is UTC.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Date and time at which moonset occurs.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="astral.moon.phase">
 <span class="sig-prename descclassname"><span class="pre">astral.moon.</span></span><span class="sig-name descname"><span class="pre">phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="http://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.7)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.7)"><span class="pre">datetime.date</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="http://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#astral.moon.phase" title="Permalink to this definition">#</a></dt>
