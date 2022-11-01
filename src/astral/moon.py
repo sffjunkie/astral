@@ -22,7 +22,7 @@ from astral.julian import julianday, julianday_2000
 from astral.sidereal import lmst
 from astral.table4 import Table4Row, table4_u, table4_v, table4_w
 
-__all__ = ["phase"]
+__all__ = ["moonrise", "moonset", "phase"]
 
 # Using 1896 arc seconds as moon's apparent diameter
 MOON_APPARENT_RADIUS = 1896.0 / (60.0 * 60.0)
