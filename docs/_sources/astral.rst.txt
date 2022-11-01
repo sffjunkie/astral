@@ -1,5 +1,0 @@
-astral
-======
-
-.. automodule:: astral
-   :members:

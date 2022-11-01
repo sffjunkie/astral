@@ -1,5 +1,0 @@
-astral.geocoder
-===============
-
-.. automodule:: astral.geocoder
-   :members:
