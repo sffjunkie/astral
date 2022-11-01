@@ -548,6 +548,8 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
+3.2        Dropped Pthon 3.6 support as it has reached "End of Life"
+---------- --------------------------------------------------------------------
 3.1        Fix for `issue #77`_
 ---------- --------------------------------------------------------------------
 3.0        Added moon rise, set, azimuth and zenith functions.https://github.com/sffjunkie/astral/issues/77
