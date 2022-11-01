@@ -83,24 +83,25 @@ templates_path = ["templates"]
 
 # region Options for HTML output ---------------------------------------------------
 
-if not on_rtd:
-    project_home = os.environ.get("PROJECT_HOME", None)
-    if not project_home:
-        dev_home = os.environ.get("DEV_HOME", None)
-        if dev_home:
-            project_home = os.path.join(os.path.expanduser(dev_home), "projects")
-    else:
-        project_home = os.path.expanduser(project_home)
+html_theme = "sphinx_book_theme"
+# if not on_rtd:
+#     project_home = os.environ.get("PROJECT_HOME", None)
+#     if not project_home:
+#         dev_home = os.environ.get("DEV_HOME", None)
+#         if dev_home:
+#             project_home = os.path.join(os.path.expanduser(dev_home), "projects")
+#     else:
+#         project_home = os.path.expanduser(project_home)
 
-    html_theme = None
-    if project_home:
-        theme_root = os.path.relpath(os.path.join(project_home, "themes", "sphinx"))
-        if os.path.exists(theme_root):
-            html_theme_path = [theme_root]
-            html_theme = "sffjunkie"
+#     html_theme = None
+#     if project_home:
+#         theme_root = os.path.relpath(os.path.join(project_home, "themes", "sphinx"))
+#         if os.path.exists(theme_root):
+#             html_theme_path = [theme_root]
+#             html_theme = "sffjunkie"
 
-    if not html_theme:
-        html_theme = "traditional"
+#     if not html_theme:
+#         html_theme = "traditional"
 # else:
 #     html_theme = "basic"
 
