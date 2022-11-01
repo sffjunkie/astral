@@ -548,7 +548,9 @@ Version History
 ========== ====================================================================
 Version    Description
 ========== ====================================================================
-3.0        Added moon rise, set, azimuth and zenith functions.
+3.1        Fix for `issue #77`_
+---------- --------------------------------------------------------------------
+3.0        Added moon rise, set, azimuth and zenith functions.https://github.com/sffjunkie/astral/issues/77
 
            Switched from pytz to `zoneinfo` provided as part of Python >= 3.9 or
            `backports.zoneinfo` for older versions.
@@ -780,6 +782,7 @@ Version    Description
 .. _refraction: https://en.wikipedia.org/wiki/Refraction
 .. _pip: https://pip.pypa.io/en/stable/
 .. _bug #48: https://github.com/sffjunkie/astral/issues/48
+.. _issue #77: https://github.com/sffjunkie/astral/issues/77
 
 .. |ghaction_status| image:: https://img.shields.io/github/workflow/status/sffjunkie/astral/astral-test
     :target: https://img.shields.io/github/workflow/status/sffjunkie/astral/
