@@ -6,7 +6,7 @@ keywords = ["sun", "moon", "sunrise", "sunset", "dawn", "dusk"]
 authors = ["Simon Kennedy <sffjunkie+code@gmail.com>"]
 license = "Apache-2.0"
 readme = "ReadMe.md"
-documentation = "https://astral.readthedocs.io/en/stable/index.html"
+documentation = "https://sffjunkie.github.io/astral"
 repository = "https://github.com/sffjunkie/astral"
 
 classifiers = [
@@ -35,7 +35,7 @@ pylint = "^2.4.4"
 flake8 = "*"
 
 [tool.poetry.group.docs.dependencies]
-Sphinx = "^5.3.0"
+sphinx-book-theme = "^0.3.3"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
