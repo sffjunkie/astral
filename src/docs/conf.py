@@ -7,8 +7,8 @@ on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 project = "Astral"
 author = "Simon Kennedy"
 copyright = "2009-2022, %s" % author
-version = "3.1"
-release = "3.1"
+version = "3.2"
+release = "3.2"
 
 extensions = [
     "sphinx.ext.autodoc",
