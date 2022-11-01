@@ -312,8 +312,14 @@ def time_of_transit(
         )
 
         delta = -observer.longitude - degrees(hourangle)
+
         eqtime = eq_of_time(jc)
-        timeUTC = 720.0 + delta * 4.0 - eqtime
+        offset = delta * 4.0 - eqtime
+
+        if offset < -720.0:
+            offset += 1440
+
+        timeUTC = 720.0 + offset
         adjustment = timeUTC / 1440.0
 
     td = minutes_to_timedelta(timeUTC)
@@ -705,6 +711,7 @@ def dawn(
     if date is None:
         date = today(tzinfo)  # type: ignore
     elif isinstance(date, datetime.datetime):
+        tzinfo = date.tzinfo or tzinfo
         date = date.date()
 
     dep: float = 0.0
@@ -740,7 +747,7 @@ def dawn(
             # Still can't get a time then raise the error
             tot_date = tot.date()
             if tot_date != date:
-                raise ValueError
+                raise ValueError("Unable to find a dawn time on the date specified")
         return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
@@ -776,6 +783,7 @@ def sunrise(
     if date is None:
         date = today(tzinfo)  # type: ignore
     elif isinstance(date, datetime.datetime):
+        tzinfo = date.tzinfo or tzinfo
         date = date.date()
 
     try:
@@ -806,7 +814,7 @@ def sunrise(
             )
             tot_date = tot.date()
             if tot_date != date:
-                raise ValueError
+                raise ValueError("Unable to find a sunrise time on the date specified")
         return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
@@ -846,6 +854,7 @@ def sunset(
     if date is None:
         date = today(tzinfo)  # type: ignore
     elif isinstance(date, datetime.datetime):
+        tzinfo = date.tzinfo or tzinfo
         date = date.date()
 
     try:
@@ -857,6 +866,7 @@ def sunset(
         ).astimezone(
             tzinfo  # type: ignore
         )
+
         tot_date = tot.date()
         if tot_date != date:
             if tot_date < date:
@@ -875,7 +885,7 @@ def sunset(
             )
             tot_date = tot.date()
             if tot_date != date:
-                raise ValueError
+                raise ValueError("Unable to find a sunset time on the date specified")
         return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
@@ -918,6 +928,7 @@ def dusk(
     if date is None:
         date = today(tzinfo)  # type: ignore
     elif isinstance(date, datetime.datetime):
+        tzinfo = date.tzinfo or tzinfo
         date = date.date()
 
     dep: float = 0.0
@@ -932,6 +943,7 @@ def dusk(
         ).astimezone(
             tzinfo  # type: ignore
         )
+
         tot_date = tot.date()
         if tot_date != date:
             if tot_date < date:
@@ -950,7 +962,7 @@ def dusk(
             )
             tot_date = tot.date()
             if tot_date != date:
-                raise ValueError
+                raise ValueError("Unable to find a dusk time on the date specified")
         return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
