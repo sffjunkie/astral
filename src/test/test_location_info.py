@@ -7,6 +7,7 @@ try:
 except ImportError:
     from backports import zoneinfo
 
+
 class TestLocationInfo:
     def test_Default(self):
         loc = LocationInfo()
@@ -28,5 +29,5 @@ class TestLocationInfo:
         li = LocationInfo()
         assert li.timezone_group == "Europe"
 
-    def test_tzinfo(self, new_delhi_info:LocationInfo):
+    def test_tzinfo(self, new_delhi_info: LocationInfo):
         assert new_delhi_info.tzinfo == zoneinfo.ZoneInfo("Asia/Kolkata")
