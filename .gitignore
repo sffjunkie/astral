@@ -11,6 +11,7 @@ _version.py
 poetry.lock
 poetry.toml
 .python-version
+artifact
 
 # Numerous always-ignore extensions
 *.diff
