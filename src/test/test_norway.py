@@ -1,8 +1,10 @@
-import pytest
-import astral
-from astral.location import Location
 from datetime import datetime, timedelta, timezone
+
+import pytest
+
+import astral
 from astral import sun
+from astral.location import Location
 
 
 def _next_event(obs: astral.Observer, dt: datetime, event: str):

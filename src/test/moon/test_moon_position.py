@@ -1,5 +1,6 @@
 from datetime import date
-from astral.moon import moon_position, julianday
+
+from astral.moon import julianday, moon_position
 
 
 def test_moon_position():

@@ -1,5 +1,7 @@
 import pytest
+
 from astral import LocationInfo
+
 try:
     import zoneinfo
 except ImportError:

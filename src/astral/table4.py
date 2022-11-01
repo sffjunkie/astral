@@ -1,5 +1,5 @@
 from math import cos, sin
-from typing import Callable, Dict, NamedTuple, List
+from typing import Callable, Dict, List, NamedTuple
 
 
 class Table4Row(NamedTuple):

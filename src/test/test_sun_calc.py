@@ -2,6 +2,7 @@ import datetime
 
 import freezegun
 import pytest
+
 from astral import Observer, sun, today
 from astral.location import Location
 

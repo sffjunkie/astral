@@ -1,10 +1,10 @@
 import datetime
 
 import pytest
+from almost_equal import datetime_almost_equal
+
 from astral import sun
 from astral.location import Location
-
-from almost_equal import datetime_almost_equal
 
 
 @pytest.mark.parametrize(

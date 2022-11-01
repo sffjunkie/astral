@@ -3,8 +3,8 @@ from datetime import datetime
 
 import freezegun
 import pytest
-
 from almost_equal import datetime_almost_equal
+
 from astral.geocoder import database, lookup
 from astral.location import Location
 from astral.sun import adjust_to_horizon, adjust_to_obscuring_feature, sunrise

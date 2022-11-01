@@ -1,8 +1,10 @@
 import datetime
+
 import pytest
+
 from astral import Observer
-from astral.moon import azimuth
 from astral.location import Location
+from astral.moon import azimuth
 
 
 @pytest.mark.parametrize(

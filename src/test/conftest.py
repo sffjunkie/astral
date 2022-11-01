@@ -1,4 +1,5 @@
 import pytest
+
 from astral import LocationInfo
 from astral.geocoder import LocationDatabase, database
 from astral.location import Location

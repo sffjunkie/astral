@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+from astral.geocoder import LocationDatabase, lookup
 from astral.location import LocationInfo
-from astral.geocoder import lookup, LocationDatabase
 
 
 def test_BuenosAries(test_database: LocationDatabase):

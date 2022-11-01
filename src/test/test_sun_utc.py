@@ -1,12 +1,14 @@
 # Test data taken from http://www.timeanddate.com/sun/uk/london
 
-from almost_equal import datetime_almost_equal
-import pytest
 import datetime
-import freezegun
-from astral import sun, LocationInfo, TimePeriod
-from astral.sun import Depression, SunDirection
 from typing import Tuple
+
+import freezegun
+import pytest
+from almost_equal import datetime_almost_equal
+
+from astral import LocationInfo, TimePeriod, sun
+from astral.sun import Depression, SunDirection
 
 
 @pytest.mark.parametrize(

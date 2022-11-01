@@ -1,4 +1,4 @@
-from astral.geocoder import all_locations, LocationDatabase
+from astral.geocoder import LocationDatabase, all_locations
 from astral.sun import noon
 
 

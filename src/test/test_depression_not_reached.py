@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+
 import pytest
+
 from astral import LocationInfo
 from astral.location import Location
-import datetime
 
 
 def test_Dawn_NeverReachesDepression():

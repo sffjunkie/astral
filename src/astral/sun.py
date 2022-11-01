@@ -17,10 +17,7 @@ from astral import (
     refraction_at_zenith,
     today,
 )
-from astral.julian import (
-    julianday,
-    julianday_to_juliancentury,
-)
+from astral.julian import julianday, julianday_to_juliancentury
 
 __all__ = [
     "sun",

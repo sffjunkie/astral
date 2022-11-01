@@ -9,8 +9,8 @@ except ImportError:
 
 import freezegun
 import pytest
-
 from almost_equal import datetime_almost_equal
+
 from astral import LocationInfo
 from astral.location import Location
 

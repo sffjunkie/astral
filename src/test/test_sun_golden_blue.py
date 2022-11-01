@@ -5,8 +5,8 @@ import datetime
 
 import freezegun
 import pytest
-
 from almost_equal import datetime_almost_equal
+
 from astral import TimePeriod, sun
 from astral.location import Location
 from astral.sun import SunDirection

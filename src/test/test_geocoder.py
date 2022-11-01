@@ -6,10 +6,11 @@ try:
     import zoneinfo
 except ImportError:
     from backports import zoneinfo
-from pytest import raises, approx  # type: ignore
 
-from astral import LocationInfo
+from pytest import approx, raises  # type: ignore
+
 import astral.geocoder
+from astral import LocationInfo
 from astral.geocoder import LocationDatabase
 
 
