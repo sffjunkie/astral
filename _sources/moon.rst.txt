@@ -1,5 +1,0 @@
-astral.moon
-===========
-
-.. automodule:: astral.moon
-   :members:

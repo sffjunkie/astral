@@ -1,85 +1,499 @@
 
+<!DOCTYPE html>
 
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Astral v3.1 &#8212; Astral 3.1 documentation</title>
     
-    <title>Astral v2.2 &mdash; Astral 2.2 documentation</title>
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
     
-    <link rel="stylesheet" href="_static/sffjunkie.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/astral.css" type="text/css" />
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/astral.css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-scrollspy.js"></script>
-    <script type="text/javascript">$('#sidebarwrapper').scrollspy();</script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <link rel="shortcut icon" href="_static/weather-sunny.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Astral 2.2 documentation" href="#" />
-    <link rel="next" title="The astral Package" href="package.html" /> 
-  </head>
-  <body data-spy="scroll">
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li><a href="#"><img src="_static/home.png" class="icon-home"/> Astral 2.2 documentation</a> &raquo;</li>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="package.html" title="The astral Package"
-             accesskey="N">next</a> |</li>
-        
-<li class="right">
-<form class="navbar-form" action="search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-</li> 
-      </ul>
-    </div>  
+    <link rel="next" title="The astral Package" href="package.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" data-spy="scroll">
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="#">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/earth_sun.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Astral 3.1 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="package.html">
+   The
+   <code class="xref py py-mod docutils literal notranslate">
+    <span class="pre">
+     astral
+    </span>
+   </code>
+   Package
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-  <div class="section" id="astral-vrelease">
-<h1>Astral v2.2<a class="headerlink" href="#astral-vrelease" title="Permalink to this headline">¶</a></h1>
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/index.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Astral v3.1
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examples">
+   Examples
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sun">
+     Sun
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#moon">
+     Moon
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#phase">
+       Phase
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geocoder">
+     Geocoder
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#custom-location">
+       Custom Location
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additional-locations">
+       Additional Locations
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#timezone-groups">
+       Timezone Groups
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#effect-of-elevation">
+   Effect of Elevation
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#times-of-the-sun">
+     Times Of The Sun
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#elevation-of-the-sun">
+     Elevation Of The Sun
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#effect-of-refraction">
+   Effect of Refraction
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license">
+   License
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation">
+   Installation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cities">
+   Cities
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#us-cities">
+     US Cities
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#thanks">
+   Thanks
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contact">
+   Contact
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#version-history">
+   Version History
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Astral v3.1</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Astral v3.1
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examples">
+   Examples
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sun">
+     Sun
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#moon">
+     Moon
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#phase">
+       Phase
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geocoder">
+     Geocoder
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#custom-location">
+       Custom Location
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additional-locations">
+       Additional Locations
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#timezone-groups">
+       Timezone Groups
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#effect-of-elevation">
+   Effect of Elevation
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#times-of-the-sun">
+     Times Of The Sun
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#elevation-of-the-sun">
+     Elevation Of The Sun
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#effect-of-refraction">
+   Effect of Refraction
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license">
+   License
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation">
+   Installation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cities">
+   Cities
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#us-cities">
+     US Cities
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#thanks">
+   Thanks
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contact">
+   Contact
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#version-history">
+   Version History
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="astral-vrelease">
+<h1>Astral v3.1<a class="headerlink" href="#astral-vrelease" title="Permalink to this headline">#</a></h1>
 <div class="line-block">
-<div class="line"><a class="reference external" href="https://travis-ci.org/sffjunkie/astral"><img alt="travis_status" src="https://travis-ci.org/sffjunkie/astral.svg?branch=master" /></a> <a class="reference external" href="https://pypi.org/project/astral/"><img alt="pypi_ver" src="https://img.shields.io/pypi/v/astral.svg" /></a></div>
+<div class="line"><a class="reference external" href="https://img.shields.io/github/workflow/status/sffjunkie/astral/"><img alt="ghaction_status" src="https://img.shields.io/github/workflow/status/sffjunkie/astral/astral-test" /></a> <a class="reference external" href="https://pypi.org/project/astral/"><img alt="pypi_ver" src="https://img.shields.io/pypi/v/astral.svg" /></a></div>
 </div>
 <p>Astral is a python package for calculating the times of various aspects of
-the sun and phases of the moon.</p>
+the sun and moon.</p>
 <p>It can calculate the following</p>
 <dl class="simple">
 <dt>Dawn</dt><dd><p>The time in the morning when the sun is a specific number of degrees
 below the horizon.</p>
 </dd>
 <dt>Sunrise</dt><dd><p>The time in the morning when the top of the sun breaks the horizon
-(asuming a location with no obscuring features.)</p>
+(assuming a location with no obscuring features.)</p>
 </dd>
 <dt>Noon</dt><dd><p>The time when the sun is at its highest point directly above the observer.</p>
 </dd>
@@ -116,67 +530,110 @@ setting sun.</p>
 that is considered inauspicious for any new venture according to Indian
 Vedic astrology”.</p>
 </dd>
+<dt>Moonrise and Moonset</dt><dd><p>Like the Sun but for the moon</p>
+</dd>
+<dt>Moon Azimuth and Zenith</dt><dd><p>Also like the Sun but for the moon</p>
+</dd>
 <dt>Moon Phase</dt><dd><p>The phase of the moon for a specified date.</p>
 </dd>
 </dl>
 <p>Astral also comes with a geocoder containing a local database that allows you
 to look up information for a small set of locations (<a class="reference internal" href="#additional-locations">new locations can be
 added</a>).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The Google Geocoder has been removed. Instead you should use the
-Google Client for Google Maps Services
-<a class="reference external" href="https://github.com/googlemaps/google-maps-services-python">https://github.com/googlemaps/google-maps-services-python</a></p>
-</div>
-</div>
-<div class="section" id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h1>
 <p>The following examples demonstrates some of the functionality available in the
 module</p>
-<div class="section" id="sun">
-<h2>Sun<a class="headerlink" href="#sun" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral</span> <span class="kn">import</span> <span class="n">LocationInfo</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">city</span> <span class="o">=</span> <span class="n">LocationInfo</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">,</span> <span class="s2">&quot;England&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe/London&quot;</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.116</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">((</span>
-<span class="go">    f&quot;Information for {city.name}/{city.region}\n&quot;</span>
-<span class="go">    f&quot;Timezone: {city.timezone}\n&quot;</span>
-<span class="go">    f&quot;Latitude: {city.latitude:.02f}; Longitude: {city.longitude:.02f}\n&quot;</span>
-<span class="go">))</span>
-
-<span class="go">Information for London/England</span>
-<span class="go">Timezone: Europe/London</span>
-<span class="go">Latitude: 51.50; Longitude: -0.12</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral.sun</span> <span class="kn">import</span> <span class="n">sun</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">sun</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">((</span>
-<span class="go">    f&#39;Dawn:    {s[&quot;dawn&quot;]}\n&#39;</span>
-<span class="go">    f&#39;Sunrise: {s[&quot;sunrise&quot;]}\n&#39;</span>
-<span class="go">    f&#39;Noon:    {s[&quot;noon&quot;]}\n&#39;</span>
-<span class="go">    f&#39;Sunset:  {s[&quot;sunset&quot;]}\n&#39;</span>
-<span class="go">    f&#39;Dusk:    {s[&quot;dusk&quot;]}\n&#39;</span>
-<span class="go">))</span>
-<span class="go">Dawn:    2009-04-22 04:13:04.923309+00:00</span>
-<span class="go">Sunrise: 2009-04-22 04:50:16.515411+00:00</span>
-<span class="go">Noon:    2009-04-22 11:59:02+00:00</span>
-<span class="go">Sunset:  2009-04-22 19:08:41.215821+00:00</span>
-<span class="go">Dusk:    2009-04-22 19:46:06.362457+00:00</span>
+<section id="sun">
+<h2>Sun<a class="headerlink" href="#sun" title="Permalink to this headline">#</a></h2>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astral</span> <span class="kn">import</span> <span class="n">LocationInfo</span>
+<span class="n">city</span> <span class="o">=</span> <span class="n">LocationInfo</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">,</span> <span class="s2">&quot;England&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe/London&quot;</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.116</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span>
+    <span class="sa">f</span><span class="s2">&quot;Information for </span><span class="si">{</span><span class="n">city</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">city</span><span class="o">.</span><span class="n">region</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;Timezone: </span><span class="si">{</span><span class="n">city</span><span class="o">.</span><span class="n">timezone</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;Latitude: </span><span class="si">{</span><span class="n">city</span><span class="o">.</span><span class="n">latitude</span><span class="si">:</span><span class="s2">.02f</span><span class="si">}</span><span class="s2">; Longitude: </span><span class="si">{</span><span class="n">city</span><span class="o">.</span><span class="n">longitude</span><span class="si">:</span><span class="s2">.02f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Information for London/England
+Timezone: Europe/London
+Latitude: 51.50; Longitude: -0.12
+</pre></div>
+</div>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">astral.sun</span> <span class="kn">import</span> <span class="n">sun</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">sun</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">((</span>
+    <span class="sa">f</span><span class="s1">&#39;Dawn:    </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;dawn&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="sa">f</span><span class="s1">&#39;Sunrise: </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;sunrise&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="sa">f</span><span class="s1">&#39;Noon:    </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;noon&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="sa">f</span><span class="s1">&#39;Sunset:  </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;sunset&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="sa">f</span><span class="s1">&#39;Dusk:    </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;dusk&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Dawn:    2009-04-22 04:13:04.997608+00:00
+Sunrise: 2009-04-22 04:50:17.127004+00:00
+Noon:    2009-04-22 11:59:02+00:00
+Sunset:  2009-04-22 19:08:41.711407+00:00
+Dusk:    2009-04-22 19:46:06.423846+00:00
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The example above calculates the times of the sun in the UTC timezone.
+If you want to return times in a different timezone you can pass the
+<cite>tzinfo</cite> parameter to the function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">city</span> <span class="o">=</span> <span class="n">LocationInfo</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">,</span> <span class="s2">&quot;England&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe/London&quot;</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.116</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">london</span> <span class="o">=</span> <span class="n">Location</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">sun</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">london</span><span class="o">.</span><span class="n">timezone</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timezone</span> <span class="o">=</span> <span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;Europe/London&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">sun</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">timezone</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="moon">
-<h2>Moon<a class="headerlink" href="#moon" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral</span> <span class="kn">import</span> <span class="n">moon</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">moon</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="go">13.255666666666668</span>
+</section>
+<section id="moon">
+<h2>Moon<a class="headerlink" href="#moon" title="Permalink to this headline">#</a></h2>
+<p>The moon rise/set times can be obtained like the sun’s functions</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astral</span> <span class="kn">import</span> <span class="n">LocationInfo</span>
+<span class="n">city</span> <span class="o">=</span> <span class="n">LocationInfo</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">,</span> <span class="s2">&quot;England&quot;</span><span class="p">,</span> <span class="s2">&quot;Europe/London&quot;</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.116</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">astral.moon</span> <span class="kn">import</span> <span class="n">moonrise</span>
+<span class="kn">from</span> <span class="nn">astral.location</span> <span class="kn">import</span> <span class="n">Location</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
+<span class="n">london</span> <span class="o">=</span> <span class="n">Location</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+<span class="n">rise</span> <span class="o">=</span> <span class="n">moonrise</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># returns a UTC time</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rise</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2021-10-28 22:02:00+00:00
+</pre></div>
+</div>
+<p>And for a local time</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">rise</span> <span class="o">=</span> <span class="n">moonrise</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">observer</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">city</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="phase">
+<h3>Phase<a class="headerlink" href="#phase" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">astral</span> <span class="kn">import</span> <span class="n">moon</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="n">moon</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">phase</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>13.255666666666668
 </pre></div>
 </div>
 <p>The moon phase method returns an number describing the phase, where the value
 is between 0 and 27.99. The following lists the mapping of various values to
 the description of the phase of the moon.</p>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 46%" />
 <col style="width: 54%" />
@@ -211,9 +668,10 @@ names in various languages and the correct Unicode glyphs see the
 <a class="reference external" href="https://github.com/PanderMusubi/lunar-phase-calendar/">project by PanderMusubi</a>
 on Github.</p>
 </div>
-</div>
-<div class="section" id="geocoder">
-<h2>Geocoder<a class="headerlink" href="#geocoder" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="geocoder">
+<h2>Geocoder<a class="headerlink" href="#geocoder" title="Permalink to this headline">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral.geocoder</span> <span class="kn">import</span> <span class="n">database</span><span class="p">,</span> <span class="n">lookup</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lookup</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">,</span> <span class="n">database</span><span class="p">())</span>
 <span class="go">LocationInfo(name=&#39;London&#39;, region=&#39;England&#39;, timezone=&#39;Europe/London&#39;,</span>
@@ -228,8 +686,8 @@ sun. These are not required for the calculations, only the elevation of the
 observer above/below the location is needed.</p>
 <p>See <a class="reference internal" href="#effect-of-elevation">Effect of Elevation</a> below.</p>
 </div>
-<div class="section" id="custom-location">
-<h3>Custom Location<a class="headerlink" href="#custom-location" title="Permalink to this headline">¶</a></h3>
+<section id="custom-location">
+<h3>Custom Location<a class="headerlink" href="#custom-location" title="Permalink to this headline">#</a></h3>
 <p>If you only need a single location that is not in the database then you can
 construct a <a class="reference internal" href="package.html#astral.LocationInfo" title="astral.LocationInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocationInfo</span></code></a> and fill in the values, either on
 initialization</p>
@@ -251,9 +709,9 @@ initialization</p>
 <p class="admonition-title">Note</p>
 <p><cite>name</cite> and <cite>region</cite> can be anything you like.</p>
 </div>
-</div>
-<div class="section" id="additional-locations">
-<span id="id1"></span><h3>Additional Locations<a class="headerlink" href="#additional-locations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="additional-locations">
+<span id="id1"></span><h3>Additional Locations<a class="headerlink" href="#additional-locations" title="Permalink to this headline">#</a></h3>
 <p>You can add to the list of available locations using the
 <a class="reference internal" href="package.html#astral.geocoder.add_locations" title="astral.geocoder.add_locations"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_locations()</span></code></a> function and passing either a string
 with one line per location or by passing a list containing strings, lists or
@@ -272,24 +730,27 @@ tuples (lists and tuples are passed directly to the LocationInfo constructor).</
 <span class="go">    latitude=24.466666666666665, longitude=39.6)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="timezone-groups">
-<h3>Timezone Groups<a class="headerlink" href="#timezone-groups" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="timezone-groups">
+<h3>Timezone Groups<a class="headerlink" href="#timezone-groups" title="Permalink to this headline">#</a></h3>
 <p>Timezone groups such as Europe can be accessed via the <code class="xref py py-func docutils literal notranslate"><span class="pre">group()</span></code> function
 in the <a class="reference internal" href="package.html#module-astral.geocoder" title="astral.geocoder"><code class="xref py py-mod docutils literal notranslate"><span class="pre">geocoder</span></code></a> module</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astral.geocoder</span> <span class="kn">import</span> <span class="n">group</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">europe</span> <span class="o">=</span> <span class="n">group</span><span class="p">(</span><span class="s2">&quot;europe&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">europe</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="go">[&#39;aberdeen&#39;, &#39;amsterdam&#39;, &#39;andorra_la_vella&#39;, &#39;ankara&#39;, &#39;athens&#39;, ...]</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astral.geocoder</span> <span class="kn">import</span> <span class="n">group</span><span class="p">,</span> <span class="n">database</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">database</span><span class="p">()</span>
+<span class="n">europe</span> <span class="o">=</span> <span class="n">group</span><span class="p">(</span><span class="s2">&quot;europe&quot;</span><span class="p">,</span> <span class="n">db</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">europe</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">4</span><span class="p">])</span>
 </pre></div>
 </div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;aberdeen&#39;, &#39;amsterdam&#39;, &#39;andorra_la_vella&#39;, &#39;ankara&#39;]
+</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="effect-of-elevation">
-<h1>Effect of Elevation<a class="headerlink" href="#effect-of-elevation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="times-of-the-sun">
-<h2>Times Of The Sun<a class="headerlink" href="#times-of-the-sun" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="effect-of-elevation">
+<h1>Effect of Elevation<a class="headerlink" href="#effect-of-elevation" title="Permalink to this headline">#</a></h1>
+<section id="times-of-the-sun">
+<h2>Times Of The Sun<a class="headerlink" href="#times-of-the-sun" title="Permalink to this headline">#</a></h2>
 <p>The times of the sun that you experience depend on what obscurs your view of
 it. It may either be obscured by the horizon or some other geographical
 feature (e.g. mountains)</p>
@@ -310,9 +771,9 @@ below the feature and your distance to it.</p></li>
 to the Observer as its elevation. For the second case pass a tuple of 2
 floats. The first being the vertical distance to the top of the feature and
 the second the horizontal distance to the feature.</p>
-</div>
-<div class="section" id="elevation-of-the-sun">
-<h2>Elevation Of The Sun<a class="headerlink" href="#elevation-of-the-sun" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="elevation-of-the-sun">
+<h2>Elevation Of The Sun<a class="headerlink" href="#elevation-of-the-sun" title="Permalink to this headline">#</a></h2>
 <p>Even though an observer’s elevation can significantly affect the times of the
 sun the same is not true for the elevation angle from the observer to the sun.</p>
 <p>As an example the diagram below shows the difference in angle between an
@@ -323,10 +784,10 @@ level is 1 degree. The difference then is approximately 0.15 degrees.</p>
 0.00338821 degrees.</p>
 <p>Due to the very small difference the astral package does not currently adjust
 the solar elevation for changes in observer elevation.</p>
-</div>
-</div>
-<div class="section" id="effect-of-refraction">
-<h1>Effect of Refraction<a class="headerlink" href="#effect-of-refraction" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section id="effect-of-refraction">
+<h1>Effect of Refraction<a class="headerlink" href="#effect-of-refraction" title="Permalink to this headline">#</a></h1>
 <p>When viewing the sun the position you see it at is different from its actual
 position due to the effect of atmospheric <a class="reference external" href="https://en.wikipedia.org/wiki/Refraction">refraction</a> which
 makes the sun appear to be higher in the sky. The calculations in the
@@ -340,29 +801,13 @@ astral package a value of 32” is used.</p>
 <p>The refraction calculation does not take into account
 temperature and pressure which can affect the angle of refraction.</p>
 </div>
-</div>
-<div class="section" id="note-on-localized-timezones">
-<h1>Note on Localized Timezones<a class="headerlink" href="#note-on-localized-timezones" title="Permalink to this headline">¶</a></h1>
-<p>When creating a datetime object in a specific timezone do not use the
-<cite>tzinfo</cite> parameter to the datetime constructor. Instead use the
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">localize()</span></code> method provided by pytz on the correct pytz
-timezone:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Europe/London&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
-<span class="go">datetime.datetime(2015, 1, 1, 9, 0, tzinfo=&lt;DstTzInfo &#39;Europe/London&#39; GMT0:00:00 STD&gt;)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="license">
-<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">#</a></h1>
 <p>This module is licensed under the terms of the <a class="reference external" href="http://www.opensource.org/licenses/apache2.0.php">Apache</a> V2.0 license.</p>
-</div>
-<div class="section" id="dependencies">
-<h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h1>
-<p>Astral has one required external Python dependency on <cite>pytz</cite>.</p>
-</div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h1>
 <p>To install Astral you should use the <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> tool:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">astral</span>
 </pre></div>
@@ -373,9 +818,9 @@ timezone:</p>
 Windows you should use the <cite>pip3</cite> command on all operating systems
 to ensure you are targetting the right Python version.</p>
 </div>
-</div>
-<div class="section" id="cities">
-<h1>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="cities">
+<h1>Cities<a class="headerlink" href="#cities" title="Permalink to this headline">#</a></h1>
 <p>The module includes location and time zone data for the following cities.
 The list includes all capital cities plus some from the UK. The list also
 includes the US state capitals and some other US cities.</p>
@@ -427,9 +872,9 @@ Tegucigalpa, Tehran, Thimphu, Tirana, Tirane, Tokyo, Toledo, Topeka, Torshavn,
 Trenton, Tripoli, Tunis, Ulaanbaatar, Ulan Bator, Vaduz, Valletta, Vienna,
 Vientiane, Vilnius, Virginia Beach, W. Indies, Warsaw, Washington DC,
 Wellington, Wichita, Willemstad, Wilmington, Windhoek, Wolverhampton,
-Yamoussoukro, Yangon, Yaounde, Yaren, Yerevan, Zagreb</p>
-<div class="section" id="us-cities">
-<h2>US Cities<a class="headerlink" href="#us-cities" title="Permalink to this headline">¶</a></h2>
+Yamoussoukro, Yangon, Yaounde, Yaren, Yerevan, Zagreb, Zurich</p>
+<section id="us-cities">
+<h2>US Cities<a class="headerlink" href="#us-cities" title="Permalink to this headline">#</a></h2>
 <p>Albany, Albuquerque, Anchorage, Annapolis, Atlanta, Augusta, Austin, Baltimore,
 Baton Rouge, Billings, Birmingham, Bismarck, Boise, Boston, Bridgeport,
 Buffalo, Burlington, Carson City, Charleston, Charlotte, Cheyenne, Chicago,
@@ -443,10 +888,10 @@ Orlando, Philadelphia, Phoenix, Pierre, Portland, Portland, Providence,
 Raleigh, Richmond, Sacramento, Saint Paul, Salem, Salt Lake City, San Diego,
 San Francisco, Santa Fe, Seattle, Sioux Falls, Springfield, Tallahassee,
 Toledo, Topeka, Trenton, Virginia Beach, Wichita, Wilmington</p>
-</div>
-</div>
-<div class="section" id="thanks">
-<h1>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section id="thanks">
+<h1>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">#</a></h1>
 <p>The sun calculations in this module were adapted, for Python, from the
 spreadsheets on the following page.</p>
 <blockquote>
@@ -469,28 +914,42 @@ spreadsheets on the following page.</p>
 <div class="line">Robert Walraven Of The University Of California, Davis</div>
 </div>
 </div></blockquote>
-<p>The moon phase calculation is based on some javascript code
+<p>Moon position calculations from</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">LOW-PRECISION FORMULAE FOR PLANETARY POSITIONS</div>
+<div class="line">T. C. Van Flandern and K. F. Pulkkinen</div>
+</div>
+</div></blockquote>
+<p>And from</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Astronomical Algorithms</div>
+<div class="line">Jean Meeus</div>
+</div>
+</div></blockquote>
+<p>The moon phase calculation is based on javascript code
 from Sky and Telescope magazine</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line">Moon-phase calculation</div>
 <div class="line">Roger W. Sinnott, Sky &amp; Telescope, June 16, 2006.</div>
-<div class="line"><a class="reference external" href="http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html">http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html</a></div>
+<div class="line"><a class="reference external" href="https://skyandtelescope.org/observing/the-phase-of-the-moon/">https://skyandtelescope.org/observing/the-phase-of-the-moon/</a></div>
 </div>
 </div></blockquote>
-<p>Also to <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> for making doc generation an easy thing (not that the writing
+<p>Also to <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> for making doc generation an easy thing (not that the writing
 of the docs is any easier.)</p>
-</div>
-<div class="section" id="contact">
-<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="contact">
+<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">#</a></h1>
 <p>Simon Kennedy &lt;<a class="reference external" href="mailto:sffjunkie+code&#37;&#52;&#48;gmail&#46;com">sffjunkie+code<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
-</div>
-<div class="section" id="version-history">
-<h1>Version History<a class="headerlink" href="#version-history" title="Permalink to this headline">¶</a></h1>
-<table class="docutils align-default">
+</section>
+<section id="version-history">
+<h1>Version History<a class="headerlink" href="#version-history" title="Permalink to this headline">#</a></h1>
+<table class="table">
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 87%" />
+<col style="width: 9%" />
+<col style="width: 91%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Version</p></th>
@@ -498,11 +957,23 @@ of the docs is any easier.)</p>
 </tr>
 </thead>
 <tbody>
+<tr class="row-even"><td><p>3.1</p></td>
+<td><p>Fix for <a class="reference external" href="https://github.com/sffjunkie/astral/issues/77">issue #77</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>3.0</p></td>
+<td><p>Added moon rise, set, azimuth and zenith functions.https://github.com/sffjunkie/astral/issues/77</p>
+<p>Switched from pytz to <cite>zoneinfo</cite> provided as part of Python &gt;= 3.9 or
+<cite>backports.zoneinfo</cite> for older versions.</p>
+<p>In some circumstances the result of the calculation of rise and
+set times would return information for a different date. This
+has now been fixed.</p>
+</td>
+</tr>
 <tr class="row-even"><td><p>2.2</p></td>
 <td><p>Fix for <a class="reference external" href="https://github.com/sffjunkie/astral/issues/48">bug #48</a> - As per the bug report the angle to adjust for
 the effect of elevation should have been θ (not α).</p>
-<p>The sun functions can now be passed a timezone name as a string as
-well as tzinfo.</p>
+<p>The sun functions can now also be passed a timezone name as a
+string. Previously only a pytz timezone was accepted.</p>
 </td>
 </tr>
 <tr class="row-odd"><td><p>2.1</p></td>
@@ -731,86 +1202,46 @@ outside valid ranges.</p>
 </table>
 <div class="toctree-wrapper compound">
 </div>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="package.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The <code class="xref py py-mod docutils literal notranslate"><span class="pre">astral</span></code> Package</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Simon Kennedy<br/>
+  
+      &copy; Copyright 2009-2022, Simon Kennedy.<br/>
+</p>
+        </footer>
+    </div>
+    
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3>Table Of Contents</h3>
-  <ul>
-<li><a class="reference internal" href="#">Astral v2.2</a></li>
-<li><a class="reference internal" href="#examples">Examples</a><ul>
-<li><a class="reference internal" href="#sun">Sun</a></li>
-<li><a class="reference internal" href="#moon">Moon</a></li>
-<li><a class="reference internal" href="#geocoder">Geocoder</a><ul>
-<li><a class="reference internal" href="#custom-location">Custom Location</a></li>
-<li><a class="reference internal" href="#additional-locations">Additional Locations</a></li>
-<li><a class="reference internal" href="#timezone-groups">Timezone Groups</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#effect-of-elevation">Effect of Elevation</a><ul>
-<li><a class="reference internal" href="#times-of-the-sun">Times Of The Sun</a></li>
-<li><a class="reference internal" href="#elevation-of-the-sun">Elevation Of The Sun</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#effect-of-refraction">Effect of Refraction</a></li>
-<li><a class="reference internal" href="#note-on-localized-timezones">Note on Localized Timezones</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
-<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#cities">Cities</a><ul>
-<li><a class="reference internal" href="#us-cities">US Cities</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#thanks">Thanks</a></li>
-<li><a class="reference internal" href="#contact">Contact</a></li>
-<li><a class="reference internal" href="#version-history">Version History</a></li>
-</ul>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <h4>Next topic</h4>
-  <p class="topless"><a href="package.html"
-                        title="next chapter">The <code class="xref py py-mod docutils literal notranslate"><span class="pre">astral</span></code> Package</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li><a href="#"><img src="_static/home.png" class="icon-home"/> Astral 2.2 documentation</a> &raquo;</li>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="package.html" title="The astral Package"
-             >next</a> |</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2009-2020, Simon Kennedy.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.3.1.
-    </div>
+
   </body>
 </html>
