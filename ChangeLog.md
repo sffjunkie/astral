@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.2 2022-11-05
+
+### Changed
+
+- Removed support for Python 3.6 as it has reached "End of Life"
+
+- Documentation now hosted on [Github Pages](https://sffjunkie.github.io/astral/)
+
 ## 3.1 2022-11-01
 
 ### Bug Fix
