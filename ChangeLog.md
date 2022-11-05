@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.1 2022-11-01
+
+### Bug Fix
+
+- Fix for issue [#77](https://github.com/sffjunkie/astral/issues/77)
+
 ## 3.0 2022-10-07
 
 ### Added
