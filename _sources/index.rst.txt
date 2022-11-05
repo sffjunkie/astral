@@ -549,6 +549,9 @@ Version History
 Version    Description
 ========== ====================================================================
 3.2        Dropped Python 3.6 support as it has reached "End of Life"
+
+           Documentation now hosted on
+           [Github Pages](https://sffjunkie.github.io/astral/)
 ---------- --------------------------------------------------------------------
 3.1        Fix for `issue #77`_
 ---------- --------------------------------------------------------------------
