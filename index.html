@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Astral v3.1 &#8212; Astral 3.1 documentation</title>
+    <title>Astral v3.2 &#8212; Astral 3.2 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="_static/earth_sun.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Astral 3.1 documentation</h1>
+      <h1 class="site-logo" id="site-title">Astral 3.2 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -233,7 +233,7 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Astral v3.1
+   Astral v3.2
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -350,7 +350,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Astral v3.1</h1>
+                <h1>Astral v3.2</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -362,7 +362,7 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Astral v3.1
+   Astral v3.2
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -481,7 +481,7 @@ title="Print to PDF"
               <div>
                 
   <section id="astral-vrelease">
-<h1>Astral v3.1<a class="headerlink" href="#astral-vrelease" title="Permalink to this headline">#</a></h1>
+<h1>Astral v3.2<a class="headerlink" href="#astral-vrelease" title="Permalink to this headline">#</a></h1>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://img.shields.io/github/workflow/status/sffjunkie/astral/"><img alt="ghaction_status" src="https://img.shields.io/github/workflow/status/sffjunkie/astral/astral-test" /></a> <a class="reference external" href="https://pypi.org/project/astral/"><img alt="pypi_ver" src="https://img.shields.io/pypi/v/astral.svg" /></a></div>
 </div>
@@ -957,10 +957,13 @@ of the docs is any easier.)</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>3.1</p></td>
+<tr class="row-even"><td><p>3.2</p></td>
+<td><p>Dropped Python 3.6 support as it has reached “End of Life”</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.1</p></td>
 <td><p>Fix for <a class="reference external" href="https://github.com/sffjunkie/astral/issues/77">issue #77</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>3.0</p></td>
+<tr class="row-even"><td><p>3.0</p></td>
 <td><p>Added moon rise, set, azimuth and zenith functions.https://github.com/sffjunkie/astral/issues/77</p>
 <p>Switched from pytz to <cite>zoneinfo</cite> provided as part of Python &gt;= 3.9 or
 <cite>backports.zoneinfo</cite> for older versions.</p>
@@ -969,19 +972,19 @@ set times would return information for a different date. This
 has now been fixed.</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>2.2</p></td>
+<tr class="row-odd"><td><p>2.2</p></td>
 <td><p>Fix for <a class="reference external" href="https://github.com/sffjunkie/astral/issues/48">bug #48</a> - As per the bug report the angle to adjust for
 the effect of elevation should have been θ (not α).</p>
 <p>The sun functions can now also be passed a timezone name as a
 string. Previously only a pytz timezone was accepted.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>2.1</p></td>
+<tr class="row-even"><td><p>2.1</p></td>
 <td><p>Fix for bug #44 - Incorrectly raised exception when UTC sun times
 were on the day previous to the day asked for. Only manifested for
 timezones with a large positive offset.</p></td>
 </tr>
-<tr class="row-even"><td><p>2.0</p></td>
+<tr class="row-odd"><td><p>2.0</p></td>
 <td><p>This is a code refactor as well as an update so it is highly likely
 that you will need to adapt your code to suit.</p>
 <p>Astral, AstralGeocoder &amp; GoogleGeocoder classes removed</p>
@@ -1002,86 +1005,86 @@ respectively.</p>
 <p>Rahukaalam can now be calculated for night times.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>1.10.1</p></td>
+<tr class="row-even"><td><p>1.10.1</p></td>
 <td><p>Keyword args are now passed to the geocoder class from Astral
 __init__ in order to allow the Google Maps API key to be passed to
 the GoogleGeocoder.</p></td>
 </tr>
-<tr class="row-even"><td><p>1.10</p></td>
+<tr class="row-odd"><td><p>1.10</p></td>
 <td><p>Added support to AstralGeocoder to add
 <a class="reference internal" href="#additional-locations">additional locations</a>
 to the database.</p></td>
 </tr>
-<tr class="row-odd"><td><p>1.9.2</p></td>
+<tr class="row-even"><td><p>1.9.2</p></td>
 <td><p>1.9 broke the sun_utc method. Sun UTC calculation passed incorrect
 parameter to more specific methods e.g. sunrise, sunset etc.</p></td>
 </tr>
-<tr class="row-even"><td><p>1.9.1</p></td>
+<tr class="row-odd"><td><p>1.9.1</p></td>
 <td><p>Correct version number in astral.py</p></td>
 </tr>
-<tr class="row-odd"><td><p>1.9</p></td>
+<tr class="row-even"><td><p>1.9</p></td>
 <td><p>Now takes elevation into account.</p></td>
 </tr>
-<tr class="row-even"><td><p>1.8</p></td>
+<tr class="row-odd"><td><p>1.8</p></td>
 <td><p>Location methods now allow the timezone to be None which returns all
 times as UTC.</p>
 <p>Added command line interface to return ‘sun’ values</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>1.7.1</p></td>
+<tr class="row-even"><td><p>1.7.1</p></td>
 <td><p>Changed GoogleGeocoder test to not use raise…from as this is not
 valid for Python 2</p></td>
 </tr>
-<tr class="row-even"><td><p>1.7</p></td>
+<tr class="row-odd"><td><p>1.7</p></td>
 <td><p>Requests is now only needed when using GoogleGeocoder</p>
 <p>GoogleGeocoder now requires the <cite>api_key</cite> parameter to be passed to
 the constructor as Google now require it for their API calls.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>1.6.1</p></td>
+<tr class="row-even"><td><p>1.6.1</p></td>
 <td><p>Updates for Travis CI integration / Github signed release.</p></td>
 </tr>
-<tr class="row-even"><td><p>1.6</p></td>
+<tr class="row-odd"><td><p>1.6</p></td>
 <td><p>Added api_key parameter to the GoogleGeocoder <code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>
 method</p></td>
 </tr>
-<tr class="row-odd"><td><p>1.5</p></td>
+<tr class="row-even"><td><p>1.5</p></td>
 <td><p>Added parameter <cite>rtype</cite> to <code class="xref py py-meth docutils literal notranslate"><span class="pre">moon_phase()</span></code> to determine the
 return type of the method.</p>
 <p>Added example for calculating the phase of the moon.</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>1.4.1</p></td>
+<tr class="row-odd"><td><p>1.4.1</p></td>
 <td><p>Using versioneer to manage version numbers</p></td>
 </tr>
-<tr class="row-odd"><td><p>1.4</p></td>
+<tr class="row-even"><td><p>1.4</p></td>
 <td><p>Changed to use calculations from NOAA spreadsheets</p>
 <p>Changed some exception error messages for when sun does not reach
 a requested elevation.</p>
 <p>Added more tests</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>1.3.4</p></td>
+<tr class="row-odd"><td><p>1.3.4</p></td>
 <td><p>Changes to project configuration files. No user facing changes.</p></td>
 </tr>
-<tr class="row-odd"><td><p>1.3.3</p></td>
+<tr class="row-even"><td><p>1.3.3</p></td>
 <td><p>Fixed call to twilight_utc as date and direction parameters
 were reversed.</p></td>
 </tr>
-<tr class="row-even"><td><p>1.3.2</p></td>
+<tr class="row-odd"><td><p>1.3.2</p></td>
 <td><p>Updated URL to point to gitgub.com</p>
 <p>Added Apache 2.0 boilerplate to source file</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>1.3.1</p></td>
+<tr class="row-even"><td><p>1.3.1</p></td>
 <td><p>Added LICENSE file to sdist</p></td>
 </tr>
-<tr class="row-even"><td><p>1.3</p></td>
+<tr class="row-odd"><td><p>1.3</p></td>
 <td><p>Corrected solar zenith to return the angle from the vertical.</p>
 <p>Added solar midnight calculation.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>1.2</p></td>
+<tr class="row-even"><td><p>1.2</p></td>
 <td><p>Added handling for when unicode literals are used. This may possibly
 affect your code if you’re using Python 2 (there are tests for this
 but they may not catch all uses.) (Bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1588198">1588198</a>)</p>
@@ -1089,30 +1092,30 @@ but they may not catch all uses.) (Bug <a class="reference external" href="https
 (Bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1561258">1561258</a>)</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>1.1</p></td>
+<tr class="row-odd"><td><p>1.1</p></td>
 <td><p>Added methods to calculate Twilight, the Golden Hour and the Blue
 Hour.</p></td>
 </tr>
-<tr class="row-odd"><td><p>1.0</p></td>
+<tr class="row-even"><td><p>1.0</p></td>
 <td><p>It’s time for a version 1.0</p>
 <p>Added examples where the location you want is not in the Astral
 geocoder.</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>0.9</p></td>
+<tr class="row-odd"><td><p>0.9</p></td>
 <td><p>Added a method to calculate the date and time when the sun is at a
 specific elevation, for either a rising or a setting sun.</p>
 <p>Added daylight and night methods to Location and Astral classes.</p>
 <p>Rahukaalam methods now return a tuple.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>0.8.2</p></td>
+<tr class="row-even"><td><p>0.8.2</p></td>
 <td><p>Fix for moon phase calcualtions which were off by 1.</p>
 <p>Use pytz.timezone().localize method instead of passing tzinfo
 parameter to datetime.datetime. See the <a class="reference external" href="http://pytz.sourceforge.net/#localized-times-and-date-arithmetic">pytz docs</a> for info</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>0.8.1</p></td>
+<tr class="row-odd"><td><p>0.8.1</p></td>
 <td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1417641">1417641</a>: <code class="xref py py-meth docutils literal notranslate"><span class="pre">solar_elevation()</span></code> and
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">solar_azimuth()</span></code> fail when a naive
 <a class="reference external" href="http://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> object is used.</p>
@@ -1122,28 +1125,28 @@ alias for <code class="xref py py-meth docutils literal notranslate"><span class
 <p>Added <cite>tzinfo</cite> as an alias for <cite>tz</cite></p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>0.8</p></td>
+<tr class="row-even"><td><p>0.8</p></td>
 <td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1407773">1407773</a>: Moon phase calculation changed to remove
 time zone parameter (tz) as it is not required for the calculation.</p></td>
 </tr>
-<tr class="row-even"><td><p>0.7.5</p></td>
+<tr class="row-odd"><td><p>0.7.5</p></td>
 <td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1402103">1402103</a>: Buenos Aires incorrect timezone</p></td>
 </tr>
-<tr class="row-odd"><td><p>0.7.4</p></td>
+<tr class="row-even"><td><p>0.7.4</p></td>
 <td><p>Added Canadian cities from Yip Shing Ho</p></td>
 </tr>
-<tr class="row-even"><td><p>0.7.3</p></td>
+<tr class="row-odd"><td><p>0.7.3</p></td>
 <td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1239387">1239387</a> submitted by Torbjörn Lönnemark</p></td>
 </tr>
-<tr class="row-odd"><td><p>0.7.2</p></td>
+<tr class="row-even"><td><p>0.7.2</p></td>
 <td><p>Minor bug fix in <code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleGeocoder</span></code>. location name and
 region are now stripped of whitespace</p></td>
 </tr>
-<tr class="row-even"><td><p>0.7.1</p></td>
+<tr class="row-odd"><td><p>0.7.1</p></td>
 <td><p>Bug fix. Missed a vital return statement in the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleGeocoder</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>0.7</p></td>
+<tr class="row-even"><td><p>0.7</p></td>
 <td><p>Added ability to lookup location information from
 Google’s mapping APIs (see <code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleGeocoder</span></code>)</p>
 <p>Renamed <code class="xref py py-class docutils literal notranslate"><span class="pre">City</span></code> class to <code class="xref py py-class docutils literal notranslate"><span class="pre">Location</span></code></p>
@@ -1152,16 +1155,16 @@ Google’s mapping APIs (see <code class="xref py py-class docutils literal notr
 obtain elevation from <code class="xref py py-class docutils literal notranslate"><span class="pre">Location</span></code> class</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>0.6.2</p></td>
+<tr class="row-odd"><td><p>0.6.2</p></td>
 <td><p>Added various cities to database as per
 <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/1040936">https://bugs.launchpad.net/astral/+bug/1040936</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>0.6.1</p></td>
+<tr class="row-even"><td><p>0.6.1</p></td>
 <td><p>Docstrings were not updated to match changes to code.</p>
 <p>Other minor docstring changes made</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>0.6</p></td>
+<tr class="row-odd"><td><p>0.6</p></td>
 <td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/884716">884716</a> submitted by Martin Heemskerk
 regarding moon phase calculations</p>
 <p>Fixes for bug report <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/944754">944754</a> submitted by Hajo Werder</p>
@@ -1172,13 +1175,13 @@ are now positive</p></li>
 </ul>
 </td>
 </tr>
-<tr class="row-odd"><td><p>0.5</p></td>
+<tr class="row-even"><td><p>0.5</p></td>
 <td><p>Changed <code class="xref py py-class docutils literal notranslate"><span class="pre">City</span></code> to accept unicode name and country.</p>
 <p>Moved city information into a database class <code class="xref py py-class docutils literal notranslate"><span class="pre">CityDB</span></code></p>
 <p>Added attribute access to database for timezone groups</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>0.4</p></td>
+<tr class="row-odd"><td><p>0.4</p></td>
 <td><p>Duplicate city names could not be accessed.</p>
 <p>Sun calculations for some cities failed with times
 outside valid ranges.</p>
@@ -1186,16 +1189,16 @@ outside valid ranges.</p>
 <p>Added calculation for moon phase.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>0.3</p></td>
+<tr class="row-even"><td><p>0.3</p></td>
 <td><p>Changed to <a class="reference external" href="http://www.opensource.org/licenses/apache2.0.php">Apache</a> V2.0 license.</p>
 <p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/555508">555508</a> submitted by me.</p>
 <p>US state capitals and other cities added.</p>
 </td>
 </tr>
-<tr class="row-even"><td><p>0.2</p></td>
+<tr class="row-odd"><td><p>0.2</p></td>
 <td><p>Fix for bug <a class="reference external" href="https://bugs.launchpad.net/astral/+bug/554041">554041</a> submitted by Derek_ / John Dimatos</p></td>
 </tr>
-<tr class="row-odd"><td><p>0.1</p></td>
+<tr class="row-even"><td><p>0.1</p></td>
 <td><p>First release</p></td>
 </tr>
 </tbody>
