@@ -1,6 +1,6 @@
 import datetime
 
-import pytest
+import pytest  # type: ignore
 
 from astral import Observer
 from astral.location import Location

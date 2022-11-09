@@ -15,7 +15,7 @@ from typing import Callable, List, Optional, Union
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 from astral import AstralBodyPosition, Observer, now, today
 from astral.julian import julianday, julianday_2000

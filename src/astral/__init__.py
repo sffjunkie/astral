@@ -51,7 +51,7 @@ from typing import Optional, Tuple, Union
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 
 __all__ = [

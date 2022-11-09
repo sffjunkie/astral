@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
-import pytest
+import pytest  # type: ignore
 
 import astral
 from astral import sun

@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-import pytest
-
-try:
-    import zoneinfo
-except ImportError:
-    from backports import zoneinfo
-
+import pytest  # type: ignore
 from almost_equal import datetime_almost_equal
 
 from astral import moon
@@ -107,8 +101,8 @@ def test_moonset_riyadh_utc(
 def test_moonrise_wellington(
     date_: datetime.date, risetime: datetime.datetime, wellington: Location
 ):
-    risetime = risetime.replace(tzinfo=wellington.tz)
-    calc_time = moon.moonrise(wellington.observer, date_, tzinfo=wellington.tz)
+    risetime = risetime.replace(tzinfo=wellington.tzinfo)
+    calc_time = moon.moonrise(wellington.observer, date_, tzinfo=wellington.tzinfo)
     assert calc_time is not None
     calc_time = calc_time.astimezone(wellington.tzinfo)
     assert datetime_almost_equal(calc_time, risetime, seconds=120)

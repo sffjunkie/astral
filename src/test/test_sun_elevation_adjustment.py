@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+import pytest  # type: ignore
 
-import freezegun
-import pytest
-from almost_equal import datetime_almost_equal
-
-from astral.geocoder import database, lookup
-from astral.location import Location
-from astral.sun import adjust_to_horizon, adjust_to_obscuring_feature, sunrise
+from astral.sun import adjust_to_horizon, adjust_to_obscuring_feature
 
 
 class TestElevationAdjustment:

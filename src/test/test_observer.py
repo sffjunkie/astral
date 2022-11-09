@@ -1,3 +1,4 @@
+# type: ignore
 import pytest
 
 from astral import Observer

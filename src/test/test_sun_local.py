@@ -1,6 +1,6 @@
 import datetime
 
-import pytest
+import pytest  # type: ignore
 from almost_equal import datetime_almost_equal
 
 from astral import sun

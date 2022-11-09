@@ -5,7 +5,7 @@ from typing import Dict, Optional, Tuple, Union
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 from astral import (
     Depression,
@@ -444,7 +444,7 @@ def noon(
         second,
         tzinfo=datetime.timezone.utc,
     )
-    return noon.astimezone(tzinfo)  # type: ignore pylint: disable=E1120
+    return noon.astimezone(tzinfo)  # type: ignore # pylint: disable=E1120
 
 
 def midnight(

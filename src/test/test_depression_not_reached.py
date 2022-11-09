@@ -2,7 +2,7 @@
 
 import datetime
 
-import pytest
+import pytest  # type: ignore
 
 from astral import LocationInfo
 from astral.location import Location

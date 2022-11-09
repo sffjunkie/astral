@@ -1,4 +1,4 @@
-import pytest
+import pytest  # type: ignore
 
 from astral import LocationInfo
 from astral.geocoder import LocationDatabase, database

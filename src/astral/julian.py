@@ -32,12 +32,12 @@ def julianday(
     year = at.year
     month = at.month
     day = at.day
-    day_fraction = 0
+    day_fraction = 0.0
     if isinstance(at, datetime.datetime):
         t = _time_to_seconds(at.time())
         day_fraction = t / (24 * 60 * 60)
     else:
-        day_fraction = 0
+        day_fraction = 0.0
 
     if month <= 2:
         year -= 1
@@ -102,7 +102,7 @@ def julianday_to_datetime(jd: float) -> datetime.datetime:
     d = int(365.25 * c)
     e = int((b - d) / 30.6001)
 
-    d = b - d - int(30.6001 * e) + f
+    d = b - d - int(30.6001 * e) + f  # type: ignore
     day = int(d)
     t = d - day
     total_seconds = t * (24 * 60 * 60)

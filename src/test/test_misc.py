@@ -1,9 +1,10 @@
+# type: ignore
 from datetime import timedelta
 
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 import freezegun
 from pytest import approx, raises

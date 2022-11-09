@@ -1,7 +1,7 @@
 import datetime
 
 import freezegun
-import pytest
+import pytest  # type: ignore
 
 from astral import Observer, sun, today
 from astral.location import Location
@@ -40,7 +40,9 @@ def test_GeomAnomolyLongSun(jc: float, gmas: float):
     ],
 )
 def test_EccentricityEarthOrbit(jc: float, eeo: float):
-    assert sun.eccentric_location_earth_orbit(jc) == pytest.approx(eeo, abs=1e-6)  # type: ignore
+    assert sun.eccentric_location_earth_orbit(jc) == pytest.approx(
+        eeo, abs=1e-6
+    )  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -186,29 +188,39 @@ def test_HourAngle(d: datetime.date, ha: float, london: Location):
 
 def test_Azimuth(new_delhi: Location):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.azimuth(new_delhi.observer, d) == pytest.approx(292.76, abs=0.1)  # type: ignore
+    assert sun.azimuth(new_delhi.observer, d) == pytest.approx(
+        292.76, abs=0.1
+    )  # type: ignore
 
 
 def test_Elevation(new_delhi: Location):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.elevation(new_delhi.observer, d) == pytest.approx(7.41, abs=0.1)  # type: ignore
+    assert sun.elevation(new_delhi.observer, d) == pytest.approx(
+        7.41, abs=0.1
+    )  # type: ignore
 
 
 def test_Elevation_NonNaive(new_delhi: Location):
-    d = datetime.datetime(2001, 6, 21, 18, 41, 0, tzinfo=new_delhi.tz)
-    assert sun.elevation(new_delhi.observer, d) == pytest.approx(7.41, abs=0.1)  # type: ignore
+    d = datetime.datetime(2001, 6, 21, 18, 41, 0, tzinfo=new_delhi.tzinfo)
+    assert sun.elevation(new_delhi.observer, d) == pytest.approx(
+        7.41, abs=0.1
+    )  # type: ignore
 
 
 def test_Elevation_WithoutRefraction(new_delhi: Location):
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.elevation(new_delhi.observer, d, with_refraction=False) == pytest.approx(  # type: ignore
+    assert sun.elevation(
+        new_delhi.observer, d, with_refraction=False
+    ) == pytest.approx(  # type: ignore
         7.29, abs=0.1
     )
 
 
 def test_Azimuth_Above85Degrees():
     d = datetime.datetime(2001, 6, 21, 13, 11, 0)
-    assert sun.azimuth(Observer(86, 77.2), d) == pytest.approx(276.21, abs=0.1)  # type: ignore
+    assert sun.azimuth(Observer(86, 77.2), d) == pytest.approx(
+        276.21, abs=0.1
+    )  # type: ignore
 
 
 def test_Elevation_Above85Degrees():

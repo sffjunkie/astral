@@ -5,10 +5,10 @@ import datetime
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 import freezegun
-import pytest
+import pytest  # type: ignore
 from almost_equal import datetime_almost_equal
 
 from astral import LocationInfo
@@ -57,13 +57,13 @@ class TestLocation:
 
     def test_Sun(self, london: Location):
         """Test Location's version of the sun calculation"""
-        ldt = datetime.datetime(2015, 8, 1, 5, 23, 20, tzinfo=london.tz)
+        ldt = datetime.datetime(2015, 8, 1, 5, 23, 20, tzinfo=london.tzinfo)
         sunrise = london.sun(datetime.date(2015, 8, 1))["sunrise"]
         assert datetime_almost_equal(sunrise, ldt)
 
     def test_Dawn(self, london: Location):
         """Test Location returns dawn times in the local timezone"""
-        ldt = datetime.datetime(2015, 8, 1, 4, 41, 44, tzinfo=london.tz)
+        ldt = datetime.datetime(2015, 8, 1, 4, 41, 44, tzinfo=london.tzinfo)
         dawn = london.dawn(datetime.date(2015, 8, 1))
         assert datetime_almost_equal(dawn, ldt)
         # assert dawn.tzinfo.zone == london.tzinfo.zone
@@ -76,7 +76,7 @@ class TestLocation:
         # assert dawn.tzinfo.zone == datetime.timezone.utc.zone
 
     def test_Sunrise(self, london: Location):
-        ldt = datetime.datetime(2015, 8, 1, 5, 23, 20, tzinfo=london.tz)
+        ldt = datetime.datetime(2015, 8, 1, 5, 23, 20, tzinfo=london.tzinfo)
         sunrise = london.sunrise(datetime.date(2015, 8, 1))
         assert datetime_almost_equal(sunrise, ldt)
         # assert sunrise.tzinfo.zone == london.tzinfo.zone
@@ -88,7 +88,7 @@ class TestLocation:
         # assert sunrise.tzinfo.zone == datetime.timezone.utc.zone
 
     def test_SolarNoon(self, london: Location):
-        ldt = datetime.datetime(2015, 8, 1, 13, 6, 53, tzinfo=london.tz)
+        ldt = datetime.datetime(2015, 8, 1, 13, 6, 53, tzinfo=london.tzinfo)
         noon = london.noon(datetime.date(2015, 8, 1))
         assert datetime_almost_equal(noon, ldt)
         # assert noon.tzinfo.zone == london.tzinfo.zone
@@ -100,7 +100,7 @@ class TestLocation:
         # assert noon.tzinfo.zone == datetime.timezone.utc.zone
 
     def test_Dusk(self, london: Location):
-        ldt = datetime.datetime(2015, 12, 1, 16, 35, 11, tzinfo=london.tz)
+        ldt = datetime.datetime(2015, 12, 1, 16, 35, 11, tzinfo=london.tzinfo)
         dusk = london.dusk(datetime.date(2015, 12, 1))
         assert datetime_almost_equal(dusk, ldt)
         # assert dusk.tzinfo.zone == london.tzinfo.zone
@@ -112,7 +112,7 @@ class TestLocation:
         # assert dusk.tzinfo.zone == datetime.timezone.utc.zone
 
     def test_Sunset(self, london: Location):
-        ldt = datetime.datetime(2015, 12, 1, 15, 55, 29, tzinfo=london.tz)
+        ldt = datetime.datetime(2015, 12, 1, 15, 55, 29, tzinfo=london.tzinfo)
         sunset = london.sunset(datetime.date(2015, 12, 1))
         assert datetime_almost_equal(sunset, ldt)
         # assert sunset.tzinfo.zone == london.tzinfo.zone
@@ -124,12 +124,12 @@ class TestLocation:
         # assert sunset.tzinfo.zone == datetime.timezone.utc.zone
 
     def test_SolarElevation(self, riyadh: Location):
-        dt = datetime.datetime(2015, 12, 14, 8, 0, 0, tzinfo=riyadh.tz)
+        dt = datetime.datetime(2015, 12, 14, 8, 0, 0, tzinfo=riyadh.tzinfo)
         elevation = riyadh.solar_elevation(dt)
         assert abs(elevation - 17) < 0.5
 
     def test_SolarAzimuth(self, riyadh: Location):
-        dt = datetime.datetime(2015, 12, 14, 8, 0, 0, tzinfo=riyadh.tz)
+        dt = datetime.datetime(2015, 12, 14, 8, 0, 0, tzinfo=riyadh.tzinfo)
         azimuth = riyadh.solar_azimuth(dt)
         assert abs(azimuth - 126) < 0.5
 
@@ -137,7 +137,7 @@ class TestLocation:
         test_data = {datetime.date(2016, 1, 5): datetime.datetime(2016, 1, 5, 10, 0)}
 
         for day, cdt in test_data.items():
-            cdt = cdt.replace(tzinfo=new_delhi.tz)
+            cdt = cdt.replace(tzinfo=new_delhi.tzinfo)
             dt = new_delhi.time_at_elevation(28, day)
             assert datetime_almost_equal(dt, cdt, seconds=600)
 

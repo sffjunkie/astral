@@ -1,5 +1,4 @@
 import datetime
-from pprint import pprint
 
 from almost_equal import datetime_almost_equal
 

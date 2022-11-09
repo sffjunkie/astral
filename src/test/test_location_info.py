@@ -1,3 +1,4 @@
+# type: ignore
 import pytest
 
 from astral import LocationInfo
@@ -5,7 +6,7 @@ from astral import LocationInfo
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 
 class TestLocationInfo:

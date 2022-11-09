@@ -5,7 +5,7 @@ from typing import List
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 from pytest import approx, raises  # type: ignore
 

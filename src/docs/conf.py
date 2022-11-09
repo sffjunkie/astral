@@ -26,7 +26,6 @@ sys.path.insert(0, os.path.join(os.path.abspath("..")))
 
 source_suffix = ".rst"
 master_doc = "index"
-exclude_trees = []
 
 pygments_style = "sphinx"
 

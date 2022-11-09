@@ -1,3 +1,4 @@
+# type: ignore
 # Test data taken from http://www.timeanddate.com/sun/uk/london
 
 import datetime
@@ -361,7 +362,9 @@ def test_SolarAzimuth(dt: datetime.datetime, angle: float, london: LocationInfo)
 
 @freezegun.freeze_time("2015-12-14 11:00:00", tz_offset=0)
 def test_SolarAzimuth_NoDate(london: LocationInfo):
-    assert sun.azimuth(london.observer) == pytest.approx(166.9676, abs=0.5)  # type: ignore
+    assert sun.azimuth(london.observer) == pytest.approx(
+        166.9676, abs=0.5
+    )  # type: ignore
 
 
 @pytest.mark.parametrize(

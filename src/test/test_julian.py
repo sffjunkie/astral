@@ -1,3 +1,4 @@
+# type: ignore
 import datetime
 from typing import Union
 

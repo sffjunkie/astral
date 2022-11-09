@@ -14,7 +14,7 @@ def test_value_error_bug():
     )
     ob = loc.observer
     sun = astral.sun.sun(ob, date=datetime.date(2022, 7, 20))
-    dawn = sun["dawn"]
+    sun["dawn"]
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ from astral import LocationInfo, Observer, sun
 try:
     import zoneinfo
 except ImportError:
-    from backports import zoneinfo
+    from backports import zoneinfo  # type: ignore
 
 options = argparse.ArgumentParser()
 options.add_argument(
@@ -54,20 +54,19 @@ if args.date is not None:
 sun_as_str = {}
 format_str = "%Y-%m-%dT%H:%M:%S"
 if args.tzname is None:
-    tzinfo = datetime.timezone.utc
+    kwargs["tzinfo"] = datetime.timezone.utc
     format_str += "Z"
 else:
-    tzinfo = zoneinfo.ZoneInfo(loc.timezone)
+    kwargs["tzinfo"] = zoneinfo.ZoneInfo(loc.timezone)
     format_str += "%z"
 
-kwargs["tzinfo"] = tzinfo
 
 s = sun.sun(**kwargs)
 
 for key, value in s.items():
     sun_as_str[key] = s[key].strftime(format_str)
 
-sun_as_str["timezone"] = tzinfo.tzname
+sun_as_str["timezone"] = kwargs["tzinfo"].tzname
 sun_as_str["location"] = f"{loc.name}, {loc.region}"
 
 print(json.dumps(sun_as_str))
