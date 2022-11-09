@@ -63,6 +63,10 @@ norecursedirs = [
 ]
 
 
+[tool.isort]
+profile = "black"
+lines_between_sections = 1
+
 [tool.mypy]
 cache_dir = "~/.cache/mypy"
 
