@@ -741,7 +741,7 @@ def dawn(
             )
             # Still can't get a time then raise the error
             tot_date = tot.date()
-            if tot_date != date:
+            if tot_date != date - delta:
                 raise ValueError("Unable to find a dawn time on the date specified")
         return tot
     except ValueError as exc:
