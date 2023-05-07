@@ -311,7 +311,10 @@ def time_of_transit(
         delta = -observer.longitude - degrees(hourangle)
 
         eqtime = eq_of_time(jc)
-        timeUTC = delta * 4.0 - eqtime
+        offset = delta * 4.0 - eqtime
+        if offset > 720.0:
+            offset += 1440
+        timeUTC = 720.0 + offset
         adjustment = timeUTC / 1440.0
 
     td = minutes_to_timedelta(timeUTC)
@@ -876,7 +879,7 @@ def sunset(
                 tzinfo  # type: ignore
             )
             tot_date = tot.date()
-            if tot_date != date:
+            if tot_date != date - delta:
                 raise ValueError("Unable to find a sunset time on the date specified")
         return tot
     except ValueError as exc:
