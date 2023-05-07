@@ -311,12 +311,7 @@ def time_of_transit(
         delta = -observer.longitude - degrees(hourangle)
 
         eqtime = eq_of_time(jc)
-        offset = delta * 4.0 - eqtime
-
-        if offset < -720.0:
-            offset += 1440
-
-        timeUTC = 720.0 + offset
+        timeUTC = delta * 4.0 - eqtime
         adjustment = timeUTC / 1440.0
 
     td = minutes_to_timedelta(timeUTC)
