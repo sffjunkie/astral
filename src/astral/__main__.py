@@ -22,7 +22,11 @@ options.add_argument(
     "-r", "--region", dest="region", default="On Earth", help="Region (free-form text)"
 )
 options.add_argument(
-    "-d", "--date", dest="date", help="Date to compute times for (yyyy-mm-dd)"
+    "-d", "--date",
+    dest="date",
+    type=datetime.date.fromisoformat,
+    default=datetime.date.today(),
+    help="Date to compute times for (yyyy-mm-dd)",
 )
 options.add_argument("-t", "--tzname", help="Timezone name")
 options.add_argument("latitude", type=float, help="Location latitude (float)")
@@ -44,12 +48,7 @@ obs = Observer(args.latitude, args.longitude, args.elevation)
 
 kwargs: Dict[str, Any] = {}
 kwargs["observer"] = obs
-
-if args.date is not None:
-    try:
-        kwargs["date"] = datetime.datetime.strptime(args.date, "%Y-%m-%d").date()
-    except:  # noqa: E722
-        kwargs["date"] = datetime.date.today()
+kwargs["date"] = args.date
 
 sun_as_str = {}
 format_str = "%Y-%m-%dT%H:%M:%S"

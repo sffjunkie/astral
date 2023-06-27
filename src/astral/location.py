@@ -60,7 +60,7 @@ class Location:
 
     def __repr__(self) -> str:
         if self.region:
-            _repr = "%s/%s" % (self.name, self.region)
+            _repr = f"{self.name}/{self.region}"
         else:
             _repr = self.name
         return (
@@ -157,7 +157,7 @@ class Location:
     @timezone.setter
     def timezone(self, name: str) -> None:
         if name not in zoneinfo.available_timezones():  # type: ignore
-            raise ValueError("Timezone '%s' not recognized" % name)
+            raise ValueError(f"Timezone {name!r} not recognized")
 
         self._location_info = dataclasses.replace(self._location_info, timezone=name)
 
@@ -170,7 +170,7 @@ class Location:
             return tz  # type: ignore
         except zoneinfo.ZoneInfoNotFoundError as exc:  # type: ignore
             raise ValueError(
-                "Unknown timezone '%s'" % self._location_info.timezone
+                f"Unknown timezone {self._location_info.timezone!r}"
             ) from exc
 
     tz = tzinfo
