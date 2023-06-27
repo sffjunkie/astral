@@ -12,10 +12,10 @@ repository = "https://github.com/sffjunkie/astral"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
 ]
 
 packages = [{ include = "astral", from = "src" }]
@@ -23,7 +23,7 @@ packages = [{ include = "astral", from = "src" }]
 include = ["src/doc", "src/test"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 "backports.zoneinfo" = { version = "*", markers = "python_version < '3.9'" }
 tzdata = { version = "*", markers = "sys_platform == 'win32'" }
 
