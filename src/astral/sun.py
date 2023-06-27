@@ -273,12 +273,7 @@ def time_of_transit(
     Returns:
         the time when the sun transits the specificed zenith
     """
-    if observer.latitude > 89.8:
-        latitude = 89.8
-    elif observer.latitude < -89.8:
-        latitude = -89.8
-    else:
-        latitude = observer.latitude
+    latitude = min(max(-89.8, observer.latitude), 89.8)
 
     adjustment_for_elevation = 0.0
     if isinstance(observer.elevation, float) and observer.elevation > 0.0:
@@ -521,13 +516,7 @@ def zenith_and_azimuth(
     dateandtime: datetime.datetime,
     with_refraction: bool = True,
 ) -> Tuple[float, float]:
-    if observer.latitude > 89.8:
-        latitude = 89.8
-    elif observer.latitude < -89.8:
-        latitude = -89.8
-    else:
-        latitude = observer.latitude
-
+    latitude = min(max(-89.8, observer.latitude), 89.8)
     longitude = observer.longitude
 
     if dateandtime.tzinfo is None:
@@ -568,25 +557,14 @@ def zenith_and_azimuth(
     cd = cos(radians(declination))
 
     csz = cl * cd * ch + sl * sd
-
-    if csz > 1.0:
-        csz = 1.0
-    elif csz < -1.0:
-        csz = -1.0
-
+    csz = min(max(-1, csz), 1)
     zenith = degrees(acos(csz))
 
     azDenom = cl * sin(radians(zenith))
 
     if abs(azDenom) > 0.001:
         azRad = ((sl * cos(radians(zenith))) - sd) / azDenom
-
-        if abs(azRad) > 1.0:
-            if azRad < 0:
-                azRad = -1.0
-            else:
-                azRad = 1.0
-
+        azRad = min(max(-1, azRad), 1)
         azimuth = 180.0 - degrees(acos(azRad))
 
         if hourangle > 0.0:

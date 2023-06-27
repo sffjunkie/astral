@@ -133,11 +133,7 @@ def dms_to_float(
             ) from exc
 
     if limit is not None:
-        if res > limit:
-            res = limit
-        elif res < -limit:
-            res = -limit
-
+        res = min(max(-limit, res), limit)
     return res
 
 
