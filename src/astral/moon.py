@@ -256,11 +256,7 @@ def moon_transit_event(
     x = cl * sd - sl * cd * ch
     y = -cd * sh
 
-    az = degrees(atan2(y, x))
-    if az < 0:
-        az += 360
-    if az > 360:
-        az -= 360
+    az = degrees(atan2(y, x)) % 360
 
     event_time = datetime.time(h, m, 0)
     if window[0].distance < 0 and window[2].distance > 0:
@@ -556,19 +552,19 @@ def _phase_asfloat(date: datetime.date) -> float:
     t3 = pow(t, 3)
 
     d = 297.85 + (445267.1115 * t) - (0.0016300 * t2) + (t3 / 545868)
-    d = radians(d % 360.0)
+    d = radians(d % 360)
 
     m = 357.53 + (35999.0503 * t)
-    m = radians(m % 360.0)
+    m = radians(m % 360)
 
     m1 = 134.96 + (477198.8676 * t) + (0.0089970 * t2) + (t3 / 69699)
-    m1 = radians(m1 % 360.0)
+    m1 = radians(m1 % 360)
 
     elong = degrees(d) + 6.29 * sin(m1)
     elong -= 2.10 * sin(m)
     elong += 1.27 * sin(2 * d - m1)
     elong += 0.66 * sin(2 * d)
-    elong = elong % 360.0
+    elong = elong % 360
     elong = int(elong)
     moon = ((elong + 6.43) / 360) * 28
     return moon
@@ -595,7 +591,5 @@ def phase(date: Optional[datetime.date] = None) -> float:
     if date is None:
         date = today()
 
-    moon = _phase_asfloat(date)
-    if moon >= 28.0:
-        moon -= 28.0
+    moon = _phase_asfloat(date) % 28
     return moon

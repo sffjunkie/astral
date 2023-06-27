@@ -47,7 +47,7 @@ SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
 def geom_mean_long_sun(juliancentury: float) -> float:
     """Calculate the geometric mean longitude of the sun"""
     l0 = 280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury)
-    return l0 % 360.0
+    return l0 % 360
 
 
 def geom_mean_anomaly_sun(juliancentury: float) -> float:
@@ -291,13 +291,10 @@ def time_of_transit(
         delta = -observer.longitude - degrees(hourangle)
 
         eqtime = eq_of_time(jc)
-        offset = delta * 4.0 - eqtime
+        offset = delta * 4 - eqtime
 
-        if offset < -720.0:
-            offset += 1440
-
-        timeUTC = 720.0 + offset
-        adjustment = timeUTC / 1440.0
+        timeUTC = (720 + offset) % 1440
+        adjustment = timeUTC / 1440
 
     dt = (
         datetime.datetime(date.year, date.month, date.day, tzinfo=datetime.timezone.utc)
@@ -469,8 +466,7 @@ def zenith_and_azimuth(
     )
     #    in minutes as a float, fractional part is seconds
 
-    while trueSolarTime > 1440:
-        trueSolarTime = trueSolarTime - 1440
+    trueSolarTime %= 1440
 
     hourangle = trueSolarTime / 4.0 - 180.0
     #    Thanks to Louis Schwarzmayr for the next line:
@@ -503,8 +499,7 @@ def zenith_and_azimuth(
         else:
             azimuth = 0.0
 
-    if azimuth < 0.0:
-        azimuth = azimuth + 360.0
+    azimuth %= 360
 
     if with_refraction:
         zenith -= refraction_at_zenith(zenith)
