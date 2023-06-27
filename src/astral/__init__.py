@@ -164,7 +164,7 @@ def time_to_hours(value: datetime.time) -> float:
     hours += value.hour
     hours += value.minute / 60
     hours += value.second / 3600
-    hours += value.microsecond / 1000000
+    hours += value.microsecond / 3_600_000_000
 
     return hours
 
