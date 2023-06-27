@@ -9,7 +9,7 @@ http://articles.adsabs.harvard.edu/pdf/1979ApJS...41..391V
 
 import datetime
 from dataclasses import dataclass, field, replace
-from math import asin, atan2, cos, degrees, fabs, pi, radians, sin, sqrt
+from math import asin, atan2, cos, degrees, fabs, hypot, pi, radians, sin, sqrt
 from typing import Callable, List, Optional, Union
 
 try:
@@ -531,7 +531,7 @@ def elevation(
     y = -sh * cd
 
     z = ch * cd * cl + sd * sl
-    r = sqrt(x * x + y * y)
+    r = hypot(x, y)
     elevation = degrees(atan2(z, r))
 
     return elevation

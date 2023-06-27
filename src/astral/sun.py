@@ -1,5 +1,5 @@
 import datetime
-from math import acos, asin, atan2, cos, degrees, fabs, radians, sin, sqrt, tan
+from math import acos, asin, atan2, cos, degrees, fabs, hypot, radians, sin, tan
 from typing import Dict, Optional, Tuple, Union
 
 try:
@@ -231,7 +231,7 @@ def adjust_to_obscuring_feature(elevation: Tuple[float, float]) -> float:
 
     sign = -1 if elevation[0] < 0 else 1
     return sign * degrees(
-        acos(fabs(elevation[0]) / sqrt(pow(elevation[0], 2) + pow(elevation[1], 2)))
+        acos(fabs(elevation[0]) / hypot(elevation[0], elevation[1]))
     )
 
 
