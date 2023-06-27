@@ -25,7 +25,7 @@ from astral.table4 import Table4Row, table4_u, table4_v, table4_w
 __all__ = ["moonrise", "moonset", "phase"]
 
 # Using 1896 arc seconds as moon's apparent diameter
-MOON_APPARENT_RADIUS = 1896.0 / (60.0 * 60.0)
+MOON_APPARENT_RADIUS = 1896 / (60 * 60)
 
 Degrees = float
 Radians = float
@@ -139,9 +139,9 @@ def moon_position(jd2000: float) -> AstralBodyPosition:
     T = jd2000 / 36525 + 1
 
     def _calc_value(table: List[Table4Row]) -> float:
-        result = 0.0
+        result = 0
         for row in table:
-            revolutions: float = 0.0
+            revolutions: float = 0
             for arg_number, multiplier in row.argument_multiplers.items():
                 if multiplier != 0:
                     arg_value = argument_values[arg_number - 1]
@@ -188,7 +188,7 @@ def moon_transit_event(
         window: Sliding window of moon positions that covers a part of the day
     """
     mst = radians(lmst)
-    hour_angle = [0.0, 0.0, 0.0]
+    hour_angle = [0, 0, 0]
 
     k1 = radians(15 * 1.0027379097096138907193594760917)
 
@@ -547,7 +547,7 @@ def zenith(
 def _phase_asfloat(date: datetime.date) -> float:
     jd = julianday(date)
     dt = pow((jd - 2382148), 2) / (41048480 * 86400)
-    t = (jd + dt - 2451545.0) / 36525
+    t = (jd + dt - 2451545) / 36525
     t2 = pow(t, 2)
     t3 = pow(t, 3)
 

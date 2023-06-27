@@ -32,7 +32,7 @@ options.add_argument("-t", "--tzname", help="Timezone name")
 options.add_argument("latitude", type=float, help="Location latitude (float)")
 options.add_argument("longitude", type=float, help="Location longitude (float)")
 options.add_argument(
-    "elevation", nargs="?", type=float, default=0.0, help="Elevation in metres (float)"
+    "elevation", nargs="?", type=float, default=0, help="Elevation in metres (float)"
 )
 args = options.parse_args()
 
