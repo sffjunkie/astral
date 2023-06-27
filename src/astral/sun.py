@@ -44,21 +44,6 @@ __all__ = [
 SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
 
 
-# region Backend
-def minutes_to_timedelta(minutes: float) -> datetime.timedelta:
-    """Convert a floating point number of minutes to a
-    :class:`~datetime.timedelta`
-    """
-    d = int(minutes / 1440)
-    minutes = minutes - (d * 1440)
-    minutes = minutes * 60
-    s = int(minutes)
-    sfrac = minutes - s
-    us = int(sfrac * 1_000_000)
-
-    return datetime.timedelta(days=d, seconds=s, microseconds=us)
-
-
 def geom_mean_long_sun(juliancentury: float) -> float:
     """Calculate the geometric mean longitude of the sun"""
     l0 = 280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury)
@@ -314,9 +299,10 @@ def time_of_transit(
         timeUTC = 720.0 + offset
         adjustment = timeUTC / 1440.0
 
-    td = minutes_to_timedelta(timeUTC)
-    dt = datetime.datetime(date.year, date.month, date.day) + td
-    dt = dt.replace(tzinfo=datetime.timezone.utc)  # pylint: disable=E1120
+    dt = (
+        datetime.datetime(date.year, date.month, date.day, tzinfo=datetime.timezone.utc)
+        + datetime.timedelta(minutes=timeUTC)
+    )
     return dt
 
 
@@ -405,39 +391,9 @@ def noon(
     eqtime = eq_of_time(jc)
     timeUTC = (720.0 - (4 * observer.longitude) - eqtime) / 60.0
 
-    hour = int(timeUTC)
-    minute = int((timeUTC - hour) * 60)
-    second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-    if second > 59:
-        second -= 60
-        minute += 1
-    elif second < 0:
-        second += 60
-        minute -= 1
-
-    if minute > 59:
-        minute -= 60
-        hour += 1
-    elif minute < 0:
-        minute += 60
-        hour -= 1
-
-    if hour > 23:
-        hour -= 24
-        date += datetime.timedelta(days=1)
-    elif hour < 0:
-        hour += 24
-        date -= datetime.timedelta(days=1)
-
-    noon = datetime.datetime(
-        date.year,
-        date.month,
-        date.day,
-        hour,
-        minute,
-        second,
-        tzinfo=datetime.timezone.utc,
+    noon = (
+        datetime.datetime(date.year, date.month, date.day, tzinfo=datetime.timezone.utc)
+        + datetime.timedelta(hours=timeUTC)
     )
     return noon.astimezone(tzinfo)  # type: ignore # pylint: disable=E1120
 
@@ -475,38 +431,10 @@ def midnight(
 
     eqtime = eq_of_time(newt)
     timeUTC = (-observer.longitude * 4.0) - eqtime
-
     timeUTC = timeUTC / 60.0
-    hour = int(timeUTC)
-    minute = int((timeUTC - hour) * 60)
-    second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-    if second > 59:
-        second -= 60
-        minute += 1
-    elif second < 0:
-        second += 60
-        minute -= 1
-
-    if minute > 59:
-        minute -= 60
-        hour += 1
-    elif minute < 0:
-        minute += 60
-        hour -= 1
-
-    if hour < 0:
-        hour += 24
-        date -= datetime.timedelta(days=1)
-
-    midnight = datetime.datetime(
-        date.year,
-        date.month,
-        date.day,
-        hour,
-        minute,
-        second,
-        tzinfo=datetime.timezone.utc,
+    midnight = (
+        datetime.datetime(date.year, date.month, date.day, tzinfo=datetime.timezone.utc)
+        + datetime.timedelta(hours=timeUTC)
     )
     return midnight.astimezone(tzinfo)  # type: ignore
 
