@@ -12,6 +12,10 @@ poetry.lock
 poetry.toml
 .python-version
 artifact
+.mypy_cache
+.pytest_cache
+.pdm-python
+.pdm-build
 
 # Numerous always-ignore extensions
 *.diff
@@ -71,3 +75,4 @@ MANIFEST
 # build script local files
 build/buildinfo.properties
 build/config/buildinfo.properties
+.pdm-python
