@@ -789,8 +789,7 @@ Version    Description
 .. _bug #48: https://github.com/sffjunkie/astral/issues/48
 .. _issue #77: https://github.com/sffjunkie/astral/issues/77
 
-.. |ghaction_status| image:: https://img.shields.io/github/workflow/status/sffjunkie/astral/astral-test
-    :target: https://img.shields.io/github/workflow/status/sffjunkie/astral/
+.. |ghaction_status| image:: https://img.shields.io/github/actions/workflow/status/sffjunkie/astral/astral-test.yml
 
 .. |pypi_ver| image:: https://img.shields.io/pypi/v/astral.svg
     :target: https://pypi.org/project/astral/

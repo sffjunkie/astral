@@ -11,4 +11,4 @@ For documentation see https://sffjunkie.github.io/astral/
 
 ## Package Status
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sffjunkie/astral/astral-test) ![PyPI - Downloads](https://img.shields.io/pypi/dm/astral)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/sffjunkie/astral/astral-test.yml) ![PyPI - Downloads](https://img.shields.io/pypi/dm/astral)
