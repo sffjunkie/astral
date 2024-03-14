@@ -35,6 +35,7 @@
         default = pkgs.mkShell {
           packages = [
             pkgs.pdm
+            pkgs.ruff
             pythonEnv
           ];
         };
