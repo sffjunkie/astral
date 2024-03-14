@@ -3,7 +3,7 @@ pypm := 'pdm'
 project := 'astral'
 
 home_dir := env_var('HOME')
-dev_home := env_var_or_default("DEVELOPMENT_HOME", "{{home_dir}}/development")
+dev_home := env_var_or_default("DEVELOPMENT_HOME", home_dir + "/development")
 cache_dir := dev_home + '/cache/' + project
 
 default:
@@ -13,9 +13,9 @@ default:
 lint:
     #!/bin/sh
     if command -v ruff &>/dev/null; then
-        ruff check src/{{project}}
+        ruff check --config "cache-dir = '{{cache_dir}}/ruff'" src/{{project}}
     else
-        pdm run ruff check src/{{project}}
+        pdm run ruff check --config "cache-dir = '{{cache_dir}}/ruff'" src/{{project}}
     fi
     if [ $? -eq 0 ]; then
         echo "ruff: no problems found"
