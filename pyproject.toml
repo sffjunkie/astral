@@ -33,6 +33,8 @@ dev = [
     "types-freezegun>=1.1.10",
     "tox>=4.14.1",
     "ruff>=0.3.2",
+    "pytest-cov>=4.1.0",
+    "flake8>=7.0.0",
 ]
 docs = ["sphinx-book-theme>=1.1.2"]
 
