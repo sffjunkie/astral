@@ -16,6 +16,8 @@ artifact
 .pytest_cache
 .pdm-python
 .pdm-build
+.direnv
+.envrc
 
 # Numerous always-ignore extensions
 *.diff
