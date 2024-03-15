@@ -1008,8 +1008,8 @@ def night(
 ) -> TimePeriod:
     """Calculate night start and end times.
 
-    Night is calculated to be between astronomical dusk on the
-    date specified and astronomical dawn of the next day.
+    Night is calculated to be between civil dusk on the
+    date specified and civil dawn of the next day.
 
     Args:
         observer:   Observer to calculate night for
@@ -1030,9 +1030,9 @@ def night(
     if date is None:
         date = today(tzinfo)  # type: ignore
 
-    start = dusk(observer, date, 6, tzinfo)
+    start = dusk(observer, date, Depression.CIVIL, tzinfo)
     tomorrow = date + datetime.timedelta(days=1)
-    end = dawn(observer, tomorrow, 6, tzinfo)
+    end = dawn(observer, tomorrow, Depression.CIVIL, tzinfo)
 
     return start, end
 
@@ -1046,8 +1046,7 @@ def twilight(
     """Returns the start and end times of Twilight
     when the sun is traversing in the specified direction.
 
-    This method defines twilight as being between the time
-    when the sun is at -6 degrees and sunrise/sunset.
+    This method defines twilight as being between civil dawn/dusk and sunrise/sunset.
 
     Args:
         observer:   Observer to calculate twilight for
@@ -1071,7 +1070,7 @@ def twilight(
     if date is None:
         date = today(tzinfo)  # type: ignore
 
-    start = time_of_transit(observer, date, 90 + 6, direction,).astimezone(
+    start = time_of_transit(observer, date, 90 + Depression.CIVIL.value, direction,).astimezone(
         tzinfo  # type: ignore
     )
     if direction == SunDirection.RISING:

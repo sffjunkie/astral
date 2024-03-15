@@ -500,8 +500,8 @@ class Location:
         local: bool = True,
         observer_elevation: Elevation = 0.0,
     ) -> Tuple[datetime.datetime, datetime.datetime]:
-        """Calculates the night time (the time between astronomical dusk and
-        astronomical dawn of the next day)
+        """Calculates the night time (the time between civil dusk and civil dawn
+        of the next day)
 
         :param date: The date for which to calculate the start of the night time.
                      If no date is specified then the current date will be used.
@@ -539,8 +539,7 @@ class Location:
         """Returns the start and end times of Twilight in the UTC timezone when
         the sun is traversing in the specified direction.
 
-        This method defines twilight as being between the time
-        when the sun is at -6 degrees and sunrise/sunset.
+        This method defines twilight as being between civil dawn/dusk and sunrise/sunset.
 
         :param direction:  Determines whether the time is for the sun rising or setting.
                            Use ``astral.SUN_RISING`` or ``astral.SunDirection.SETTING``.
