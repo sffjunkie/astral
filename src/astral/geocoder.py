@@ -469,8 +469,8 @@ def _locationinfo_from_str(info: str) -> LocationInfo:
         name=idxable[0],
         region=idxable[1],
         timezone=idxable[2],
-        latitude=dms_to_float(idxable[3], 90.0),
-        longitude=dms_to_float(idxable[4], 180.0),
+        latitude=dms_to_float(idxable[3], 90),
+        longitude=dms_to_float(idxable[4], 180),
     )
 
 
@@ -481,8 +481,8 @@ def _locationinfo_from_indexable(
         name=idxable[0],
         region=idxable[1],
         timezone=idxable[2],
-        latitude=dms_to_float(idxable[3], 90.0),
-        longitude=dms_to_float(idxable[4], 180.0),
+        latitude=dms_to_float(idxable[3], 90),
+        longitude=dms_to_float(idxable[4], 180),
     )
 
 

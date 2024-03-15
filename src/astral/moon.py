@@ -9,7 +9,7 @@ http://articles.adsabs.harvard.edu/pdf/1979ApJS...41..391V
 
 import datetime
 from dataclasses import dataclass, field, replace
-from math import asin, atan2, cos, degrees, fabs, pi, radians, sin, sqrt
+from math import asin, atan2, cos, degrees, fabs, hypot, pi, radians, sin, sqrt
 from typing import Callable, List, Optional, Union
 
 try:
@@ -25,7 +25,7 @@ from astral.table4 import Table4Row, table4_u, table4_v, table4_w
 __all__ = ["moonrise", "moonset", "phase"]
 
 # Using 1896 arc seconds as moon's apparent diameter
-MOON_APPARENT_RADIUS = 1896.0 / (60.0 * 60.0)
+MOON_APPARENT_RADIUS = 1896 / (60 * 60)
 
 Degrees = float
 Radians = float
@@ -139,9 +139,9 @@ def moon_position(jd2000: float) -> AstralBodyPosition:
     T = jd2000 / 36525 + 1
 
     def _calc_value(table: List[Table4Row]) -> float:
-        result = 0.0
+        result = 0
         for row in table:
-            revolutions: float = 0.0
+            revolutions: float = 0
             for arg_number, multiplier in row.argument_multiplers.items():
                 if multiplier != 0:
                     arg_value = argument_values[arg_number - 1]
@@ -188,7 +188,7 @@ def moon_transit_event(
         window: Sliding window of moon positions that covers a part of the day
     """
     mst = radians(lmst)
-    hour_angle = [0.0, 0.0, 0.0]
+    hour_angle = [0, 0, 0]
 
     k1 = radians(15 * 1.0027379097096138907193594760917)
 
@@ -256,11 +256,7 @@ def moon_transit_event(
     x = cl * sd - sl * cd * ch
     y = -cd * sh
 
-    az = degrees(atan2(y, x))
-    if az < 0:
-        az += 360
-    if az > 360:
-        az -= 360
+    az = degrees(atan2(y, x)) % 360
 
     event_time = datetime.time(h, m, 0)
     if window[0].distance < 0 and window[2].distance > 0:
@@ -535,7 +531,7 @@ def elevation(
     y = -sh * cd
 
     z = ch * cd * cl + sd * sl
-    r = sqrt(x * x + y * y)
+    r = hypot(x, y)
     elevation = degrees(atan2(z, r))
 
     return elevation
@@ -551,24 +547,24 @@ def zenith(
 def _phase_asfloat(date: datetime.date) -> float:
     jd = julianday(date)
     dt = pow((jd - 2382148), 2) / (41048480 * 86400)
-    t = (jd + dt - 2451545.0) / 36525
+    t = (jd + dt - 2451545) / 36525
     t2 = pow(t, 2)
     t3 = pow(t, 3)
 
     d = 297.85 + (445267.1115 * t) - (0.0016300 * t2) + (t3 / 545868)
-    d = radians(d % 360.0)
+    d = radians(d % 360)
 
     m = 357.53 + (35999.0503 * t)
-    m = radians(m % 360.0)
+    m = radians(m % 360)
 
     m1 = 134.96 + (477198.8676 * t) + (0.0089970 * t2) + (t3 / 69699)
-    m1 = radians(m1 % 360.0)
+    m1 = radians(m1 % 360)
 
     elong = degrees(d) + 6.29 * sin(m1)
     elong -= 2.10 * sin(m)
     elong += 1.27 * sin(2 * d - m1)
     elong += 0.66 * sin(2 * d)
-    elong = elong % 360.0
+    elong = elong % 360
     elong = int(elong)
     moon = ((elong + 6.43) / 360) * 28
     return moon
@@ -595,7 +591,5 @@ def phase(date: Optional[datetime.date] = None) -> float:
     if date is None:
         date = today()
 
-    moon = _phase_asfloat(date)
-    if moon >= 28.0:
-        moon -= 28.0
+    moon = _phase_asfloat(date) % 28
     return moon

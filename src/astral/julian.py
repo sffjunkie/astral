@@ -9,12 +9,9 @@ class Calendar(Enum):
 
 
 def day_fraction_to_time(fraction: float) -> datetime.time:
-    s = fraction * (24 * 60 * 60)
-    h = int(s / (60 * 60))
-    s -= h * 60 * 60
-    m = int(s / 60)
-    s -= m * 60
-    s = int(s)
+    rest = int(fraction * (24 * 60 * 60))
+    rest, s = divmod(rest, 60)
+    h, m = divmod(rest, 60)
     return datetime.time(h, m, s)
 
 
@@ -32,12 +29,10 @@ def julianday(
     year = at.year
     month = at.month
     day = at.day
-    day_fraction = 0.0
+    day_fraction = 0
     if isinstance(at, datetime.datetime):
         t = _time_to_seconds(at.time())
         day_fraction = t / (24 * 60 * 60)
-    else:
-        day_fraction = 0.0
 
     if month <= 2:
         year -= 1
@@ -95,7 +90,7 @@ def julianday_to_datetime(jd: float) -> datetime.datetime:
         a = z
     else:
         alpha = int((z - 1867216.25) / 36524.25)
-        a = z + 1 + alpha + int(alpha / 4.0)
+        a = z + 1 + alpha + int(alpha / 4)
 
     b = a + 1524
     c = int((b - 122.1) / 365.25)
@@ -127,14 +122,14 @@ def julianday_to_datetime(jd: float) -> datetime.datetime:
 
 def julianday_to_juliancentury(julianday: float) -> float:
     """Convert a Julian Day number to a Julian Century"""
-    return (julianday - 2451545.0) / 36525.0
+    return (julianday - 2451545) / 36525
 
 
 def juliancentury_to_julianday(juliancentury: float) -> float:
     """Convert a Julian Century number to a Julian Day"""
-    return (juliancentury * 36525.0) + 2451545.0
+    return (juliancentury * 36525) + 2451545
 
 
 def julianday_2000(at: Union[datetime.datetime, datetime.date]) -> float:
     """Calculate the numer of Julian Days since Jan 1.5, 2000"""
-    return julianday(at) - 2451545.0
+    return julianday(at) - 2451545

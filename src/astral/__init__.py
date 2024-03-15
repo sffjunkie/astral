@@ -114,9 +114,9 @@ def dms_to_float(
         _dms_re = r"(?P<deg>\d{1,3})[°]((?P<min>\d{1,2})[′'])?((?P<sec>\d{1,2})[″\"])?(?P<dir>[NSEW])?"  # noqa
         dms_match = re.match(_dms_re, str(dms), flags=re.IGNORECASE)
         if dms_match:
-            deg = dms_match.group("deg") or 0.0
-            min_ = dms_match.group("min") or 0.0
-            sec = dms_match.group("sec") or 0.0
+            deg = dms_match.group("deg") or 0
+            min_ = dms_match.group("min") or 0
+            sec = dms_match.group("sec") or 0
             dir_ = dms_match.group("dir") or "E"
 
             res = float(deg)
@@ -133,38 +133,27 @@ def dms_to_float(
             ) from exc
 
     if limit is not None:
-        if res > limit:
-            res = limit
-        elif res < -limit:
-            res = -limit
-
+        res = min(max(-limit, res), limit)
     return res
 
 
 def hours_to_time(value: float) -> datetime.time:
     """Convert a floating point number of hours to a datetime.time"""
-
-    hour = int(value)
-    value -= hour
-    value *= 60
-    minute = int(value)
-    value -= minute
-    value *= 60
-    second = int(value)
-    value -= second
-    microsecond = int(value * 1000000)
-
+    rest = int(value * 60 * 60 * 1_000_000)
+    rest, microsecond = divmod(rest, 1_000_000)
+    rest, second = divmod(rest, 60)
+    hour, minute = divmod(rest, 60)
     return datetime.time(hour, minute, second, microsecond)
 
 
 def time_to_hours(value: datetime.time) -> float:
     """Convert a datetime.time to a floating point number of hours"""
 
-    hours = 0.0
+    hours = 0
     hours += value.hour
     hours += value.minute / 60
     hours += value.second / 3600
-    hours += value.microsecond / 1000000
+    hours += value.microsecond / 3_600_000_000
 
     return hours
 
@@ -180,12 +169,12 @@ def refraction_at_zenith(zenith: float) -> float:
     """Calculate the degrees of refraction of the sun due to the sun's elevation."""
 
     elevation = 90 - zenith
-    if elevation >= 85.0:
+    if elevation >= 85:
         return 0
 
-    refraction_correction = 0.0
+    refraction_correction = 0
     te = tan(radians(elevation))
-    if elevation > 5.0:
+    if elevation > 5:
         refraction_correction = (
             58.1 / te - 0.07 / (te * te * te) + 0.000086 / (te * te * te * te * te)
         )
@@ -193,11 +182,11 @@ def refraction_at_zenith(zenith: float) -> float:
         step1 = -12.79 + elevation * 0.711
         step2 = 103.4 + elevation * step1
         step3 = -518.2 + elevation * step2
-        refraction_correction = 1735.0 + elevation * step3
+        refraction_correction = 1735 + elevation * step3
     else:
         refraction_correction = -20.774 / te
 
-    refraction_correction = refraction_correction / 3600.0
+    refraction_correction = refraction_correction / 3600
 
     return refraction_correction
 
@@ -253,13 +242,13 @@ class Observer:
 
     latitude: Degrees = 51.4733
     longitude: Degrees = -0.0008333
-    elevation: Elevation = 0.0
+    elevation: Elevation = 0
 
     def __setattr__(self, name: str, value: Union[str, float, Elevation]):
         if name == "latitude":
-            value = dms_to_float(value, 90.0)
+            value = dms_to_float(value, 90)
         elif name == "longitude":
-            value = dms_to_float(value, 180.0)
+            value = dms_to_float(value, 180)
         elif name == "elevation":
             if isinstance(value, tuple):
                 value = (float(value[0]), float(value[1]))
@@ -296,15 +285,15 @@ class LocationInfo:
 
     def __setattr__(self, name: str, value: Union[Degrees, str]):
         if name == "latitude":
-            value = dms_to_float(value, 90.0)
+            value = dms_to_float(value, 90)
         elif name == "longitude":
-            value = dms_to_float(value, 180.0)
+            value = dms_to_float(value, 180)
         super().__setattr__(name, value)
 
     @property
     def observer(self):
         """Return an Observer at this location"""
-        return Observer(self.latitude, self.longitude, 0.0)
+        return Observer(self.latitude, self.longitude, 0)
 
     @property
     def tzinfo(self):  # type: ignore

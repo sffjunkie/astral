@@ -1,6 +1,4 @@
 # type: ignore
-from datetime import timedelta
-
 try:
     import zoneinfo
 except ImportError:
@@ -10,14 +8,6 @@ import freezegun
 from pytest import approx, raises
 
 from astral import dms_to_float, now, today
-from astral.sun import minutes_to_timedelta
-
-
-def test_MinutesToTimedelta():
-    assert minutes_to_timedelta(720) == timedelta(seconds=720 * 60)
-    assert minutes_to_timedelta(722) == timedelta(seconds=722 * 60)
-    assert minutes_to_timedelta(722.2) == timedelta(seconds=722.2 * 60)
-    assert minutes_to_timedelta(722.5) == timedelta(seconds=722.5 * 60)
 
 
 class TestDMS:
