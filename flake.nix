@@ -38,6 +38,9 @@
             pkgs.ruff
             pythonEnv
           ];
+          shellHook = ''
+            export PYTHONPATH=${builtins.toString ./src}
+          '';
         };
       }
     ));
