@@ -18,6 +18,8 @@ artifact
 .pdm-build
 .direnv
 .envrc
+just
+Justfile
 
 # Numerous always-ignore extensions
 *.diff
