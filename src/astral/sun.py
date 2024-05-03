@@ -312,10 +312,8 @@ def time_of_transit(
 
         eqtime = eq_of_time(jc)
         offset = delta * 4.0 - eqtime
-
-        if offset < -720.0:
+        if offset > 720.0:
             offset += 1440
-
         timeUTC = 720.0 + offset
         adjustment = timeUTC / 1440.0
 
@@ -743,7 +741,7 @@ def dawn(
             )
             # Still can't get a time then raise the error
             tot_date = tot.date()
-            if tot_date != date:
+            if tot_date != date - delta:
                 raise ValueError("Unable to find a dawn time on the date specified")
         return tot
     except ValueError as exc:
@@ -881,7 +879,7 @@ def sunset(
                 tzinfo  # type: ignore
             )
             tot_date = tot.date()
-            if tot_date != date:
+            if tot_date != date - delta:
                 raise ValueError("Unable to find a sunset time on the date specified")
         return tot
     except ValueError as exc:
