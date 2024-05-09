@@ -1,5 +1,5 @@
 import datetime
-from math import acos, asin, atan2, cos, degrees, fabs, radians, sin, sqrt, tan
+from math import acos, asin, atan2, cos, degrees, fabs, hypot, radians, sin, tan
 from typing import Dict, Optional, Tuple, Union
 
 try:
@@ -41,28 +41,13 @@ __all__ = [
 
 
 # Using 32 arc minutes as sun's apparent diameter
-SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0)
-
-
-# region Backend
-def minutes_to_timedelta(minutes: float) -> datetime.timedelta:
-    """Convert a floating point number of minutes to a
-    :class:`~datetime.timedelta`
-    """
-    d = int(minutes / 1440)
-    minutes = minutes - (d * 1440)
-    minutes = minutes * 60
-    s = int(minutes)
-    sfrac = minutes - s
-    us = int(sfrac * 1_000_000)
-
-    return datetime.timedelta(days=d, seconds=s, microseconds=us)
+SUN_APPARENT_RADIUS = 32 / (60 * 2)
 
 
 def geom_mean_long_sun(juliancentury: float) -> float:
     """Calculate the geometric mean longitude of the sun"""
     l0 = 280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury)
-    return l0 % 360.0
+    return l0 % 360
 
 
 def geom_mean_anomaly_sun(juliancentury: float) -> float:
@@ -127,7 +112,7 @@ def mean_obliquity_of_ecliptic(juliancentury: float) -> float:
     seconds = 21.448 - juliancentury * (
         46.815 + juliancentury * (0.00059 - juliancentury * (0.001813))
     )
-    return 23.0 + (26.0 + (seconds / 60.0)) / 60.0
+    return 23 + (26 + (seconds / 60)) / 60
 
 
 def obliquity_correction(juliancentury: float) -> float:
@@ -159,7 +144,7 @@ def sun_declination(juliancentury: float) -> float:
 
 def var_y(juliancentury: float) -> float:
     epsilon = obliquity_correction(juliancentury)
-    y = tan(radians(epsilon) / 2.0)
+    y = tan(radians(epsilon) / 2)
     return y * y
 
 
@@ -170,21 +155,21 @@ def eq_of_time(juliancentury: float) -> Minutes:
 
     y = var_y(juliancentury)
 
-    sin2l0 = sin(2.0 * radians(l0))
+    sin2l0 = sin(2 * radians(l0))
     sinm = sin(radians(m))
-    cos2l0 = cos(2.0 * radians(l0))
-    sin4l0 = sin(4.0 * radians(l0))
-    sin2m = sin(2.0 * radians(m))
+    cos2l0 = cos(2 * radians(l0))
+    sin4l0 = sin(4 * radians(l0))
+    sin2m = sin(2 * radians(m))
 
     Etime = (
         y * sin2l0
-        - 2.0 * e * sinm
-        + 4.0 * e * y * sinm * cos2l0
+        - 2 * e * sinm
+        + 4 * e * y * sinm * cos2l0
         - 0.5 * y * y * sin4l0
         - 1.25 * e * e * sin2m
     )
 
-    return degrees(Etime) * 4.0
+    return degrees(Etime) * 4
 
 
 def hour_angle(
@@ -241,12 +226,12 @@ def adjust_to_horizon(elevation: float) -> float:
 
 def adjust_to_obscuring_feature(elevation: Tuple[float, float]) -> float:
     """Calculate the number of degrees to adjust for an obscuring feature"""
-    if elevation[0] == 0.0:
-        return 0.0
+    if elevation[0] == 0:
+        return 0
 
-    sign = -1 if elevation[0] < 0.0 else 1
+    sign = -1 if elevation[0] < 0 else 1
     return sign * degrees(
-        acos(fabs(elevation[0]) / sqrt(pow(elevation[0], 2) + pow(elevation[1], 2)))
+        acos(fabs(elevation[0]) / hypot(elevation[0], elevation[1]))
     )
 
 
@@ -273,15 +258,10 @@ def time_of_transit(
     Returns:
         the time when the sun transits the specificed zenith
     """
-    if observer.latitude > 89.8:
-        latitude = 89.8
-    elif observer.latitude < -89.8:
-        latitude = -89.8
-    else:
-        latitude = observer.latitude
+    latitude = min(max(-89.8, observer.latitude), 89.8)
 
-    adjustment_for_elevation = 0.0
-    if isinstance(observer.elevation, float) and observer.elevation > 0.0:
+    adjustment_for_elevation = 0
+    if isinstance(observer.elevation, float) and observer.elevation > 0:
         adjustment_for_elevation = adjust_to_horizon(observer.elevation)
     elif isinstance(observer.elevation, tuple):
         adjustment_for_elevation = adjust_to_obscuring_feature(observer.elevation)
@@ -291,11 +271,11 @@ def time_of_transit(
             zenith + adjustment_for_elevation
         )
     else:
-        adjustment_for_refraction = 0.0
+        adjustment_for_refraction = 0
 
     jd = julianday(date)
-    adjustment = 0.0
-    timeUTC = 0.0
+    adjustment = 0
+    timeUTC = 0
 
     for _ in range(2):
         jc = julianday_to_juliancentury(jd + adjustment)
@@ -311,17 +291,15 @@ def time_of_transit(
         delta = -observer.longitude - degrees(hourangle)
 
         eqtime = eq_of_time(jc)
-        offset = delta * 4.0 - eqtime
+        offset = delta * 4 - eqtime
 
-        if offset < -720.0:
-            offset += 1440
+        timeUTC = (720 + offset) % 1440
+        adjustment = timeUTC / 1440
 
-        timeUTC = 720.0 + offset
-        adjustment = timeUTC / 1440.0
-
-    td = minutes_to_timedelta(timeUTC)
-    dt = datetime.datetime(date.year, date.month, date.day) + td
-    dt = dt.replace(tzinfo=datetime.timezone.utc)  # pylint: disable=E1120
+    dt = (
+        datetime.datetime(date.year, date.month, date.day, tzinfo=datetime.timezone.utc)
+        + datetime.timedelta(minutes=timeUTC)
+    )
     return dt
 
 
@@ -357,8 +335,8 @@ def time_at_elevation(
         Date and time at which the sun is at the specified elevation.
     """
 
-    if elevation > 90.0:
-        elevation = 180.0 - elevation
+    if elevation > 90:
+        elevation = 180 - elevation
         direction = SunDirection.SETTING
 
     if isinstance(tzinfo, str):
@@ -408,41 +386,11 @@ def noon(
 
     jc = julianday_to_juliancentury(julianday(date))
     eqtime = eq_of_time(jc)
-    timeUTC = (720.0 - (4 * observer.longitude) - eqtime) / 60.0
+    timeUTC = (720 - (4 * observer.longitude) - eqtime) / 60
 
-    hour = int(timeUTC)
-    minute = int((timeUTC - hour) * 60)
-    second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-    if second > 59:
-        second -= 60
-        minute += 1
-    elif second < 0:
-        second += 60
-        minute -= 1
-
-    if minute > 59:
-        minute -= 60
-        hour += 1
-    elif minute < 0:
-        minute += 60
-        hour -= 1
-
-    if hour > 23:
-        hour -= 24
-        date += datetime.timedelta(days=1)
-    elif hour < 0:
-        hour += 24
-        date -= datetime.timedelta(days=1)
-
-    noon = datetime.datetime(
-        date.year,
-        date.month,
-        date.day,
-        hour,
-        minute,
-        second,
-        tzinfo=datetime.timezone.utc,
+    noon = (
+        datetime.datetime(date.year, date.month, date.day, tzinfo=datetime.timezone.utc)
+        + datetime.timedelta(hours=timeUTC)
     )
     return noon.astimezone(tzinfo)  # type: ignore # pylint: disable=E1120
 
@@ -476,42 +424,14 @@ def midnight(
 
     midday = datetime.time(12, 0, 0)
     jd = julianday(datetime.datetime.combine(date, midday))
-    newt = julianday_to_juliancentury(jd + 0.5 + -observer.longitude / 360.0)
+    newt = julianday_to_juliancentury(jd + 0.5 + -observer.longitude / 360)
 
     eqtime = eq_of_time(newt)
-    timeUTC = (-observer.longitude * 4.0) - eqtime
-
-    timeUTC = timeUTC / 60.0
-    hour = int(timeUTC)
-    minute = int((timeUTC - hour) * 60)
-    second = int((((timeUTC - hour) * 60) - minute) * 60)
-
-    if second > 59:
-        second -= 60
-        minute += 1
-    elif second < 0:
-        second += 60
-        minute -= 1
-
-    if minute > 59:
-        minute -= 60
-        hour += 1
-    elif minute < 0:
-        minute += 60
-        hour -= 1
-
-    if hour < 0:
-        hour += 24
-        date -= datetime.timedelta(days=1)
-
-    midnight = datetime.datetime(
-        date.year,
-        date.month,
-        date.day,
-        hour,
-        minute,
-        second,
-        tzinfo=datetime.timezone.utc,
+    timeUTC = (-observer.longitude * 4) - eqtime
+    timeUTC = timeUTC / 60
+    midnight = (
+        datetime.datetime(date.year, date.month, date.day, tzinfo=datetime.timezone.utc)
+        + datetime.timedelta(hours=timeUTC)
     )
     return midnight.astimezone(tzinfo)  # type: ignore
 
@@ -521,20 +441,14 @@ def zenith_and_azimuth(
     dateandtime: datetime.datetime,
     with_refraction: bool = True,
 ) -> Tuple[float, float]:
-    if observer.latitude > 89.8:
-        latitude = 89.8
-    elif observer.latitude < -89.8:
-        latitude = -89.8
-    else:
-        latitude = observer.latitude
-
+    latitude = min(max(-89.8, observer.latitude), 89.8)
     longitude = observer.longitude
 
     if dateandtime.tzinfo is None:
-        zone = 0.0
+        zone = 0
         utc_datetime = dateandtime
     else:
-        zone = -dateandtime.utcoffset().total_seconds() / 3600.0  # type: ignore
+        zone = -dateandtime.utcoffset().total_seconds() / 3600  # type: ignore
         utc_datetime = dateandtime.astimezone(datetime.timezone.utc)
 
     jd = julianday(utc_datetime)
@@ -543,22 +457,21 @@ def zenith_and_azimuth(
     eqtime = eq_of_time(t)
 
     # 360deg * 4 == 1440 minutes, 60*24 = 1440 minutes == 1 rotation
-    solarTimeFix = eqtime + (4.0 * longitude) + (60 * zone)
+    solarTimeFix = eqtime + (4 * longitude) + (60 * zone)
     trueSolarTime = (
-        dateandtime.hour * 60.0
+        dateandtime.hour * 60
         + dateandtime.minute
-        + dateandtime.second / 60.0
+        + dateandtime.second / 60
         + solarTimeFix
     )
     #    in minutes as a float, fractional part is seconds
 
-    while trueSolarTime > 1440:
-        trueSolarTime = trueSolarTime - 1440
+    trueSolarTime %= 1440
 
-    hourangle = trueSolarTime / 4.0 - 180.0
+    hourangle = trueSolarTime / 4 - 180
     #    Thanks to Louis Schwarzmayr for the next line:
     if hourangle < -180:
-        hourangle = hourangle + 360.0
+        hourangle = hourangle + 360
 
     ch = cos(radians(hourangle))
     # sh = sin(radians(hourangle))
@@ -568,37 +481,25 @@ def zenith_and_azimuth(
     cd = cos(radians(declination))
 
     csz = cl * cd * ch + sl * sd
-
-    if csz > 1.0:
-        csz = 1.0
-    elif csz < -1.0:
-        csz = -1.0
-
+    csz = min(max(-1, csz), 1)
     zenith = degrees(acos(csz))
 
     azDenom = cl * sin(radians(zenith))
 
     if abs(azDenom) > 0.001:
         azRad = ((sl * cos(radians(zenith))) - sd) / azDenom
+        azRad = min(max(-1, azRad), 1)
+        azimuth = 180 - degrees(acos(azRad))
 
-        if abs(azRad) > 1.0:
-            if azRad < 0:
-                azRad = -1.0
-            else:
-                azRad = 1.0
-
-        azimuth = 180.0 - degrees(acos(azRad))
-
-        if hourangle > 0.0:
+        if hourangle > 0:
             azimuth = -azimuth
     else:
-        if latitude > 0.0:
-            azimuth = 180.0
+        if latitude > 0:
+            azimuth = 180
         else:
-            azimuth = 0.0
+            azimuth = 0
 
-    if azimuth < 0.0:
-        azimuth = azimuth + 360.0
+    azimuth %= 360
 
     if with_refraction:
         zenith -= refraction_at_zenith(zenith)
@@ -677,7 +578,7 @@ def elevation(
     if dateandtime is None:
         dateandtime = now(datetime.timezone.utc)
 
-    return 90.0 - zenith(observer, dateandtime, with_refraction)
+    return 90 - zenith(observer, dateandtime, with_refraction)
 
 
 def dawn(
@@ -711,7 +612,7 @@ def dawn(
         tzinfo = date.tzinfo or tzinfo
         date = date.date()
 
-    dep: float = 0.0
+    dep: float = 0
     if isinstance(depression, Depression):
         dep = depression.value
     else:
@@ -719,7 +620,7 @@ def dawn(
 
     try:
         tot = time_of_transit(
-            observer, date, 90.0 + dep, SunDirection.RISING
+            observer, date, 90 + dep, SunDirection.RISING
         ).astimezone(
             tzinfo  # type: ignore
         )
@@ -736,7 +637,7 @@ def dawn(
             tot = time_of_transit(
                 observer,
                 new_date,
-                90.0 + dep,
+                90 + dep,
                 SunDirection.RISING,
             ).astimezone(
                 tzinfo  # type: ignore
@@ -787,7 +688,7 @@ def sunrise(
         tot = time_of_transit(
             observer,
             date,
-            90.0 + SUN_APPARENT_RADIUS,
+            90 + SUN_APPARENT_RADIUS,
             SunDirection.RISING,
         ).astimezone(
             tzinfo  # type: ignore
@@ -804,7 +705,7 @@ def sunrise(
             tot = time_of_transit(
                 observer,
                 new_date,
-                90.0 + SUN_APPARENT_RADIUS,
+                90 + SUN_APPARENT_RADIUS,
                 SunDirection.RISING,
             ).astimezone(
                 tzinfo  # type: ignore
@@ -816,7 +717,7 @@ def sunrise(
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
-            if z > 90.0:
+            if z > 90:
                 msg = "Sun is always below the horizon on this day, at this location."
             else:
                 msg = "Sun is always above the horizon on this day, at this location."
@@ -858,7 +759,7 @@ def sunset(
         tot = time_of_transit(
             observer,
             date,
-            90.0 + SUN_APPARENT_RADIUS,
+            90 + SUN_APPARENT_RADIUS,
             SunDirection.SETTING,
         ).astimezone(
             tzinfo  # type: ignore
@@ -875,7 +776,7 @@ def sunset(
             tot = time_of_transit(
                 observer,
                 new_date,
-                90.0 + SUN_APPARENT_RADIUS,
+                90 + SUN_APPARENT_RADIUS,
                 SunDirection.SETTING,
             ).astimezone(
                 tzinfo  # type: ignore
@@ -887,7 +788,7 @@ def sunset(
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
-            if z > 90.0:
+            if z > 90:
                 msg = "Sun is always below the horizon on this day, at this location."
             else:
                 msg = "Sun is always above the horizon on this day, at this location."
@@ -928,7 +829,7 @@ def dusk(
         tzinfo = date.tzinfo or tzinfo
         date = date.date()
 
-    dep: float = 0.0
+    dep: float = 0
     if isinstance(depression, Depression):
         dep = depression.value
     else:
@@ -936,7 +837,7 @@ def dusk(
 
     try:
         tot = time_of_transit(
-            observer, date, 90.0 + dep, SunDirection.SETTING
+            observer, date, 90 + dep, SunDirection.SETTING
         ).astimezone(
             tzinfo  # type: ignore
         )
@@ -952,7 +853,7 @@ def dusk(
             tot = time_of_transit(
                 observer,
                 new_date,
-                90.0 + dep,
+                90 + dep,
                 SunDirection.SETTING,
             ).astimezone(
                 tzinfo  # type: ignore
