@@ -75,6 +75,7 @@ __pycache__
 build
 dist
 MANIFEST
+venv
 
 # build script local files
 build/buildinfo.properties
