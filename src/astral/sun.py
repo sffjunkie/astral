@@ -195,7 +195,7 @@ def hour_angle(
     See https://en.wikipedia.org/wiki/Hour_angle#Solar_hour_angle
 
     Args:
-        latitude: The latitude of the obersver
+        latitude: The latitude of the observer
         declination: The declination of the sun
         zenith: The zenith angle of the sun
         direction: The direction of traversal of the sun
@@ -258,7 +258,7 @@ def time_of_transit(
     with_refraction: bool = True,
 ) -> datetime.datetime:
     """Calculate the time in the UTC timezone when the sun transits the
-    specificed zenith
+    specified zenith
 
     Args:
         observer: An observer viewing the sun at a specific, latitude, longitude
@@ -271,7 +271,7 @@ def time_of_transit(
         ValueError if the zenith is not transitted by the sun
 
     Returns:
-        the time when the sun transits the specificed zenith
+        the time when the sun transits the specified zenith
     """
     if observer.latitude > 89.8:
         latitude = 89.8
