@@ -27,8 +27,8 @@ def test_NorwaySunUp(tromso: Location):
     with pytest.raises(ValueError):
         sun.sunset(tromso.observer, june)
 
-    # Find the next sunset and sunrise:
+    # The first sunrise and sunset occur on the same solar day.
     next_sunrise = _next_event(tromso.observer, june, "sunrise")
     next_sunset = _next_event(tromso.observer, june, "sunset")
 
-    assert next_sunset < next_sunrise
+    assert next_sunrise < next_sunset

@@ -8,7 +8,7 @@ import freezegun
 import pytest
 from almost_equal import datetime_almost_equal
 
-from astral import LocationInfo, TimePeriod, sun
+from astral import LocationInfo, Observer, TimePeriod, sun
 from astral.sun import Depression, SunDirection
 
 
@@ -32,6 +32,33 @@ def test_Sun(day: datetime.date, dawn: datetime.datetime, london: LocationInfo):
 def test_Sun_NoDate(london: LocationInfo):
     ans = datetime.datetime(2015, 12, 1, 7, 4, tzinfo=datetime.timezone.utc)
     assert datetime_almost_equal(sun.sun(london.observer)["dawn"], ans)
+
+
+@pytest.mark.parametrize(
+    "latitude,longitude,day,sunrise_offset,sunset_offset",
+    [
+        (34.175301, -118.983334, datetime.date(2022, 7, 10), 0, 1),
+        (37.4, -122.1, datetime.date(2023, 1, 1), 0, 1),
+        (-34.9285, 138.6007, datetime.date(2023, 3, 9), -1, 0),
+    ],
+)
+def test_solar_events_use_the_requested_solar_date(
+    latitude: float,
+    longitude: float,
+    day: datetime.date,
+    sunrise_offset: int,
+    sunset_offset: int,
+):
+    observer = Observer(latitude, longitude)
+    dawn = sun.dawn(observer, day)
+    sunrise = sun.sunrise(observer, day)
+    solar_noon = sun.noon(observer, day)
+    sunset = sun.sunset(observer, day)
+    dusk = sun.dusk(observer, day)
+
+    assert dawn < sunrise < solar_noon < sunset < dusk
+    assert sunrise.date() == day + datetime.timedelta(days=sunrise_offset)
+    assert sunset.date() == day + datetime.timedelta(days=sunset_offset)
 
 
 @pytest.mark.parametrize(

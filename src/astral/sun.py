@@ -312,10 +312,8 @@ def time_of_transit(
 
         eqtime = eq_of_time(jc)
         offset = delta * 4.0 - eqtime
-
         if offset < -720.0:
             offset += 1440
-
         timeUTC = 720.0 + offset
         adjustment = timeUTC / 1440.0
 
@@ -680,6 +678,37 @@ def elevation(
     return 90.0 - zenith(observer, dateandtime, with_refraction)
 
 
+def _time_of_transit_for_solar_date(
+    observer: Observer,
+    date: datetime.date,
+    zenith: float,
+    direction: SunDirection,
+    tzinfo: datetime.tzinfo,
+) -> datetime.datetime:
+    previous_noon = noon(observer, date - datetime.timedelta(days=1))
+    current_noon = noon(observer, date)
+    next_noon = noon(observer, date + datetime.timedelta(days=1))
+
+    if direction == SunDirection.RISING:
+        start, end = previous_noon, current_noon
+    else:
+        start, end = current_noon, next_noon
+
+    for day_offset in (-1, 0, 1):
+        transit_date = date + datetime.timedelta(days=day_offset)
+        try:
+            transit = time_of_transit(observer, transit_date, zenith, direction)
+        except ValueError as exc:
+            if exc.args and exc.args[0] == "math domain error":
+                continue
+            raise
+
+        if start < transit < end:
+            return transit.astimezone(tzinfo)
+
+    raise ValueError("math domain error")
+
+
 def dawn(
     observer: Observer,
     date: Optional[datetime.date] = None,
@@ -690,8 +719,9 @@ def dawn(
 
     Args:
         observer:   Observer to calculate dawn for
-        date:       Date to calculate for. Default is today's date in the
-                    timezone `tzinfo`.
+        date:       Local solar date to calculate for. The returned date in
+                    `tzinfo` may differ. Default is today's date in the timezone
+                    `tzinfo`.
         depression: Number of degrees below the horizon to use to calculate dawn.
                     Default is for Civil dawn i.e. 6.0
         tzinfo:     Timezone to return times in. Default is UTC.
@@ -718,34 +748,9 @@ def dawn(
         dep = depression
 
     try:
-        tot = time_of_transit(
-            observer, date, 90.0 + dep, SunDirection.RISING
-        ).astimezone(
-            tzinfo  # type: ignore
+        return _time_of_transit_for_solar_date(
+            observer, date, 90.0 + dep, SunDirection.RISING, tzinfo
         )
-
-        # If the dates don't match search on either the next or previous day.
-        tot_date = tot.date()
-        if tot_date != date:
-            if tot_date < date:
-                delta = datetime.timedelta(days=1)
-            else:
-                delta = datetime.timedelta(days=-1)
-            new_date = date + delta
-
-            tot = time_of_transit(
-                observer,
-                new_date,
-                90.0 + dep,
-                SunDirection.RISING,
-            ).astimezone(
-                tzinfo  # type: ignore
-            )
-            # Still can't get a time then raise the error
-            tot_date = tot.date()
-            if tot_date != date:
-                raise ValueError("Unable to find a dawn time on the date specified")
-        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
@@ -764,8 +769,9 @@ def sunrise(
 
     Args:
         observer: Observer to calculate sunrise for
-        date:     Date to calculate for. Default is today's date in the
-                  timezone `tzinfo`.
+        date:     Local solar date to calculate for. The returned date in
+                  `tzinfo` may differ. Default is today's date in the timezone
+                  `tzinfo`.
         tzinfo:   Timezone to return times in. Default is UTC.
 
     Returns:
@@ -784,35 +790,13 @@ def sunrise(
         date = date.date()
 
     try:
-        tot = time_of_transit(
+        return _time_of_transit_for_solar_date(
             observer,
             date,
             90.0 + SUN_APPARENT_RADIUS,
             SunDirection.RISING,
-        ).astimezone(
-            tzinfo  # type: ignore
+            tzinfo,
         )
-
-        tot_date = tot.date()
-        if tot_date != date:
-            if tot_date < date:
-                delta = datetime.timedelta(days=1)
-            else:
-                delta = datetime.timedelta(days=-1)
-            new_date = date + delta
-
-            tot = time_of_transit(
-                observer,
-                new_date,
-                90.0 + SUN_APPARENT_RADIUS,
-                SunDirection.RISING,
-            ).astimezone(
-                tzinfo  # type: ignore
-            )
-            tot_date = tot.date()
-            if tot_date != date:
-                raise ValueError("Unable to find a sunrise time on the date specified")
-        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
@@ -834,8 +818,9 @@ def sunset(
 
     Args:
         observer: Observer to calculate sunset for
-        date:     Date to calculate for. Default is today's date in the
-                  timezone `tzinfo`.
+        date:     Local solar date to calculate for. The returned date in
+                  `tzinfo` may differ. Default is today's date in the timezone
+                  `tzinfo`.
         tzinfo:   Timezone to return times in. Default is UTC.
 
     Returns:
@@ -855,35 +840,13 @@ def sunset(
         date = date.date()
 
     try:
-        tot = time_of_transit(
+        return _time_of_transit_for_solar_date(
             observer,
             date,
             90.0 + SUN_APPARENT_RADIUS,
             SunDirection.SETTING,
-        ).astimezone(
-            tzinfo  # type: ignore
+            tzinfo,
         )
-
-        tot_date = tot.date()
-        if tot_date != date:
-            if tot_date < date:
-                delta = datetime.timedelta(days=1)
-            else:
-                delta = datetime.timedelta(days=-1)
-            new_date = date + delta
-
-            tot = time_of_transit(
-                observer,
-                new_date,
-                90.0 + SUN_APPARENT_RADIUS,
-                SunDirection.SETTING,
-            ).astimezone(
-                tzinfo  # type: ignore
-            )
-            tot_date = tot.date()
-            if tot_date != date:
-                raise ValueError("Unable to find a sunset time on the date specified")
-        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             z = zenith(observer, noon(observer, date))
@@ -906,8 +869,9 @@ def dusk(
 
     Args:
         observer:   Observer to calculate dusk for
-        date:       Date to calculate for. Default is today's date in the
-                    timezone `tzinfo`.
+        date:       Local solar date to calculate for. The returned date in
+                    `tzinfo` may differ. Default is today's date in the timezone
+                    `tzinfo`.
         depression: Number of degrees below the horizon to use to calculate dusk.
                     Default is for Civil dusk i.e. 6.0
         tzinfo:     Timezone to return times in. Default is UTC.
@@ -935,32 +899,9 @@ def dusk(
         dep = depression
 
     try:
-        tot = time_of_transit(
-            observer, date, 90.0 + dep, SunDirection.SETTING
-        ).astimezone(
-            tzinfo  # type: ignore
+        return _time_of_transit_for_solar_date(
+            observer, date, 90.0 + dep, SunDirection.SETTING, tzinfo
         )
-
-        tot_date = tot.date()
-        if tot_date != date:
-            if tot_date < date:
-                delta = datetime.timedelta(days=1)
-            else:
-                delta = datetime.timedelta(days=-1)
-            new_date = date + delta
-
-            tot = time_of_transit(
-                observer,
-                new_date,
-                90.0 + dep,
-                SunDirection.SETTING,
-            ).astimezone(
-                tzinfo  # type: ignore
-            )
-            tot_date = tot.date()
-            if tot_date != date:
-                raise ValueError("Unable to find a dusk time on the date specified")
-        return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
             raise ValueError(
