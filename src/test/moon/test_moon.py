@@ -4,7 +4,7 @@ import datetime
 import pytest  # type: ignore
 from almost_equal import datetime_almost_equal
 
-from astral import moon
+from astral import Observer, moon
 from astral.location import Location
 
 
@@ -135,3 +135,19 @@ def test_moonset_wellington(
 # )
 # def test_moon_local_sidereal_time(longitude: float, jd: float):
 #     moon.local_sidereal_time(longitude, jd)
+
+
+@pytest.mark.parametrize(
+    "event,day,observer,zone",
+    [
+        (moon.moonrise, 17, Observer(-41.29, 174.78), "Pacific/Auckland"),
+        (moon.moonset, 3, Observer(-41.29, 174.78), "Pacific/Auckland"),
+        (moon.moonrise, 27, Observer(40.71, -74.0), "America/New_York"),
+        (moon.moonset, 13, Observer(40.71, -74.0), "America/New_York"),
+    ],
+)
+def test_moon_event_on_adjacent_utc_date(event, day, observer, zone):
+    date = datetime.date(2024, 1, day)
+    result = event(observer, date, zone)
+    assert result.date() == date
+    assert result.astimezone(datetime.timezone.utc).date() != date
