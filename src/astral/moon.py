@@ -397,6 +397,32 @@ def riseset(
     return rise_time, set_time
 
 
+def _moon_event_on_date(
+    observer: Observer, date: datetime.date, tzinfo: datetime.tzinfo, event_index: int
+) -> Optional[datetime.datetime]:
+    # riseset works in UTC, while the requested civil date can span two UTC dates.
+    event = riseset(date, observer)[event_index]
+    if event is not None:
+        local = event.astimezone(tzinfo)
+        if local.date() == date:
+            return local
+
+    for time in (datetime.time.min, datetime.time.max):
+        boundary = datetime.datetime.combine(date, time, tzinfo)
+        utc_date = boundary.astimezone(datetime.timezone.utc).date()
+        if utc_date != date:
+            adjacent = riseset(utc_date, observer)[event_index]
+            if adjacent is not None:
+                local = adjacent.astimezone(tzinfo)
+                if local.date() == date:
+                    return local
+
+    if event is None:
+        verb = "rises" if event_index == 0 else "sets"
+        raise ValueError(f"Moon never {verb} on this date, at this location")
+    return None
+
+
 def moonrise(
     observer: Observer,
     date: Optional[datetime.date] = None,
@@ -421,25 +447,7 @@ def moonrise(
     elif isinstance(date, datetime.datetime):
         date = date.date()
 
-    info = riseset(date, observer)
-    if info[0]:
-        rise = info[0].astimezone(tzinfo)  # type: ignore
-        rd = rise.date()
-        if rd != date:
-            if rd > date:
-                delta = datetime.timedelta(days=-1)
-            else:
-                delta = datetime.timedelta(days=1)
-            new_date = date + delta
-            info = riseset(new_date, observer)
-            if info[0]:
-                rise = info[0].astimezone(tzinfo)  # type: ignore
-                rd = rise.date()
-                if rd != date:
-                    rise = None
-        return rise
-    else:
-        raise ValueError("Moon never rises on this date, at this location")
+    return _moon_event_on_date(observer, date, tzinfo, 0)
 
 
 def moonset(
@@ -466,25 +474,7 @@ def moonset(
     elif isinstance(date, datetime.datetime):
         date = date.date()
 
-    info = riseset(date, observer)
-    if info[1]:
-        set = info[1].astimezone(tzinfo)  # type: ignore
-        sd = set.date()
-        if sd != date:
-            if sd > date:
-                delta = datetime.timedelta(days=-1)
-            else:
-                delta = datetime.timedelta(days=1)
-            new_date = date + delta
-            info = riseset(new_date, observer)
-            if info[1]:
-                set = info[1].astimezone(tzinfo)  # type: ignore
-                sd = set.date()
-                if sd != date:
-                    set = None
-        return set
-    else:
-        raise ValueError("Moon never sets on this date, at this location")
+    return _moon_event_on_date(observer, date, tzinfo, 1)
 
 
 def azimuth(
